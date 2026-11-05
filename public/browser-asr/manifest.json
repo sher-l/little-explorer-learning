@@ -1,0 +1,37 @@
+{
+  "version": "1.12.35",
+  "model": "SenseVoiceSmall-int8-2024-07-17",
+  "source": "https://github.com/k2-fsa/sherpa-onnx/releases/tag/v1.12.35",
+  "parts": [
+    {
+      "file": "model-0.bin",
+      "bytes": 50331648,
+      "sha256": "eb86181ef078a7d7410a17d8b83bae1ca33fe2eae25faf6b6b2c02eb027a4a3c"
+    },
+    {
+      "file": "model-1.bin",
+      "bytes": 50331648,
+      "sha256": "b73de306a3a86cfb77c7b8c681a4b8e9d13450902cc9b5e4dac4aacc4cc552d6"
+    },
+    {
+      "file": "model-2.bin",
+      "bytes": 50331648,
+      "sha256": "5496ce361e0a69c6c2cce070ad44e4c8ae4598c7956503b973010ca4fa346b3e"
+    },
+    {
+      "file": "model-3.bin",
+      "bytes": 50331648,
+      "sha256": "d8d5501cd225054643916072259c5d860fd7c67eea930cf38212497df0604ff9"
+    },
+    {
+      "file": "model-4.bin",
+      "bytes": 38866997,
+      "sha256": "2d80a5a9f62f78bdc782192d7d0a0402eaf9fff561bb0d3955bf54548641bcdc"
+    }
+  ],
+  "wasm": {
+    "file": "sherpa-onnx-wasm-main-vad-asr.wasm",
+    "bytes": 11869449,
+    "sha256": "ba5f9e8d8e20c8f2d24968fe111947401caa0323604a84e78697b9f69f90badb"
+  }
+}

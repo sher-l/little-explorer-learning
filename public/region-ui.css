@@ -1,0 +1,31 @@
+/* Region-specific illustrated boards, with a quiet high-contrast writing area. */
+#overlay[data-mode="quiz"][data-region="forest"] #panel{background-image:url('assets/quiz-forest.png')}
+#overlay[data-mode="quiz"][data-region="castle"] #panel{background-image:url('assets/quiz-castle.png')}
+#overlay[data-mode="quiz"][data-region="beach"] #panel{background-image:url('assets/quiz-beach.png')}
+#overlay[data-mode="quiz"][data-region="valley"] #panel{background-image:url('assets/quiz-valley.png')}
+#overlay[data-mode="quiz"][data-region="sea"] #panel{background-image:url('assets/quiz-sea.png')}
+#overlay[data-mode="quiz"] #panel{padding-top:65px;padding-bottom:55px;background-size:100% 100%;background-repeat:no-repeat}
+#overlay[data-mode="quiz"] .adventure-quiz{color:#493b2c;scrollbar-width:thin}
+#overlay[data-mode="quiz"] .adventure-quiz h2{background:#fff4dce8;border-radius:14px;padding:6px 10px;line-height:1.35}
+#overlay[data-mode="quiz"] .quiz-answers{margin:16px auto}
+#overlay[data-mode="quiz"] #question-art{height:clamp(75px,20vh,150px)}
+#overlay[data-mode="quiz"]:not([data-region="forest"]) .answer:before{display:none}
+#overlay[data-mode="quiz"][data-region="castle"] .answer{border-color:#b79261;border-radius:42% 42% 18% 18%;background:#fff7e7;box-shadow:inset 0 0 0 3px #e8d7bc,0 4px #886e4730}
+#overlay[data-mode="quiz"][data-region="beach"] .answer{border-color:#b8836a;border-radius:48% 48% 25% 25%;background:#fff6e9;box-shadow:inset 0 0 0 3px #f0d3bd,0 4px #936c4830}
+#overlay[data-mode="quiz"][data-region="valley"] .answer{border-color:#839271;border-radius:24% 19% 28% 21%;background:#f8f4e6;box-shadow:inset 0 0 0 3px #d7dfc6,0 4px #64714e30}
+#overlay[data-mode="quiz"][data-region="sea"] .answer{border-color:#729ba9;border-radius:48%;background:#f0fbf6;box-shadow:inset 0 0 0 3px #cbe7e9,0 4px #47768930}
+#overlay[data-mode="quiz"] .answer:focus-visible,#overlay[data-mode="quiz"] .answer.focused{outline:4px solid #235f7b;outline-offset:4px}
+@media(max-height:650px){#overlay[data-mode="quiz"] #panel{padding-top:43px;padding-bottom:38px}}
+@media(max-width:580px) and (orientation:portrait){#overlay[data-mode="quiz"] #panel{padding:56px 28px 45px}}
+
+/* The whole painted maze stays between the controls; no tracking camera. */
+#game[data-maze="true"] #collectionTray{width:min(320px,36vw)}
+#game[data-maze="true"] #notice{top:auto;bottom:8px;max-width:42vw;padding:7px 12px;font-size:15px}
+#game[data-maze="true"]:before{content:'整张迷宫 · 点小路走过去';position:absolute;left:50%;bottom:12px;transform:translateX(-50%);color:#fff4dc;font-size:14px;pointer-events:none}
+#game[data-maze="true"]:has(#notice.show):before{display:none}
+@media(max-height:550px){#game[data-maze="true"] #collectionTray{width:230px}#game[data-maze="true"] #hud .place{padding:6px 10px}#game[data-maze="true"] #hud .place>span{font-size:17px}#game[data-maze="true"] #worldActions{bottom:16px}#game[data-maze="true"] footer{bottom:16px}}
+@media(max-width:580px) and (orientation:portrait){#game[data-maze="true"] #collectionTray{width:280px;top:73px}#game[data-maze="true"] #notice{top:178px;bottom:auto;max-width:90vw}#game[data-maze="true"]:before{content:'横屏能更清楚地看迷宫';bottom:154px}}
+
+.growth-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;width:100%}.growth-grid small{display:block;font-size:13px;margin-top:5px}#overlay[data-mode=growth] #panel{max-height:95dvh;overflow:auto}#overlay[data-mode=pause] #panel{max-height:96dvh;overflow:auto}.growth-grid .wood-button{min-width:0;padding:10px}@media(max-height:550px){#overlay[data-mode=pause] #panel{padding:24px 45px;gap:6px}#overlay[data-mode=pause] button{min-height:40px;padding:6px 12px}}
+
+#mazeZoom{position:fixed;z-index:9;right:14px;top:108px;font-size:14px;padding:9px 12px;min-height:42px}#mazeZoom[hidden]{display:none}@media(max-height:550px){#mazeZoom{top:75px;right:10px;font-size:12px;padding:6px 9px;min-height:36px}}

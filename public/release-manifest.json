@@ -1,0 +1,651 @@
+{
+  "version": "20261105.12",
+  "bank": "2026-11-05.6",
+  "files": [
+    {
+      "file": ".nojekyll",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "about.css",
+      "bytes": 294,
+      "sha256": "c594f48c05931e9bdc27991273da45d696c59a698d29da39240d4f110f41885a"
+    },
+    {
+      "file": "about.html",
+      "bytes": 2623,
+      "sha256": "ddfd5d6d6523dda981507a98bf25105b7aba8abac5ee7ec4373d9365e7233299"
+    },
+    {
+      "file": "assets/autumn-ref.png",
+      "bytes": 3205136,
+      "sha256": "3d0a9acff4081ed9f0deafc423782abc419ff43e75ac5252145a9f24e683e0be"
+    },
+    {
+      "file": "assets/beach-0-ref.png",
+      "bytes": 2862231,
+      "sha256": "f53e49dc0e13603818b1c241fd15d2657a3c782af53ba86dad51dba5149748d8"
+    },
+    {
+      "file": "assets/beach-1-ref.png",
+      "bytes": 2956033,
+      "sha256": "558fbc0bb7c67ed13218def4a9eb0bb973f0486d76cd4fdb38495d65ce752b97"
+    },
+    {
+      "file": "assets/beach-2-ref.png",
+      "bytes": 2895467,
+      "sha256": "dbe451fa51e551fbaf677ceca8f537bb0900acb7151ce09ee4939e43d1bbd9aa"
+    },
+    {
+      "file": "assets/beach-3-new.png",
+      "bytes": 3373632,
+      "sha256": "66aa9c19755157d7f56a1be0198ca89fcd4bb853029198dc47c08a690e0f0e00"
+    },
+    {
+      "file": "assets/beach-items.png",
+      "bytes": 1161551,
+      "sha256": "dafb6f56af6ad9b97233fbe820e9b7bd182f97831921b4bd9de5ef3fed4c4219"
+    },
+    {
+      "file": "assets/beach-maze-painted.png",
+      "bytes": 3646596,
+      "sha256": "c2468940405fc926bbc016a9abaaac6e02984aadec14955b1cba4efd964cad94"
+    },
+    {
+      "file": "assets/castle-0-ref.png",
+      "bytes": 2941399,
+      "sha256": "3995646b82159ce944b1a2d9249e84c0711758dda514534099dd629819760d29"
+    },
+    {
+      "file": "assets/castle-1-ref.png",
+      "bytes": 2827719,
+      "sha256": "13867279519b4831db26763dc21c8de2e6e671f942d471eb18cc49ba0474b19b"
+    },
+    {
+      "file": "assets/castle-2-ref.png",
+      "bytes": 2813505,
+      "sha256": "282fa0ac916f14e16dbb928c2289bb276873791a72fc9c0a04dd743505edb393"
+    },
+    {
+      "file": "assets/castle-3-new.png",
+      "bytes": 3350140,
+      "sha256": "b6a07bef81062cfde796c070e4faeeb3a887a4c6e3d9e59084a96c3828378feb"
+    },
+    {
+      "file": "assets/castle-items.png",
+      "bytes": 938039,
+      "sha256": "87e1afac03ab2be103c52f058b2dc1848ca2853233d820ef2739d31ed5b5016f"
+    },
+    {
+      "file": "assets/castle-maze-painted.png",
+      "bytes": 3466161,
+      "sha256": "a528c9727694cb1410dab4473b7093022f83149993d37f482769a07d4b264570"
+    },
+    {
+      "file": "assets/characters/kitten/actions.png",
+      "bytes": 1285269,
+      "sha256": "2994aead11c52d2288dfdc10353e876c8ec63a1de2dcc036159140dbeaf71783"
+    },
+    {
+      "file": "assets/characters/kitten/anchors.js",
+      "bytes": 9229,
+      "sha256": "40455a43baa24112ae910b1832796f8cd3567b12bb3143e96bd8524ac83017b3"
+    },
+    {
+      "file": "assets/characters/kitten/catch.png",
+      "bytes": 1624799,
+      "sha256": "69746392bcc728b115a3cf800a65ff3db011a17b6964995d408072b3e8af0d32"
+    },
+    {
+      "file": "assets/characters/kitten/front.png",
+      "bytes": 2146047,
+      "sha256": "4daa0a071a04a139dc3c00c5054ffd6ab4f4650b8077f0579a16c349eb4b94cd"
+    },
+    {
+      "file": "assets/characters/kitten/roll.png",
+      "bytes": 1516192,
+      "sha256": "e85c7f7dc39f547631e73fd530e92b18a5593647c16b0cc1f4b3b9af7faf43a4"
+    },
+    {
+      "file": "assets/characters/kitten/walk.png",
+      "bytes": 1406851,
+      "sha256": "e7aa406c9c924fc9ce6d7173ebe77f94109f359080f343ebd7d9d923488c086c"
+    },
+    {
+      "file": "assets/characters/puppy/actions.png",
+      "bytes": 1347269,
+      "sha256": "fb105aa959097ee2ffac2192beef0910cc06e686dff73db9f6bb0cbb9e77d6b7"
+    },
+    {
+      "file": "assets/characters/puppy/anchors.js",
+      "bytes": 9217,
+      "sha256": "a76291e7794f71c11234133c218d0b23720e0bb59d55540006751016907326a6"
+    },
+    {
+      "file": "assets/characters/puppy/catch.png",
+      "bytes": 1796393,
+      "sha256": "16bd176a87a936f94bd3a3e93b616eef569a67cdaf26e7d8248f9ffec1870904"
+    },
+    {
+      "file": "assets/characters/puppy/front.png",
+      "bytes": 2177359,
+      "sha256": "67f6eb012aceeeaeb50b6a62dd55ad6b7b17944984c185f1898b6c934f53b70b"
+    },
+    {
+      "file": "assets/characters/puppy/roll.png",
+      "bytes": 1576282,
+      "sha256": "48b56b14e390d8c785ffc49da7cb85de45d39706590a7045900265e39535c919"
+    },
+    {
+      "file": "assets/characters/puppy/walk.png",
+      "bytes": 1470744,
+      "sha256": "2146e4e644c63c0ff321a20f11ceb8ab926f271019263c9fa11708f3cde5a233"
+    },
+    {
+      "file": "assets/fauna.png",
+      "bytes": 955430,
+      "sha256": "bbddecfd0644e27dbd0c2ce7ae504d0420b008c0024c300618a92bc1dd097753"
+    },
+    {
+      "file": "assets/forest-3-new.png",
+      "bytes": 3461705,
+      "sha256": "2c9edaf9f7e1f554f652d06926509fcc295fb9fed457f1ff3b348e0e839e20a7"
+    },
+    {
+      "file": "assets/forest-maze-painted.png",
+      "bytes": 3630234,
+      "sha256": "711caf10f333695898bb83e9c9863ee2deb2813df809f296e23323c9ee0cb124"
+    },
+    {
+      "file": "assets/forest-reference.png",
+      "bytes": 3031476,
+      "sha256": "dbcc1fd7254acc1921a9696b10a79ba062693f72a8bbd8b5b52005d9617465e6"
+    },
+    {
+      "file": "assets/gates.png",
+      "bytes": 2703735,
+      "sha256": "c5225b9c910f524bce7bb46d62f4afb2517a0428eac7780ecf10c1990e445444"
+    },
+    {
+      "file": "assets/helpers.png",
+      "bytes": 2573296,
+      "sha256": "c66735a73b0d6b437c6c51418c0a0f4aa89ed140fb6d14f6693fee82a2a303ac"
+    },
+    {
+      "file": "assets/hub-full-ref.png",
+      "bytes": 3097911,
+      "sha256": "b739f332dff5d11ccaa5cfb47c5fb3777230b5f5d593e86f1bcc647ed07e946a"
+    },
+    {
+      "file": "assets/items.png",
+      "bytes": 2203134,
+      "sha256": "f9c290708ac06c1e4842e5b23e3df508e83d11392fa339e47073488fed7eb0ae"
+    },
+    {
+      "file": "assets/maze-props.png",
+      "bytes": 2290001,
+      "sha256": "cbc338255732dda33d9ffd75f3d0fdd40b8cd33c7c0536ad309f0e704d5fd6d4"
+    },
+    {
+      "file": "assets/orchard-ref.png",
+      "bytes": 3025025,
+      "sha256": "f0d1165e8e30dbbf5d9066834058c96ba277214caf3a43d57691dca859d3c8b9"
+    },
+    {
+      "file": "assets/panel-reference.png",
+      "bytes": 2287481,
+      "sha256": "462e57ec1a4783883a18d80d4d1b958dc7a197771e250db3fc75d6f98f36f3cf"
+    },
+    {
+      "file": "assets/panel.png",
+      "bytes": 2735157,
+      "sha256": "ad7021d0d81a9aeb2f8e324be88ba0d0e35bd46d3257a212c0f1d11df8b4e517"
+    },
+    {
+      "file": "assets/pictures-0.png",
+      "bytes": 1582391,
+      "sha256": "cbed99275d609cf4f4cc8a4bc1d3520b3c1e9833030953f9f96aff546df0ba81"
+    },
+    {
+      "file": "assets/pictures-1.png",
+      "bytes": 1661232,
+      "sha256": "3436fb8f4cfc956a7c61ed2236dab6eaa96b406f2bffb900ff0ca6ff197b1ecc"
+    },
+    {
+      "file": "assets/quiz-beach.png",
+      "bytes": 454779,
+      "sha256": "15891d94f4a3499c4f9c75db2742c578a66b1c1b59d51f310027a4c11af095ba"
+    },
+    {
+      "file": "assets/quiz-castle.png",
+      "bytes": 485567,
+      "sha256": "c66b152b5cab4f1428ba763a6714709109ed9cc461c8b760c78d608ffa1b65f7"
+    },
+    {
+      "file": "assets/quiz-forest.png",
+      "bytes": 473598,
+      "sha256": "fdfebafb5cad296362b6eaf145131817bfc6cb282f62d809e80bc7a2b7b64845"
+    },
+    {
+      "file": "assets/quiz-sea.png",
+      "bytes": 430026,
+      "sha256": "b2cfea9be46dbbfc3edb3d9ec1d699065ea92efbfe71551c6ae0a4a9c95be1d2"
+    },
+    {
+      "file": "assets/quiz-valley.png",
+      "bytes": 472110,
+      "sha256": "8ca86b3e414ae7919d926990425ef88afd1fe79f69aea6a4aa0bc61425a5d5a1"
+    },
+    {
+      "file": "assets/rabbit-actions-clean.png",
+      "bytes": 1386738,
+      "sha256": "b2527613326cf8d70e96276e690075aa0477dc0b37acc8f07c0f702df537b77b"
+    },
+    {
+      "file": "assets/rabbit-actions-generic.png",
+      "bytes": 1269773,
+      "sha256": "ad3a99cd06a326deec38aa55e89aece7629270fff38feb0a260b3498c19f6c84"
+    },
+    {
+      "file": "assets/rabbit-catch-front.png",
+      "bytes": 2074662,
+      "sha256": "316c289d5c7dae19426ea04595076df4fe6eb7b0481a1cb24997ef05e5ba9f24"
+    },
+    {
+      "file": "assets/rabbit-catch.png",
+      "bytes": 1722323,
+      "sha256": "fc64f2f7ff5edba5f0cfaf5c3ca12eaf595ab9603e4c986d09efdd6453d6f046"
+    },
+    {
+      "file": "assets/rabbit-roll.png",
+      "bytes": 1641484,
+      "sha256": "694a09f7911ddf262022776f56b7b576b7307fad55bf5568e8f8fcb50c7d86f2"
+    },
+    {
+      "file": "assets/rabbit-walk.png",
+      "bytes": 1535065,
+      "sha256": "b7d9a8c0132ceebe9a07bd520abd6e0ee0c74267d6a64e6b7c66182bfd909a1d"
+    },
+    {
+      "file": "assets/sea-0-natural.png",
+      "bytes": 3046710,
+      "sha256": "d960e626ff7bba60892814e7f3442863564a93c68b86a4f370414f5891a5df43"
+    },
+    {
+      "file": "assets/sea-1-natural.png",
+      "bytes": 3326181,
+      "sha256": "f4d508e80dc263510c4c1c1f61f826462a85ad23f27bd8b115c2c725d35d67fb"
+    },
+    {
+      "file": "assets/sea-2-natural.png",
+      "bytes": 3298436,
+      "sha256": "1244e2f72fe0d65df9add2c26a2ce74477b904679b68fe2ddee3f9e32062f460"
+    },
+    {
+      "file": "assets/sea-3-new.png",
+      "bytes": 3536969,
+      "sha256": "cb3a0daa28956df7fd7ce0124ac25c51996d905e03cbec216ec326077335e97c"
+    },
+    {
+      "file": "assets/sea-items.png",
+      "bytes": 1458512,
+      "sha256": "616e76777ba34283d33f01207129c33dea5f81a0c4925187234b1d8f22982ae7"
+    },
+    {
+      "file": "assets/sea-maze-painted.png",
+      "bytes": 3599726,
+      "sha256": "e2ae5557a4462d3c5b3ae5f1d295665f3a1bd07f8f2eab036b512d9bb0efd17a"
+    },
+    {
+      "file": "assets/tray-reference.png",
+      "bytes": 1825130,
+      "sha256": "7bd1e64c5fb80ba995649795e1e54eb2e86df20622acecba9aa730ea394f93df"
+    },
+    {
+      "file": "assets/valley-0-ref.png",
+      "bytes": 3023978,
+      "sha256": "8dfccc5455c23dd35ad0fad819ea44be45954143d0988898c4e9a6c386f1678b"
+    },
+    {
+      "file": "assets/valley-1-ref.png",
+      "bytes": 3167373,
+      "sha256": "a05b0a4b484b8e1c7e6c423c942d9dfc17bc4a47ddcaeb31a5368e050fb31426"
+    },
+    {
+      "file": "assets/valley-2-ref.png",
+      "bytes": 3039618,
+      "sha256": "cf449b86d62dda49d1cf5a1f1e63249f7b0f45d3001fc52c1869885a7f444357"
+    },
+    {
+      "file": "assets/valley-3-new.png",
+      "bytes": 3472361,
+      "sha256": "dd3ee0389c8327e48eabe59b552df6a8e8530b2cdd8932787955d7dd75b15117"
+    },
+    {
+      "file": "assets/valley-items.png",
+      "bytes": 1984381,
+      "sha256": "606def05d8184cad7d42fca975165a5b5d671cc1c269f0d1d3aa5ea8c5f0dc52"
+    },
+    {
+      "file": "assets/valley-maze-painted.png",
+      "bytes": 3537325,
+      "sha256": "20cf92ae5bc178e99cb04799a002c261f4a32f6481b34d8ea8a09ef58683bcaf"
+    },
+    {
+      "file": "atmosphere.js",
+      "bytes": 1453,
+      "sha256": "10acf526836312773cf48c9d8b42f497edc7de63fdd3edc72a75390afed75aae"
+    },
+    {
+      "file": "bank-loader.js",
+      "bytes": 10879,
+      "sha256": "bb1750a7173a3498889bc2db6970fbfce6cd6d3bbb6fddd4a3fe37954e38810b"
+    },
+    {
+      "file": "browser-asr/manifest.json",
+      "bytes": 1085,
+      "sha256": "aee115173b58dc354666beb7f128883afc350cb6ade52698743529f909c05bc8"
+    },
+    {
+      "file": "browser-asr/model-0.bin",
+      "bytes": 50331648,
+      "sha256": "eb86181ef078a7d7410a17d8b83bae1ca33fe2eae25faf6b6b2c02eb027a4a3c"
+    },
+    {
+      "file": "browser-asr/model-1.bin",
+      "bytes": 50331648,
+      "sha256": "b73de306a3a86cfb77c7b8c681a4b8e9d13450902cc9b5e4dac4aacc4cc552d6"
+    },
+    {
+      "file": "browser-asr/model-2.bin",
+      "bytes": 50331648,
+      "sha256": "5496ce361e0a69c6c2cce070ad44e4c8ae4598c7956503b973010ca4fa346b3e"
+    },
+    {
+      "file": "browser-asr/model-3.bin",
+      "bytes": 50331648,
+      "sha256": "d8d5501cd225054643916072259c5d860fd7c67eea930cf38212497df0604ff9"
+    },
+    {
+      "file": "browser-asr/model-4.bin",
+      "bytes": 38866997,
+      "sha256": "2d80a5a9f62f78bdc782192d7d0a0402eaf9fff561bb0d3955bf54548641bcdc"
+    },
+    {
+      "file": "browser-asr/sherpa-onnx-asr.js",
+      "bytes": 53867,
+      "sha256": "d51ae8e8b756ee5e53423ffada0c9702973f154f561aca7984fe0b12f4060178"
+    },
+    {
+      "file": "browser-asr/sherpa-onnx-wasm-main-vad-asr.js",
+      "bytes": 95318,
+      "sha256": "a958a59a9c57d1127bfd5d45c35457cf0c2092d319b6b74b7759585161691766"
+    },
+    {
+      "file": "browser-asr/sherpa-onnx-wasm-main-vad-asr.wasm",
+      "bytes": 11869449,
+      "sha256": "ba5f9e8d8e20c8f2d24968fe111947401caa0323604a84e78697b9f69f90badb"
+    },
+    {
+      "file": "browser-asr-worker.js",
+      "bytes": 3451,
+      "sha256": "0c93aec8e10c3636a51a40048d1d0f8e3af650158226aeb05dd461fe9197d65e"
+    },
+    {
+      "file": "browser-asr.js",
+      "bytes": 2044,
+      "sha256": "7ad50faeb347514369b80af51f8417f5f4b1a0cec50fd5164df7300ac5d040ad"
+    },
+    {
+      "file": "catch-anchors.js",
+      "bytes": 2260,
+      "sha256": "bfab515ea8c73cf5481f41296ef58f64ed357c768a12c821ab937b3bbe89d06b"
+    },
+    {
+      "file": "catch-front-anchors.js",
+      "bytes": 738,
+      "sha256": "712c664942d8dd860b27008f31a1c72e5a7afce52c29ef4bb71fdd22b9652d3b"
+    },
+    {
+      "file": "characters.js",
+      "bytes": 1178,
+      "sha256": "e526bfb4b56aeda20c8a891119ab6b26900473b6179e3f3c6fd2f9ceb868009a"
+    },
+    {
+      "file": "content-full.js",
+      "bytes": 728514,
+      "sha256": "d599900e2b38545b1507663bf8b8ae02ffa1b665aeb3a1b0488fa2c953ee308d"
+    },
+    {
+      "file": "content-packs.js",
+      "bytes": 2968,
+      "sha256": "d183ea81826769df2e9cc00d421a196b767eda642452293da7fae94b05944659"
+    },
+    {
+      "file": "core.js",
+      "bytes": 27503,
+      "sha256": "735ea9b0679412e111d68322f969ac6b992f0c2e7cdf469a0f924a94e93b8c9c"
+    },
+    {
+      "file": "full-world.css",
+      "bytes": 967,
+      "sha256": "afc5d172bc887f9d74dc9b7f504e75d59b694770bfc259538df953aaff7b23ae"
+    },
+    {
+      "file": "game.js",
+      "bytes": 86567,
+      "sha256": "dd0fdd3453832535e21084ddac47e21236cdee0ecdc20c70f58b1ffba8056a9a"
+    },
+    {
+      "file": "growth-menu.js",
+      "bytes": 4701,
+      "sha256": "fcb5352a628590f76d62935dde74189158fb4bd0339adec627141c8a6d8bd75f"
+    },
+    {
+      "file": "index.html",
+      "bytes": 3707,
+      "sha256": "ca52ca45fbc7eb7ed3450ff9a42f23492ee148d276b1d1a87441ffb579b67117"
+    },
+    {
+      "file": "licenses/browser-asr/ATTRIBUTION.md",
+      "bytes": 3186,
+      "sha256": "ced343e940cad189425faa048be822fee1974ab927a66d9b8c702335fbec1ab5"
+    },
+    {
+      "file": "licenses/browser-asr/decoder-LICENSE.txt",
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "file": "licenses/browser-asr/emscripten-compiler-rt-LICENSE.txt",
+      "bytes": 16708,
+      "sha256": "1a8f1058753f1ba890de984e48f0242a3a5c29a6a8f2ed9fd813f36985387e8d"
+    },
+    {
+      "file": "licenses/browser-asr/emscripten-libcxx-LICENSE.txt",
+      "bytes": 16703,
+      "sha256": "539dd7aed86e8a4f12cbdd0e6c50c189c7d74847e4fecc64ce2c6ee3a01da38b"
+    },
+    {
+      "file": "licenses/browser-asr/emscripten-libcxxabi-LICENSE.txt",
+      "bytes": 16706,
+      "sha256": "e2b35be49f7284a45b7baca8fc7b3ab7440e7902392b2528a457816b5bb2a15c"
+    },
+    {
+      "file": "licenses/browser-asr/emscripten-LICENSE.txt",
+      "bytes": 5093,
+      "sha256": "620a78084fc7ca97c0b5dea9abf891f3ffcadfdbf305276f099c9c4e12fc1d86"
+    },
+    {
+      "file": "licenses/browser-asr/emscripten-musl-COPYRIGHT.txt",
+      "bytes": 6204,
+      "sha256": "f9bc4423732350eb0b3f7ed7e91d530298476f8fec0c6c427a1c04ade22655af"
+    },
+    {
+      "file": "licenses/browser-asr/fbank-LICENSE.txt",
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "file": "licenses/browser-asr/hclust-LICENSE.txt",
+      "bytes": 1483,
+      "sha256": "e361d842da1d290351860ad6dcce2673a1e42e4f873a3ae1ff4eb92c6adaa882"
+    },
+    {
+      "file": "licenses/browser-asr/json-LICENSE.txt",
+      "bytes": 1076,
+      "sha256": "46a65cffd1ea955132d95a8dd921640714a8d6b537d2e4e482d31145ae95b603"
+    },
+    {
+      "file": "licenses/browser-asr/kaldifst-LICENSE.txt",
+      "bytes": 11728,
+      "sha256": "a682d6efd1ee5dee08a8e405c233c2c198ea70ae0718129daa83ab58cfe31c5d"
+    },
+    {
+      "file": "licenses/browser-asr/kissfft-BSD.txt",
+      "bytes": 1830,
+      "sha256": "4d6bcab46f27d6d0c878e8305d4bdcfe040d52bf6656b9771f04c9fb9902c0ed"
+    },
+    {
+      "file": "licenses/browser-asr/kissfft-COPYING.txt",
+      "bytes": 246,
+      "sha256": "a2840585f8411be8e6826a31ef15ae65c950bd74a2437a73b013398a934ad0c6"
+    },
+    {
+      "file": "licenses/browser-asr/onnxruntime-1.17.1-MIT.txt",
+      "bytes": 1073,
+      "sha256": "2f07c72751aed99790b8a4869cf2311df85a860b22ded05fa22803587a48922c"
+    },
+    {
+      "file": "licenses/browser-asr/onnxruntime-1.17.1-ThirdPartyNotices.txt",
+      "bytes": 338538,
+      "sha256": "4f9e2bb7b4b407d710a68168615bbc6f70e3d7cc8ba9410fb6c65d92fa71accf"
+    },
+    {
+      "file": "licenses/browser-asr/openfst-COPYING.txt",
+      "bytes": 560,
+      "sha256": "9ba732713e5a28a183907aaba134490900bc258310a8fb37a391b47bc1c7f951"
+    },
+    {
+      "file": "licenses/browser-asr/SenseVoiceSmall-MODEL-LICENSE-1.1.txt",
+      "bytes": 5306,
+      "sha256": "7dba975a2069691db4992b0592d70828b330d2f8a30a71450f4e152a554e84f8"
+    },
+    {
+      "file": "licenses/browser-asr/sentencepiece-LICENSE.txt",
+      "bytes": 11357,
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+    },
+    {
+      "file": "licenses/browser-asr/sherpa-onnx-APACHE-2.txt",
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "file": "licenses/browser-asr/sherpa-onnx-wasm-runtime-source.txt",
+      "bytes": 2310,
+      "sha256": "c7c65f464e2c45c01208f6078b74cd96d027240b6963aa5fcf418406fc2ff361"
+    },
+    {
+      "file": "licenses/browser-asr/Silero-VAD-MIT.txt",
+      "bytes": 1075,
+      "sha256": "2e63e9a38b6e8fc0c7bc37ce174caca1862870856c6daf5697cfb785e925520b"
+    },
+    {
+      "file": "maze-prop-rects.js",
+      "bytes": 248,
+      "sha256": "a4e124e1db0ce7b36a71f580e963ad3f1ebfc6a9fef459f2f0b949e04e7ea31b"
+    },
+    {
+      "file": "maze-walkmasks.js",
+      "bytes": 98229,
+      "sha256": "2242e8306332f1f93f85a69ace675b38188c994171d79152fe9c23da77ff8fae"
+    },
+    {
+      "file": "maze.js",
+      "bytes": 3381,
+      "sha256": "56ec808605ad97ebba7c4b57ac9c1274ebc89e90fe78efcc8261417916a2717d"
+    },
+    {
+      "file": "mic-worklet.js",
+      "bytes": 1559,
+      "sha256": "813f817b8cf57bf2f7120775a8185ca024deb472211eaf8ca624adcf647856fc"
+    },
+    {
+      "file": "new-worlds.js",
+      "bytes": 6036,
+      "sha256": "069941872cace16af82a216d6871b231b11dc6c8323a283c24a524f469588686"
+    },
+    {
+      "file": "poem-recognition.js",
+      "bytes": 869,
+      "sha256": "4e7a6d60707015e4e5ebfc2bca980b093c02c06a34ed0e61ab951cf64f641162"
+    },
+    {
+      "file": "poetry.js",
+      "bytes": 14371,
+      "sha256": "070e2c2b6901a9707edbfa27020a3d3a41f939b535e515519e65bee67ac12496"
+    },
+    {
+      "file": "quiz-ui.css",
+      "bytes": 6346,
+      "sha256": "5eb68c03922cfda100f6015c01d3882f84c5aec17b93f1082178a005d0cfb6f8"
+    },
+    {
+      "file": "quiz-ui.js",
+      "bytes": 16571,
+      "sha256": "a6261e9be2c1b58c73906d27f3e20a9569be35bb19b639985494f2ff1118b61e"
+    },
+    {
+      "file": "reference-ui.css",
+      "bytes": 4443,
+      "sha256": "fb7f3735937de90a0e0080d539d28b771082b8ad25b94a94fdabd8c078d55d26"
+    },
+    {
+      "file": "region-ui.css",
+      "bytes": 3955,
+      "sha256": "6d528d5afcb90c18148f513662701ffa12dd4590a663a88011e151deadeaf1bb"
+    },
+    {
+      "file": "roll-anchors.js",
+      "bytes": 2753,
+      "sha256": "fa4b047486b85ac310e6962375511f2037d64af35c2d44983790a15ea1894398"
+    },
+    {
+      "file": "runtime-config.js",
+      "bytes": 125,
+      "sha256": "116cd0ffe3b8dde1b2ea604443caa7b1965500de3c6e7cfff12963b2e6fe47c5"
+    },
+    {
+      "file": "speech-bank.js",
+      "bytes": 42,
+      "sha256": "3231194ebbb0824156f36ca742b447fa2966d11b9086b2623333ad3e80d89810"
+    },
+    {
+      "file": "sprite-anchors.js",
+      "bytes": 12415,
+      "sha256": "99fcbed3302a3b48634753e826e5e1352e4177bb09845d4cc85d009f0953333a"
+    },
+    {
+      "file": "style.css",
+      "bytes": 11838,
+      "sha256": "8b8c783313d2feb935cd56f77d36e624a011a730feb6458f4705309aa1822e2b"
+    },
+    {
+      "file": "water-regions.js",
+      "bytes": 4929,
+      "sha256": "04712b74b953cb990a70d9d0705e4206e050ba10eab9d0e5b18555984a250c7a"
+    },
+    {
+      "file": "wildlife.js",
+      "bytes": 2684,
+      "sha256": "6e37d40fd63d0dcb8863813a5e0a1c8785c71be784c7ffb608aa742a5297b39d"
+    },
+    {
+      "file": "worlds.js",
+      "bytes": 18458,
+      "sha256": "616919bfc20689fb2ccee68433a8c196ad53a664e08a5c4f695d1d9b76f680ea"
+    }
+  ]
+}

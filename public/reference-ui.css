@@ -1,0 +1,26 @@
+/* The approved concept keeps the world visible beside the learning board. */
+#hud .place{background:#fff0d3e6;border-color:#ae874d;box-shadow:0 3px 8px #26392130}.place>span{font-size:21px}.place small{font-size:13px}
+#collectionTray{position:absolute;left:50%;top:max(2px,env(safe-area-inset-top));bottom:auto;transform:translateX(-50%);width:min(420px,44vw);aspect-ratio:3;background:url('assets/tray-reference.png') center/100% 100% no-repeat;pointer-events:none}
+#collectionTray #bag{position:absolute;left:23.1%;top:30%;width:66.2%;height:36%;padding:0;gap:0;display:grid;grid-template-columns:repeat(5,1fr);border:0;border-radius:0;background:none;box-shadow:none}
+#collectionTray #bag .slot{width:100%;height:100%;border:0;background:none;border-radius:50%}
+#collectionTray #bag .asset{width:80%;height:90%}
+#collectionTray #lamp{position:absolute;left:7%;top:24%;width:15%;height:48%;padding:0;border:0;background:none;box-shadow:none;pointer-events:auto}
+#collectionTray #lamp .asset{width:100%;height:100%}#collectionTray #lampGlow{right:5px;top:3px}
+#worldActions{left:24px;bottom:28px;transform:none}footer #hint{display:none}footer{justify-content:flex-end}
+#overlay[data-mode="quiz"]{background:none;backdrop-filter:none;justify-items:end;padding:10px}
+#overlay[data-mode="quiz"][data-side="left"]{justify-items:start}
+#overlay[data-mode="quiz"] #panel{width:min(820px,57vw);height:min(850px,96dvh);padding:78px 60px 66px;background-image:url('assets/panel-reference.png');filter:drop-shadow(0 9px 17px #20332255)}
+#overlay[data-mode="quiz"] .adventure-quiz{overflow:auto;padding:10px 4px}
+#overlay[data-mode="quiz"] h2{font-size:clamp(20px,2vw,29px)}
+#overlay[data-mode="quiz"] .quiz-answers{justify-items:center;gap:12px;margin:25px 0 22px}
+#overlay[data-mode="quiz"] .answer{border:4px solid #9cb45b;border-radius:48% 45% 48% 47%;width:100%;max-width:180px;aspect-ratio:1;min-height:0;background:#fff5d3bb;box-shadow:inset 0 0 0 3px #e9edb8,0 4px 0 #75904a30;padding:16px 8px}
+#overlay[data-mode="quiz"] .answer:before{content:"";position:absolute;top:-13px;left:calc(50% + 4px);width:24px;height:12px;background:#8ba850;border-radius:90% 0 90% 0;transform:rotate(-17deg);box-shadow:inset 0 -2px 0 #647d35}
+#overlay[data-mode="quiz"] #question-art{height:195px;max-height:none;min-height:0;overflow:visible}#overlay[data-mode="quiz"] .quiz-equation{flex-wrap:nowrap;width:100%;gap:10px}#overlay[data-mode="quiz"] .quiz-term{max-width:180px}#overlay[data-mode="quiz"] .quiz-object{width:32px;height:32px}#overlay[data-mode="quiz"] .quiz-objects{gap:3px}
+#overlay[data-mode="quiz"] .quiz-option-picture{width:70px;height:70px}#overlay[data-mode="quiz"] .quiz-option-label{font-size:18px}
+#overlay[data-mode="quiz"] .wood-button{min-width:0;font-size:14px;padding:9px 12px}.quiz-answer-number{color:#6c4b2b}
+#game:has(#overlay[data-mode="quiz"]:not([hidden])) #collectionTray{left:22%;width:min(340px,34vw);top:78px}
+#game:has(#overlay[data-mode="quiz"][data-side="left"]:not([hidden])) #collectionTray{left:78%}
+#game:has(#overlay[data-mode="quiz"]:not([hidden])) #worldActions,#game:has(#overlay[data-mode="quiz"]:not([hidden])) footer{visibility:hidden}
+@media(max-width:900px){#collectionTray{left:auto;right:8px;transform:none;width:min(360px,46vw)}#hud .place{max-width:46vw}#worldActions{left:12px;bottom:16px}nav button{width:44px;height:44px}#overlay[data-mode="quiz"] #panel{width:min(720px,75vw);padding:62px 45px 50px}#overlay[data-mode="quiz"] .quiz-answers{margin:16px 0}.quiz-option-picture{width:55px;height:55px}#game:has(#overlay[data-mode="quiz"]:not([hidden])) #collectionTray{display:none}}
+@media(max-width:580px) and (orientation:portrait){#collectionTray{left:50%;right:auto;top:73px;transform:translateX(-50%);width:min(360px,90vw)}#worldActions{bottom:82px}footer{bottom:16px}#hud .place{width:auto;max-width:94vw}.place small{display:block;margin:2px 0 0}#notice{top:190px}#overlay[data-mode="quiz"] #panel{width:98vw;height:min(790px,92dvh);padding:64px 28px 50px}#overlay[data-mode="quiz"] .answer{padding:10px 5px}#overlay[data-mode="quiz"] .quiz-option-picture{width:58px;height:58px}}
+@media(max-height:650px){#overlay[data-mode="quiz"] #panel{width:min(800px,75vw);padding:48px 55px 40px}#overlay[data-mode="quiz"] .quiz-answers{margin:13px 0}.quiz-answer-number{font-size:48px}#overlay[data-mode="quiz"] .answer{max-width:125px}#collectionTray{width:min(350px,42vw)}}

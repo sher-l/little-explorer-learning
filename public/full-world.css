@@ -1,0 +1,4 @@
+.book-tabs{display:flex;gap:5px;justify-content:center;flex-wrap:wrap}.book-tabs .wood-button{min-width:0;padding:7px 10px;min-height:38px;font-size:13px}.learning-picture{width:75px;height:75px}.book-grid{flex:1;min-height:0}.book-item{flex-shrink:0}.icon-button.is-dim .asset{filter:grayscale(.8) brightness(.5)}.segment.on{color:#fff4aa;text-shadow:0 0 10px #b78d2f;font-size:35px}
+.book-item:disabled{opacity:1;background:#eee7d7}.book-item .undiscovered-silhouette,.book-item.unseen .asset{filter:brightness(0) sepia(1);opacity:.55}.book-item.unseen{background:#eee7d7}
+.quiz-object .asset{width:100%;height:100%}.quiz-option-picture>.asset{width:100%;height:100%}.adventure-quiz{max-height:100%;overflow:auto;padding:5px}
+@media(max-width:580px){.book-tabs .wood-button{font-size:11px;padding:5px 8px}.book-grid{grid-template-columns:repeat(5,1fr)}.book-item{min-height:59px}.book-item span:not(.asset){font-size:10px}.book-item .asset{width:38px;height:38px}}
