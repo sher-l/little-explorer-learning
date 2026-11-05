@@ -1,5 +1,5 @@
 {
-  "version": "20261105.12",
+  "version": "20261105.13",
   "bank": "2026-11-05.6",
   "files": [
     {
@@ -18,74 +18,74 @@
       "sha256": "ddfd5d6d6523dda981507a98bf25105b7aba8abac5ee7ec4373d9365e7233299"
     },
     {
-      "file": "assets/autumn-ref.png",
-      "bytes": 3205136,
-      "sha256": "3d0a9acff4081ed9f0deafc423782abc419ff43e75ac5252145a9f24e683e0be"
+      "file": "assets/autumn-ref.webp",
+      "bytes": 514982,
+      "sha256": "4872cf81e6479e225775e16e295b5881a8bf2128e752e241b39a1614a42a0362"
     },
     {
-      "file": "assets/beach-0-ref.png",
-      "bytes": 2862231,
-      "sha256": "f53e49dc0e13603818b1c241fd15d2657a3c782af53ba86dad51dba5149748d8"
+      "file": "assets/beach-0-ref.webp",
+      "bytes": 405340,
+      "sha256": "69ec2b5170e6b65c746c96991e3253667b3287cd34ae3850a6e0f99fc0659af8"
     },
     {
-      "file": "assets/beach-1-ref.png",
-      "bytes": 2956033,
-      "sha256": "558fbc0bb7c67ed13218def4a9eb0bb973f0486d76cd4fdb38495d65ce752b97"
+      "file": "assets/beach-1-ref.webp",
+      "bytes": 429172,
+      "sha256": "543ea2ceb9643e83332f021fdf6391e6004fbbffe997d3548aa39d79daef01d5"
     },
     {
-      "file": "assets/beach-2-ref.png",
-      "bytes": 2895467,
-      "sha256": "dbe451fa51e551fbaf677ceca8f537bb0900acb7151ce09ee4939e43d1bbd9aa"
+      "file": "assets/beach-2-ref.webp",
+      "bytes": 424056,
+      "sha256": "f419b2f8caec1b2f7cc2aa539bfd88130fbe0884b1715e0e50a4567035442be3"
     },
     {
-      "file": "assets/beach-3-new.png",
-      "bytes": 3373632,
-      "sha256": "66aa9c19755157d7f56a1be0198ca89fcd4bb853029198dc47c08a690e0f0e00"
+      "file": "assets/beach-3-new.webp",
+      "bytes": 535814,
+      "sha256": "9c360797cab452f85c28e8827f29e45c51e028022e58ca7cbd4031af12ea8fa5"
     },
     {
-      "file": "assets/beach-items.png",
-      "bytes": 1161551,
-      "sha256": "dafb6f56af6ad9b97233fbe820e9b7bd182f97831921b4bd9de5ef3fed4c4219"
+      "file": "assets/beach-items.webp",
+      "bytes": 265252,
+      "sha256": "781171fa323c9aea60b7cfae7cc6b33dfe617ff0a167f410978c0c2bff530a9f"
     },
     {
-      "file": "assets/beach-maze-painted.png",
-      "bytes": 3646596,
-      "sha256": "c2468940405fc926bbc016a9abaaac6e02984aadec14955b1cba4efd964cad94"
+      "file": "assets/beach-maze-painted.webp",
+      "bytes": 630226,
+      "sha256": "e5aaf6820ff0e0eb998cb97b6d2481441b67c8b9011332f87e4dbefd7fb83e06"
     },
     {
-      "file": "assets/castle-0-ref.png",
-      "bytes": 2941399,
-      "sha256": "3995646b82159ce944b1a2d9249e84c0711758dda514534099dd629819760d29"
+      "file": "assets/castle-0-ref.webp",
+      "bytes": 437378,
+      "sha256": "da5ada2cf58e9e08b6b3240b5b3c6895e52aa1ed6adeaaf427303b32a13a34e7"
     },
     {
-      "file": "assets/castle-1-ref.png",
-      "bytes": 2827719,
-      "sha256": "13867279519b4831db26763dc21c8de2e6e671f942d471eb18cc49ba0474b19b"
+      "file": "assets/castle-1-ref.webp",
+      "bytes": 413664,
+      "sha256": "94b96985bd722dc6ab4b997ac98178512a86833d09fbbe60e48c063fcb353ebe"
     },
     {
-      "file": "assets/castle-2-ref.png",
-      "bytes": 2813505,
-      "sha256": "282fa0ac916f14e16dbb928c2289bb276873791a72fc9c0a04dd743505edb393"
+      "file": "assets/castle-2-ref.webp",
+      "bytes": 406420,
+      "sha256": "2905453f2cd4ada8c69e70fbb4249784ffa109bad98d78db37322ac25c77ddde"
     },
     {
-      "file": "assets/castle-3-new.png",
-      "bytes": 3350140,
-      "sha256": "b6a07bef81062cfde796c070e4faeeb3a887a4c6e3d9e59084a96c3828378feb"
+      "file": "assets/castle-3-new.webp",
+      "bytes": 564222,
+      "sha256": "209381a83f31f30885c17a620e9d9675aa8c6f18905e0a064a2715078479735c"
     },
     {
-      "file": "assets/castle-items.png",
-      "bytes": 938039,
-      "sha256": "87e1afac03ab2be103c52f058b2dc1848ca2853233d820ef2739d31ed5b5016f"
+      "file": "assets/castle-items.webp",
+      "bytes": 250664,
+      "sha256": "5856bd6340ea8f3e54b245e19a9e19d692d59b000f0734ae31751f481976ecaa"
     },
     {
-      "file": "assets/castle-maze-painted.png",
-      "bytes": 3466161,
-      "sha256": "a528c9727694cb1410dab4473b7093022f83149993d37f482769a07d4b264570"
+      "file": "assets/castle-maze-painted.webp",
+      "bytes": 575708,
+      "sha256": "ff7dd351144ba1c28a7180d4155ad5cdf5aa2d36810112f5840ab33a3a1ef8ae"
     },
     {
-      "file": "assets/characters/kitten/actions.png",
-      "bytes": 1285269,
-      "sha256": "2994aead11c52d2288dfdc10353e876c8ec63a1de2dcc036159140dbeaf71783"
+      "file": "assets/characters/kitten/actions.webp",
+      "bytes": 259272,
+      "sha256": "65d4aff0e16621013c6293417cdad5fc923f8cf2706820b91eea5a11b3d5d168"
     },
     {
       "file": "assets/characters/kitten/anchors.js",
@@ -93,29 +93,29 @@
       "sha256": "40455a43baa24112ae910b1832796f8cd3567b12bb3143e96bd8524ac83017b3"
     },
     {
-      "file": "assets/characters/kitten/catch.png",
-      "bytes": 1624799,
-      "sha256": "69746392bcc728b115a3cf800a65ff3db011a17b6964995d408072b3e8af0d32"
+      "file": "assets/characters/kitten/catch.webp",
+      "bytes": 483022,
+      "sha256": "cfa7090e971417952ee1723ca868dc65d07de135860757e298d8607558910e06"
     },
     {
-      "file": "assets/characters/kitten/front.png",
-      "bytes": 2146047,
-      "sha256": "4daa0a071a04a139dc3c00c5054ffd6ab4f4650b8077f0579a16c349eb4b94cd"
+      "file": "assets/characters/kitten/front.webp",
+      "bytes": 226500,
+      "sha256": "c8dc7ec913a7a74e77825919a76cd4b275920f86e782937a2012a3cf7974fdcb"
     },
     {
-      "file": "assets/characters/kitten/roll.png",
-      "bytes": 1516192,
-      "sha256": "e85c7f7dc39f547631e73fd530e92b18a5593647c16b0cc1f4b3b9af7faf43a4"
+      "file": "assets/characters/kitten/roll.webp",
+      "bytes": 341764,
+      "sha256": "f0502a63f22cb7aafe7ad45e29269f9aa66f65d9a06020b0b0ab2a4ec424ddf0"
     },
     {
-      "file": "assets/characters/kitten/walk.png",
-      "bytes": 1406851,
-      "sha256": "e7aa406c9c924fc9ce6d7173ebe77f94109f359080f343ebd7d9d923488c086c"
+      "file": "assets/characters/kitten/walk.webp",
+      "bytes": 326472,
+      "sha256": "a23b4dcfd7f167c01bce19de3e8d25e8407e7f3e309de01816293d8ce84a23a0"
     },
     {
-      "file": "assets/characters/puppy/actions.png",
-      "bytes": 1347269,
-      "sha256": "fb105aa959097ee2ffac2192beef0910cc06e686dff73db9f6bb0cbb9e77d6b7"
+      "file": "assets/characters/puppy/actions.webp",
+      "bytes": 267748,
+      "sha256": "114e1137bce6c45dfca76605c261c47c3db22af943e58d8d8a88a2b241f9c56e"
     },
     {
       "file": "assets/characters/puppy/anchors.js",
@@ -123,214 +123,214 @@
       "sha256": "a76291e7794f71c11234133c218d0b23720e0bb59d55540006751016907326a6"
     },
     {
-      "file": "assets/characters/puppy/catch.png",
-      "bytes": 1796393,
-      "sha256": "16bd176a87a936f94bd3a3e93b616eef569a67cdaf26e7d8248f9ffec1870904"
+      "file": "assets/characters/puppy/catch.webp",
+      "bytes": 641290,
+      "sha256": "11f1df50a49857da8c4acf51611232918a7247dc70bcdc8707a3776709cc612a"
     },
     {
-      "file": "assets/characters/puppy/front.png",
-      "bytes": 2177359,
-      "sha256": "67f6eb012aceeeaeb50b6a62dd55ad6b7b17944984c185f1898b6c934f53b70b"
+      "file": "assets/characters/puppy/front.webp",
+      "bytes": 216430,
+      "sha256": "50fe95a0ad58a10e69aa43fc1449bc4e9c54954e3ebb95eba1324103b0731820"
     },
     {
-      "file": "assets/characters/puppy/roll.png",
-      "bytes": 1576282,
-      "sha256": "48b56b14e390d8c785ffc49da7cb85de45d39706590a7045900265e39535c919"
+      "file": "assets/characters/puppy/roll.webp",
+      "bytes": 364740,
+      "sha256": "e1135b6a0f67ab1a452d2cf181ffa526d7389ea4fcc45659d6abbf94fff72cb0"
     },
     {
-      "file": "assets/characters/puppy/walk.png",
-      "bytes": 1470744,
-      "sha256": "2146e4e644c63c0ff321a20f11ceb8ab926f271019263c9fa11708f3cde5a233"
+      "file": "assets/characters/puppy/walk.webp",
+      "bytes": 354306,
+      "sha256": "a1b223a326b4fc2c9eaddc97c19bd29eee9483eeb4bd974373b07d40b9091b0c"
     },
     {
-      "file": "assets/fauna.png",
-      "bytes": 955430,
-      "sha256": "bbddecfd0644e27dbd0c2ce7ae504d0420b008c0024c300618a92bc1dd097753"
+      "file": "assets/fauna.webp",
+      "bytes": 380052,
+      "sha256": "f00bee3faa687460b0d04c0716535116c408516064f77b9e77b3c7eac0287df0"
     },
     {
-      "file": "assets/forest-3-new.png",
-      "bytes": 3461705,
-      "sha256": "2c9edaf9f7e1f554f652d06926509fcc295fb9fed457f1ff3b348e0e839e20a7"
+      "file": "assets/forest-3-new.webp",
+      "bytes": 606962,
+      "sha256": "e2c7e095b054a006a01443ab15a0c6172070d86734db9e8ef9d9e9ca6d03f8d2"
     },
     {
-      "file": "assets/forest-maze-painted.png",
-      "bytes": 3630234,
-      "sha256": "711caf10f333695898bb83e9c9863ee2deb2813df809f296e23323c9ee0cb124"
+      "file": "assets/forest-maze-painted.webp",
+      "bytes": 657622,
+      "sha256": "51eeabd7ce7884c6773bbec4b83df710b1a211e00abde508761dd28a892c7a8a"
     },
     {
-      "file": "assets/forest-reference.png",
-      "bytes": 3031476,
-      "sha256": "dbcc1fd7254acc1921a9696b10a79ba062693f72a8bbd8b5b52005d9617465e6"
+      "file": "assets/forest-reference.webp",
+      "bytes": 475726,
+      "sha256": "1c16ca0fbb15dd0fa4a72b3b60cc1f9aabb5f5fb6afd47e6e8c7af7a9920331a"
     },
     {
-      "file": "assets/gates.png",
-      "bytes": 2703735,
-      "sha256": "c5225b9c910f524bce7bb46d62f4afb2517a0428eac7780ecf10c1990e445444"
+      "file": "assets/gates.webp",
+      "bytes": 828514,
+      "sha256": "052be490111df461a1657dd72f59f7c533f06dc846dbf2d5a62be22e26bfaee3"
     },
     {
-      "file": "assets/helpers.png",
-      "bytes": 2573296,
-      "sha256": "c66735a73b0d6b437c6c51418c0a0f4aa89ed140fb6d14f6693fee82a2a303ac"
+      "file": "assets/helpers.webp",
+      "bytes": 755314,
+      "sha256": "19129a3f6312a55d5a152d091563561cba3a55edf3e51cf9b09bc5121d260b77"
     },
     {
-      "file": "assets/hub-full-ref.png",
-      "bytes": 3097911,
-      "sha256": "b739f332dff5d11ccaa5cfb47c5fb3777230b5f5d593e86f1bcc647ed07e946a"
+      "file": "assets/hub-full-ref.webp",
+      "bytes": 486088,
+      "sha256": "7c83dac324a24de5f37eb945be3189a0cc1c94a4059bbc1ba9523663bce617df"
     },
     {
-      "file": "assets/items.png",
-      "bytes": 2203134,
-      "sha256": "f9c290708ac06c1e4842e5b23e3df508e83d11392fa339e47073488fed7eb0ae"
+      "file": "assets/items.webp",
+      "bytes": 606592,
+      "sha256": "342972458c0dbd418b6b5ae43e6fe5ebf8cebe9df25119cd803e4639f11cceca"
     },
     {
-      "file": "assets/maze-props.png",
-      "bytes": 2290001,
-      "sha256": "cbc338255732dda33d9ffd75f3d0fdd40b8cd33c7c0536ad309f0e704d5fd6d4"
+      "file": "assets/maze-props.webp",
+      "bytes": 552232,
+      "sha256": "787d2437ffed5c7305b8903a468f984d0ff41238f30074fb83eba3f34836fdf2"
     },
     {
-      "file": "assets/orchard-ref.png",
-      "bytes": 3025025,
-      "sha256": "f0d1165e8e30dbbf5d9066834058c96ba277214caf3a43d57691dca859d3c8b9"
+      "file": "assets/orchard-ref.webp",
+      "bytes": 461610,
+      "sha256": "406dbd08a2c6e6d0b1d4b625a47128b51fe091311a1982c2a4f6b9765ed5d14d"
     },
     {
-      "file": "assets/panel-reference.png",
-      "bytes": 2287481,
-      "sha256": "462e57ec1a4783883a18d80d4d1b958dc7a197771e250db3fc75d6f98f36f3cf"
+      "file": "assets/panel-reference.webp",
+      "bytes": 270356,
+      "sha256": "32b215f4a46802a3f5911243eed4cddb8cc4dcde06febfd31d8d69039194fb6f"
     },
     {
-      "file": "assets/panel.png",
-      "bytes": 2735157,
-      "sha256": "ad7021d0d81a9aeb2f8e324be88ba0d0e35bd46d3257a212c0f1d11df8b4e517"
+      "file": "assets/panel.webp",
+      "bytes": 327414,
+      "sha256": "1dde60f4ce2900c6fde090536db93164c3a4272c741f862880a88a0ffdad8a80"
     },
     {
-      "file": "assets/pictures-0.png",
-      "bytes": 1582391,
-      "sha256": "cbed99275d609cf4f4cc8a4bc1d3520b3c1e9833030953f9f96aff546df0ba81"
+      "file": "assets/pictures-0.webp",
+      "bytes": 441922,
+      "sha256": "6956262143d69c9677bb39d8204a939b1f9f1b402573040bb5b1b5e76663244a"
     },
     {
-      "file": "assets/pictures-1.png",
-      "bytes": 1661232,
-      "sha256": "3436fb8f4cfc956a7c61ed2236dab6eaa96b406f2bffb900ff0ca6ff197b1ecc"
+      "file": "assets/pictures-1.webp",
+      "bytes": 469464,
+      "sha256": "78652c9e654355c1a1bdc70c18885a4a9577eea710a749a666872f5592ed08e0"
     },
     {
-      "file": "assets/quiz-beach.png",
-      "bytes": 454779,
-      "sha256": "15891d94f4a3499c4f9c75db2742c578a66b1c1b59d51f310027a4c11af095ba"
+      "file": "assets/quiz-beach.webp",
+      "bytes": 73354,
+      "sha256": "6b04c810902e35d077158760874fed4a57403fd19869e241834ad9509a7464e4"
     },
     {
-      "file": "assets/quiz-castle.png",
-      "bytes": 485567,
-      "sha256": "c66b152b5cab4f1428ba763a6714709109ed9cc461c8b760c78d608ffa1b65f7"
+      "file": "assets/quiz-castle.webp",
+      "bytes": 88302,
+      "sha256": "8ffff5bc5e54fc5416e8119bf17771610056a7d795a3dbaa22ca9bc5b0d5539c"
     },
     {
-      "file": "assets/quiz-forest.png",
-      "bytes": 473598,
-      "sha256": "fdfebafb5cad296362b6eaf145131817bfc6cb282f62d809e80bc7a2b7b64845"
+      "file": "assets/quiz-forest.webp",
+      "bytes": 82496,
+      "sha256": "c09a5574cdd816a604a7889fe9831f3d8a1bf151c7d4b939658fcf6888b2c070"
     },
     {
-      "file": "assets/quiz-sea.png",
-      "bytes": 430026,
-      "sha256": "b2cfea9be46dbbfc3edb3d9ec1d699065ea92efbfe71551c6ae0a4a9c95be1d2"
+      "file": "assets/quiz-sea.webp",
+      "bytes": 69980,
+      "sha256": "083f21eb4caf01f59bdf074bc298ec189315cac54a3a8172734016f9a997febf"
     },
     {
-      "file": "assets/quiz-valley.png",
-      "bytes": 472110,
-      "sha256": "8ca86b3e414ae7919d926990425ef88afd1fe79f69aea6a4aa0bc61425a5d5a1"
+      "file": "assets/quiz-valley.webp",
+      "bytes": 71338,
+      "sha256": "a75db6383cda8ace2e96e0615740f1febf00d3444969295553c2b104757c5b08"
     },
     {
-      "file": "assets/rabbit-actions-clean.png",
-      "bytes": 1386738,
-      "sha256": "b2527613326cf8d70e96276e690075aa0477dc0b37acc8f07c0f702df537b77b"
+      "file": "assets/rabbit-actions-clean.webp",
+      "bytes": 300838,
+      "sha256": "7072a5c3b8569d6f99604dfc7164f89b54b3adb221439f7022e21ca37fe07277"
     },
     {
-      "file": "assets/rabbit-actions-generic.png",
-      "bytes": 1269773,
-      "sha256": "ad3a99cd06a326deec38aa55e89aece7629270fff38feb0a260b3498c19f6c84"
+      "file": "assets/rabbit-actions-generic.webp",
+      "bytes": 265324,
+      "sha256": "14ac7cd2abe75fe01b60ca863ab10b96b70c582536a5c5fee6d4898e463017dd"
     },
     {
-      "file": "assets/rabbit-catch-front.png",
-      "bytes": 2074662,
-      "sha256": "316c289d5c7dae19426ea04595076df4fe6eb7b0481a1cb24997ef05e5ba9f24"
+      "file": "assets/rabbit-catch-front.webp",
+      "bytes": 236764,
+      "sha256": "61a1f488e5610db1873f7cec668e6a54274429008543b24547db56d8995633ed"
     },
     {
-      "file": "assets/rabbit-catch.png",
-      "bytes": 1722323,
-      "sha256": "fc64f2f7ff5edba5f0cfaf5c3ca12eaf595ab9603e4c986d09efdd6453d6f046"
+      "file": "assets/rabbit-catch.webp",
+      "bytes": 454572,
+      "sha256": "39fe62d7343bb880a3fc6494486fb2034f3f6e24c3ddc29ead528ff84bc11d4c"
     },
     {
-      "file": "assets/rabbit-roll.png",
-      "bytes": 1641484,
-      "sha256": "694a09f7911ddf262022776f56b7b576b7307fad55bf5568e8f8fcb50c7d86f2"
+      "file": "assets/rabbit-roll.webp",
+      "bytes": 395902,
+      "sha256": "f6fb42fe9e28a3f94d555bb947a8095aa5b26be166a861c0cbce3ddd66f37d77"
     },
     {
-      "file": "assets/rabbit-walk.png",
-      "bytes": 1535065,
-      "sha256": "b7d9a8c0132ceebe9a07bd520abd6e0ee0c74267d6a64e6b7c66182bfd909a1d"
+      "file": "assets/rabbit-walk.webp",
+      "bytes": 431630,
+      "sha256": "f432aa606fcf8691359d2db7eb80339cb5f290be5b0ce257243392ca152ff2e9"
     },
     {
-      "file": "assets/sea-0-natural.png",
-      "bytes": 3046710,
-      "sha256": "d960e626ff7bba60892814e7f3442863564a93c68b86a4f370414f5891a5df43"
+      "file": "assets/sea-0-natural.webp",
+      "bytes": 465458,
+      "sha256": "880885e285eff809b67528858eeaeb311001c33b02163baf67497dbab2d85423"
     },
     {
-      "file": "assets/sea-1-natural.png",
-      "bytes": 3326181,
-      "sha256": "f4d508e80dc263510c4c1c1f61f826462a85ad23f27bd8b115c2c725d35d67fb"
+      "file": "assets/sea-1-natural.webp",
+      "bytes": 532966,
+      "sha256": "798d054c614d8dd8e6f7e0775fc3d581d920c2377e389705479993aa47977d9f"
     },
     {
-      "file": "assets/sea-2-natural.png",
-      "bytes": 3298436,
-      "sha256": "1244e2f72fe0d65df9add2c26a2ce74477b904679b68fe2ddee3f9e32062f460"
+      "file": "assets/sea-2-natural.webp",
+      "bytes": 534592,
+      "sha256": "40d7a2bbff04ec3c772110074e6c930559d625fa1bc229d6b144da75ab51a3a3"
     },
     {
-      "file": "assets/sea-3-new.png",
-      "bytes": 3536969,
-      "sha256": "cb3a0daa28956df7fd7ce0124ac25c51996d905e03cbec216ec326077335e97c"
+      "file": "assets/sea-3-new.webp",
+      "bytes": 628030,
+      "sha256": "adf8ee310b2540bc277afad8efaf3033c4790e6f0e19b4d2a8f576c7e801bb17"
     },
     {
-      "file": "assets/sea-items.png",
-      "bytes": 1458512,
-      "sha256": "616e76777ba34283d33f01207129c33dea5f81a0c4925187234b1d8f22982ae7"
+      "file": "assets/sea-items.webp",
+      "bytes": 382824,
+      "sha256": "7590154e505412cc85a826c0bd405cda3999df348491d19b0e9efc9ac69bad94"
     },
     {
-      "file": "assets/sea-maze-painted.png",
-      "bytes": 3599726,
-      "sha256": "e2ae5557a4462d3c5b3ae5f1d295665f3a1bd07f8f2eab036b512d9bb0efd17a"
+      "file": "assets/sea-maze-painted.webp",
+      "bytes": 599176,
+      "sha256": "d165a8226ce29f2f0e65a9188301d6f0789359b79b6c99f8561fe9aef69877e5"
     },
     {
-      "file": "assets/tray-reference.png",
-      "bytes": 1825130,
-      "sha256": "7bd1e64c5fb80ba995649795e1e54eb2e86df20622acecba9aa730ea394f93df"
+      "file": "assets/tray-reference.webp",
+      "bytes": 239640,
+      "sha256": "a908bf5ff7616bb770bb83cba225da079c33807d23b300e21392209b7d169092"
     },
     {
-      "file": "assets/valley-0-ref.png",
-      "bytes": 3023978,
-      "sha256": "8dfccc5455c23dd35ad0fad819ea44be45954143d0988898c4e9a6c386f1678b"
+      "file": "assets/valley-0-ref.webp",
+      "bytes": 458314,
+      "sha256": "cf80371499ec514276e77715f506ab4c8b79ae9605629a92e8244b31375a2f38"
     },
     {
-      "file": "assets/valley-1-ref.png",
-      "bytes": 3167373,
-      "sha256": "a05b0a4b484b8e1c7e6c423c942d9dfc17bc4a47ddcaeb31a5368e050fb31426"
+      "file": "assets/valley-1-ref.webp",
+      "bytes": 484564,
+      "sha256": "5289170a50be17fe64291153f8b73ae57dffd6111b61d40047210cc0bd2ddcf6"
     },
     {
-      "file": "assets/valley-2-ref.png",
-      "bytes": 3039618,
-      "sha256": "cf449b86d62dda49d1cf5a1f1e63249f7b0f45d3001fc52c1869885a7f444357"
+      "file": "assets/valley-2-ref.webp",
+      "bytes": 459610,
+      "sha256": "8b61cfd44acdceae7c01a6144ad0a5600f3966ad697c3ffc45b16760937b0dde"
     },
     {
-      "file": "assets/valley-3-new.png",
-      "bytes": 3472361,
-      "sha256": "dd3ee0389c8327e48eabe59b552df6a8e8530b2cdd8932787955d7dd75b15117"
+      "file": "assets/valley-3-new.webp",
+      "bytes": 600940,
+      "sha256": "911b265bd5753a7e92acd30d92e388f71286788659c265df98ef555fd3a5b815"
     },
     {
-      "file": "assets/valley-items.png",
-      "bytes": 1984381,
-      "sha256": "606def05d8184cad7d42fca975165a5b5d671cc1c269f0d1d3aa5ea8c5f0dc52"
+      "file": "assets/valley-items.webp",
+      "bytes": 571328,
+      "sha256": "7858e9865f3bf807171ae3a493daeb749c155ed830e0b31530e38ba51715e9af"
     },
     {
-      "file": "assets/valley-maze-painted.png",
-      "bytes": 3537325,
-      "sha256": "20cf92ae5bc178e99cb04799a002c261f4a32f6481b34d8ea8a09ef58683bcaf"
+      "file": "assets/valley-maze-painted.webp",
+      "bytes": 562058,
+      "sha256": "5b4f3500460a1d088bb2b147f6d311130c90957424030e2c1fe18cc7c3dc4663"
     },
     {
       "file": "atmosphere.js",
@@ -409,8 +409,8 @@
     },
     {
       "file": "characters.js",
-      "bytes": 1178,
-      "sha256": "e526bfb4b56aeda20c8a891119ab6b26900473b6179e3f3c6fd2f9ceb868009a"
+      "bytes": 1259,
+      "sha256": "dd7e39966e028bb18be6ca739f2f47e1522152b025611ff70408886421225c3c"
     },
     {
       "file": "content-full.js",
@@ -434,8 +434,8 @@
     },
     {
       "file": "game.js",
-      "bytes": 86567,
-      "sha256": "dd0fdd3453832535e21084ddac47e21236cdee0ecdc20c70f58b1ffba8056a9a"
+      "bytes": 87411,
+      "sha256": "0dc62bda058124a3ecad508e52543d22fa2afa32b58c9d94ebe697ee0773832f"
     },
     {
       "file": "growth-menu.js",
@@ -443,9 +443,14 @@
       "sha256": "fcb5352a628590f76d62935dde74189158fb4bd0339adec627141c8a6d8bd75f"
     },
     {
+      "file": "image-formats.json",
+      "bytes": 21830,
+      "sha256": "a3ee83d8460eb70d2b6f1ee91473a089438cb49165dd1f2afff8633c61be2178"
+    },
+    {
       "file": "index.html",
-      "bytes": 3707,
-      "sha256": "ca52ca45fbc7eb7ed3450ff9a42f23492ee148d276b1d1a87441ffb579b67117"
+      "bytes": 4745,
+      "sha256": "f2bdcb2157aecec34895bdbefdba2a6f468a761326fe4d2d84dcaa3dab7164b9"
     },
     {
       "file": "licenses/browser-asr/ATTRIBUTION.md",
@@ -599,13 +604,13 @@
     },
     {
       "file": "reference-ui.css",
-      "bytes": 4443,
-      "sha256": "fb7f3735937de90a0e0080d539d28b771082b8ad25b94a94fdabd8c078d55d26"
+      "bytes": 4445,
+      "sha256": "47fb4ed3b1302c9c091f11f604f393ac9c80d4501acc965c430dc1f574dfdfb8"
     },
     {
       "file": "region-ui.css",
-      "bytes": 3955,
-      "sha256": "6d528d5afcb90c18148f513662701ffa12dd4590a663a88011e151deadeaf1bb"
+      "bytes": 3960,
+      "sha256": "a5e3d0112ce69be7544d7ead9a50ef99325de22b1444a8de03b4dd07b0973dae"
     },
     {
       "file": "roll-anchors.js",
@@ -614,8 +619,8 @@
     },
     {
       "file": "runtime-config.js",
-      "bytes": 125,
-      "sha256": "116cd0ffe3b8dde1b2ea604443caa7b1965500de3c6e7cfff12963b2e6fe47c5"
+      "bytes": 144,
+      "sha256": "78597b93366053ec7894a59b2ae0cca5daa6be517effad45d286742aacf02aca"
     },
     {
       "file": "speech-bank.js",
@@ -628,9 +633,14 @@
       "sha256": "99fcbed3302a3b48634753e826e5e1352e4177bb09845d4cc85d009f0953333a"
     },
     {
+      "file": "startup.js",
+      "bytes": 1935,
+      "sha256": "a7511ceb725bfcb5affff756265d02292796283b286414fcaee2ccccf9f5e5bb"
+    },
+    {
       "file": "style.css",
-      "bytes": 11838,
-      "sha256": "8b8c783313d2feb935cd56f77d36e624a011a730feb6458f4705309aa1822e2b"
+      "bytes": 11841,
+      "sha256": "cc1497d7b17deb7bb8bb5550acd9e0b02f5fce6a5f8249feab6f91df28793af1"
     },
     {
       "file": "water-regions.js",

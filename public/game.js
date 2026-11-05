@@ -20,7 +20,8 @@
   let rewardBurst=null,noticeUntil=0,animation=null,pausedMode='world',pausedAt=0,lastSpeech='',transitionToken=0,restoringLight=false;
   const reduced=!!window.NOFX||matchMedia('(prefers-reduced-motion: reduce)').matches;
   const worlds=window.AdventureWorlds, regions=worlds.regions;
-  const imgs={},assetLoads={},assetNames=['gates','fauna','maze-props','rabbit','rabbit-roll','rabbit-catch','rabbit-catch-front','actions','generic','items','helpers','pictures-0','pictures-1',...['castle','beach','valley','sea'].map(r=>r+'-items'),worlds.hub.image];
+  const imgs={},assetLoads={},assetNames=['fauna','items','helpers',worlds.hub.image];
+  const imageURL=name=>'assets/'+name+'.'+(window.AdventureRuntime?.imageFormat||'png');
   let activeCharacter='rabbit',characterRequest=0;
   const character=()=>AdventureCharacters[activeCharacter];
   const region=()=>regions[state.activeRegion], stage=()=>region().stages[area];
@@ -78,7 +79,7 @@
     return smooth;
   }
   function persist(){if(!journey.canPersist){storageOK=false;updateHUD();return;}try{if(saved&&JSON.parse(saved).version<4&&!localStorage.getItem(SAVE+'.before-v4'))localStorage.setItem(SAVE+'.before-v4',saved);localStorage.setItem(SAVE,JSON.stringify(journey.snapshot()));}catch{storageOK=false;notify('这次进度暂时留在这里，请让家长检查存储空间',5);}updateHUD();}
-  function atlas(name,i,rows,cls=''){return `<span class="asset ${cls}" style="background-image:url('assets/${name}.png');background-size:500% ${rows*100}%;background-position:${(i%5)*25}% ${Math.floor(i/5)*100/(rows-1)}%" aria-hidden="true"></span>`;}
+  function atlas(name,i,rows,cls=''){return `<span class="asset ${cls}" style="background-image:url('${imageURL(name)}');background-size:500% ${rows*100}%;background-position:${(i%5)*25}% ${Math.floor(i/5)*100/(rows-1)}%" aria-hidden="true"></span>`;}
   function asset(i,cls=''){return atlas('items',Number.isInteger(i)&&i>=0&&i<20?i:0,4,cls);}
   function itemAsset(id,cls=''){const it=data.items[id];return it?atlas(it.region==='forest'?'items':it.region+'-items',it.icon,it.region==='forest'?4:3,cls):'';}
   function helperAsset(medal=false,cls=''){return atlas('helpers',region().index+(medal?5:0),2,cls);}
@@ -263,7 +264,8 @@
   function goHome(){const e=worlds.hub.exits.find(e=>e.region===state.activeRegion);const p={x:e.x+(840-e.x)*.18,y:e.y+(560-e.y)*.18};setScene('hub',p.x,p.y);speech(journey.allComplete()?'五枚印记照亮了世界之心。谢谢你，小小探险家！':'走回世界之心啦');}
   async function enterArea(n,back=false){
     area=n;mode='transition';route=[];routeAction=null;keys.clear();
-    try{await loadAsset(stage().image);}catch{goHome();notify('这张地图还没加载好，请再试一次',5);return;}
+    notify('正在打开这条小路…',30);
+    try{await Promise.all([stage().image,'gates','maze-props',state.activeRegion==='forest'?'items':state.activeRegion+'-items','pictures-0','pictures-1'].map(loadAsset));}catch{goHome();notify('这条小路暂时没下载好，再走到入口试一次吧',8);return;}
     const door=back?stage().exit:stage().entry;setScene('forest',...door);
     // Spawn just inside the connected doorway, not at a distant altar. All
     // candidates use the actual collision map and lie outside the trigger ring.
@@ -723,12 +725,18 @@
   }
   function loadAsset(name){
     if(imgs[name])return Promise.resolve(imgs[name]);if(assetLoads[name])return assetLoads[name];
-    assetLoads[name]=new Promise((resolve,reject)=>{const im=new Image();im.onload=()=>{imgs[name]=im;resolve(im);};im.onerror=()=>{delete assetLoads[name];reject(new Error(name));};im.src='assets/'+(name==='rabbit'?'rabbit-walk':name==='actions'?'rabbit-actions-clean':name==='generic'?'rabbit-actions-generic':name)+'.png';});return assetLoads[name];
+    assetLoads[name]=new Promise((resolve,reject)=>{const im=new Image();let settled=false;const finish=(error)=>{if(settled)return;settled=true;clearTimeout(timer);im.onload=im.onerror=null;if(error){delete assetLoads[name];im.src='';reject(new Error(name));}else{imgs[name]=im;resolve(im);}};const timer=setTimeout(()=>finish(true),45000);im.onload=()=>finish(false);im.onerror=()=>finish(true);im.src=imageURL(name==='rabbit'?'rabbit-walk':name==='actions'?'rabbit-actions-clean':name==='generic'?'rabbit-actions-generic':name);});return assetLoads[name];
   }
-  Promise.all(assetNames.map(loadAsset)).then(async()=>{
-    try{await prepareCharacter(state.character);activeCharacter=state.character;}catch{activeCharacter='rabbit';notify('伙伴素材暂时没准备好，小兔先陪你探险。',8);}
-    ready=true;$('loading').hidden=true;updateHUD();introduction();requestAnimationFrame(loop);
-  }).catch(e=>{$('loading').textContent='素材还没加载好。请保留 assets 文件夹，再重新打开。';console.error(e);});
+  let starting=false,bootGeneration=0;
+  async function startWorld(){
+    if(starting||ready)return;starting=true;mode='loading';
+    const generation=++bootGeneration,names=[...new Set([...assetNames,...AdventureCharacters[state.character].assets])];let done=0,failed=false;
+    window.AdventureBoot?.progress('正在打开世界之心',done,names.length);
+    try{await Promise.all(names.map(async name=>{await loadAsset(name);done++;if(!failed&&generation===bootGeneration)window.AdventureBoot?.progress('正在打开世界之心',done,names.length);}));await prepareCharacter(state.character);activeCharacter=state.character;ready=true;window.AdventureBootComplete=true;window.AdventureBoot?.done();$('loading').hidden=true;updateHUD();introduction();requestAnimationFrame(loop);}
+    catch(e){failed=true;window.AdventureBoot?.fail('画面下载暂时没有完成，请检查网络后再试。已加载的画面会保留。',e.message,startWorld);}
+    finally{starting=false;}
+  }
+  startWorld();
   // Read-only diagnostics for verification. No test path can grant production progress.
   window.ForestDebug={snapshot:()=>({scene,area,mode,character:activeCharacter,critters:critters(),catchTool:catchTool(),visuals:JSON.parse(JSON.stringify(visualState)),performance:perf.slice(-60),renderDPR,animation:animation?{kind:animation.kind,t:animation.t,duration:animation.duration,dir:animation.dir,contact:animation.contact}:null,player:{...player},state:journey.snapshot(),question:journey.question?JSON.parse(JSON.stringify(journey.question)):null,routeLength:route.length,assets:Object.keys(imgs),storageOK,audio:{enabled:audio.enabled,context:audio.ctx?.state,voices:audio.voices.length,events:audio.events.slice(-8)},view:{...view}}),reachability:()=>{
     const list=entities();return list.map(e=>({id:e.id,walkable:walkable(e.x,e.y),path:pathTo(e.x,e.y).length,x:e.x,y:e.y,artX:e.artX,artY:e.artY,distance:dist(player,e)}));

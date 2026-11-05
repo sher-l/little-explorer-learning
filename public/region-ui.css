@@ -1,9 +1,9 @@
 /* Region-specific illustrated boards, with a quiet high-contrast writing area. */
-#overlay[data-mode="quiz"][data-region="forest"] #panel{background-image:url('assets/quiz-forest.png')}
-#overlay[data-mode="quiz"][data-region="castle"] #panel{background-image:url('assets/quiz-castle.png')}
-#overlay[data-mode="quiz"][data-region="beach"] #panel{background-image:url('assets/quiz-beach.png')}
-#overlay[data-mode="quiz"][data-region="valley"] #panel{background-image:url('assets/quiz-valley.png')}
-#overlay[data-mode="quiz"][data-region="sea"] #panel{background-image:url('assets/quiz-sea.png')}
+#overlay[data-mode="quiz"][data-region="forest"] #panel{background-image:url('assets/quiz-forest.webp')}
+#overlay[data-mode="quiz"][data-region="castle"] #panel{background-image:url('assets/quiz-castle.webp')}
+#overlay[data-mode="quiz"][data-region="beach"] #panel{background-image:url('assets/quiz-beach.webp')}
+#overlay[data-mode="quiz"][data-region="valley"] #panel{background-image:url('assets/quiz-valley.webp')}
+#overlay[data-mode="quiz"][data-region="sea"] #panel{background-image:url('assets/quiz-sea.webp')}
 #overlay[data-mode="quiz"] #panel{padding-top:65px;padding-bottom:55px;background-size:100% 100%;background-repeat:no-repeat}
 #overlay[data-mode="quiz"] .adventure-quiz{color:#493b2c;scrollbar-width:thin}
 #overlay[data-mode="quiz"] .adventure-quiz h2{background:#fff4dce8;border-radius:14px;padding:6px 10px;line-height:1.35}

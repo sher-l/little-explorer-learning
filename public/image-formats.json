@@ -1,0 +1,615 @@
+{
+  "encoding": "WebP quality 88; original dimensions; alpha retained",
+  "files": [
+    {
+      "file": "autumn-ref.png",
+      "encoded": "autumn-ref.webp",
+      "width": 1672,
+      "height": 941,
+      "sourceBytes": 3205136,
+      "bytes": 514982,
+      "sourceSHA256": "3d0a9acff4081ed9f0deafc423782abc419ff43e75ac5252145a9f24e683e0be",
+      "sha256": "4872cf81e6479e225775e16e295b5881a8bf2128e752e241b39a1614a42a0362"
+    },
+    {
+      "file": "beach-0-ref.png",
+      "encoded": "beach-0-ref.webp",
+      "width": 1672,
+      "height": 941,
+      "sourceBytes": 2862231,
+      "bytes": 405340,
+      "sourceSHA256": "f53e49dc0e13603818b1c241fd15d2657a3c782af53ba86dad51dba5149748d8",
+      "sha256": "69ec2b5170e6b65c746c96991e3253667b3287cd34ae3850a6e0f99fc0659af8"
+    },
+    {
+      "file": "beach-1-ref.png",
+      "encoded": "beach-1-ref.webp",
+      "width": 1671,
+      "height": 941,
+      "sourceBytes": 2956033,
+      "bytes": 429172,
+      "sourceSHA256": "558fbc0bb7c67ed13218def4a9eb0bb973f0486d76cd4fdb38495d65ce752b97",
+      "sha256": "543ea2ceb9643e83332f021fdf6391e6004fbbffe997d3548aa39d79daef01d5"
+    },
+    {
+      "file": "beach-2-ref.png",
+      "encoded": "beach-2-ref.webp",
+      "width": 1672,
+      "height": 941,
+      "sourceBytes": 2895467,
+      "bytes": 424056,
+      "sourceSHA256": "dbe451fa51e551fbaf677ceca8f537bb0900acb7151ce09ee4939e43d1bbd9aa",
+      "sha256": "f419b2f8caec1b2f7cc2aa539bfd88130fbe0884b1715e0e50a4567035442be3"
+    },
+    {
+      "file": "beach-3-new.png",
+      "encoded": "beach-3-new.webp",
+      "width": 1672,
+      "height": 941,
+      "sourceBytes": 3373632,
+      "bytes": 535814,
+      "sourceSHA256": "66aa9c19755157d7f56a1be0198ca89fcd4bb853029198dc47c08a690e0f0e00",
+      "sha256": "9c360797cab452f85c28e8827f29e45c51e028022e58ca7cbd4031af12ea8fa5"
+    },
+    {
+      "file": "beach-items.png",
+      "encoded": "beach-items.webp",
+      "width": 1619,
+      "height": 971,
+      "sourceBytes": 1161551,
+      "bytes": 265252,
+      "sourceSHA256": "dafb6f56af6ad9b97233fbe820e9b7bd182f97831921b4bd9de5ef3fed4c4219",
+      "sha256": "781171fa323c9aea60b7cfae7cc6b33dfe617ff0a167f410978c0c2bff530a9f"
+    },
+    {
+      "file": "beach-maze-painted.png",
+      "encoded": "beach-maze-painted.webp",
+      "width": 1672,
+      "height": 941,
+      "sourceBytes": 3646596,
+      "bytes": 630226,
+      "sourceSHA256": "c2468940405fc926bbc016a9abaaac6e02984aadec14955b1cba4efd964cad94",
+      "sha256": "e5aaf6820ff0e0eb998cb97b6d2481441b67c8b9011332f87e4dbefd7fb83e06"
+    },
+    {
+      "file": "castle-0-ref.png",
+      "encoded": "castle-0-ref.webp",
+      "width": 1672,
+      "height": 941,
+      "sourceBytes": 2941399,
+      "bytes": 437378,
+      "sourceSHA256": "3995646b82159ce944b1a2d9249e84c0711758dda514534099dd629819760d29",
+      "sha256": "da5ada2cf58e9e08b6b3240b5b3c6895e52aa1ed6adeaaf427303b32a13a34e7"
+    },
+    {
+      "file": "castle-1-ref.png",
+      "encoded": "castle-1-ref.webp",
+      "width": 1671,
+      "height": 941,
+      "sourceBytes": 2827719,
+      "bytes": 413664,
+      "sourceSHA256": "13867279519b4831db26763dc21c8de2e6e671f942d471eb18cc49ba0474b19b",
+      "sha256": "94b96985bd722dc6ab4b997ac98178512a86833d09fbbe60e48c063fcb353ebe"
+    },
+    {
+      "file": "castle-2-ref.png",
+      "encoded": "castle-2-ref.webp",
+      "width": 1671,
+      "height": 941,
+      "sourceBytes": 2813505,
+      "bytes": 406420,
+      "sourceSHA256": "282fa0ac916f14e16dbb928c2289bb276873791a72fc9c0a04dd743505edb393",
+      "sha256": "2905453f2cd4ada8c69e70fbb4249784ffa109bad98d78db37322ac25c77ddde"
+    },
+    {
+      "file": "castle-3-new.png",
+      "encoded": "castle-3-new.webp",
+      "width": 1672,
+      "height": 941,
+      "sourceBytes": 3350140,
+      "bytes": 564222,
+      "sourceSHA256": "b6a07bef81062cfde796c070e4faeeb3a887a4c6e3d9e59084a96c3828378feb",
+      "sha256": "209381a83f31f30885c17a620e9d9675aa8c6f18905e0a064a2715078479735c"
+    },
+    {
+      "file": "castle-items.png",
+      "encoded": "castle-items.webp",
+      "width": 1619,
+      "height": 971,
+      "sourceBytes": 938039,
+      "bytes": 250664,
+      "sourceSHA256": "87e1afac03ab2be103c52f058b2dc1848ca2853233d820ef2739d31ed5b5016f",
+      "sha256": "5856bd6340ea8f3e54b245e19a9e19d692d59b000f0734ae31751f481976ecaa"
+    },
+    {
+      "file": "castle-maze-painted.png",
+      "encoded": "castle-maze-painted.webp",
+      "width": 1671,
+      "height": 941,
+      "sourceBytes": 3466161,
+      "bytes": 575708,
+      "sourceSHA256": "a528c9727694cb1410dab4473b7093022f83149993d37f482769a07d4b264570",
+      "sha256": "ff7dd351144ba1c28a7180d4155ad5cdf5aa2d36810112f5840ab33a3a1ef8ae"
+    },
+    {
+      "file": "fauna.png",
+      "encoded": "fauna.webp",
+      "width": 1402,
+      "height": 1122,
+      "sourceBytes": 955430,
+      "bytes": 380052,
+      "sourceSHA256": "bbddecfd0644e27dbd0c2ce7ae504d0420b008c0024c300618a92bc1dd097753",
+      "sha256": "f00bee3faa687460b0d04c0716535116c408516064f77b9e77b3c7eac0287df0"
+    },
+    {
+      "file": "forest-3-new.png",
+      "encoded": "forest-3-new.webp",
+      "width": 1672,
+      "height": 941,
+      "sourceBytes": 3461705,
+      "bytes": 606962,
+      "sourceSHA256": "2c9edaf9f7e1f554f652d06926509fcc295fb9fed457f1ff3b348e0e839e20a7",
+      "sha256": "e2c7e095b054a006a01443ab15a0c6172070d86734db9e8ef9d9e9ca6d03f8d2"
+    },
+    {
+      "file": "forest-maze-painted.png",
+      "encoded": "forest-maze-painted.webp",
+      "width": 1672,
+      "height": 941,
+      "sourceBytes": 3630234,
+      "bytes": 657622,
+      "sourceSHA256": "711caf10f333695898bb83e9c9863ee2deb2813df809f296e23323c9ee0cb124",
+      "sha256": "51eeabd7ce7884c6773bbec4b83df710b1a211e00abde508761dd28a892c7a8a"
+    },
+    {
+      "file": "forest-reference.png",
+      "encoded": "forest-reference.webp",
+      "width": 1672,
+      "height": 941,
+      "sourceBytes": 3031476,
+      "bytes": 475726,
+      "sourceSHA256": "dbcc1fd7254acc1921a9696b10a79ba062693f72a8bbd8b5b52005d9617465e6",
+      "sha256": "1c16ca0fbb15dd0fa4a72b3b60cc1f9aabb5f5fb6afd47e6e8c7af7a9920331a"
+    },
+    {
+      "file": "gates.png",
+      "encoded": "gates.webp",
+      "width": 1774,
+      "height": 887,
+      "sourceBytes": 2703735,
+      "bytes": 828514,
+      "sourceSHA256": "c5225b9c910f524bce7bb46d62f4afb2517a0428eac7780ecf10c1990e445444",
+      "sha256": "052be490111df461a1657dd72f59f7c533f06dc846dbf2d5a62be22e26bfaee3"
+    },
+    {
+      "file": "helpers.png",
+      "encoded": "helpers.webp",
+      "width": 1983,
+      "height": 793,
+      "sourceBytes": 2573296,
+      "bytes": 755314,
+      "sourceSHA256": "c66735a73b0d6b437c6c51418c0a0f4aa89ed140fb6d14f6693fee82a2a303ac",
+      "sha256": "19129a3f6312a55d5a152d091563561cba3a55edf3e51cf9b09bc5121d260b77"
+    },
+    {
+      "file": "hub-full-ref.png",
+      "encoded": "hub-full-ref.webp",
+      "width": 1672,
+      "height": 941,
+      "sourceBytes": 3097911,
+      "bytes": 486088,
+      "sourceSHA256": "b739f332dff5d11ccaa5cfb47c5fb3777230b5f5d593e86f1bcc647ed07e946a",
+      "sha256": "7c83dac324a24de5f37eb945be3189a0cc1c94a4059bbc1ba9523663bce617df"
+    },
+    {
+      "file": "items.png",
+      "encoded": "items.webp",
+      "width": 1402,
+      "height": 1122,
+      "sourceBytes": 2203134,
+      "bytes": 606592,
+      "sourceSHA256": "f9c290708ac06c1e4842e5b23e3df508e83d11392fa339e47073488fed7eb0ae",
+      "sha256": "342972458c0dbd418b6b5ae43e6fe5ebf8cebe9df25119cd803e4639f11cceca"
+    },
+    {
+      "file": "maze-props.png",
+      "encoded": "maze-props.webp",
+      "width": 1983,
+      "height": 793,
+      "sourceBytes": 2290001,
+      "bytes": 552232,
+      "sourceSHA256": "cbc338255732dda33d9ffd75f3d0fdd40b8cd33c7c0536ad309f0e704d5fd6d4",
+      "sha256": "787d2437ffed5c7305b8903a468f984d0ff41238f30074fb83eba3f34836fdf2"
+    },
+    {
+      "file": "orchard-ref.png",
+      "encoded": "orchard-ref.webp",
+      "width": 1672,
+      "height": 941,
+      "sourceBytes": 3025025,
+      "bytes": 461610,
+      "sourceSHA256": "f0d1165e8e30dbbf5d9066834058c96ba277214caf3a43d57691dca859d3c8b9",
+      "sha256": "406dbd08a2c6e6d0b1d4b625a47128b51fe091311a1982c2a4f6b9765ed5d14d"
+    },
+    {
+      "file": "panel-reference.png",
+      "encoded": "panel-reference.webp",
+      "width": 1217,
+      "height": 1293,
+      "sourceBytes": 2287481,
+      "bytes": 270356,
+      "sourceSHA256": "462e57ec1a4783883a18d80d4d1b958dc7a197771e250db3fc75d6f98f36f3cf",
+      "sha256": "32b215f4a46802a3f5911243eed4cddb8cc4dcde06febfd31d8d69039194fb6f"
+    },
+    {
+      "file": "panel.png",
+      "encoded": "panel.webp",
+      "width": 1586,
+      "height": 992,
+      "sourceBytes": 2735157,
+      "bytes": 327414,
+      "sourceSHA256": "ad7021d0d81a9aeb2f8e324be88ba0d0e35bd46d3257a212c0f1d11df8b4e517",
+      "sha256": "1dde60f4ce2900c6fde090536db93164c3a4272c741f862880a88a0ffdad8a80"
+    },
+    {
+      "file": "pictures-0.png",
+      "encoded": "pictures-0.webp",
+      "width": 1619,
+      "height": 971,
+      "sourceBytes": 1582391,
+      "bytes": 441922,
+      "sourceSHA256": "cbed99275d609cf4f4cc8a4bc1d3520b3c1e9833030953f9f96aff546df0ba81",
+      "sha256": "6956262143d69c9677bb39d8204a939b1f9f1b402573040bb5b1b5e76663244a"
+    },
+    {
+      "file": "pictures-1.png",
+      "encoded": "pictures-1.webp",
+      "width": 1619,
+      "height": 971,
+      "sourceBytes": 1661232,
+      "bytes": 469464,
+      "sourceSHA256": "3436fb8f4cfc956a7c61ed2236dab6eaa96b406f2bffb900ff0ca6ff197b1ecc",
+      "sha256": "78652c9e654355c1a1bdc70c18885a4a9577eea710a749a666872f5592ed08e0"
+    },
+    {
+      "file": "quiz-beach.png",
+      "encoded": "quiz-beach.webp",
+      "width": 418,
+      "height": 627,
+      "sourceBytes": 454779,
+      "bytes": 73354,
+      "sourceSHA256": "15891d94f4a3499c4f9c75db2742c578a66b1c1b59d51f310027a4c11af095ba",
+      "sha256": "6b04c810902e35d077158760874fed4a57403fd19869e241834ad9509a7464e4"
+    },
+    {
+      "file": "quiz-castle.png",
+      "encoded": "quiz-castle.webp",
+      "width": 418,
+      "height": 627,
+      "sourceBytes": 485567,
+      "bytes": 88302,
+      "sourceSHA256": "c66b152b5cab4f1428ba763a6714709109ed9cc461c8b760c78d608ffa1b65f7",
+      "sha256": "8ffff5bc5e54fc5416e8119bf17771610056a7d795a3dbaa22ca9bc5b0d5539c"
+    },
+    {
+      "file": "quiz-forest.png",
+      "encoded": "quiz-forest.webp",
+      "width": 418,
+      "height": 627,
+      "sourceBytes": 473598,
+      "bytes": 82496,
+      "sourceSHA256": "fdfebafb5cad296362b6eaf145131817bfc6cb282f62d809e80bc7a2b7b64845",
+      "sha256": "c09a5574cdd816a604a7889fe9831f3d8a1bf151c7d4b939658fcf6888b2c070"
+    },
+    {
+      "file": "quiz-sea.png",
+      "encoded": "quiz-sea.webp",
+      "width": 418,
+      "height": 627,
+      "sourceBytes": 430026,
+      "bytes": 69980,
+      "sourceSHA256": "b2cfea9be46dbbfc3edb3d9ec1d699065ea92efbfe71551c6ae0a4a9c95be1d2",
+      "sha256": "083f21eb4caf01f59bdf074bc298ec189315cac54a3a8172734016f9a997febf"
+    },
+    {
+      "file": "quiz-valley.png",
+      "encoded": "quiz-valley.webp",
+      "width": 418,
+      "height": 627,
+      "sourceBytes": 472110,
+      "bytes": 71338,
+      "sourceSHA256": "8ca86b3e414ae7919d926990425ef88afd1fe79f69aea6a4aa0bc61425a5d5a1",
+      "sha256": "a75db6383cda8ace2e96e0615740f1febf00d3444969295553c2b104757c5b08"
+    },
+    {
+      "file": "rabbit-actions-clean.png",
+      "encoded": "rabbit-actions-clean.webp",
+      "width": 1774,
+      "height": 887,
+      "sourceBytes": 1386738,
+      "bytes": 300838,
+      "sourceSHA256": "b2527613326cf8d70e96276e690075aa0477dc0b37acc8f07c0f702df537b77b",
+      "sha256": "7072a5c3b8569d6f99604dfc7164f89b54b3adb221439f7022e21ca37fe07277"
+    },
+    {
+      "file": "rabbit-actions-generic.png",
+      "encoded": "rabbit-actions-generic.webp",
+      "width": 1774,
+      "height": 887,
+      "sourceBytes": 1269773,
+      "bytes": 265324,
+      "sourceSHA256": "ad3a99cd06a326deec38aa55e89aece7629270fff38feb0a260b3498c19f6c84",
+      "sha256": "14ac7cd2abe75fe01b60ca863ab10b96b70c582536a5c5fee6d4898e463017dd"
+    },
+    {
+      "file": "rabbit-catch-front.png",
+      "encoded": "rabbit-catch-front.webp",
+      "width": 1536,
+      "height": 1024,
+      "sourceBytes": 2074662,
+      "bytes": 236764,
+      "sourceSHA256": "316c289d5c7dae19426ea04595076df4fe6eb7b0481a1cb24997ef05e5ba9f24",
+      "sha256": "61a1f488e5610db1873f7cec668e6a54274429008543b24547db56d8995633ed"
+    },
+    {
+      "file": "rabbit-catch.png",
+      "encoded": "rabbit-catch.webp",
+      "width": 1774,
+      "height": 887,
+      "sourceBytes": 1722323,
+      "bytes": 454572,
+      "sourceSHA256": "fc64f2f7ff5edba5f0cfaf5c3ca12eaf595ab9603e4c986d09efdd6453d6f046",
+      "sha256": "39fe62d7343bb880a3fc6494486fb2034f3f6e24c3ddc29ead528ff84bc11d4c"
+    },
+    {
+      "file": "rabbit-roll.png",
+      "encoded": "rabbit-roll.webp",
+      "width": 1774,
+      "height": 887,
+      "sourceBytes": 1641484,
+      "bytes": 395902,
+      "sourceSHA256": "694a09f7911ddf262022776f56b7b576b7307fad55bf5568e8f8fcb50c7d86f2",
+      "sha256": "f6fb42fe9e28a3f94d555bb947a8095aa5b26be166a861c0cbce3ddd66f37d77"
+    },
+    {
+      "file": "rabbit-walk.png",
+      "encoded": "rabbit-walk.webp",
+      "width": 1263,
+      "height": 1246,
+      "sourceBytes": 1535065,
+      "bytes": 431630,
+      "sourceSHA256": "b7d9a8c0132ceebe9a07bd520abd6e0ee0c74267d6a64e6b7c66182bfd909a1d",
+      "sha256": "f432aa606fcf8691359d2db7eb80339cb5f290be5b0ce257243392ca152ff2e9"
+    },
+    {
+      "file": "sea-0-natural.png",
+      "encoded": "sea-0-natural.webp",
+      "width": 1672,
+      "height": 941,
+      "sourceBytes": 3046710,
+      "bytes": 465458,
+      "sourceSHA256": "d960e626ff7bba60892814e7f3442863564a93c68b86a4f370414f5891a5df43",
+      "sha256": "880885e285eff809b67528858eeaeb311001c33b02163baf67497dbab2d85423"
+    },
+    {
+      "file": "sea-1-natural.png",
+      "encoded": "sea-1-natural.webp",
+      "width": 1672,
+      "height": 941,
+      "sourceBytes": 3326181,
+      "bytes": 532966,
+      "sourceSHA256": "f4d508e80dc263510c4c1c1f61f826462a85ad23f27bd8b115c2c725d35d67fb",
+      "sha256": "798d054c614d8dd8e6f7e0775fc3d581d920c2377e389705479993aa47977d9f"
+    },
+    {
+      "file": "sea-2-natural.png",
+      "encoded": "sea-2-natural.webp",
+      "width": 1672,
+      "height": 941,
+      "sourceBytes": 3298436,
+      "bytes": 534592,
+      "sourceSHA256": "1244e2f72fe0d65df9add2c26a2ce74477b904679b68fe2ddee3f9e32062f460",
+      "sha256": "40d7a2bbff04ec3c772110074e6c930559d625fa1bc229d6b144da75ab51a3a3"
+    },
+    {
+      "file": "sea-3-new.png",
+      "encoded": "sea-3-new.webp",
+      "width": 1672,
+      "height": 941,
+      "sourceBytes": 3536969,
+      "bytes": 628030,
+      "sourceSHA256": "cb3a0daa28956df7fd7ce0124ac25c51996d905e03cbec216ec326077335e97c",
+      "sha256": "adf8ee310b2540bc277afad8efaf3033c4790e6f0e19b4d2a8f576c7e801bb17"
+    },
+    {
+      "file": "sea-items.png",
+      "encoded": "sea-items.webp",
+      "width": 1619,
+      "height": 971,
+      "sourceBytes": 1458512,
+      "bytes": 382824,
+      "sourceSHA256": "616e76777ba34283d33f01207129c33dea5f81a0c4925187234b1d8f22982ae7",
+      "sha256": "7590154e505412cc85a826c0bd405cda3999df348491d19b0e9efc9ac69bad94"
+    },
+    {
+      "file": "sea-maze-painted.png",
+      "encoded": "sea-maze-painted.webp",
+      "width": 1672,
+      "height": 941,
+      "sourceBytes": 3599726,
+      "bytes": 599176,
+      "sourceSHA256": "e2ae5557a4462d3c5b3ae5f1d295665f3a1bd07f8f2eab036b512d9bb0efd17a",
+      "sha256": "d165a8226ce29f2f0e65a9188301d6f0789359b79b6c99f8561fe9aef69877e5"
+    },
+    {
+      "file": "tray-reference.png",
+      "encoded": "tray-reference.webp",
+      "width": 2172,
+      "height": 724,
+      "sourceBytes": 1825130,
+      "bytes": 239640,
+      "sourceSHA256": "7bd1e64c5fb80ba995649795e1e54eb2e86df20622acecba9aa730ea394f93df",
+      "sha256": "a908bf5ff7616bb770bb83cba225da079c33807d23b300e21392209b7d169092"
+    },
+    {
+      "file": "valley-0-ref.png",
+      "encoded": "valley-0-ref.webp",
+      "width": 1672,
+      "height": 941,
+      "sourceBytes": 3023978,
+      "bytes": 458314,
+      "sourceSHA256": "8dfccc5455c23dd35ad0fad819ea44be45954143d0988898c4e9a6c386f1678b",
+      "sha256": "cf80371499ec514276e77715f506ab4c8b79ae9605629a92e8244b31375a2f38"
+    },
+    {
+      "file": "valley-1-ref.png",
+      "encoded": "valley-1-ref.webp",
+      "width": 1671,
+      "height": 941,
+      "sourceBytes": 3167373,
+      "bytes": 484564,
+      "sourceSHA256": "a05b0a4b484b8e1c7e6c423c942d9dfc17bc4a47ddcaeb31a5368e050fb31426",
+      "sha256": "5289170a50be17fe64291153f8b73ae57dffd6111b61d40047210cc0bd2ddcf6"
+    },
+    {
+      "file": "valley-2-ref.png",
+      "encoded": "valley-2-ref.webp",
+      "width": 1671,
+      "height": 941,
+      "sourceBytes": 3039618,
+      "bytes": 459610,
+      "sourceSHA256": "cf449b86d62dda49d1cf5a1f1e63249f7b0f45d3001fc52c1869885a7f444357",
+      "sha256": "8b61cfd44acdceae7c01a6144ad0a5600f3966ad697c3ffc45b16760937b0dde"
+    },
+    {
+      "file": "valley-3-new.png",
+      "encoded": "valley-3-new.webp",
+      "width": 1672,
+      "height": 941,
+      "sourceBytes": 3472361,
+      "bytes": 600940,
+      "sourceSHA256": "dd3ee0389c8327e48eabe59b552df6a8e8530b2cdd8932787955d7dd75b15117",
+      "sha256": "911b265bd5753a7e92acd30d92e388f71286788659c265df98ef555fd3a5b815"
+    },
+    {
+      "file": "valley-items.png",
+      "encoded": "valley-items.webp",
+      "width": 1619,
+      "height": 971,
+      "sourceBytes": 1984381,
+      "bytes": 571328,
+      "sourceSHA256": "606def05d8184cad7d42fca975165a5b5d671cc1c269f0d1d3aa5ea8c5f0dc52",
+      "sha256": "7858e9865f3bf807171ae3a493daeb749c155ed830e0b31530e38ba51715e9af"
+    },
+    {
+      "file": "valley-maze-painted.png",
+      "encoded": "valley-maze-painted.webp",
+      "width": 1672,
+      "height": 941,
+      "sourceBytes": 3537325,
+      "bytes": 562058,
+      "sourceSHA256": "20cf92ae5bc178e99cb04799a002c261f4a32f6481b34d8ea8a09ef58683bcaf",
+      "sha256": "5b4f3500460a1d088bb2b147f6d311130c90957424030e2c1fe18cc7c3dc4663"
+    },
+    {
+      "file": "characters/kitten/actions.png",
+      "encoded": "characters/kitten/actions.webp",
+      "width": 1774,
+      "height": 887,
+      "sourceBytes": 1285269,
+      "bytes": 259272,
+      "sourceSHA256": "2994aead11c52d2288dfdc10353e876c8ec63a1de2dcc036159140dbeaf71783",
+      "sha256": "65d4aff0e16621013c6293417cdad5fc923f8cf2706820b91eea5a11b3d5d168"
+    },
+    {
+      "file": "characters/kitten/catch.png",
+      "encoded": "characters/kitten/catch.webp",
+      "width": 1774,
+      "height": 887,
+      "sourceBytes": 1624799,
+      "bytes": 483022,
+      "sourceSHA256": "69746392bcc728b115a3cf800a65ff3db011a17b6964995d408072b3e8af0d32",
+      "sha256": "cfa7090e971417952ee1723ca868dc65d07de135860757e298d8607558910e06"
+    },
+    {
+      "file": "characters/kitten/front.png",
+      "encoded": "characters/kitten/front.webp",
+      "width": 1536,
+      "height": 1024,
+      "sourceBytes": 2146047,
+      "bytes": 226500,
+      "sourceSHA256": "4daa0a071a04a139dc3c00c5054ffd6ab4f4650b8077f0579a16c349eb4b94cd",
+      "sha256": "c8dc7ec913a7a74e77825919a76cd4b275920f86e782937a2012a3cf7974fdcb"
+    },
+    {
+      "file": "characters/kitten/roll.png",
+      "encoded": "characters/kitten/roll.webp",
+      "width": 1774,
+      "height": 887,
+      "sourceBytes": 1516192,
+      "bytes": 341764,
+      "sourceSHA256": "e85c7f7dc39f547631e73fd530e92b18a5593647c16b0cc1f4b3b9af7faf43a4",
+      "sha256": "f0502a63f22cb7aafe7ad45e29269f9aa66f65d9a06020b0b0ab2a4ec424ddf0"
+    },
+    {
+      "file": "characters/kitten/walk.png",
+      "encoded": "characters/kitten/walk.webp",
+      "width": 1254,
+      "height": 1254,
+      "sourceBytes": 1406851,
+      "bytes": 326472,
+      "sourceSHA256": "e7aa406c9c924fc9ce6d7173ebe77f94109f359080f343ebd7d9d923488c086c",
+      "sha256": "a23b4dcfd7f167c01bce19de3e8d25e8407e7f3e309de01816293d8ce84a23a0"
+    },
+    {
+      "file": "characters/puppy/actions.png",
+      "encoded": "characters/puppy/actions.webp",
+      "width": 1774,
+      "height": 887,
+      "sourceBytes": 1347269,
+      "bytes": 267748,
+      "sourceSHA256": "fb105aa959097ee2ffac2192beef0910cc06e686dff73db9f6bb0cbb9e77d6b7",
+      "sha256": "114e1137bce6c45dfca76605c261c47c3db22af943e58d8d8a88a2b241f9c56e"
+    },
+    {
+      "file": "characters/puppy/catch.png",
+      "encoded": "characters/puppy/catch.webp",
+      "width": 1774,
+      "height": 887,
+      "sourceBytes": 1796393,
+      "bytes": 641290,
+      "sourceSHA256": "16bd176a87a936f94bd3a3e93b616eef569a67cdaf26e7d8248f9ffec1870904",
+      "sha256": "11f1df50a49857da8c4acf51611232918a7247dc70bcdc8707a3776709cc612a"
+    },
+    {
+      "file": "characters/puppy/front.png",
+      "encoded": "characters/puppy/front.webp",
+      "width": 1536,
+      "height": 1024,
+      "sourceBytes": 2177359,
+      "bytes": 216430,
+      "sourceSHA256": "67f6eb012aceeeaeb50b6a62dd55ad6b7b17944984c185f1898b6c934f53b70b",
+      "sha256": "50fe95a0ad58a10e69aa43fc1449bc4e9c54954e3ebb95eba1324103b0731820"
+    },
+    {
+      "file": "characters/puppy/roll.png",
+      "encoded": "characters/puppy/roll.webp",
+      "width": 1774,
+      "height": 887,
+      "sourceBytes": 1576282,
+      "bytes": 364740,
+      "sourceSHA256": "48b56b14e390d8c785ffc49da7cb85de45d39706590a7045900265e39535c919",
+      "sha256": "e1135b6a0f67ab1a452d2cf181ffa526d7389ea4fcc45659d6abbf94fff72cb0"
+    },
+    {
+      "file": "characters/puppy/walk.png",
+      "encoded": "characters/puppy/walk.webp",
+      "width": 1254,
+      "height": 1254,
+      "sourceBytes": 1470744,
+      "bytes": 354306,
+      "sourceSHA256": "2146e4e644c63c0ff321a20f11ceb8ab926f271019263c9fa11708f3cde5a233",
+      "sha256": "a1b223a326b4fc2c9eaddc97c19bd29eee9483eeb4bd974373b07d40b9091b0c"
+    }
+  ]
+}

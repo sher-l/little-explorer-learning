@@ -1,6 +1,6 @@
 /* The approved concept keeps the world visible beside the learning board. */
 #hud .place{background:#fff0d3e6;border-color:#ae874d;box-shadow:0 3px 8px #26392130}.place>span{font-size:21px}.place small{font-size:13px}
-#collectionTray{position:absolute;left:50%;top:max(2px,env(safe-area-inset-top));bottom:auto;transform:translateX(-50%);width:min(420px,44vw);aspect-ratio:3;background:url('assets/tray-reference.png') center/100% 100% no-repeat;pointer-events:none}
+#collectionTray{position:absolute;left:50%;top:max(2px,env(safe-area-inset-top));bottom:auto;transform:translateX(-50%);width:min(420px,44vw);aspect-ratio:3;background:url('assets/tray-reference.webp') center/100% 100% no-repeat;pointer-events:none}
 #collectionTray #bag{position:absolute;left:23.1%;top:30%;width:66.2%;height:36%;padding:0;gap:0;display:grid;grid-template-columns:repeat(5,1fr);border:0;border-radius:0;background:none;box-shadow:none}
 #collectionTray #bag .slot{width:100%;height:100%;border:0;background:none;border-radius:50%}
 #collectionTray #bag .asset{width:80%;height:90%}
@@ -9,7 +9,7 @@
 #worldActions{left:24px;bottom:28px;transform:none}footer #hint{display:none}footer{justify-content:flex-end}
 #overlay[data-mode="quiz"]{background:none;backdrop-filter:none;justify-items:end;padding:10px}
 #overlay[data-mode="quiz"][data-side="left"]{justify-items:start}
-#overlay[data-mode="quiz"] #panel{width:min(820px,57vw);height:min(850px,96dvh);padding:78px 60px 66px;background-image:url('assets/panel-reference.png');filter:drop-shadow(0 9px 17px #20332255)}
+#overlay[data-mode="quiz"] #panel{width:min(820px,57vw);height:min(850px,96dvh);padding:78px 60px 66px;background-image:url('assets/panel-reference.webp');filter:drop-shadow(0 9px 17px #20332255)}
 #overlay[data-mode="quiz"] .adventure-quiz{overflow:auto;padding:10px 4px}
 #overlay[data-mode="quiz"] h2{font-size:clamp(20px,2vw,29px)}
 #overlay[data-mode="quiz"] .quiz-answers{justify-items:center;gap:12px;margin:25px 0 22px}
