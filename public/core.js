@@ -159,7 +159,7 @@
       const q=copy(source);q.baseId=source.baseId||source.id;q.id=q.baseId+'.item'+item.id;
       const name=item.name,n=q.n,m=q.m,art={picture:'seed',itemIcon:item.icon},unit=item.measure||({松果:'颗',蘑菇:'朵',橡果:'颗',橡树叶:'片',红莓:'串',梨:'个',银杏叶:'片',鸡油菌:'朵',葡萄:'串',苹果:'个',柠檬:'个',枫叶:'片',蓝莓:'堆',青松果:'颗',栗子:'颗'}[name]||'个');
       if(q.kind==='count'){q.text='这里有几'+unit+name+'？选出数字。';q.art={type:'groups',groups:[{count:n,...art}]};}
-      else if(['sum','subtract','story'].includes(q.kind)){const add=q.kind==='sum'||q.operation==='sum';q.text='有'+n+unit+name+'，'+(add?'又找到':'拿走')+m+unit+'。'+(add?'一共有':'还剩')+'几'+unit+'？';q.art={type:'equation',...art,left:n,operator:add?'+':'−',right:m,result:'?'};}
+      else if(['sum','subtract','story'].includes(q.kind)){const add=q.kind==='sum'||q.operation==='sum';q.text='有'+n+unit+name+'，'+(add?'又找到':'拿走')+m+unit+'。'+(add?'一共有':'还剩')+'几'+unit+'？';q.art={type:'equation',...(n<=20&&m<=20?art:{}),left:n,operator:add?'+':'−',right:m,result:'?'};}
       else if(q.kind==='compare'){q.text='两边分别有'+n+unit+'和'+m+unit+name+'。'+(q.comparison==='difference'?'相差几'+unit+'？':q.comparison==='more'?'较多的一边有几'+unit+'？':'较少的一边有几'+unit+'？');q.art={type:'groups',groups:[{count:n,...art},{count:m,...art}]};}
       else if(q.kind==='missing'){q.text='袋里有'+n+unit+name+'，一共需要'+m+unit+'。还缺几'+unit+'？';q.art={type:'equation',...art,left:n,operator:'+',right:'?',result:m};}
       else if(q.kind==='pattern')q.text=name+'旁有一串数字。'+source.text;
@@ -167,7 +167,7 @@
       else if(['sum','subtract','story'].includes(q.kind)){const add=q.kind==='sum'||q.operation==='sum';q.explanation=n+(add?'加':'减')+m+'等于'+(add?n+m:n-m)+'。';}
       else if(q.kind==='missing')q.explanation=n+'再加'+(m-n)+'，就是'+m+'。';
       else if(q.kind==='compare')q.explanation=q.comparison==='difference'?'相差'+Math.abs(n-m)+unit+'。':(q.comparison==='more'?'较多':'较少')+'的一边是'+(q.comparison==='more'?Math.max(n,m):Math.min(n,m))+unit+'。';
-      q.say=q.text;return q;
+      q.say=q.baseId.startsWith('math.twodigit.')?source.say:q.text;return q;
     }
     selectRegion(region){
       if(!REGIONS.includes(region))return false;
@@ -183,13 +183,16 @@
     }
     beginItem(id){
       if(this.question||!this.available().some(it=>it.id===id))return false;
-      const progress=this.current(),region=this.state.activeRegion,target=Math.min(3,progress.segments+1);
+      const progress=this.current(),region=this.state.activeRegion,target=Math.min(3,progress.segments+1),stageIds=this.content.stageQuestionIds?.[region]?.[progress.segments];
       let q=this.getQuestion(progress.assignments[id]);
+      // Preserve historical records, but an unanswered retired task must use
+      // the current curriculum rather than keep a specialist vocabulary prompt.
+      if(q&&(this.content.retiredTaskIds?.includes(q.baseId||q.id)||(stageIds&&!stageIds.includes(q.baseId||q.id))))q=null;
       if(!q){
         const source=region==='sea'?this.poems:this.main;
-        const freshPool=source.filter(q=>q.region===region&&!progress.used.includes(q.id));
-        const item=this.items.get(id),related=freshPool.filter(q=>item.questionTopics?.some(topic=>q.itemTopics?.includes(topic)));
-        let pool=related.length?related:freshPool.filter(q=>q.level===target);
+        const freshPool=source.filter(q=>q.region===region&&(!stageIds||stageIds.includes(q.id))&&!progress.used.includes(q.id));
+        const item=this.items.get(id),related=freshPool.filter(q=>(stageIds||q.level===target)&&item.questionTopics?.some(topic=>q.itemTopics?.includes(topic)));
+        let pool=related.length?related:stageIds?freshPool:freshPool.filter(q=>q.level===target);
         if(!pool.length)pool=freshPool.filter(q=>q.level<=target);
         // Delivery resets only the five-item assignment pool. Keep using the
         // existing learned history to prefer unseen questions across stages.
@@ -213,7 +216,7 @@
     lowerQuestion(active){
       const source=active.review?this.reviewQuestions():this.main.concat(this.easy);
       let lower=source.filter(q=>q.kind!=='poem'&&q.region===active.region&&q.level<active.q.level);
-      if(!active.review){const item=this.items.get(active.item);lower=lower.filter(q=>!this.current().used.includes(q.baseId||q.id));if(item.questionTopics)lower=lower.filter(q=>item.questionTopics.some(t=>q.itemTopics?.includes(t)));}
+      if(!active.review){const item=this.items.get(active.item);lower=lower.filter(q=>!this.current().used.includes(q.baseId||q.id));if(item.questionTopics){const related=lower.filter(q=>item.questionTopics.some(t=>q.itemTopics?.includes(t)));if(related.length)lower=related;}}
       if(lower.length){const closest=Math.max(...lower.map(q=>q.level));return this.pick(lower.filter(q=>q.level===closest));}
       return null;
     }
@@ -307,7 +310,7 @@
       if(this.isReplaying()&&progress.segments===5){const id=this.state.activeRegion;this.state.replayRounds[id]=(this.state.replayRounds[id]||0)+1;delete this.state.replays[id];}return true;
     }
     allComplete(){return REGIONS.every(id=>this.state.regions[id].segments===5);}
-    reviewQuestions(region=this.state.activeRegion){return unique(this.state.learned.concat(this.state.unverifiedPoems)).map(id=>this.getQuestion(id)).filter(q=>q&&q.region===region);}
+    reviewQuestions(region=this.state.activeRegion){return unique(this.state.learned.concat(this.state.unverifiedPoems)).map(id=>this.getQuestion(id)).filter(q=>q&&q.region===region&&!this.content.retiredReviewIds?.includes(q.baseId||q.id));}
     cancelQuestion(){this.question=null;this.token++;}
     snapshot(){return copy(this.state);}
   }

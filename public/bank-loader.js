@@ -16,6 +16,8 @@
     const array=key=>{if(!Array.isArray(bank[key])){fail(key,'应为数组');return [];}return bank[key];};
     const regions=array('regions'),items=array('items'),questions=array('questions'),easy=array('easy'),poems=array('poems'),legacy=bank.legacyQuestions===undefined?[]:array('legacyQuestions');
     const pictures=array('pictureIds');const pictureSet=new Set(pictures);
+    if(bank.retiredReviewIds!==undefined&&(!Array.isArray(bank.retiredReviewIds)||bank.retiredReviewIds.some(id=>!stableId(id))))fail('retiredReviewIds','应为稳定题目 ID 数组');
+    if(bank.retiredTaskIds!==undefined&&(!Array.isArray(bank.retiredTaskIds)||bank.retiredTaskIds.some(id=>!stableId(id))))fail('retiredTaskIds','应为稳定题目 ID 数组');
     if(pictureSet.size!==pictures.length)fail('pictureIds','素材 ID 重复');
     pictures.forEach((p,i)=>{if(!stableId(p))fail('pictureIds['+i+']','非法素材 ID');});
     if(regions.length!==5||new Set(regions.map(r=>r?.id)).size!==5||regionIds.some(id=>!regions.some(r=>r?.id===id)))fail('regions','必须包含五个不同区域');
@@ -100,6 +102,13 @@
       const pool=region==='sea'?poems:questions;
       if(pool.filter(q=>q?.region===region&&q?.level===level).length<5)fail(region+'.level'+level,'每级至少五道，保证一轮不重复');
     }}
+    if(bank.stageQuestionIds!==undefined){
+      for(const region of regionIds){const stages=bank.stageQuestionIds?.[region],source=region==='sea'?poems:questions;
+        if(!Array.isArray(stages)||stages.length!==5){fail('stageQuestionIds.'+region,'需要五关题池');continue;}
+        stages.forEach((ids,i)=>{if(!Array.isArray(ids)||new Set(ids).size<5||new Set(ids).size!==ids.length||ids.some(id=>!source.some(q=>q.id===id&&q.region===region)))fail('stageQuestionIds.'+region+'.'+i,'每关至少五个不同、同区域的现有题目');});
+        if(!Array.isArray(bank.stageObjectives?.[region])||bank.stageObjectives[region].length!==5||bank.stageObjectives[region].some(x=>!plain(x)))fail('stageObjectives.'+region,'需要五关学习目标');
+      }
+    }
     return {ok:errors.length===0,errors};
   }
   function stats(bank){return {schemaVersion:bank.schemaVersion,bankId:bank.bankId,revision:bank.revision,regions:Object.fromEntries(regionIds.map(region=>[region,{main:(region==='sea'?bank.poems:bank.questions).filter(q=>q.region===region).length,byLevel:[1,2,3].map(level=>(region==='sea'?bank.poems:bank.questions).filter(q=>q.region===region&&q.level===level).length),easy:bank.easy.filter(q=>q.region===region).length}])),collectibles:bank.items.length,legacyReviewOnly:(bank.legacyQuestions||[]).length};}

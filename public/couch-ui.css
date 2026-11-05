@@ -1,0 +1,38 @@
+/* Readable from a sofa; focus is visible without relying on color alone. */
+#enableSound{position:fixed;left:50%;top:12px;transform:translateX(-50%);z-index:80;font-size:22px;max-width:90vw;box-shadow:0 4px 16px #41361d55}#enableSound[hidden]{display:none}
+#panel{font-size:clamp(22px,2.2vw,30px);overflow:auto;max-height:94dvh}
+#panel h1{font-size:clamp(32px,3.3vw,48px)}
+#panel h2{font-size:clamp(27px,2.8vw,40px)}
+#panel p{font-size:clamp(21px,2vw,29px);line-height:1.45}
+#game #panel .wood-button{font-size:clamp(21px,1.9vw,28px);min-height:58px;padding:12px 22px}
+#panel .small-print,#panel .quiz-caption{font-size:19px!important;color:#5c4c31}
+#panel .focused,#panel button:focus-visible{outline:5px solid #195c76;outline-offset:5px;box-shadow:0 0 0 9px #fff5d6;position:relative;z-index:2}
+#panel .book-grid{max-height:44vh;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;padding:12px}
+#panel .book-item{font-size:20px;min-height:115px}.book-item .asset{width:78px;height:78px}
+#panel .poem-line{font-size:clamp(34px,4vw,56px);line-height:1.55}
+#panel .quiz-option-text{font-size:clamp(27px,3vw,44px)}
+#panel .quiz-answer-number{font-size:clamp(42px,5vw,70px)}
+#panel .choice-status,#panel .review-regions small,#panel .growth-grid small{font-size:20px}
+#hud .place>span{font-size:clamp(23px,2vw,31px)}#hud .place small{font-size:18px}
+#interact{font-size:24px;min-height:62px}nav button{width:70px;height:70px}nav kbd,#interact kbd{font-size:19px}
+#mazeZoom{font-size:20px;min-height:50px}#notice,#game[data-maze=true] #notice{font-size:23px;line-height:1.35}
+#game[data-input=gamepad][data-maze=true]:before{content:'RB 全图 / 近景 · LB 图鉴';font-size:20px}
+#game[data-input=gamepad] #mazeZoom:after{content:' · RB'}
+#game[data-input=gamepad] #panel:after{content:'方向键选择 · A 确认 · B 返回';display:block;font-size:18px;color:#5c4c31;text-align:center;margin-top:12px}
+#game[data-input=gamepad] #overlay[data-mode=intro] #panel:after{content:'A 开始探险'}
+#game[data-input=gamepad] #overlay[data-mode=quiz] #panel:after{content:'方向键选择 · A 确认 · X 重听 · Y 帮忙 · B 返回'}
+#game[data-input=gamepad] #panel:after{position:sticky;bottom:0;background:#fff5deed;border-radius:12px;padding:6px 12px;flex-shrink:0}
+#game #overlay[data-mode=pause] #panel{justify-content:flex-start;padding-top:70px;padding-bottom:55px}#game #panel>*{flex-shrink:0}
+#game #panel .quiz-actions{flex-wrap:wrap}
+#game #panel .adventure-quiz:not(.poem-quiz)>.quiz-caption{display:none}
+#game #overlay #panel h1{font-size:clamp(32px,3.3vw,48px)}
+#game #overlay #panel h2{font-size:clamp(27px,2.8vw,40px)}
+#game #overlay #panel p{font-size:clamp(21px,2vw,29px)}
+#game #overlay #panel .wood-button{font-size:clamp(21px,1.9vw,28px);min-height:58px}
+#game #overlay[data-mode=quiz] #panel{width:min(1080px,92vw);max-width:none;margin:auto;height:auto;min-height:min(650px,90dvh);max-height:94dvh;padding:clamp(36px,5vh,72px) clamp(35px,5vw,90px)}
+#game #overlay[data-mode=quiz] .answer{min-width:100px;max-width:210px;min-height:110px}
+#game #overlay #panel .quiz-equation-number{font-size:clamp(35px,4vw,54px)}
+#game #overlay #panel .poem-line{font-size:clamp(34px,4vw,56px)}
+@media(max-height:600px){#panel{max-height:96dvh}#panel h2{font-size:25px}#panel p,#panel .wood-button{font-size:20px}#panel .wood-button{min-height:48px;padding:8px 16px}#panel .poem-line{font-size:32px}#notice,#game[data-maze=true] #notice{font-size:19px}#interact{font-size:21px}nav button{width:58px;height:58px}}
+@media(max-width:600px){#panel .book-grid{grid-template-columns:repeat(3,minmax(0,1fr))}#panel .book-item{font-size:17px}#panel .wood-button{padding:10px;font-size:19px}#panel .small-print,#panel .quiz-caption{font-size:17px!important}#hud .place small{font-size:15px}#interact{font-size:19px}#mazeZoom{font-size:17px}#game[data-maze=true] #notice{max-width:90vw}}
+@media(max-height:600px),(max-width:600px){#game #overlay #panel h2{font-size:25px}#game #overlay #panel p,#game #overlay #panel .wood-button{font-size:20px}#game #overlay #panel .wood-button{min-height:48px}#game #overlay[data-mode=quiz] .answer{min-width:80px;min-height:85px}#game #overlay #panel .poem-line{font-size:32px}}

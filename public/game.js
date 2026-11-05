@@ -93,12 +93,13 @@
     },
     unlock(){
       if(!this.ctx){try{this.ctx=new (window.AudioContext||window.webkitAudioContext)();}catch{}}
-      if(this.ctx?.state==='suspended')this.ctx.resume().catch(()=>{});
+      if(this.ctx){this.ctx.onstatechange=()=>{$('enableSound').hidden=this.ctx.state==='running';};if(this.ctx.state==='suspended'){$('enableSound').hidden=false;this.ctx.resume().catch(()=>{});}}
       if(!this.enabled){this.enabled=true;try{const u=new SpeechSynthesisUtterance(' ');u.volume=0;speechSynthesis.speak(u);}catch{}}
       this.voices=window.speechSynthesis?.getVoices()||[];
     },
     stop(){this.epoch++;const native=this.nativeSpeaking;if(this.cancel)this.cancel();if(native)try{speechSynthesis.cancel();}catch{}this.chain=Promise.resolve();},
     say(text,{interrupt=false,lang='zh-CN',rate=1}={}){
+      text=String(text).replace(/。{2,}/g,'。');
       rate=Math.max(.65,Math.min(1.2,Number(rate)||1));
       lastSpeech=text;if(interrupt)this.stop();
       const epoch=this.epoch;
@@ -111,9 +112,9 @@
         const native=()=>{
           if(done||nativeStarted||epoch!==this.epoch)return;nativeStarted=true;clearTimeout(timer);
           if(!window.speechSynthesis){finish('unavailable');return;}
-          const u=new SpeechSynthesisUtterance(text);u.lang=lang;u.rate=.88*rate;u.pitch=1.08;u.volume=state.volume;
-          const voice=this.voices.find(v=>(!window.AdventureRuntime?.localSpeechOnly||v.localService)&&(lang.startsWith('en')?/^en/i.test(v.lang):/^zh|^cmn/i.test(v.lang)));if(voice)u.voice=voice;
-          if(window.AdventureRuntime?.localSpeechOnly&&!voice){finish('local-voice-unavailable');return;}
+          const u=new SpeechSynthesisUtterance(text);u.lang=lang;u.rate=.95*rate;u.pitch=1;u.volume=state.volume;
+          const voice=this.voices.find(v=>v.localService&&(lang.startsWith('en')?/^en/i.test(v.lang):/^zh|^cmn/i.test(v.lang)));if(voice)u.voice=voice;
+          if(!voice){notify('这句声音暂时没有准备好，请再听一次，或请家长念一下',6);finish('local-voice-unavailable');return;}
           u.onend=()=>finish('ended');u.onerror=()=>finish('error');
           timer=setTimeout(()=>{try{speechSynthesis.cancel();}catch{}finish('timeout');},text.length*.22/(.88*rate)*1000+800);
           this.nativeSpeaking=true;try{speechSynthesis.speak(u);}catch{finish('unavailable');}
@@ -123,10 +124,10 @@
           timer=setTimeout(native,3000);
           this.loadClip(path).then(buffer=>{
             if(done||nativeStarted||epoch!==this.epoch)return;clearTimeout(timer);
-            playback=this.ctx.createBufferSource();playback.buffer=buffer;playback.playbackRate.value=.92*rate;
+            playback=this.ctx.createBufferSource();playback.buffer=buffer;playback.playbackRate.value=rate;
             playbackGain=this.ctx.createGain();playbackGain.gain.value=state.volume;playback.connect(playbackGain);playbackGain.connect(this.ctx.destination);
             playback.onended=()=>finish('recorded');
-            timer=setTimeout(()=>finish('recorded-timeout'),buffer.duration/(.92*rate)*1000+1200);playback.start();
+            timer=setTimeout(()=>finish('recorded-timeout'),buffer.duration/rate*1000+1200);playback.start();
           }).catch(native);
         }else native();
       });this.chain=this.chain.then(run);return this.chain;
@@ -137,6 +138,7 @@
         o.type='sine';o.frequency.value=f;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.12*state.volume,t+.015);g.gain.exponentialRampToValueAtTime(.001,t+.3);o.connect(g);g.connect(this.ctx.destination);o.start(t);o.stop(t+.32);});
     }
   };
+  $('enableSound').onclick=()=>{audio.unlock();audio.say(lastSpeech||'欢迎来到世界之心',{interrupt:true});};
   if(window.speechSynthesis)speechSynthesis.addEventListener('voiceschanged',()=>{audio.voices=speechSynthesis.getVoices();});
   function updateHUD(){
     $('place').textContent=scene==='hub'?'世界之心':areaNames[area];
@@ -152,7 +154,9 @@
   function showPanel(html,newMode){renderDirty=true;$('overlay').dataset.mode=newMode;$('overlay').dataset.region=state.activeRegion;$('overlay').dataset.side=player.x>836?'left':'right';mode=newMode;route=[];routeAction=null;keys.clear();$('overlay').hidden=false;$('panel').innerHTML=html;focusIndex=0;setFocus(0,false);}
   function closePanel(){renderDirty=true;quiz?.cancel();mode='world';$('overlay').hidden=true;$('panel').innerHTML='';}
   function buttons(){return [...$('panel').querySelectorAll('button:not([disabled])')];}
-  function setFocus(n,dom=true){const list=buttons();if(!list.length)return;focusIndex=(n+list.length)%list.length;list.forEach((b,i)=>b.classList.toggle('focused',i===focusIndex));if(dom)list[focusIndex].focus({preventScroll:true});}
+  function setFocus(n,dom=true){const list=buttons();if(!list.length)return;focusIndex=(n+list.length)%list.length;list.forEach((b,i)=>b.classList.toggle('focused',i===focusIndex));if(dom){list[focusIndex].focus({preventScroll:true});list[focusIndex].scrollIntoView({block:'nearest',inline:'nearest'});}}
+  function moveFocus(dx,dy){const list=buttons();if(!list.length)return;const current=list[focusIndex]||list[0],r=current.getBoundingClientRect(),cx=r.x+r.width/2,cy=r.y+r.height/2;
+    const candidates=list.map((b,i)=>{const s=b.getBoundingClientRect(),x=s.x+s.width/2-cx,y=s.y+s.height/2-cy,forward=dx?x*dx:y*dy,cross=dx?Math.abs(y):Math.abs(x);return{i,forward,score:forward+cross*2.5};}).filter(x=>x.forward>4).sort((a,b)=>a.score-b.score);setFocus(candidates[0]?.i??focusIndex+((dx||dy)>0?1:-1));}
   function speech(text){notify(text,4);return audio.say(text,{interrupt:true});}
   function drawQuestion(){quiz.draw();}
   function beginItem(id){if(mode!=='world'||player.roll>0)return;if(journey.beginItem(id)){audio.tone([440]);notify(data.items[id].name,2);persist();drawQuestion();}}
@@ -229,9 +233,9 @@
   }
   function book(id=bookRegion){
     bookRegion=id;const group=data.items.filter(it=>it.region===id);
-    showPanel(`<h2>我的发现 · ${state.collected.length}/125</h2><button class="wood-button quiet-button" id="natureBook">自然图鉴 · ${Object.keys(state.nature).length}/15</button><div class="book-tabs">${Object.entries(regions).map(([r,v])=>`<button class="wood-button ${r===id?'':'quiet-button'}" data-book="${r}">${esc(v.name)}</button>`).join('')}</div><div class="book-grid">${group.map(it=>`<button class="book-item" data-item="${it.id}" ${state.collected.includes(it.id)?'':'disabled'} aria-label="${state.collected.includes(it.id)?esc(it.name):'还没发现'}">${itemAsset(it.id,state.collected.includes(it.id)?'':'undiscovered-silhouette')}<span>${state.collected.includes(it.id)?esc(it.name):'还没发现'}</span></button>`).join('')}</div><button class="wood-button" id="closeBook">合上</button>`,'book');
+    showPanel(`<h2>我的发现 · ${state.collected.length}/125</h2><button class="wood-button quiet-button" id="natureBook">自然图鉴 · ${Object.keys(state.nature).length}/15</button><div class="book-tabs">${Object.entries(regions).map(([r,v])=>`<button class="wood-button ${r===id?'':'quiet-button'}" data-book="${r}">${esc(v.name)}</button>`).join('')}</div><div class="book-grid">${group.map(it=>`<button class="book-item" data-item="${it.id}" aria-label="${state.collected.includes(it.id)?esc(it.name):'还没发现'}">${itemAsset(it.id,state.collected.includes(it.id)?'':'undiscovered-silhouette')}<span>${state.collected.includes(it.id)?esc(it.name):'还没发现'}</span></button>`).join('')}</div><button class="wood-button" id="closeBook">合上</button>`,'book');
     $('panel').querySelectorAll('[data-book]').forEach(b=>b.onclick=()=>book(b.dataset.book));
-    $('panel').querySelectorAll('[data-item]').forEach(b=>b.onclick=()=>{const it=data.items[+b.dataset.item];audio.say(it.name+'。'+it.desc,{interrupt:true});});$('closeBook').onclick=closePanel;$('natureBook').onclick=natureBook;
+    $('panel').querySelectorAll('[data-item]').forEach(b=>b.onclick=()=>{const it=data.items[+b.dataset.item];audio.say(state.collected.includes(it.id)?it.name+'。'+it.desc:'还没发现它，沿小路找一找吧',{interrupt:true});});$('closeBook').onclick=closePanel;$('natureBook').onclick=natureBook;
   }
   const shards=['polygon(50% 47%,43% 31%,50% 0%,100% 0%,100% 34%,73% 39%,65% 48%)','polygon(50% 47%,65% 48%,73% 39%,100% 34%,100% 100%,79% 91%,70% 68%)','polygon(50% 47%,70% 68%,79% 91%,80% 100%,20% 100%,32% 76%,37% 62%)','polygon(50% 47%,37% 62%,32% 76%,20% 100%,0% 100%,0% 34%,26% 42%,37% 47%)','polygon(50% 47%,37% 47%,26% 42%,0% 34%,0% 0%,50% 0%,43% 31%)'];
   function medal(id,count,animate=false){const r=regions[id];return `<div class="medal-pieces ${count===5?'complete':''}" aria-label="${esc(r.name)}印记，已点亮 ${count}/5 片">${shards.map((clip,i)=>`<span class="medal-piece ${i<count?'on':''} ${animate&&i===count-1?'new-piece':''}" style="clip-path:${clip};--piece:${i};--dx:${[4,5,0,-5,-4][i]}px;--dy:${[-4,2,5,2,-4][i]}px">${atlas('helpers',r.index+5,2)}</span>`).join('')}</div>`;}
@@ -308,7 +312,9 @@
     if(['feedback','action','transition'].includes(mode))return;
     if(action==='pause'){pause();return;}if(action==='home'){if(mode==='world')guideHome();return;}
     if(action==='voice'){$('voice').click();return;}if(action==='lamp'){help();return;}
-    if(action==='roll'){if(mode==='world')roll();return;}
+    if(action==='zoom'){if(mode==='world'&&scene!=='hub'&&stage().maze)$('mazeZoom').click();return;}
+    if(action==='book'){if(mode==='world')book();return;}
+    if(action==='roll'){if(mode==='world')roll();else{const back={quiz:'leaveQ','parent-confirm':'cancelParent',characters:'characterBack',book:$('closeBook')?'closeBook':'closeNature',nature:'closeNature','review-select':'leaveReview',growth:$('growthCancel')?'growthCancel':'growthBack',pause:'resume',reset:'keep',reward:'continueStage',completion:'finishJourney'}[mode];if(back)$(back)?.click();}return;}
     if(action==='confirm'){if(mode==='world')interact();else{const list=buttons(),focused=list.find(b=>b===document.activeElement)||list.find(b=>b.classList.contains('focused'));(focused||list[focusIndex]||list[0])?.click();}}
   }
   addEventListener('keydown',e=>{
@@ -316,17 +322,18 @@
     const k=e.key.toLowerCase();if(e.target.matches('input,textarea')){if(k==='escape'){e.preventDefault();quiz.draw();}return;}if(['arrowup','arrowdown','arrowleft','arrowright',' ','enter','escape'].includes(k))e.preventDefault();
     audio.unlock();if(e.repeat)return;keys.add(k);
     if(mode==='world'&&['arrowup','arrowdown','arrowleft','arrowright','w','a','s','d'].includes(k)){actionWakeAt=performance.now();actionWakeUntil=actionWakeAt+150;runFrame();keepActionVisible();}
-    if(mode!=='world'&&mode!=='action'&&['arrowleft','arrowright','arrowup','arrowdown'].includes(k)){setFocus(focusIndex+(['arrowleft','arrowup'].includes(k)?-1:1));return;}
+    if(mode!=='world'&&mode!=='action'&&['arrowleft','arrowright','arrowup','arrowdown'].includes(k)){moveFocus(k==='arrowleft'?-1:k==='arrowright'?1:0,k==='arrowup'?-1:k==='arrowdown'?1:0);return;}
     const action={enter:'confirm',' ':'confirm',escape:'pause',x:'voice',c:'lamp',z:'roll',t:'home'}[k];if(action)inputAction(action);
   });
   addEventListener('keyup',e=>keys.delete(e.key.toLowerCase()));addEventListener('blur',()=>{keys.clear();if(mode==='world'||mode==='quiz')pause();});
   function pollPad(dt){
     const pad=[...(navigator.getGamepads?.()||[])].find(Boolean);if(!pad){padOld=[];navCooldown=0;return {x:0,y:0};}
     const btn=pad.buttons.map(b=>b.pressed);const edges=btn.map((b,i)=>b&&!padOld[i]);padOld=btn;
-    [[0,'confirm'],[1,'roll'],[2,'voice'],[3,'lamp'],[8,'home'],[9,'pause']].forEach(([i,a])=>{if(edges[i])inputAction(a);});
+    if(edges.some(Boolean)||pad.axes.some(x=>Math.abs(x)>.25))setInputMode('gamepad');
+    [[0,'confirm'],[1,'roll'],[2,'voice'],[3,'lamp'],[4,'book'],[5,'zoom'],[8,'home'],[9,'pause']].forEach(([i,a])=>{if(edges[i])inputAction(a);});
     let x=pad.axes[0]||0,y=pad.axes[1]||0;if(btn[14])x=-1;if(btn[15])x=1;if(btn[12])y=-1;if(btn[13])y=1;if(Math.abs(x)<.25)x=0;if(Math.abs(y)<.25)y=0;
     if(x||y||edges.some(Boolean))setInputMode('gamepad');
-    navCooldown-=dt;if(mode!=='world'&&(x||y)&&navCooldown<=0){setFocus(focusIndex+((x||y)>0?1:-1));navCooldown=.24;}if(!x&&!y)navCooldown=0;
+    navCooldown-=dt;if(mode!=='world'&&(x||y)&&navCooldown<=0){moveFocus(Math.abs(x)>=Math.abs(y)?Math.sign(x):0,Math.abs(y)>Math.abs(x)?Math.sign(y):0);navCooldown=.24;}if(!x&&!y)navCooldown=0;
     return {x,y};
   }
   // A static question can be rendered infrequently. Keep button edges and
@@ -406,7 +413,9 @@
     });
   }
   function playerVisual(){
-    const depth=scene!=='hub'&&stage().maze?Math.max(.4,Math.min(.53,28/(108*view.scale))):scene!=='hub'&&state.activeRegion==='forest'&&area===0?Math.max(.68,Math.min(1,.68+(player.y-260)/600*.32)):1;
+    // Keep the feet on the same world coordinate and collision mask. Only the
+    // drawing grows, with a screen-space minimum for the maze overview.
+    const depth=scene!=='hub'&&stage().maze?Math.max(.78,Math.min(2.35,56/(108*view.scale))):scene!=='hub'&&state.activeRegion==='forest'&&area===0?Math.max(.86,Math.min(1.15,.86+(player.y-260)/600*.29)):1.12;
     const rolling=player.roll>0&&!animation;
     const size=108*depth,action=animation&&['pickup','lamp','borrowLight','preview','catch'].includes(animation.kind),sheet=action?(state.activeRegion==='forest'&&animation.kind!=='catch'?'rabbit-actions-clean.png':'rabbit-actions-generic.png'):'rabbit-walk.png';
     const c=character(),im=action?imgs[state.activeRegion==='forest'&&animation.kind!=='catch'?c.actions:c.generic]:imgs[c.walk],meta=c.anchors?.[action?'actions':'walk']||AdventureAnchors.sheets[sheet],progress=action?Math.min(.999,animation.t/animation.duration):0;
@@ -433,7 +442,7 @@
     const b=f.bodyBBox||f.bbox,bounds=transformBounds({x:sx+b[0]*scale,y:sy+b[1]*scale+bob,w:(b[2]-b[0])*scale,h:(b[3]-b[1])*scale},matrix);
     return{depth,action,im,meta,progress,frame,f,scale,sx,sy,afloat,bob,hop,matrix,bounds};
   }
-  function text(s,x,y){ctx.font='bold 17px "Microsoft YaHei",sans-serif';ctx.textAlign='center';ctx.lineWidth=5;ctx.strokeStyle='#fff3d7';ctx.strokeText(s,x,y);ctx.fillStyle='#62472e';ctx.fillText(s,x,y);}
+  function text(s,x,y){ctx.font='bold '+Math.max(22,22/view.scale)+'px "Microsoft YaHei",sans-serif';ctx.textAlign='center';ctx.lineWidth=5/view.scale;ctx.strokeStyle='#fff3d7';ctx.strokeText(s,x,y);ctx.fillStyle='#62472e';ctx.fillText(s,x,y);}
   function drawEntrance(e){
     const near=dist(player,e)<180,arrow=scene==='hub'?(e.x<500?'←':e.x>1200?'→':'↓'):e.y>600?'↓':'↑';
     const label=e.label.replace(/[←→↓↑]/g,'').replace(/^前往\s*/,'').trim(),lift=reduced?0:Math.sin(time*2.6)*3,signX=entranceSignX(e);
@@ -535,7 +544,7 @@
     const matrix=avatar.matrix,grip=matrix.transformPoint({x:hx,y:hy});visualState.catch={direction:animation.dir,frame,grip:{x:grip.x,y:grip.y},tool:index,behind:animation.dir===3,phase:progress};
   }
   function natureBook(){
-    showPanel(`<h2>自然图鉴 · ${Object.keys(state.nature).length}/15</h2><p>捕捉观察后放回自然，不占任务袋。</p><div class="book-grid">${faunaNames.map((name,i)=>`<div class="book-item ${state.nature[i]?'':'unseen'}">${atlas('fauna',i+5,4)}<span>${state.nature[i]?esc(name):'还没遇见'}</span>${state.nature[i]?`<small>遇见 ${state.nature[i].count} 次</small>`:''}</div>`).join('')}</div><button class="wood-button" id="backDiscovery">回到学习收集册</button><button class="wood-button quiet-button" id="closeNature">继续探险</button>`,'book');$('backDiscovery').onclick=()=>book();$('closeNature').onclick=closePanel;
+    showPanel(`<h2>自然图鉴 · ${Object.keys(state.nature).length}/15</h2><p>捕捉观察后放回自然，不占任务袋。</p><div class="book-grid">${faunaNames.map((name,i)=>`<button class="book-item ${state.nature[i]?'':'unseen'}" data-fauna="${i}">${atlas('fauna',i+5,4)}<span>${state.nature[i]?esc(name):'还没遇见'}</span>${state.nature[i]?`<small>遇见 ${state.nature[i].count} 次</small>`:''}</button>`).join('')}</div><button class="wood-button" id="backDiscovery">回到学习收集册</button><button class="wood-button quiet-button" id="closeNature">继续探险</button>`,'book');$('backDiscovery').onclick=()=>book();$('closeNature').onclick=closePanel;document.querySelectorAll('[data-fauna]').forEach(b=>b.onclick=()=>audio.say(state.nature[b.dataset.fauna]?faunaNames[+b.dataset.fauna]:'还没遇见它，继续找一找吧',{interrupt:true}));
   }
   const altarLightCache=new Map(),mazeRowsCache=new Map();
   function mazeRows(){
@@ -667,6 +676,17 @@
       for(let y=Math.max(0,Math.floor(b.y/step));y<Math.min(m.height,Math.ceil((b.y+b.h)/step));y++){const row=m.rows[y]||[];let run=-1;for(let x=Math.max(0,Math.floor(b.x/step));x<=Math.min(m.width-1,Math.ceil((b.x+b.w)/step));x++){let open=false;for(let i=0;i<row.length;i+=2)if(x>=row[i]&&x<=row[i+1]){open=true;break;}open=open||!inFront(x,y);if(!open&&run<0)run=x;if((open||x===Math.min(m.width-1,Math.ceil((b.x+b.w)/step)))&&run>=0){path.rect(run*step,y*step,(x-run+(open?0:1))*step,step);count++;run=-1;}}}
       if(count){ctx.save();ctx.clip(path);ctx.drawImage(imgs[mapName()],0,0,1672,941);ctx.restore();}visualState.wallForegroundRuns=count;
     }
+    if(scene!=='hub'){
+      // A cream-edged teal arrow contrasts with gold sand and vegetation.
+      // Draw above the wall overlay so distant targets remain discoverable.
+      for(const e of ents.filter(e=>e.item!==undefined)){
+        const x=e.artX??e.x,y=e.artY??e.y,bob=reduced?0:Math.sin(time*2.2+e.item*.5)*2;
+        ctx.save();ctx.translate(x,y-35);ctx.scale(1/view.scale,1/view.scale);ctx.translate(0,-9+bob);
+        const b=avatar.bounds,overlap=x>b.x-12&&x<b.x+b.w+12&&y>b.y&&y<b.y+b.h+45;
+        ctx.globalAlpha=overlap?.42:.96;ctx.lineJoin='round';ctx.lineWidth=4;ctx.strokeStyle='#fff8e5';ctx.fillStyle='#186877';
+        ctx.beginPath();ctx.moveTo(-5,-16);ctx.lineTo(5,-16);ctx.lineTo(5,-8);ctx.lineTo(11,-8);ctx.lineTo(0,3);ctx.lineTo(-11,-8);ctx.lineTo(-5,-8);ctx.closePath();ctx.stroke();ctx.fill();ctx.restore();
+      }
+    }
     if(catchBurst){const age=(performance.now()-catchBurst.startedAt)/1000;if(age>1.05)catchBurst=null;else{ctx.save();const t=age/1.05;ctx.globalAlpha=1-t;halo(catchBurst.x,catchBurst.y-t*50,23+t*20,'rgba(255,232,139,.55)');drawFauna(catchBurst.species+5,catchBurst.x+Math.sin(t*Math.PI)*25,catchBurst.y-t*80,48*(1-t*.3));ctx.restore();}}
     if(rewardBurst){const age=(performance.now()-rewardBurst.startedAt)/1000;if(age>1.1)rewardBurst=null;else{ctx.save();ctx.globalAlpha=1-age/1.1;for(let i=0;i<8;i++){const a=i*Math.PI/4;halo(player.x+Math.cos(a)*(18+age*65),player.y-45+Math.sin(a)*(18+age*65)-age*25,9,'rgba(255,236,142,.9)');}drawItem(rewardBurst.item.id,player.x,player.y-65-age*60,48);ctx.restore();}}
     ctx.restore();
@@ -720,8 +740,8 @@
   quiz=createAdventureQuiz({journey,state,audio,showPanel,closePanel,notify,persist,finishAnswer,help,onLeave:()=>{journey.cancelQuestion();persist();closePanel();},picture,itemAsset:i=>asset(i)});
   addEventListener('pagehide',()=>{padAxes={x:0,y:0};padOld=[];quiz.cancel();audio.stop();});
   function introduction(){
-    showPanel(`<div class="intro-art">${helperAsset(true)}<span class="startRabbit" style="background-image:url('${character().preview}')"></span>${asset(0)}</div><h1>小小探险家</h1><p>五条小路，五种新的发现。<br>听题、思考、跟读，把五枚印记点亮。</p><button class="wood-button" id="start">出发 · 开启声音</button><p class="small-print">手柄先点一下开启声音 · 平板点地面走动</p>`,'intro');
-    $('start').onclick=()=>{audio.unlock();closePanel();if(journey.allComplete()&&!state.celebrated)celebrate();else speech('欢迎来到世界之心。选一条小路，出发吧');if(!journey.canPersist)notify('旧存档暂时无法完整读取，已保留原数据。请家长备份后检查。',12);else if(audio.voices.length&&!audio.voices.some(v=>/^zh|^cmn/i.test(v.lang)))notify('设备没有中文语音，请家长安装中文语音包',8);};
+    showPanel(`<div class="intro-art">${helperAsset(true)}<span class="startRabbit" style="background-image:url('${character().preview}')"></span>${asset(0)}</div><h1>小小探险家</h1><p>五条小路，五种新的发现。<br>听题、思考、跟读，把五枚印记点亮。</p><button class="wood-button" id="start">出发 · 开启声音</button><p class="small-print">第一次请家长点一下开启声音，再交给手柄玩</p>`,'intro');
+    $('start').onclick=()=>{audio.unlock();closePanel();if(journey.allComplete()&&!state.celebrated)celebrate();else speech('欢迎来到世界之心。选一条小路，出发吧');if(!journey.canPersist)notify('旧存档暂时无法完整读取，已保留原数据。请家长备份后检查。',12);};
   }
   function loadAsset(name){
     if(imgs[name])return Promise.resolve(imgs[name]);if(assetLoads[name])return assetLoads[name];

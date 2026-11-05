@@ -43,17 +43,7 @@
       $('leaveQ').onclick=()=>{cancel();journey.cancelQuestion();persist();closePanel();onLeave?.();};
     }
     function status(text){if($('poemStatus'))$('poemStatus').textContent=text;}
-    function syncMic(){
-      const mic=$('poemMic');if(!mic)return;
-      const recording=session?.state==='recording';
-      mic.disabled=!recording&&(speaking||busy||!session?.ready);
-      mic.textContent=recording?'■ 我念完了':'● 开始跟读';
-      mic.classList.toggle('is-recording',recording);
-      if($('repeatQ'))$('repeatQ').disabled=busy||recording||session?.state==='requesting';
-      if($('helpQ'))$('helpQ').disabled=journey.question?.review||busy||recording;
-      if($('parentReading'))$('parentReading').disabled=busy||recording;
-      if($('voiceCheck'))$('voiceCheck').disabled=busy||recording||session?.state==='requesting';
-    }
+    function syncMic(){if($('parentReading'))$('parentReading').disabled=busy;}
     function repeat(){
       const a=journey.question;if(!a)return Promise.resolve();
       if(busy)return Promise.resolve();
@@ -64,7 +54,7 @@
       prompt=Promise.resolve(audio.say(a.q.say||a.q.text,{interrupt:true,lang:a.q.lang||'zh-CN',rate:a.hinted ? .72 : 1})).catch(()=>{}).then(()=>{
         if(!current(version,token))return;
         speaking=false;syncMic();
-        if(a.q.kind==='poem')status(session?.ready?'轮到你啦，按“开始跟读”。':session?.base===null?'听完示范，可以请家长确认跟读。':'语音还没准备好，可以请家长检查服务。');
+        if(a.q.kind==='poem')status('轮到你啦，念给爸爸妈妈听；念完请家长确认。');
       });
       return prompt;
     }
@@ -95,81 +85,19 @@
           }else if(!['idle','stale','unavailable'].includes(result.type))finishAnswer(result,index);
         };
       });
-      repeat();
+      const initialPrompt=repeat(),initialFocus=focusSerial;
+      initialPrompt.then(()=>{if(current(version,token)&&!busy&&focusSerial===initialFocus&&q.focusVoicePolicy!=='silent')optionVoice(q.options[0],q,version,token,initialFocus);});
     }
-    function parentGate(){
+    function parentConfirm(){
       const a=journey.question;if(!a||a.q.kind!=='poem')return;const token=a.token;cancel();
-      const multiply=Math.random()<.5,one=2+Math.floor(Math.random()*8),two=multiply?12+Math.floor(Math.random()*78):one*(Math.ceil(10/one)+Math.floor(Math.random()*(Math.floor(99/one)-Math.ceil(10/one)+1))),answer=multiply?two*one:two/one;
-      showPanel(`<section class="parent-gate"><h2>家长陪读</h2><p>没有麦克风也可以：请听孩子念完，再确认。</p><p class="poem-line">${esc(a.q.expectedText)}</p><label for="parentAnswer">${two} ${multiply?'×':'÷'} ${one} = ?</label><input id="parentAnswer" type="text" inputmode="numeric" autocomplete="off" maxlength="3" aria-label="乘除法答案"><div class="parent-keypad">${[1,2,3,4,5,6,7,8,9,'删除',0,'清空'].map(n=>`<button class="wood-button quiet-button" data-digit="${n}">${n}</button>`).join('')}</div><p id="gateError" class="gate-error" role="status"></p><button class="wood-button" id="unlockParent">下一步</button><button class="wood-button quiet-button" id="cancelParent">取消</button></section>`,'parent-gate');
-      $('cancelParent').onclick=draw;
-      $('panel').querySelectorAll('[data-digit]').forEach(b=>b.onclick=()=>{const input=$('parentAnswer'),n=b.dataset.digit;input.value=n==='删除'?input.value.slice(0,-1):n==='清空'?'':(input.value+n).slice(0,3);});
-      $('parentAnswer').onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();e.stopPropagation();$('unlockParent').click();}};
-      $('unlockParent').onclick=()=>{
-        const value=$('parentAnswer').value.trim();if(!/^\d+$/.test(value)||Number(value)!==answer){$('gateError').textContent='答案还不对，再算一算。';return;}
-        if(journey.question?.token!==token)return;showPanel(`<h2>听完这一句了吗？</h2><p class="poem-line">${esc(a.q.expectedText)}</p><p>请根据刚才的实际跟读选择。</p><div class="panel-actions"><button class="wood-button quiet-button" id="parentRetry">再练一次</button><button class="wood-button" id="parentPass">确认这句通过</button></div><button class="wood-button quiet-button" id="cancelParent">取消</button>`,'parent-confirm');
-        $('cancelParent').onclick=draw;$('parentRetry').onclick=()=>{draw();notify('我们再听一遍，慢慢念',3);};
-        $('parentPass').onclick=()=>{const result=journey.confirmPoemByParent(token,true);persist();if(result.q)finishAnswer(result,-1);};
-      };
+      showPanel(`<h2>请爸爸妈妈听一听</h2><p class="poem-line">${esc(a.q.expectedText)}</p><p>孩子念完这一句后，由在旁边的家长确认。</p><div class="panel-actions"><button class="wood-button quiet-button" id="parentRetry">再听再念一次</button><button class="wood-button" id="parentPass">家长确认 · 这句通过</button></div><button class="wood-button quiet-button" id="cancelParent">返回</button>`,'parent-confirm');
+      $('cancelParent').onclick=draw;$('parentRetry').onclick=draw;
+      let submitted=false;$('parentPass').onclick=()=>{if(submitted||journey.question?.token!==token)return;submitted=true;const result=journey.confirmPoemByParent(token,true);persist();if(result.q)finishAnswer(result,-1);};
     }
     function poetry(a,version){
-      const q=a.q,token=a.token;
-      showPanel(`<section class="adventure-quiz poem-quiz" aria-labelledby="quizTitle"><div class="poem-heading"><h2 id="quizTitle">${esc(q.title||'一起念古诗')}</h2><span>${esc(q.author)}</span></div><div class="poem-line" lang="zh-CN">${esc(q.expectedText||q.expected_text)}</div><p id="poemStatus" role="status" aria-live="polite">先听这一句。</p><div class="poem-meter" aria-label="麦克风音量"><span id="poemLevel"></span></div><div class="poem-record-actions"><button class="wood-button poem-mic" id="poemMic" disabled>● 开始跟读</button><button class="wood-button quiet-button" id="voiceCheck">检查语音</button><button class="wood-button quiet-button" id="parentReading">没有麦克风 · 家长确认</button></div>${footer(a)}</section>`,'quiz');
-      bindCommon();$('parentReading').onclick=parentGate;
-      if(!root.PoetrySession){status('语音模块没有加载，请家长重新打开本机入口。');$('voiceCheck').disabled=true;repeat();return;}
-      const asr=new root.PoetrySession({base:root.AdventureASRBase,onState:(name,detail)=>{
-        if(!current(version,token))return;
-        if(name==='requesting')status('请家长允许麦克风。');
-        if(name==='recording')status('正在听你念，念完按一下。');
-        if(name==='submitting')status('小伙伴正在听这一句……');
-        if(name==='error')status(detail.message||'这次没听清，可以再试一次。');
-        syncMic();
-      },onLevel:(level,{seconds})=>{
-        if(!current(version,token))return;
-        if($('poemLevel'))$('poemLevel').style.width=Math.round(level*100)+'%';
-        if($('poemMic')&&asr.state==='recording')$('poemMic').textContent='■ 我念完了 · '+Math.min(8,Math.ceil(seconds))+'秒';
-      },onLimit:()=>submit()});
-      session=asr;
-      async function ready(){
-        const result=await asr.checkReady();if(!current(version,token))return;
-        if(!speaking)status(result.ready?'轮到你啦，按“开始跟读”。':result.message||'请家长运行“启动完整学习.cmd”，再按检查语音。');
-        syncMic();
-      }
-      async function submit(){
-        if(poemSubmit||!current(version,token))return;
-        busy=true;syncMic();
-        poemSubmit=(async()=>{
-          try{
-            const result=await asr.stopAndScore({poemId:q.poemId,lineIndex:q.lineIndex,expectedText:q.expectedText||q.expected_text});
-            if(!current(version,token))return;
-            if(!result.ok){status('这一句暂时没处理好，请家长检查语音服务，再试一次。');return;}
-            if(result.code==='ok'){
-              const completed=journey.completePoem(result,token);persist();
-              if(!['stale','idle','unavailable'].includes(completed.type))finishAnswer(completed,-1);
-              return;
-            }
-            if(result.code==='uncertain'){status('这次没听清，不算答错。可以再念一次，或请家长确认。');return;}
-            const retried=journey.retryPoem(result,token);persist();
-            if(retried.type==='easier'){notify('我们换一句短一点的，慢慢念。',3);draw();return;}
-            if(result.code==='quiet')status('刚才没听到声音。靠近一点，再念一次吧。');
-            else{
-              notify(result.code==='close'?'快念好啦！再听一遍。':'跟着声音，慢慢念一次。',3);
-              busy=false;await repeat();
-            }
-          }catch(error){if(current(version,token))status(root.PoetrySession.friendlyError(error));}
-          finally{if(current(version,token)){busy=false;poemSubmit=null;if($('poemLevel'))$('poemLevel').style.width='0%';syncMic();}}
-        })();
-        return poemSubmit;
-      }
-      $('poemMic').onclick=async()=>{
-        if(!current(version,token)||speaking||busy)return;
-        if(asr.state==='recording'){submit();return;}
-        busy=true;syncMic();
-        try{await asr.startRecording();}catch(error){if(current(version,token))status(root.PoetrySession.friendlyError(error));}
-        finally{if(current(version,token)){busy=false;syncMic();}}
-      };
-      if(asr.browser)$('voiceCheck').textContent=asr.browser.ready?'检查语音':'准备浏览器语音 · 241 MiB';
-      $('voiceCheck').onclick=async()=>{if(!asr.browser||asr.browser.ready){ready();return;}if($('voiceCheck').dataset.loading){asr.browser.cancelLoad();return;}const button=$('voiceCheck');button.dataset.loading='true';button.textContent='取消准备';try{await asr.browser.load(({done,total})=>{if(current(version,token))status('正在准备本地语音 '+Math.round(done/total*100)+'% · 声音不会上传');});if(current(version,token)){button.textContent='检查语音';await ready();}}catch(e){if(current(version,token))status(e.message);}finally{if(current(version,token)){delete button.dataset.loading;if(!asr.browser.ready)button.textContent='准备浏览器语音 · 241 MiB';}}};
-      repeat();ready();
+      const q=a.q;
+      showPanel(`<section class="adventure-quiz poem-quiz" aria-labelledby="quizTitle"><div class="poem-heading"><h2 id="quizTitle">${esc(q.title||'一起念古诗')}</h2><span>${esc(q.author)}</span></div><div class="poem-line" lang="zh-CN">${esc(q.expectedText||q.expected_text)}</div><p id="poemStatus" role="status" aria-live="polite">听完示范，念给爸爸妈妈听。</p><div class="poem-record-actions"><button class="wood-button" id="parentReading">念完了 · 请家长确认</button></div>${footer(a)}</section>`,'quiz');
+      bindCommon();$('parentReading').onclick=parentConfirm;repeat();
     }
     function draw(){cancel();const a=journey.question;if(!a)return;const version=epoch;a.q.kind==='poem'?poetry(a,version):choices(a,version);}
     return {draw,cancel,repeat};
