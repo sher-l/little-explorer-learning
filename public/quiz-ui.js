@@ -36,6 +36,7 @@
       if(o.type==='picture')return `<span class="quiz-option-picture">${pic(o.picture)}</span>${q.focusVoicePolicy==='silent'?'':`<span class="quiz-option-label">${esc(o.label)}</span>`}`;
       return `<span class="quiz-option-text">${esc(o.text||o.label)}</span>`;
     }
+    function optionLabel(o,q,index){return q.region==='castle'&&q.kind==='character'?'选项'+(index+1)+(o.type==='picture'?'，观察图片':'，观察字形'):(o.label||o.n);}
     function toolButton(a){const r=root.AdventureWorlds.regions[state.activeRegion],label=a.review?'复习中不使用道具':state.lamp?r.tool.use:r.tool.empty;return `<span class="asset tool-icon" aria-hidden="true" style="background-image:url('assets/helpers.webp');background-size:500% 200%;background-position:${r.index*25}% 0%"></span><span>${esc(label)}</span>`;}
     function footer(a){return `<div class="panel-actions quiz-actions"><button class="wood-button quiet-button" id="repeatQ">♫ 再听一次</button><button class="wood-button ${state.lamp?'':'is-dim'}" id="helpQ" ${a.review?'disabled':''}>${toolButton(a)}</button><button class="wood-button quiet-button" id="leaveQ">先收起来</button></div><p class="quiz-caption">${a.review?`复习旧题 · ${esc(state.review)}/3`:a.q.kind==='poem'?(a.q.wholePoem?'听完整首，再念给家长听':'听一句，跟着念一句'):'听清题目，再选答案'}</p>`;}
     function bindCommon(){
@@ -52,22 +53,29 @@
       const version=epoch,token=a.token;
       focusSerial++;speaking=true;syncMic();
       if(a.q.kind==='poem')status(a.hinted?'用引路水母听慢速范读，再试一遍。':(a.q.wholePoem?'先听完整首，听完再开始。':'先听这一句，听完再开始。'));
-      prompt=Promise.resolve(audio.say(a.q.say||a.q.text,{interrupt:true,lang:a.q.lang||'zh-CN',rate:a.hinted ? .72 : 1})).catch(()=>{}).then(()=>{
+      if($('choiceStatus'))$('choiceStatus').textContent='正在读题…';
+      prompt=Promise.resolve(audio.say(a.q.say||a.q.text,{interrupt:true,lang:a.q.lang||'zh-CN',rate:a.hinted ? .72 : 1})).catch(()=>({reason:'error'})).then(result=>{
         if(!current(version,token))return;
         speaking=false;syncMic();
+        const failed=result&&['unavailable','local-voice-unavailable','error','timeout','blocked','recorded-timeout'].includes(result.reason);
+        const readStatus=failed?'声音没播出来，按 X 或“再听一次”重试；也可以请家长念。':result?.reason==='silent'?'声音已关闭，可在暂停菜单调高音量。':a.q.region==='castle'?'先观察字形和图片，选好后再听读音。':'听清题目，再选答案';
+        if($('choiceStatus'))$('choiceStatus').textContent=readStatus;
+        if(failed){if(a.q.kind==='poem')status(readStatus);return result;}
         if(a.q.kind==='poem')status('轮到你啦，念给爸爸妈妈听；念完请家长确认。');
+        return result;
       });
       return prompt;
     }
     async function optionVoice(o,q,version,token,serial){
-      await prompt;
+      const spoken=await prompt;
+      if(spoken&& !['recorded','ended'].includes(spoken.reason))return;
       if(!current(version,token)||(serial!==undefined&&serial!==focusSerial))return;
       if(q.focusVoicePolicy==='silent')return;
       await Promise.resolve(audio.say(o.voice||o.say||o.label||String(o.n??''),{interrupt:true,lang:o.lang||q.lang||'zh-CN'})).catch(()=>{});
     }
     function choices(a,version){
       const q=a.q,token=a.token;
-      showPanel(`<section class="adventure-quiz" aria-labelledby="quizTitle"><h2 id="quizTitle">${esc(q.text)}</h2>${a.review?`<div id="reviewProgress" class="review-progress" aria-label="复习完成 ${state.review}/3">${[0,1,2].map(i=>`<span class="${i<state.review?'on':''}">${i<state.review?'✓':'○'}</span>`).join('')}</div>`:''}<div id="question-art" class="quiz-art">${art(q)}</div><div class="answers quiz-answers">${q.options.map((o,i)=>`<button class="answer" data-answer="${i}" aria-label="${esc(o.label||o.n)}">${option(o,q)}</button>`).join('')}</div><p id="choiceStatus" class="choice-status" role="status" aria-live="polite">${a.review?'再想一想，选一个答案':'听清题目，再选答案'}</p>${footer(a)}</section>`,'quiz');
+      showPanel(`<section class="adventure-quiz" aria-labelledby="quizTitle"><h2 id="quizTitle">${esc(q.text)}</h2>${a.review?`<div id="reviewProgress" class="review-progress" aria-label="复习完成 ${state.review}/3">${[0,1,2].map(i=>`<span class="${i<state.review?'on':''}">${i<state.review?'✓':'○'}</span>`).join('')}</div>`:''}<div id="question-art" class="quiz-art">${art(q)}</div><div class="answers quiz-answers">${q.options.map((o,i)=>`<button class="answer" data-answer="${i}" aria-label="${esc(optionLabel(o,q,i))}">${option(o,q)}</button>`).join('')}</div><p id="choiceStatus" class="choice-status" role="status" aria-live="polite">${a.review?'再想一想，选一个答案':'听清题目，再选答案'}</p>${footer(a)}</section>`,'quiz');
       bindCommon();
       $('panel').querySelectorAll('[data-answer]').forEach(button=>{
         const index=Number(button.dataset.answer),o=q.options[index];
@@ -101,7 +109,7 @@
       showPanel(`<section class="adventure-quiz poem-quiz" aria-labelledby="quizTitle"><div class="poem-heading"><h2 id="quizTitle">${esc(q.title||'一起念古诗')}</h2><span>${esc(q.author)}</span></div>${poemBody(q)}<p id="poemStatus" role="status" aria-live="polite">听完整首示范，念给爸爸妈妈听。</p><div class="poem-record-actions"><button class="wood-button" id="parentReading">念完了 · 请家长确认</button></div>${footer(a)}</section>`,'quiz');
       $('panel').scrollTop=0;bindCommon();$('parentReading').onclick=parentConfirm;repeat();
     }
-    function draw(){cancel();const a=journey.question;if(!a)return;const version=epoch;a.q.kind==='poem'?poetry(a,version):choices(a,version);}
+    function draw(){cancel();const a=journey.question;if(!a)return;if(a.q.region==='castle'&&a.q.kind==='character')a.q.focusVoicePolicy='silent';const version=epoch;a.q.kind==='poem'?poetry(a,version):choices(a,version);}
     return {draw,cancel,repeat};
   };
 })(window);

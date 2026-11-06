@@ -95,7 +95,8 @@
   const audio={ctx:null,enabled:false,chain:Promise.resolve(),cancel:null,active:false,voices:[],events:[],epoch:0,clips:new Map(),
     loadClip(path){
       if(this.clips.has(path))return this.clips.get(path);
-      const request=fetch(path).then(r=>{if(!r.ok)throw Error('voice unavailable');return r.arrayBuffer();}).then(b=>this.ctx.decodeAudioData(b)).catch(e=>{this.clips.delete(path);throw e;});
+      const controller=new AbortController(),deadline=setTimeout(()=>controller.abort(),12000);
+      const request=fetch(path,{signal:controller.signal}).then(r=>{if(!r.ok)throw Error('voice unavailable');return r.arrayBuffer();}).then(b=>this.ctx.decodeAudioData(b)).catch(e=>{this.clips.delete(path);throw e;}).finally(()=>clearTimeout(deadline));
       this.clips.set(path,request);if(this.clips.size>24)this.clips.delete(this.clips.keys().next().value);return request;
     },
     unlock(){
@@ -113,31 +114,34 @@
       const run=()=>new Promise(resolve=>{
         if(epoch!==this.epoch){resolve();return;}
         const started=performance.now();let done=false,timer,playback=null,playbackGain=null,nativeStarted=false;
-        const finish=reason=>{if(done)return;done=true;clearTimeout(timer);if(playback){playback.onended=null;try{playback.stop();}catch{}playback.disconnect();}playbackGain?.disconnect();this.active=false;this.nativeSpeaking=false;this.cancel=null;this.events.push({text,reason,ms:Math.round(performance.now()-started)});if(this.events.length>200)this.events.shift();resolve();};
+        const finish=reason=>{if(done)return;done=true;clearTimeout(timer);if(playback){playback.onended=null;try{playback.stop();}catch{}playback.disconnect();}playbackGain?.disconnect();this.active=false;this.nativeSpeaking=false;this.cancel=null;this.events.push({text,reason,ms:Math.round(performance.now()-started)});if(this.events.length>200)this.events.shift();resolve({reason});};
         this.cancel=()=>finish('cancelled');this.active=true;
         if(!this.enabled||!state.volume){timer=setTimeout(()=>finish('silent'),Math.min(3000,800+text.length*100));return;}
         const native=()=>{
           if(done||nativeStarted||epoch!==this.epoch)return;nativeStarted=true;clearTimeout(timer);
           if(!window.speechSynthesis){finish('unavailable');return;}
           const u=new SpeechSynthesisUtterance(text);u.lang=lang;u.rate=.95*rate;u.pitch=1;u.volume=state.volume;
-          const voice=this.voices.find(v=>v.localService&&(lang.startsWith('en')?/^en/i.test(v.lang):/^zh|^cmn/i.test(v.lang)));if(voice)u.voice=voice;
+          this.voices=speechSynthesis.getVoices();const voice=this.voices.find(v=>v.localService&&(lang.startsWith('en')?/^en/i.test(v.lang):/^zh|^cmn/i.test(v.lang)));if(voice)u.voice=voice;
           if(!voice){notify('这句声音暂时没有准备好，请再听一次，或请家长念一下',6);finish('local-voice-unavailable');return;}
           u.onend=()=>finish('ended');u.onerror=()=>finish('error');
           timer=setTimeout(()=>{try{speechSynthesis.cancel();}catch{}finish('timeout');},text.length*.22/(.88*rate)*1000+800);
           this.nativeSpeaking=true;try{speechSynthesis.speak(u);}catch{finish('unavailable');}
         };
         const path=window.AdventureSpeech?.[lang+'\n'+text];
+        if(path&&this.ctx?.state!=='running'){$('enableSound').hidden=false;notify('请家长点一下“开启声音”，再按 X 重听',7);finish('blocked');return;}
         if(path&&this.ctx?.state==='running'){
-          timer=setTimeout(native,3000);
+          // Keep the recorded question authoritative while it loads. A slow
+          // download must not silently replace it with unavailable device TTS.
+          timer=setTimeout(()=>{notify('声音加载较慢，按 X 或“再听一次”重试',7);finish('unavailable');},13000);
           this.loadClip(path).then(buffer=>{
             if(done||nativeStarted||epoch!==this.epoch)return;clearTimeout(timer);
             playback=this.ctx.createBufferSource();playback.buffer=buffer;playback.playbackRate.value=rate;
             playbackGain=this.ctx.createGain();playbackGain.gain.value=state.volume;playback.connect(playbackGain);playbackGain.connect(this.ctx.destination);
             playback.onended=()=>finish('recorded');
             timer=setTimeout(()=>finish('recorded-timeout'),buffer.duration/rate*1000+1200);playback.start();
-          }).catch(native);
+          }).catch(()=>{notify('这句录音暂时没下载好，按 X 或“再听一次”重试',7);finish('unavailable');});
         }else native();
-      });this.chain=this.chain.then(run);return this.chain;
+      });this.chain=this.chain.catch(()=>{}).then(run);return this.chain;
     },
     tone(notes=[523,659,784]){
       if(!this.ctx||!state.volume)return;
@@ -291,8 +295,9 @@
     // Spawn just inside the connected doorway, not at a distant altar. All
     // candidates use the actual collision map and lie outside the trigger ring.
     const inward=back?(stage().returnStart||stage().start):stage().start;let best=null,score=Infinity;
-    for(let radius=96;radius<=160;radius+=16)for(let k=0;k<32;k++){
-      const a=k*Math.PI/16,p={x:door[0]+Math.cos(a)*radius,y:door[1]+Math.sin(a)*radius};if(!walkable(p.x,p.y))continue;
+    if(stage().regenerated&&walkable(...inward)&&Math.hypot(inward[0]-door[0],inward[1]-door[1])>=96&&Math.hypot(inward[0]-door[0],inward[1]-door[1])<=160){best={x:inward[0],y:inward[1]};}
+    else for(let radius=96;radius<=160;radius+=16)for(let k=0;k<32;k++){
+      const a=k*Math.PI/16,p={x:door[0]+Math.cos(a)*radius,y:door[1]+Math.sin(a)*radius};if(!walkable(p.x,p.y)||!clearLine({x:door[0],y:door[1]},p))continue;
       const value=dist(p,{x:inward[0],y:inward[1]})+radius*.4;if(value<score){best=p;score=value;}
     }
     if(best){player.x=best.x;player.y=best.y;}else{const safe=nearest(...door),step=navigationStep();if(safe){player.x=(safe.x+.5)*step;player.y=(safe.y+.5)*step;}}
@@ -476,7 +481,7 @@
     ctx.textAlign='center';ctx.fillStyle='#61482e';ctx.font='bold 21px "Microsoft YaHei",sans-serif';ctx.fillText(label,signX,e.y-74);
     ctx.restore();
     ctx.textAlign='center';ctx.font='bold 35px "Microsoft YaHei",sans-serif';ctx.fillStyle='#fff5c5';ctx.strokeStyle='#8b6c3b';ctx.lineWidth=3;ctx.strokeText(arrow,e.x,e.y+10+lift);ctx.fillText(arrow,e.x,e.y+10+lift);
-    if(near)text(inputMode==='gamepad'?'走近进入 · A 也可以':inputMode==='touch'?'走近或点路牌进入':'走近进入 · Enter 也可以',e.x,e.y+49);
+    if(near&&!(scene!=='hub'&&stage().maze&&!mazeClose))text(inputMode==='gamepad'?'走近进入 · A 也可以':inputMode==='touch'?'走近或点路牌进入':'走近进入 · Enter 也可以',e.x,e.y+49);
     ctx.restore();
   }
   function firefly(x,y,scale=1){ctx.save();ctx.translate(x,y);ctx.scale(scale,scale);halo(0,0,19,'rgba(255,230,116,.55)');ctx.fillStyle='#fff6caaa';for(const side of [-1,1]){ctx.beginPath();ctx.ellipse(side*5,-4,5,2+Math.abs(Math.sin(time*18))*3,side*.6,0,7);ctx.fill();}ctx.fillStyle='#6a7641';ctx.beginPath();ctx.ellipse(0,-3,2.5,5,0,0,7);ctx.fill();ctx.fillStyle='#fff394';ctx.beginPath();ctx.arc(0,2,3,0,7);ctx.fill();ctx.restore();}

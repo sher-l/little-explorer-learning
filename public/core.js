@@ -15,6 +15,10 @@
     const q={id:raw.id,region:REGIONS.includes(raw.region)?raw.region:'forest',level:integer(raw.level,0,3),kind:typeof raw.kind==='string'?raw.kind.slice(0,40):'count'};
     for(const key of ['text','say','lang','promptGlyph','glyph','title','author','hint','explanation','poemId','expectedText','expected_text','shape','objective','comparison','operation','missing','focusVoicePolicy','teachingPicture','baseId','skillId'])if(typeof raw[key]==='string')q[key]=raw[key].slice(0,1200);
     if(q.skillId&&(!/^[a-zA-Z0-9_.-]{1,100}$/.test(q.skillId)||['__proto__','prototype','constructor'].includes(q.skillId)))delete q.skillId;
+    // Reading recognition must not turn into listening/matching, including old review snapshots.
+    if(q.region==='castle'&&q.kind==='character')q.focusVoicePolicy='silent';
+    if(q.region==='castle'&&q.id.startsWith('chinese.easy.')){q.text='慢慢看，这个字表示哪一样？';q.say='看看这个字，选出它表示的东西。';}
+    if(q.region==='castle'&&q.id?.startsWith('zh.object.'))q.text=q.say=q.id.endsWith('.0')?'看一看，选出它名称中的一个字。':'看一看，选出它的名称。';
     for(const key of ['n','m','icon','lineIndex','missingIndex','start','step','answer'])if(Number.isFinite(raw[key]))q[key]=raw[key];
     if(typeof raw.icon==='string')q.icon=raw.icon.slice(0,100);
     if(Array.isArray(raw.itemTopics))q.itemTopics=raw.itemTopics.filter(n=>Number.isInteger(n)&&n>=0&&n<15);

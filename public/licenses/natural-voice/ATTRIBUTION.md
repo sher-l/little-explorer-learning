@@ -4,7 +4,7 @@
 
 - 模型：hexgrad/Kokoro-82M-v1.1-zh，官方页面 https://huggingface.co/hexgrad/Kokoro-82M-v1.1-zh ，标注 Apache-2.0。
 - 权重 SHA256：`b1d8410fa44dfb5c15471fd6c4225ea6b4e9ac7fa03c98e8bea47a9928476e2b`，已对下载文件核验。
-- 中文声线 `zf_001`，英文声线 `af_maple`，均来自上述官方模型仓库。没有使用、宣称模仿任何特定真实人物。
+- 中文声线 `zf_001`、`zf_002`，英文声线 `af_maple`，均来自上述官方模型仓库。没有使用、宣称模仿任何特定真实人物。
 - 合成库：hexgrad/kokoro 0.9.4，Apache-2.0；音素处理 misaki 0.9.4。仅在开发机运行，不随网页安装 Python 或下载 TTS 模型。
 - MP3 在开发机由 LAME/lameenc 编码，网页只分发生成音频，不分发编码程序。
 
