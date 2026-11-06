@@ -1,0 +1,335 @@
+{
+  "version": 1,
+  "reviewed": "2026-11-06",
+  "license": "Original ancient poems are public domain. No modern translation or commercial recording copied.",
+  "poems": [
+    {
+      "id": "yonge",
+      "title": "咏鹅",
+      "author": "唐 · 骆宾王",
+      "lines": [
+        "鹅，鹅，鹅，",
+        "曲项向天歌。",
+        "白毛浮绿水，",
+        "红掌拨清波。"
+      ],
+      "source": "https://zh.wikisource.org/wiki/詠鵝",
+      "note": "使用通行简体字，按诗行添加现代标点。"
+    },
+    {
+      "id": "hua",
+      "title": "画",
+      "author": "佚名",
+      "lines": [
+        "远看山有色，",
+        "近听水无声。",
+        "春去花还在，",
+        "人来鸟不惊。"
+      ],
+      "source": "https://zh.wikisource.org/wiki/画",
+      "note": "作者存在不同归属，维基文库署高鼎，另有王维、川禅师等说；本游戏沿用佚名，不将争议当考点。"
+    },
+    {
+      "id": "minnong",
+      "title": "悯农（其二）",
+      "author": "唐 · 李绅",
+      "lines": [
+        "锄禾日当午，",
+        "汗滴禾下土。",
+        "谁知盘中餐，",
+        "粒粒皆辛苦。"
+      ],
+      "source": "https://zh.wikisource.org/wiki/憫農_(鋤禾日當午)",
+      "note": "采用小学通行的盘中餐；文库底本为盘中飧，属版本差异。"
+    },
+    {
+      "id": "jingyesi",
+      "title": "静夜思",
+      "author": "唐 · 李白",
+      "lines": [
+        "床前明月光，",
+        "疑是地上霜。",
+        "举头望明月，",
+        "低头思故乡。"
+      ],
+      "source": "https://zh.wikisource.org/wiki/靜夜思",
+      "note": "采用《唐诗三百首》通行的床前明月光、举头望明月版本。"
+    },
+    {
+      "id": "chunxiao",
+      "title": "春晓",
+      "author": "唐 · 孟浩然",
+      "lines": [
+        "春眠不觉晓，",
+        "处处闻啼鸟。",
+        "夜来风雨声，",
+        "花落知多少。"
+      ],
+      "source": "https://zh.wikisource.org/wiki/春曉_(孟浩然)",
+      "note": "使用通行简体字，按诗行添加现代标点。"
+    },
+    {
+      "id": "dengguanquelou",
+      "title": "登鹳雀楼",
+      "author": "唐 · 王之涣",
+      "lines": [
+        "白日依山尽，",
+        "黄河入海流。",
+        "欲穷千里目，",
+        "更上一层楼。"
+      ],
+      "source": "https://zh.wikisource.org/wiki/登鸛雀樓_(王之渙)",
+      "note": "采用通行署名王之涣和更上一层楼版本。"
+    },
+    {
+      "id": "feng",
+      "title": "风",
+      "author": "唐 · 李峤",
+      "lines": [
+        "解落三秋叶，",
+        "能开二月花。",
+        "过江千尺浪，",
+        "入竹万竿斜。"
+      ],
+      "source": "https://zh.wikisource.org/wiki/風_(解落三秋葉)",
+      "note": "使用通行简体字，按诗行添加现代标点。"
+    },
+    {
+      "id": "meihua",
+      "title": "梅花",
+      "author": "宋 · 王安石",
+      "lines": [
+        "墙角数枝梅，",
+        "凌寒独自开。",
+        "遥知不是雪，",
+        "为有暗香来。"
+      ],
+      "source": "https://zh.wikisource.org/wiki/梅花_(王安石)",
+      "note": "使用通行简体字，按诗行添加现代标点。"
+    },
+    {
+      "id": "chishang",
+      "title": "池上",
+      "author": "唐 · 白居易",
+      "lines": [
+        "小娃撑小艇，",
+        "偷采白莲回。",
+        "不解藏踪迹，",
+        "浮萍一道开。"
+      ],
+      "source": "https://zh.wikisource.org/wiki/池上二絕",
+      "note": "采用《池上二绝》其二，是独立完整绝句。"
+    },
+    {
+      "id": "jueju",
+      "title": "绝句（迟日江山丽）",
+      "author": "唐 · 杜甫",
+      "lines": [
+        "迟日江山丽，",
+        "春风花草香。",
+        "泥融飞燕子，",
+        "沙暖睡鸳鸯。"
+      ],
+      "source": "https://zh.wikisource.org/wiki/絕句（遲日江山麗）",
+      "note": "使用通行简体字，按诗行添加现代标点。"
+    },
+    {
+      "id": "luzhai",
+      "title": "鹿柴",
+      "author": "唐 · 王维",
+      "lines": [
+        "空山不见人，",
+        "但闻人语响。",
+        "返景入深林，",
+        "复照青苔上。"
+      ],
+      "source": "https://zh.wikisource.org/wiki/鹿柴_(王維)",
+      "note": "使用通行简体字，按诗行添加现代标点。"
+    },
+    {
+      "id": "zhuliguan",
+      "title": "竹里馆",
+      "author": "唐 · 王维",
+      "lines": [
+        "独坐幽篁里，",
+        "弹琴复长啸。",
+        "深林人不知，",
+        "明月来相照。"
+      ],
+      "source": "https://zh.wikisource.org/wiki/輞川集_(王維)/竹里館",
+      "note": "使用通行简体字，按诗行添加现代标点。"
+    },
+    {
+      "id": "xiangsi",
+      "title": "相思",
+      "author": "唐 · 王维",
+      "lines": [
+        "红豆生南国，",
+        "春来发几枝。",
+        "愿君多采撷，",
+        "此物最相思。"
+      ],
+      "source": "https://zh.wikisource.org/wiki/相思",
+      "note": "使用通行简体字，按诗行添加现代标点。"
+    },
+    {
+      "id": "sujiandejiang",
+      "title": "宿建德江",
+      "author": "唐 · 孟浩然",
+      "lines": [
+        "移舟泊烟渚，",
+        "日暮客愁新。",
+        "野旷天低树，",
+        "江清月近人。"
+      ],
+      "source": "https://zh.wikisource.org/wiki/宿建德江",
+      "note": "使用通行简体字，按诗行添加现代标点。"
+    },
+    {
+      "id": "jiangshangyuzhe",
+      "title": "江上渔者",
+      "author": "宋 · 范仲淹",
+      "lines": [
+        "江上往来人，",
+        "但爱鲈鱼美。",
+        "君看一叶舟，",
+        "出没风波里。"
+      ],
+      "source": "https://zh.wikisource.org/wiki/江上漁者",
+      "note": "使用通行简体字，按诗行添加现代标点。"
+    },
+    {
+      "id": "xunyinzhe",
+      "title": "寻隐者不遇",
+      "author": "唐 · 贾岛（通行署名）",
+      "lines": [
+        "松下问童子，",
+        "言师采药去。",
+        "只在此山中，",
+        "云深不知处。"
+      ],
+      "source": "https://zh.wikisource.org/wiki/尋隱者不遇",
+      "note": "采用通行署名贾岛；底本同时注一作孙革诗。"
+    },
+    {
+      "id": "xiari",
+      "title": "夏日绝句",
+      "author": "宋 · 李清照",
+      "lines": [
+        "生当作人杰，",
+        "死亦为鬼雄。",
+        "至今思项羽，",
+        "不肯过江东。"
+      ],
+      "source": "https://zh.wikisource.org/wiki/烏江_(李清照)",
+      "note": "使用通行简体字，按诗行添加现代标点。"
+    },
+    {
+      "id": "minnong1",
+      "title": "悯农·其一",
+      "author": "唐 · 李绅",
+      "lines": [
+        "春种一粒粟，",
+        "秋收万颗子。",
+        "四海无闲田，",
+        "农夫犹饿死。"
+      ],
+      "source": "https://zh.wikisource.org/wiki/憫農_(春種一粒粟)",
+      "note": "使用通行简体字，按诗行添加现代标点。"
+    },
+    {
+      "id": "songbie",
+      "title": "送别",
+      "author": "唐 · 王维",
+      "lines": [
+        "山中相送罢，",
+        "日暮掩柴扉。",
+        "春草明年绿，",
+        "王孙归不归？"
+      ],
+      "source": "https://zh.wikisource.org/wiki/送別_(山中相送罷)",
+      "note": "使用通行简体字，按诗行添加现代标点。"
+    },
+    {
+      "id": "jiangxue",
+      "title": "江雪",
+      "author": "唐 · 柳宗元",
+      "lines": [
+        "千山鸟飞绝，",
+        "万径人踪灭。",
+        "孤舟蓑笠翁，",
+        "独钓寒江雪。"
+      ],
+      "source": "https://zh.wikisource.org/wiki/江雪",
+      "note": "使用通行简体字，按诗行添加现代标点。"
+    },
+    {
+      "id": "yongliu",
+      "title": "咏柳",
+      "author": "唐 · 贺知章",
+      "lines": [
+        "碧玉妆成一树高，",
+        "万条垂下绿丝绦。",
+        "不知细叶谁裁出，",
+        "二月春风似剪刀。"
+      ],
+      "source": "https://zh.wikisource.org/wiki/詠柳_(賀知章)",
+      "note": "使用通行简体字，按诗行添加现代标点。"
+    },
+    {
+      "id": "cunju",
+      "title": "村居",
+      "author": "清 · 高鼎",
+      "lines": [
+        "草长莺飞二月天，",
+        "拂堤杨柳醉春烟。",
+        "儿童散学归来早，",
+        "忙趁东风放纸鸢。"
+      ],
+      "source": "https://zh.wikisource.org/wiki/村居_(高鼎)",
+      "note": "使用通行简体字，按诗行添加现代标点。"
+    },
+    {
+      "id": "shanxing",
+      "title": "山行",
+      "author": "唐 · 杜牧",
+      "lines": [
+        "远上寒山石径斜，",
+        "白云生处有人家。",
+        "停车坐爱枫林晚，",
+        "霜叶红于二月花。"
+      ],
+      "source": "https://zh.wikisource.org/wiki/山行_(杜牧)",
+      "note": "采用白云生处；另有白云深处版本。"
+    },
+    {
+      "id": "xiaochi",
+      "title": "小池",
+      "author": "宋 · 杨万里",
+      "lines": [
+        "泉眼无声惜细流，",
+        "树阴照水爱晴柔。",
+        "小荷才露尖尖角，",
+        "早有蜻蜓立上头。"
+      ],
+      "source": "https://zh.wikisource.org/wiki/小池",
+      "note": "使用通行简体字，按诗行添加现代标点。"
+    },
+    {
+      "id": "jiangnan",
+      "title": "江南",
+      "author": "汉乐府 · 佚名",
+      "lines": [
+        "江南可采莲，",
+        "莲叶何田田。",
+        "鱼戏莲叶间。",
+        "鱼戏莲叶东，",
+        "鱼戏莲叶西，",
+        "鱼戏莲叶南，",
+        "鱼戏莲叶北。"
+      ],
+      "source": "https://zh.wikisource.org/wiki/江南_(漢樂府)",
+      "note": "使用通行简体字，按诗行添加现代标点。"
+    }
+  ]
+}

@@ -200,7 +200,7 @@
       // Judgement and progress are already visible. Speech must never hold the
       // review screen indefinitely or queue behind an unfinished question.
       const readAnswer=index>=0&&result.q.focusVoicePolicy!=='silent'&&answerOption;
-      const spoken=audio.say(readAnswer?(answerOption.voice||answerOption.label):result.q.kind==='poem'?'这句读好啦':'找到啦',{interrupt:true,lang:readAnswer?(answerOption.lang||result.q.lang||'zh-CN'):'zh-CN'});
+      const spoken=audio.say(readAnswer?(answerOption.voice||answerOption.label):result.q.kind==='poem'?(result.q.wholePoem?'这首读好啦':'这句读好啦'):'找到啦',{interrupt:true,lang:readAnswer?(answerOption.lang||result.q.lang||'zh-CN'):'zh-CN'});
       let timer;await Promise.all([new Promise(r=>setTimeout(r,700)),Promise.race([spoken,new Promise(r=>{timer=setTimeout(r,2200);})])]);clearTimeout(timer);
       if(token!==transitionToken)return;audio.stop();
       if(result.type==='reviewed'){if(journey.beginReview())drawQuestion();else closePanel();}
@@ -210,7 +210,7 @@
     // Show the answer once. Helping moves directly from the helper to collection,
     // without reopening the already answered question or replaying it.
     if(!result.helped){
-      audio.say(answerOption?.voice||answerOption?.label||'这句读好啦',{interrupt:true,lang:answerOption?.lang||result.q.lang||'zh-CN'});
+      audio.say(answerOption?.voice||answerOption?.label||(result.q.wholePoem?'这首读好啦':'这句读好啦'),{interrupt:true,lang:answerOption?.lang||result.q.lang||'zh-CN'});
       await new Promise(r=>setTimeout(r,620));if(token!==transitionToken)return;
     }else audio.say(answerOption?.voice||answerOption?.label||'找到啦',{interrupt:true,lang:answerOption?.lang||result.q.lang||'zh-CN'});
     if(result.type==='collected'){
@@ -311,7 +311,7 @@
   function inputAction(action){
     if(['feedback','action','transition'].includes(mode))return;
     if(action==='pause'){pause();return;}if(action==='home'){if(mode==='world')guideHome();return;}
-    if(action==='voice'){$('voice').click();return;}if(action==='lamp'){help();return;}
+    if(action==='voice'){if(mode==='parent-confirm')$('parentRetry')?.click();else $('voice').click();return;}if(action==='lamp'){help();return;}
     if(action==='zoom'){if(mode==='world'&&scene!=='hub'&&stage().maze)$('mazeZoom').click();return;}
     if(action==='book'){if(mode==='world')book();return;}
     if(action==='roll'){if(mode==='world')roll();else{const back={quiz:'leaveQ','parent-confirm':'cancelParent',characters:'characterBack',book:$('closeBook')?'closeBook':'closeNature',nature:'closeNature','review-select':'leaveReview',growth:$('growthCancel')?'growthCancel':'growthBack',pause:'resume',reset:'keep',reward:'continueStage',completion:'finishJourney'}[mode];if(back)$(back)?.click();}return;}
@@ -333,6 +333,8 @@
     [[0,'confirm'],[1,'roll'],[2,'voice'],[3,'lamp'],[4,'book'],[5,'zoom'],[8,'home'],[9,'pause']].forEach(([i,a])=>{if(edges[i])inputAction(a);});
     let x=pad.axes[0]||0,y=pad.axes[1]||0;if(btn[14])x=-1;if(btn[15])x=1;if(btn[12])y=-1;if(btn[13])y=1;if(Math.abs(x)<.25)x=0;if(Math.abs(y)<.25)y=0;
     if(x||y||edges.some(Boolean))setInputMode('gamepad');
+    const scrollY=pad.axes[3]||0;
+    if(mode!=='world'&&Math.abs(scrollY)>.25)$('panel').scrollTop+=scrollY*420*dt;
     navCooldown-=dt;if(mode!=='world'&&(x||y)&&navCooldown<=0){moveFocus(Math.abs(x)>=Math.abs(y)?Math.sign(x):0,Math.abs(y)>Math.abs(x)?Math.sign(y):0);navCooldown=.24;}if(!x&&!y)navCooldown=0;
     return {x,y};
   }

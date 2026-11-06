@@ -36,3 +36,13 @@
 @media(max-height:600px){#panel{max-height:96dvh}#panel h2{font-size:25px}#panel p,#panel .wood-button{font-size:20px}#panel .wood-button{min-height:48px;padding:8px 16px}#panel .poem-line{font-size:32px}#notice,#game[data-maze=true] #notice{font-size:19px}#interact{font-size:21px}nav button{width:58px;height:58px}}
 @media(max-width:600px){#panel .book-grid{grid-template-columns:repeat(3,minmax(0,1fr))}#panel .book-item{font-size:17px}#panel .wood-button{padding:10px;font-size:19px}#panel .small-print,#panel .quiz-caption{font-size:17px!important}#hud .place small{font-size:15px}#interact{font-size:19px}#mazeZoom{font-size:17px}#game[data-maze=true] #notice{max-width:90vw}}
 @media(max-height:600px),(max-width:600px){#game #overlay #panel h2{font-size:25px}#game #overlay #panel p,#game #overlay #panel .wood-button{font-size:20px}#game #overlay #panel .wood-button{min-height:48px}#game #overlay[data-mode=quiz] .answer{min-width:80px;min-height:85px}#game #overlay #panel .poem-line{font-size:32px}}
+
+/* Whole poems stay readable and scroll with controller focus on short screens. */
+#game #overlay #panel .whole-poem{font-size:clamp(28px,3.1vw,44px);line-height:1.42;letter-spacing:.06em;margin:12px auto;color:#294e61}
+#game #overlay #panel .whole-poem span{display:block;white-space:nowrap}
+#game #overlay[data-mode=quiz] #panel:has(.whole-poem){justify-content:flex-start}
+#game #overlay[data-mode=parent-confirm] #panel{justify-content:flex-start;width:min(1080px,92vw);padding:30px 35px}
+#game #overlay #panel .poem-heading span{font-size:clamp(19px,1.8vw,26px)}
+#game #overlay #panel .poem-heading h3{font-size:28px;margin:8px 0}
+#game[data-input=gamepad] #overlay[data-mode=quiz] #panel:has(.whole-poem):after,#game[data-input=gamepad] #overlay[data-mode=parent-confirm] #panel:after{content:'右摇杆上下看全文 · A 确认 · B 返回 · X 重听'}
+@media(max-width:600px){#game #overlay #panel .whole-poem{font-size:27px;letter-spacing:0}#game #overlay[data-mode=quiz] #panel:has(.poem-quiz){padding:25px 14px}#game #overlay[data-mode=parent-confirm] #panel{padding:25px 14px}}

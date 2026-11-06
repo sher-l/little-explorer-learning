@@ -11,3 +11,6 @@
 通过 GitHub Actions 手动运行 `Publish reviewed learning game` 发布。工作流只上传 `public/`，不会因 push 或定时任务自动部署。
 
 迁移：旧设备在暂停 → 家长工具导出成长记录，新设备导入。站点使用独立 `little-explorer-learning.*` 键，不自动跨域复制存档。隐私与操作见 [家长说明](public/about.html)。
+
+
+20261106.15：每个海底收集点一整首，五关25首同轮不重复。完整范读、父母确认、右摇杆滚动阅读；保留旧句级进度，复习映射为整首。原文与署名版本见 public/poem-catalog.json。新增26段固定音频，共2488段。

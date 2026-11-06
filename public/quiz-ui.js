@@ -36,7 +36,7 @@
       if(o.type==='picture')return `<span class="quiz-option-picture">${pic(o.picture)}</span>${q.focusVoicePolicy==='silent'?'':`<span class="quiz-option-label">${esc(o.label)}</span>`}`;
       return `<span class="quiz-option-text">${esc(o.text||o.label)}</span>`;
     }
-    function footer(a){return `<div class="panel-actions quiz-actions"><button class="wood-button quiet-button" id="repeatQ">♫ 再听一次</button><button class="wood-button ${state.lamp?'':'is-dim'}" id="helpQ" ${a.review?'disabled':''}>${state.lamp?'请伙伴帮忙':'道具需要恢复'}</button><button class="wood-button quiet-button" id="leaveQ">先收起来</button></div><p class="quiz-caption">${a.review?`复习旧题 · ${esc(state.review)}/3`:a.q.kind==='poem'?'听一句，跟着念一句':'听清题目，再选答案'}</p>`;}
+    function footer(a){return `<div class="panel-actions quiz-actions"><button class="wood-button quiet-button" id="repeatQ">♫ 再听一次</button><button class="wood-button ${state.lamp?'':'is-dim'}" id="helpQ" ${a.review?'disabled':''}>${state.lamp?'请伙伴帮忙':'道具需要恢复'}</button><button class="wood-button quiet-button" id="leaveQ">先收起来</button></div><p class="quiz-caption">${a.review?`复习旧题 · ${esc(state.review)}/3`:a.q.kind==='poem'?(a.q.wholePoem?'听完整首，再念给家长听':'听一句，跟着念一句'):'听清题目，再选答案'}</p>`;}
     function bindCommon(){
       $('repeatQ').onclick=()=>repeat();
       $('helpQ').onclick=()=>help();
@@ -50,7 +50,7 @@
       if(a.q.kind==='poem'&&(busy||session?.state==='recording'||session?.state==='requesting'))return Promise.resolve();
       const version=epoch,token=a.token;
       focusSerial++;speaking=true;syncMic();
-      if(a.q.kind==='poem')status(a.hinted?'小水母慢慢念，听完你再试一遍。':'先听这一句，听完再开始。');
+      if(a.q.kind==='poem')status(a.hinted?'小水母慢慢念，听完你再试一遍。':(a.q.wholePoem?'先听完整首，听完再开始。':'先听这一句，听完再开始。'));
       prompt=Promise.resolve(audio.say(a.q.say||a.q.text,{interrupt:true,lang:a.q.lang||'zh-CN',rate:a.hinted ? .72 : 1})).catch(()=>{}).then(()=>{
         if(!current(version,token))return;
         speaking=false;syncMic();
@@ -88,16 +88,17 @@
       const initialPrompt=repeat(),initialFocus=focusSerial;
       initialPrompt.then(()=>{if(current(version,token)&&!busy&&focusSerial===initialFocus&&q.focusVoicePolicy!=='silent')optionVoice(q.options[0],q,version,token,initialFocus);});
     }
+    function poemBody(q){return `<div class="poem-line${q.wholePoem?' whole-poem':''}" lang="zh-CN">${q.wholePoem?q.poemLines.map(line=>`<span>${esc(line)}</span>`).join(''):esc(q.expectedText||q.expected_text)}</div>`;}
     function parentConfirm(){
       const a=journey.question;if(!a||a.q.kind!=='poem')return;const token=a.token;cancel();
-      showPanel(`<h2>请爸爸妈妈听一听</h2><p class="poem-line">${esc(a.q.expectedText)}</p><p>孩子念完这一句后，由在旁边的家长确认。</p><div class="panel-actions"><button class="wood-button quiet-button" id="parentRetry">再听再念一次</button><button class="wood-button" id="parentPass">家长确认 · 这句通过</button></div><button class="wood-button quiet-button" id="cancelParent">返回</button>`,'parent-confirm');
-      $('cancelParent').onclick=draw;$('parentRetry').onclick=draw;
+      showPanel(`<h2>请爸爸妈妈听一听</h2><div class="poem-heading"><h3>${esc(a.q.title)}</h3><span>${esc(a.q.author)}</span></div>${poemBody(a.q)}<p>孩子念完${a.q.wholePoem?'整首诗':'这一句'}后，由在旁边的家长确认。</p><div class="panel-actions"><button class="wood-button quiet-button" id="parentRetry">再听再念一次</button><button class="wood-button" id="parentPass">家长确认 · ${a.q.wholePoem?'整首':'这句'}通过</button></div><button class="wood-button quiet-button" id="cancelParent">返回</button>`,'parent-confirm');
+      $('panel').scrollTop=0;$('cancelParent').onclick=draw;$('parentRetry').onclick=draw;
       let submitted=false;$('parentPass').onclick=()=>{if(submitted||journey.question?.token!==token)return;submitted=true;const result=journey.confirmPoemByParent(token,true);persist();if(result.q)finishAnswer(result,-1);};
     }
     function poetry(a,version){
       const q=a.q;
-      showPanel(`<section class="adventure-quiz poem-quiz" aria-labelledby="quizTitle"><div class="poem-heading"><h2 id="quizTitle">${esc(q.title||'一起念古诗')}</h2><span>${esc(q.author)}</span></div><div class="poem-line" lang="zh-CN">${esc(q.expectedText||q.expected_text)}</div><p id="poemStatus" role="status" aria-live="polite">听完示范，念给爸爸妈妈听。</p><div class="poem-record-actions"><button class="wood-button" id="parentReading">念完了 · 请家长确认</button></div>${footer(a)}</section>`,'quiz');
-      bindCommon();$('parentReading').onclick=parentConfirm;repeat();
+      showPanel(`<section class="adventure-quiz poem-quiz" aria-labelledby="quizTitle"><div class="poem-heading"><h2 id="quizTitle">${esc(q.title||'一起念古诗')}</h2><span>${esc(q.author)}</span></div>${poemBody(q)}<p id="poemStatus" role="status" aria-live="polite">听完整首示范，念给爸爸妈妈听。</p><div class="poem-record-actions"><button class="wood-button" id="parentReading">念完了 · 请家长确认</button></div>${footer(a)}</section>`,'quiz');
+      $('panel').scrollTop=0;bindCommon();$('parentReading').onclick=parentConfirm;repeat();
     }
     function draw(){cancel();const a=journey.question;if(!a)return;const version=epoch;a.q.kind==='poem'?poetry(a,version):choices(a,version);}
     return {draw,cancel,repeat};

@@ -31,6 +31,7 @@
       }
     }
     if(q.kind==='poem'){
+      if(raw.wholePoem===true&&Array.isArray(raw.poemLines)&&raw.poemLines.every(s=>typeof s==='string')){q.wholePoem=true;q.poemLines=raw.poemLines.slice(0,32).map(s=>s.slice(0,200));}
       const expected=q.expectedText??q.expected_text;
       if(!q.poemId||!Number.isInteger(q.lineIndex)||q.lineIndex<0||typeof expected!=='string'||!expected)return null;
       if(q.expectedText&&q.expected_text&&q.expectedText!==q.expected_text)return null;
@@ -310,7 +311,9 @@
       if(this.isReplaying()&&progress.segments===5){const id=this.state.activeRegion;this.state.replayRounds[id]=(this.state.replayRounds[id]||0)+1;delete this.state.replays[id];}return true;
     }
     allComplete(){return REGIONS.every(id=>this.state.regions[id].segments===5);}
-    reviewQuestions(region=this.state.activeRegion){return unique(this.state.learned.concat(this.state.unverifiedPoems)).map(id=>this.getQuestion(id)).filter(q=>q&&q.region===region&&!this.content.retiredReviewIds?.includes(q.baseId||q.id));}
+    reviewQuestions(region=this.state.activeRegion){
+      const seen=new Set();return unique(this.state.learned.concat(this.state.unverifiedPoems)).map(id=>this.getQuestion(id)).filter(q=>q&&q.region===region&&!this.content.retiredReviewIds?.includes(q.baseId||q.id)).map(q=>q.kind==='poem'&&!q.wholePoem?(this.poems.find(p=>p.wholePoem&&p.poemId===q.poemId)||q):q).filter(q=>{if(seen.has(q.id))return false;seen.add(q.id);return true;});
+    }
     cancelQuestion(){this.question=null;this.token++;}
     snapshot(){return copy(this.state);}
   }

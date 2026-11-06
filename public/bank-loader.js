@@ -90,13 +90,14 @@
     }
     questions.forEach((q,i)=>choice(q,'questions['+i+']','main'));
     easy.forEach((q,i)=>choice(q,'easy['+i+']','easy'));
-    legacy.forEach((q,i)=>choice(q,'legacyQuestions['+i+']','legacy'));
-    poems.forEach((q,i)=>{
+    legacy.filter(q=>q?.kind!=='poem').forEach((q,i)=>choice(q,'legacyQuestions['+i+']','legacy'));
+    poems.concat(legacy.filter(q=>q?.kind==='poem')).forEach((q,i)=>{
       const p='poems['+i+']';if(!common(q,p))return;
       if(q.region!=='sea'||q.kind!=='poem'||q.level<1)fail(p,'诗句必须为 sea/poem/难度 1..3');
       if(!stableId(q.poemId)||!Number.isInteger(q.lineIndex)||q.lineIndex<0)fail(p,'诗 ID 或零基行号无效');
       if(!plain(q.expectedText)||q.expected_text!==q.expectedText||q.text!==q.expectedText||q.say!==q.expectedText)fail(p+'.expectedText','诗句原文和协议字段必须完全相同');
       if(!plain(q.title)||!plain(q.author))fail(p,'诗题和作者缺失');
+      if(q.wholePoem===true&&(!Array.isArray(q.poemLines)||q.poemLines.length<2||q.poemLines.length>32||q.poemLines.some(s=>!plain(s))||q.poemLines.join('\n')!==q.expectedText))fail(p+'.poemLines','整首诗必须包含与原文一致的完整分行');
     });
     for(const region of regionIds){for(let level=1;level<=3;level++){
       const pool=region==='sea'?poems:questions;
@@ -106,6 +107,10 @@
       for(const region of regionIds){const stages=bank.stageQuestionIds?.[region],source=region==='sea'?poems:questions;
         if(!Array.isArray(stages)||stages.length!==5){fail('stageQuestionIds.'+region,'需要五关题池');continue;}
         stages.forEach((ids,i)=>{if(!Array.isArray(ids)||new Set(ids).size<5||new Set(ids).size!==ids.length||ids.some(id=>!source.some(q=>q.id===id&&q.region===region)))fail('stageQuestionIds.'+region+'.'+i,'每关至少五个不同、同区域的现有题目');});
+        if(region==='sea'&&poems.some(q=>q.wholePoem)){
+          const ids=stages.flat(),pids=ids.map(id=>poems.find(q=>q.id===id)?.poemId);
+          if(poems.some(q=>!q.wholePoem)||new Set(pids).size!==pids.length)fail('stageQuestionIds.sea','整首古诗在一轮五关中不得重复');
+        }
         if(!Array.isArray(bank.stageObjectives?.[region])||bank.stageObjectives[region].length!==5||bank.stageObjectives[region].some(x=>!plain(x)))fail('stageObjectives.'+region,'需要五关学习目标');
       }
     }
@@ -120,7 +125,7 @@
       for(let r=0;r<5;r++)for(let n=0;n<10;n++)normalized.items.push({...normalized.items[r*15+n],id:75+r*10+n,stage:3+Math.floor(n/5)});
       normalized.schemaVersion=2;normalized.stagesPerRegion=5;
     }
-    for(const q of normalized.questions.concat(normalized.easy,normalized.legacyQuestions||[]))q.correct=q.options.findIndex(o=>o.id===q.correctOptionId);
+    for(const q of normalized.questions.concat(normalized.easy,normalized.legacyQuestions||[]))if(q.kind!=='poem')q.correct=q.options.findIndex(o=>o.id===q.correctOptionId);
     return normalized;
   }
   const api={schemaVersion:VERSION,validate,load,normalize:load,stats};root.AdventureBank=api;
