@@ -170,7 +170,7 @@
     const candidates=list.map((b,i)=>{const s=b.getBoundingClientRect(),x=s.x+s.width/2-cx,y=s.y+s.height/2-cy,forward=dx?x*dx:y*dy,cross=dx?Math.abs(y):Math.abs(x);return{i,forward,score:forward+cross*2.5};}).filter(x=>x.forward>4).sort((a,b)=>a.score-b.score);setFocus(candidates[0]?.i??focusIndex+((dx||dy)>0?1:-1));}
   function speech(text){notify(text,4);return audio.say(text,{interrupt:true});}
   function drawQuestion(){quiz.draw();}
-  function beginItem(id){if(mode!=='world'||player.roll>0)return;if(journey.beginItem(id)){audio.tone([440]);notify(data.items[id].name,2);persist();drawQuestion();}}
+  function beginItem(id){if(mode!=='world'||player.roll>0)return;if(journey.beginItem(id)){audio.tone([440]);notify('看看这次的新发现',2);persist();drawQuestion();}}
 
   async function help(){
     if(!['world','quiz'].includes(mode))return;
@@ -276,7 +276,7 @@
   function entities(){
     if(scene==='hub')return [{id:'book',x:worlds.hub.book[0],y:worlds.hub.book[1],label:'收集册',action:()=>book()},{id:'charge',x:worlds.hub.tree[0],y:worlds.hub.tree[1],label:'世界之心 · 选择复习区域',action:charge},...worlds.hub.exits.map(e=>({...e,id:e.region,exit:true,label:e.x<500?'← '+e.label:e.region==='valley'?e.label+' ↓':e.label+' →',action:()=>{journey.selectRegion(e.region);enterArea(0);}}))];
     const altar=altars[area],entry=areaEntries[area],exit=areaExits[area];
-    const list=area===state.segments?journey.available().map(it=>({id:'item'+it.id,...spots[it.id],icon:it.icon,label:it.name,item:it.id,action:()=>beginItem(it.id)})):[];
+    const list=area===state.segments?journey.available().map(it=>({id:'item'+it.id,...spots[it.id],icon:it.icon,label:'这次的新发现',item:it.id,action:()=>beginItem(it.id)})):[];
     return list.concat([
       {id:'altar',x:altar[0],y:altar[1],artX:stage().altarArt?.mark[0],artY:stage().altarArt?stage().altarArt.mark[1]+25:undefined,label:stage().exitSubmission?(area<state.segments?'出口 · 回世界之心':state.bag.length===5?'迷宫出口 · 提交印记':'迷宫出口 · 还差 '+(5-state.bag.length)+' 件'):area<state.segments?'印记已点亮':state.activeRegion==='sea'?(state.bag.length===5?'请贝壳点亮印记':'结识五位伙伴，再来找贝壳'):state.bag.length===5?'交给石坛':'收集五样交给石坛',action:()=>stage().exitSubmission&&area<state.segments?goHome():deliver()},
       {id:'entry',x:entry[0],y:entry[1],exit:true,label:area===0?'← 世界之心':'← '+areaNames[area-1],action:()=>area===0?goHome():enterArea(area-1,true)},
@@ -758,7 +758,7 @@
     if(routeAction&&!route.length){const e=ents.find(e=>e.id===routeAction);routeAction=null;if(e&&dist(player,e)<interactionRadius(e)){e.action();return;}}
     // Enter while approaching a path, never while standing still after arrival
     // or walking away from a return spawn that lies inside the larger doorway.
-    if(entryCooldown===0&&player.moving&&!player.roll){const exit=ents.find(e=>e.exit&&!e.locked&&dist(player,e)<EXIT_RADIUS&&dist(player,e)<dist(before,e));if(exit){exit.action();return;}}
+    if(entryCooldown===0&&player.moving&&!player.roll){const exit=ents.find(e=>e.exit&&!e.locked&&(intent>.01||routeAction===e.id)&&dist(player,e)<EXIT_RADIUS&&dist(player,e)<dist(before,e));if(exit){exit.action();return;}}
   }
   function runFrame(){const begin=performance.now(),dt=Math.min(.1,Math.max(0,(begin-last)/1000)||0);last=begin;update(dt);const updated=performance.now();if(mode==='world'||mode==='action'||renderDirty){render();renderDirty=false;}perf.push({update:updated-begin,render:performance.now()-updated});if(perf.length>120)perf.shift();}
   function loop(){lastNativeFrame=performance.now();runFrame();requestAnimationFrame(loop);}

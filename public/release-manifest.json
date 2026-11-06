@@ -1,5 +1,5 @@
 {
-  "version": "20261106.19",
+  "version": "20261106.20",
   "bank": "2026-11-06.2",
   "files": [
     {
@@ -23444,8 +23444,8 @@
     },
     {
       "file": "game.js",
-      "bytes": 94522,
-      "sha256": "bf4e6c51b61451218fc8b94a58ce6555042fde0202bf53a19484689debcbddfc"
+      "bytes": 94576,
+      "sha256": "5124c98674dc77e99acf0180dd6428cc0ae0034cfab3d633dc73bf44c8a7744b"
     },
     {
       "file": "growth-menu.js",
@@ -23460,7 +23460,7 @@
     {
       "file": "index.html",
       "bytes": 4799,
-      "sha256": "9bf0d1e3cffb8a316719ecfaace15b36163d779a23d6a1a0240652b7dd72a67e"
+      "sha256": "27fe48dcf26a4e6e693eb927f7955d4e19063a9f8a54d6327d350cf7e17457c2"
     },
     {
       "file": "licenses/natural-voice/ATTRIBUTION.md",
@@ -23524,8 +23524,8 @@
     },
     {
       "file": "regenerated-worlds.js",
-      "bytes": 241177,
-      "sha256": "f7b98e6d67c339d911c8c787f82bff644591a31ad2a3cb24c52903d3a51785c6"
+      "bytes": 241178,
+      "sha256": "b658f1f20a3417be2aa3e782e100bb897c7b08e905090f9654724290c23f7269"
     },
     {
       "file": "region-ui.css",
