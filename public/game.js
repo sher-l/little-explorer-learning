@@ -13,7 +13,7 @@
     if(inputMode===next&&!force)return;inputMode=next;$('game').dataset.input=next;renderDirty=true;
     const labels=next==='gamepad'?{interact:'A',voice:'X',lamp:'Y',roll:'B',home:'Back',pause:'Start'}:next==='touch'?{interact:'点按',voice:'听题',lamp:'帮助',roll:'翻滚',home:'返回',pause:'暂停'}:{interact:'Enter',voice:'X',lamp:'C',roll:'Z',home:'T',pause:'Esc'};
     for(const [id,label]of Object.entries(labels))$(id).querySelector('kbd').textContent=label;
-    $('hint').textContent=next==='gamepad'?'摇杆 / 十字键走动 · A 互动':next==='touch'?'点地面走动 · 点小伙伴互动':'方向键 / WASD 走动 · Enter 互动';
+    $('hint').textContent=next==='gamepad'?'摇杆 / 十字键走动 · A 互动':next==='touch'?'点地面走动 · 走近后点互动':'方向键 / WASD 走动 · Enter 互动';
     if($('pauseInputHint'))$('pauseInputHint').textContent='进度已经记下了 · '+(next==='gamepad'?'Start':next==='touch'?'点继续探险':'Esc')+' 继续';
   }
   let critterScene='',wildlife=null,catchCooldown=0,catchBurst=null,altarGuide=null;
@@ -21,7 +21,7 @@
   const reduced=!!window.NOFX||matchMedia('(prefers-reduced-motion: reduce)').matches;
   const worlds=window.AdventureWorlds, regions=worlds.regions;
   const imgs={},assetLoads={},assetNames=['fauna','items','helpers',worlds.hub.image];
-  const imageURL=name=>'assets/'+name+'.'+(window.AdventureRuntime?.imageFormat||'png');
+  const imageURL=name=>'assets/'+name+'.'+(window.AdventureRuntime?.imageFormat||'png')+(/^characters\/(kitten|puppy)\/front$/.test(name)?'?v=20261106.16':'');
   let activeCharacter='rabbit',characterRequest=0;
   const character=()=>AdventureCharacters[activeCharacter];
   const region=()=>regions[state.activeRegion], stage=()=>region().stages[area];
@@ -149,7 +149,7 @@
     const bright=state.lamp&&!restoringLight;
     $('lamp').querySelector('.asset').outerHTML=helperAsset(false,'lantern');
     $('lampGlow').textContent=bright?'✦':'·';$('lamp').classList.toggle('is-dim',!bright);$('lamp').classList.toggle('is-bright',!!bright);
-    $('lamp').setAttribute('aria-label',region().helper+(bright?'亮着，可以帮忙一次':'变暗了，回大树下复习')); 
+    $('lamp').setAttribute('aria-label',bright?region().tool.ready:region().tool.empty+'。'+region().tool.restore); 
   }
   function showPanel(html,newMode){renderDirty=true;$('overlay').dataset.mode=newMode;$('overlay').dataset.region=state.activeRegion;$('overlay').dataset.side=player.x>836?'left':'right';mode=newMode;route=[];routeAction=null;keys.clear();$('overlay').hidden=false;$('panel').innerHTML=html;focusIndex=0;setFocus(0,false);}
   function closePanel(){renderDirty=true;quiz?.cancel();mode='world';$('overlay').hidden=true;$('panel').innerHTML='';}
@@ -163,9 +163,9 @@
 
   async function help(){
     if(!['world','quiz'].includes(mode))return;
-    if(mode==='world'){if(!state.lamp){route=[];routeAction=null;speech(region().helper+'需要休息。想再请它帮忙，可以回世界之心复习本区域的三题');}else{performAction('preview');speech(region().helper+'亮着，遇到题目可以请它帮忙');}return;}
+    if(mode==='world'){if(!state.lamp){route=[];routeAction=null;speech(region().tool.empty+'。回世界之心，'+region().tool.restore);}else{performAction('preview');speech(region().tool.ready+'。遇到题目时使用');}return;}
     if(journey.question.review){speech('慢慢来，我们再听一次');return;}
-    if(!state.lamp){speech(region().helper+'需要休息。先试着回答，或收起题目再回世界之心复习');return;}
+    if(!state.lamp){speech(region().tool.empty+'。先试着回答，或收起题目再回世界之心。'+region().tool.restore);return;}
     quiz.cancel();const result=journey.lamp();
     if(result.type==='poem_hint'){
       persist();const token=++transitionToken;$('overlay').hidden=true;await performAction('lamp');
@@ -189,7 +189,7 @@
     quiz.cancel();
     $('panel').querySelectorAll('button').forEach(b=>b.disabled=true);
     const review=result.type==='reviewed'||result.type==='charged',feedbackStatus=$('choiceStatus')||$('poemStatus');
-    const message=review?(result.type==='charged'?'三题完成！'+region().helper+'又有力量啦':'答对啦！复习 '+state.review+'/3'):result.helped?'听听答案，再认识它':(result.item?.discoveryKind==='creature'?'答对啦，认识新伙伴！':'答对啦，收集成功！');
+    const message=review?(result.type==='charged'?'三题完成！'+region().helper+'又有力量啦':'答对啦！复习 '+state.review+'/3'):result.helped?region().helper+'已使用，听听答案再认识它':(result.item?.discoveryKind==='creature'?'答对啦，认识新伙伴！':'答对啦，收集成功！');
     if(feedbackStatus){feedbackStatus.textContent=message;feedbackStatus.dataset.kind='correct';}
     const dots=$('reviewProgress');if(dots){const count=result.type==='charged'?3:state.review;dots.setAttribute('aria-label','复习完成 '+count+'/3');dots.querySelectorAll('span').forEach((dot,i)=>{dot.classList.toggle('on',i<count);dot.textContent=i<count?'✓':'○';});}
     if(review){const caption=$('panel').querySelector('.quiz-caption');if(caption)caption.textContent='复习旧题 · '+(result.type==='charged'?3:state.review)+'/3';}
@@ -223,7 +223,7 @@
   }
   function helperRestored(){return {forest:'萤火虫飞进提灯，灯又亮了',castle:'故事星火点亮烛灯啦',beach:'海风吹进海螺，它又能唱歌啦',valley:'晶石连起光纹，萤石又亮了',sea:'水母吸收小气泡，又能引路啦'}[state.activeRegion];}
   function charge(){
-    showPanel(`<h2>今天复习哪里？</h2><p>复习三题，只恢复对应区域的道具。</p><div class="review-regions">${Object.entries(regions).map(([id,r])=>`<button class="wood-button" data-review="${id}">${atlas('helpers',r.index,2)}<strong>${esc(r.name)}</strong><small>${state.regions[id].energy?'道具已恢复':journey.reviewQuestions(id).length?'复习进度 '+state.regions[id].review+'/3':'还没有学过的题'}</small></button>`).join('')}</div><button class="wood-button quiet-button" id="leaveReview">先去探险</button>`,'review-select');
+    showPanel(`<h2>今天复习哪里？</h2><p>复习三题，只恢复对应区域的道具。</p><div class="review-regions">${Object.entries(regions).map(([id,r])=>`<button class="wood-button" data-review="${id}">${atlas('helpers',r.index,2)}<strong>${esc(r.name)}</strong><small>${esc(r.helper)} · ${state.regions[id].energy?'已准备好':journey.reviewQuestions(id).length?'复习进度 '+state.regions[id].review+'/3':'还没有学过的题'}</small></button>`).join('')}</div><button class="wood-button quiet-button" id="leaveReview">先去探险</button>`,'review-select');
     $('leaveReview').onclick=closePanel;
     $('panel').querySelectorAll('[data-review]').forEach(b=>b.onclick=()=>{
       const id=b.dataset.review;if(state.regions[id].energy){speech(regions[id].helper+'已经准备好啦');return;}
@@ -427,7 +427,7 @@
     const rp=rollProgress(),hop=rolling?Math.sin(rp*Math.PI)*.5:0;let matrix=new DOMMatrix();
     if(animation?.kind==='catch'&&imgs[c.catch]){
       const front=animation.dir===0,im=imgs[front?c.front:c.catch],meta=c.anchors?.[front?'front':'catch']||(front?AdventureCatchFrontAnchors:AdventureCatchAnchors),row=front?0:animation.dir===3?2:1;
-      const cuts=[.12,.29,.47,.65,.85,1],frame=Math.max(0,cuts.findIndex(n=>progress<n)),f=meta.frames[row*6+frame],scale=size*.8/(f.bbox[3]-f.bbox[1]);
+      const cuts=[.12,.29,.47,.65,.85,1],frame=Math.max(0,cuts.findIndex(n=>progress<n)),f=meta.frames[row*6+frame],scale=meta.fixedBodyScale?size/meta.frameHeight*meta.scaleRatio:size*.8/(f.bbox[3]-f.bbox[1]);
       const sx=player.x-f.anchor.x*scale,sy=player.y-f.anchor.y*scale;
       if(animation.dir===1)matrix=matrix.translate(player.x*2,0).scale(-1,1);
       const b=f.bbox,bounds=transformBounds({x:sx+b[0]*scale,y:sy+b[1]*scale+bob,w:(b[2]-b[0])*scale,h:(b[3]-b[1])*scale},matrix);

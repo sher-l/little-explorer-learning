@@ -14505,6 +14505,14 @@
       "sha256": "210473f472ff6e087cfff56a1977c934f6d5f0ad2636a812a92f13ce9fc56d7f"
     },
     {
+      "file": "fd422b7e89f7ea1de766.mp3",
+      "text": "发光海螺已准备好，可以使用一次。遇到题目时使用",
+      "lang": "zh-CN",
+      "voice": "zf_001",
+      "seconds": 5.425,
+      "sha256": "177d4b66062870297b4bb0a1cbecf3dd5307659b56596af19c297ce65691ae01"
+    },
+    {
       "file": "caf33bba3609eb32c63c.mp3",
       "text": "发光海螺已经准备好啦",
       "lang": "zh-CN",
@@ -15417,6 +15425,14 @@
       "sha256": "e16c074f5a8f0da795a3d80c85d90895ca8759aec660982c7f208c916b30e2f9"
     },
     {
+      "file": "2412f2e9c722f3fa1ee5.mp3",
+      "text": "引路水母亮着，可以听一次慢速范读。遇到题目时使用",
+      "lang": "zh-CN",
+      "voice": "zf_001",
+      "seconds": 5.65,
+      "sha256": "fe8f22a1000f1e9b5d518671a537ab96e2ace48904e3a19f83cada3f37805da8"
+    },
+    {
       "file": "d85dffc20836c42eddcd.mp3",
       "text": "引路水母亮着，遇到题目可以请它帮忙",
       "lang": "zh-CN",
@@ -15449,6 +15465,14 @@
       "sha256": "d255d6ff952be26a881bff59a95ae760a7d09e3c882ee83acf7278cd1d5e9bbd"
     },
     {
+      "file": "b908e198e881ff5e658a.mp3",
+      "text": "引路烛灯亮着，可以使用一次。遇到题目时使用",
+      "lang": "zh-CN",
+      "voice": "zf_001",
+      "seconds": 5.05,
+      "sha256": "0433f303dec4ba84aac13ede9107901b0f2f808cdd4c8d21de704f6b20f3866d"
+    },
+    {
       "file": "bdd40065be71fa612135.mp3",
       "text": "引路烛灯亮着，遇到题目可以请它帮忙",
       "lang": "zh-CN",
@@ -15479,6 +15503,14 @@
       "voice": "zf_001",
       "seconds": 7.1,
       "sha256": "ad9c30d989f45ada7e9376b0e7f60431a664572bb9b44292caa457a13e22015d"
+    },
+    {
+      "file": "2ba3fc9d07dbfeb1db10.mp3",
+      "text": "引路萤石亮着，可以使用一次。遇到题目时使用",
+      "lang": "zh-CN",
+      "voice": "zf_001",
+      "seconds": 5.1,
+      "sha256": "640a0dcc19ada870056558c3e9f20e2715d9ca83227bff8be255b1fdb2175bbb"
     },
     {
       "file": "f43d1fe24f2cabd21f80.mp3",
@@ -15975,6 +16007,22 @@
       "voice": "zf_001",
       "seconds": 2.35,
       "sha256": "18f4b6b55127dd5be3bae1f869172187f7bc913c3d33a271d483818bf5d76e98"
+    },
+    {
+      "file": "4434c6154f0333db6975.mp3",
+      "text": "提灯里的光用完了。先试着回答，或收起题目再回世界之心。复习森林三题，让萤火虫飞回提灯",
+      "lang": "zh-CN",
+      "voice": "zf_001",
+      "seconds": 9.625,
+      "sha256": "736b48f1fb8a06a8d2658ec3a14a6e58a772ff63259a3b21b9c041ff632d46c6"
+    },
+    {
+      "file": "44acd1eafa5dca59bac1.mp3",
+      "text": "提灯里的光用完了。回世界之心，复习森林三题，让萤火虫飞回提灯",
+      "lang": "zh-CN",
+      "voice": "zf_001",
+      "seconds": 6.725,
+      "sha256": "2fe17f428c08bdbdf6d8e01bfd73f2d6b9bc0c6e5debf7d0d4c1746234a6a932"
     },
     {
       "file": "52fab6fec146d3bced57.mp3",
@@ -17113,6 +17161,22 @@
       "sha256": "101c84b09e991583d57876e5b7f022c99a1858771abd51106ae0ac81b83068b0"
     },
     {
+      "file": "1d6cf8a286c18f74dc02.mp3",
+      "text": "水母的引路光用完了。先试着回答，或收起题目再回世界之心。复习海底三首诗，让气泡点亮引路水母",
+      "lang": "zh-CN",
+      "voice": "zf_001",
+      "seconds": 10.275,
+      "sha256": "53dffc726127a93f45ced978d7170da29bda4298077bfe167fdf999f1878fdde"
+    },
+    {
+      "file": "756be6a01b2d80800f49.mp3",
+      "text": "水母的引路光用完了。回世界之心，复习海底三首诗，让气泡点亮引路水母",
+      "lang": "zh-CN",
+      "voice": "zf_001",
+      "seconds": 7.5,
+      "sha256": "9c3bef36d23cf98e0524b0ef23952c15eb8da370388baf9f11beb0ea9eb33a66"
+    },
+    {
       "file": "2dc1e9a441e3c6a57405.mp3",
       "text": "水用英语怎么说？听一听选项。",
       "lang": "zh-CN",
@@ -17465,6 +17529,22 @@
       "sha256": "3d00aec9444508dd01080ca3163a60e4fd03baa52f2bfcbfde6feac9b7dce2d6"
     },
     {
+      "file": "ddc5e8394540ee6a9fec.mp3",
+      "text": "海螺的回声用完了。先试着回答，或收起题目再回世界之心。复习沙滩三题，让海风唤醒海螺",
+      "lang": "zh-CN",
+      "voice": "zf_001",
+      "seconds": 9.45,
+      "sha256": "d4d37cb3f64f9473f8e0f057e8bf8161de9e88a4078075db745c6492904b9a5d"
+    },
+    {
+      "file": "c82764e089996d3ca962.mp3",
+      "text": "海螺的回声用完了。回世界之心，复习沙滩三题，让海风唤醒海螺",
+      "lang": "zh-CN",
+      "voice": "zf_001",
+      "seconds": 6.85,
+      "sha256": "6da4538a262e3daf88b4e6780b1852f463e9b93c5cf8e2cda8c2664b5ccd0aba"
+    },
+    {
       "file": "70eb4362cadf72e38cc5.mp3",
       "text": "海豚",
       "lang": "zh-CN",
@@ -17623,6 +17703,22 @@
       "voice": "zf_001",
       "seconds": 4.375,
       "sha256": "04d10e509820ce55027edb41c20f402fe1c7312dddbaacf400676bf46f0de273"
+    },
+    {
+      "file": "b135227e9293ef661b18.mp3",
+      "text": "烛灯的星火用完了。先试着回答，或收起题目再回世界之心。复习城堡三题，让故事星火点亮烛灯",
+      "lang": "zh-CN",
+      "voice": "zf_001",
+      "seconds": 9.775,
+      "sha256": "93225c084ab5c1e6c8214239b3e7e673022a01a984f8d3d0b6ff9b082665a057"
+    },
+    {
+      "file": "900914e437f191ded0dd.mp3",
+      "text": "烛灯的星火用完了。回世界之心，复习城堡三题，让故事星火点亮烛灯",
+      "lang": "zh-CN",
+      "voice": "zf_001",
+      "seconds": 7.0,
+      "sha256": "a69e18b04522093885f6b8c3057176989846cfafb976ae80dc062fea108aee25"
     },
     {
       "file": "3d3e07839236eef603ac.mp3",
@@ -18689,6 +18785,14 @@
       "sha256": "f9e51be1960385ce84539465f27be454dd482e56f79ef3235493abb0a8a9df0d"
     },
     {
+      "file": "a557ab734d815fd40fdb.mp3",
+      "text": "萤火虫提灯亮着，可以使用一次。遇到题目时使用",
+      "lang": "zh-CN",
+      "voice": "zf_001",
+      "seconds": 5.275,
+      "sha256": "418923c890b6c3e03a615681d2be154470431b97831472d32467fa01dcbb02ea"
+    },
+    {
       "file": "2c26323ab299b74f9321.mp3",
       "text": "萤火虫提灯亮着，遇到题目可以请它帮忙",
       "lang": "zh-CN",
@@ -18751,6 +18855,22 @@
       "voice": "zf_001",
       "seconds": 3.825,
       "sha256": "a3e0eb8831d32a9e43b18e86a860356104aff61f9320d81bf079d2fbf17ecdca"
+    },
+    {
+      "file": "2c6e64ea6e2bd5ee8ce9.mp3",
+      "text": "萤石的光用完了。先试着回答，或收起题目再回世界之心。复习山谷三题，让光纹连回萤石",
+      "lang": "zh-CN",
+      "voice": "zf_001",
+      "seconds": 9.125,
+      "sha256": "a0a8277a76c94c6889070b69b644b19edf9a62e9ed7a2030326d0c8367e3d1d1"
+    },
+    {
+      "file": "9c794ba41ccac1806057.mp3",
+      "text": "萤石的光用完了。回世界之心，复习山谷三题，让光纹连回萤石",
+      "lang": "zh-CN",
+      "voice": "zf_001",
+      "seconds": 6.65,
+      "sha256": "00801c092c026e30fdd46605a0526f463575e04e02df5c8adc87d9d55893cafd"
     },
     {
       "file": "776c9c6da2eb2de561cf.mp3",

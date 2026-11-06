@@ -126,4 +126,6 @@
   hub.image='hub-full-ref';
   window.AdventureWorlds={regions:definitions,hub};
   window.AdventurePictures=['sun','moon','mountain','water','fire','tree','mouth','hand','eye','ear','flower','bird','fish','car','rain','apple','banana','cat','dog','boat','house','star','leaf','book','cup','umbrella','toothbrush','soap','trash','seed'];
+  const toolPresentation={"forest": {"use": "使用萤火虫提灯", "empty": "提灯里的光用完了", "ready": "萤火虫提灯亮着，可以使用一次", "restore": "复习森林三题，让萤火虫飞回提灯"}, "castle": {"use": "使用引路烛灯", "empty": "烛灯的星火用完了", "ready": "引路烛灯亮着，可以使用一次", "restore": "复习城堡三题，让故事星火点亮烛灯"}, "beach": {"use": "使用发光海螺", "empty": "海螺的回声用完了", "ready": "发光海螺已准备好，可以使用一次", "restore": "复习沙滩三题，让海风唤醒海螺"}, "valley": {"use": "使用引路萤石", "empty": "萤石的光用完了", "ready": "引路萤石亮着，可以使用一次", "restore": "复习山谷三题，让光纹连回萤石"}, "sea": {"use": "使用引路水母", "empty": "水母的引路光用完了", "ready": "引路水母亮着，可以听一次慢速范读", "restore": "复习海底三首诗，让气泡点亮引路水母"}};
+  for(const [id,tool] of Object.entries(toolPresentation))window.AdventureWorlds.regions[id].tool=tool;
 })();
