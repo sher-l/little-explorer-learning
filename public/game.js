@@ -49,33 +49,38 @@
   }return inside;}
   function walkable(x,y){
     const geometry=scene==='hub'?worlds.hub:stage();if(geometry.maze)return AdventureMaze.walkable(geometry.maze,x,y);
+    if(geometry.groundMask){if(!AdventureMaze.walkable({mask:geometry.groundMask},x,y))return false;}else{
+    if((geometry.solidFootprints||[]).some(o=>pointPoly(x,y,o.poly)))return false;
+    if(geometry.visibleFloor&&!pointPoly(x,y,geometry.visibleFloor))return false;
     if((geometry.blocked||[]).some(b=>((x-b.x)/b.rx)**2+((y-b.y)/b.ry)**2<1))return false;
     const inside=pointPoly(x,y,geometry.walk)||(geometry.extraWalk||[]).some(p=>pointPoly(x,y,p))||(geometry.paths||[]).some(path=>path.points.some((b,i)=>{if(!i)return false;const a=path.points[i-1],dx=b[0]-a[0],dy=b[1]-a[1],t=clamp01(((x-a[0])*dx+(y-a[1])*dy)/(dx*dx+dy*dy));return Math.hypot(x-a[0]-t*dx,y-a[1]-t*dy)<=path.width/2;}));
     if(!inside){const margin=geometry.pathMargin??18;let close=false;for(let i=0,j=geometry.walk.length-1;i<geometry.walk.length;j=i++){const a=geometry.walk[j],b=geometry.walk[i],dx=b[0]-a[0],dy=b[1]-a[1],t=clamp01(((x-a[0])*dx+(y-a[1])*dy)/(dx*dx+dy*dy));if(Math.hypot(x-a[0]-t*dx,y-a[1]-t*dy)<=margin){close=true;break;}}if(!close)return false;}
 
+    }
     if(!TEST_OPEN&&scene==='forest'&&area<4&&state.segments<=area){const [gx,gy]=areaExits[area];if(Math.abs(x-gx)<62&&Math.abs(y-gy)<(gy>600?42:35))return false;}
     return true;
   }
-  function clearLine(a,b){const maze=scene!=='hub'&&stage().maze;if(maze?.mask)return AdventureMaze.clearLine(maze,a,b);const n=Math.ceil(dist(a,b)/2);for(let i=1;i<=n;i++)if(!walkable(a.x+(b.x-a.x)*i/n,a.y+(b.y-a.y)*i/n))return false;return true;}
-  const STEP=18;
-  function nearest(x,y,visible=false){let best=null,dd=Infinity;for(let gy=0;gy<53;gy++)for(let gx=0;gx<93;gx++){
+  function clearLine(a,b){const maze=scene!=='hub'&&(stage().maze||(stage().groundMask?{mask:stage().groundMask}:null));if(maze?.mask)return AdventureMaze.clearLine(maze,a,b);const n=Math.ceil(dist(a,b)/2);for(let i=1;i<=n;i++)if(!walkable(a.x+(b.x-a.x)*i/n,a.y+(b.y-a.y)*i/n))return false;return true;}
+  const navigationStep=()=>scene!=='hub'&&stage().maze?12:18;
+  function nearest(x,y,visible=false){const STEP=navigationStep();let best=null,dd=Infinity;for(let gy=0;gy<Math.ceil(941/STEP);gy++)for(let gx=0;gx<Math.ceil(1672/STEP);gx++){
     const px=gx*STEP+STEP/2,py=gy*STEP+STEP/2,d=(px-x)**2+(py-y)**2;
     if(d<dd&&walkable(px,py)&&(!visible||clearLine({x,y},{x:px,y:py}))){best={x:gx,y:gy};dd=d;}
   }return best;}
   function pathTo(x,y){
+    const STEP=navigationStep();
     const from=nearest(player.x,player.y,true),to=nearest(x,y);if(!from||!to)return [];
     const key=n=>n.x+','+n.y,start=key(from),queue=[from],parent=new Map([[start,null]]);let end=key(to),at=0;
     while(at<queue.length){const n=queue[at++];if(key(n)===end)break;
       for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1],[1,1],[-1,1],[1,-1],[-1,-1]]){
         const next={x:n.x+dx,y:n.y+dy},k=key(next);if(parent.has(k))continue;
-        if(!walkable(next.x*STEP+9,next.y*STEP+9)||!clearLine({x:n.x*STEP+9,y:n.y*STEP+9},{x:next.x*STEP+9,y:next.y*STEP+9}))continue;
-        if(dx&&dy&&(!walkable((n.x+dx)*STEP+9,n.y*STEP+9)||!walkable(n.x*STEP+9,(n.y+dy)*STEP+9)))continue;
+        if(!walkable(next.x*STEP+STEP/2,next.y*STEP+STEP/2)||!clearLine({x:n.x*STEP+STEP/2,y:n.y*STEP+STEP/2},{x:next.x*STEP+STEP/2,y:next.y*STEP+STEP/2}))continue;
+        if(dx&&dy&&(!walkable((n.x+dx)*STEP+STEP/2,n.y*STEP+STEP/2)||!walkable(n.x*STEP+STEP/2,(n.y+dy)*STEP+STEP/2)))continue;
         parent.set(k,key(n));queue.push(next);
       }
     }
-    if(!parent.has(end)){let best=Infinity;for(const k of parent.keys()){const [gx,gy]=k.split(',').map(Number),d=Math.hypot(gx*STEP+9-x,gy*STEP+9-y);if(d<best){best=d;end=k;}}}
-    const result=[];let k=end;while(k&&k!==start){const [gx,gy]=k.split(',').map(Number);result.push({x:gx*STEP+9,y:gy*STEP+9});k=parent.get(k);}
-    const raw=[{x:from.x*STEP+9,y:from.y*STEP+9},...result.reverse()];
+    if(!parent.has(end)){let best=Infinity;for(const k of parent.keys()){const [gx,gy]=k.split(',').map(Number),d=Math.hypot(gx*STEP+STEP/2-x,gy*STEP+STEP/2-y);if(d<best){best=d;end=k;}}}
+    const result=[];let k=end;while(k&&k!==start){const [gx,gy]=k.split(',').map(Number);result.push({x:gx*STEP+STEP/2,y:gy*STEP+STEP/2});k=parent.get(k);}
+    const raw=[{x:from.x*STEP+STEP/2,y:from.y*STEP+STEP/2},...result.reverse()];
     const smooth=[];let anchor={x:player.x,y:player.y},i=0;
     while(i<raw.length){let far=i;while(far+1<raw.length&&clearLine(anchor,raw[far+1]))far++;smooth.push(raw[far]);anchor=raw[far];i=far+1;}
     return smooth;
@@ -151,7 +156,7 @@
     const bright=state.lamp&&!restoringLight;
     $('lamp').querySelector('.asset').outerHTML=helperAsset(false,'lantern');
     $('lampGlow').textContent=bright?'✦':'·';$('lamp').classList.toggle('is-dim',!bright);$('lamp').classList.toggle('is-bright',!!bright);
-    $('lamp').setAttribute('aria-label',bright?region().tool.ready:region().tool.empty+'。'+region().tool.restore); 
+    $('lamp').setAttribute('aria-label',bright?region().tool.ready:region().tool.empty+'。'+region().tool.restore);
   }
   function showPanel(html,newMode){renderDirty=true;$('overlay').dataset.mode=newMode;$('overlay').dataset.region=state.activeRegion;$('overlay').dataset.side=player.x>836?'left':'right';mode=newMode;route=[];routeAction=null;keys.clear();$('overlay').hidden=false;$('panel').innerHTML=html;focusIndex=0;setFocus(0,false);}
   function closePanel(){renderDirty=true;quiz?.cancel();mode='world';$('overlay').hidden=true;$('panel').innerHTML='';}
@@ -224,8 +229,15 @@
     }
   }
   let discoveryCard=null;
-  function hideDiscovery(){discoveryCard?.remove();discoveryCard=null;}
-  function showDiscovery(item){hideDiscovery();const card=document.createElement('aside');card.className='discovery-card';card.setAttribute('aria-label','新发现介绍');card.innerHTML=itemAsset(item.id)+'<div><strong>'+esc(item.name)+'</strong><p>'+esc(item.desc)+'</p></div><button aria-label="关闭介绍">'+(inputMode==='gamepad'?'A / B 收好':'Enter / Z 收好')+'</button>';card.querySelector('button').onclick=hideDiscovery;$('game').append(card);discoveryCard=card;}
+  function hideDiscovery(){discoveryCard?.remove();discoveryCard=null;keys.clear();renderDirty=true;}
+  function showDiscovery(item,illustration){
+    hideDiscovery();route=[];routeAction=null;returningHome=false;player.moving=false;
+    const layer=document.createElement('div');layer.className='discovery-layer';
+    layer.innerHTML='<section class="discovery-card" role="dialog" aria-modal="true" aria-labelledby="discoveryTitle">'+(illustration||itemAsset(item.id))+'<div><small>'+esc(item.caption||'收集到新发现')+'</small><h2 id="discoveryTitle">'+esc(item.name)+'</h2><p>'+esc(item.desc)+'</p></div><button aria-label="关闭介绍">收好，继续探险</button><small class="discovery-controls">A / B · Enter / Z 关闭</small></section>';
+    layer.querySelector('button').onclick=e=>{e.stopPropagation();hideDiscovery();};
+    layer.addEventListener('pointerdown',e=>e.stopPropagation());$('game').append(layer);discoveryCard=layer;layer.querySelector('button').focus({preventScroll:true});
+  }
+
   function helperRestored(){return {forest:'萤火虫飞进提灯，灯又亮了',castle:'故事星火点亮烛灯啦',beach:'海风吹进海螺，它又能唱歌啦',valley:'晶石连起光纹，萤石又亮了',sea:'水母吸收小气泡，又能引路啦'}[state.activeRegion];}
   function charge(){
     showPanel(`<h2>今天复习哪里？</h2><p>复习三题，只恢复对应区域的道具。</p><div class="review-regions">${Object.entries(regions).map(([id,r])=>`<button class="wood-button" data-review="${id}">${atlas('helpers',r.index,2)}<strong>${esc(r.name)}</strong><small>${esc(r.helper)} · ${state.regions[id].energy?'已准备好':journey.reviewQuestions(id).length?'复习进度 '+state.regions[id].review+'/3':'还没有学过的题'}</small></button>`).join('')}</div><button class="wood-button quiet-button" id="leaveReview">先去探险</button>`,'review-select');
@@ -270,7 +282,7 @@
   function nearestEntity(){return entities().filter(e=>dist(player,e)<interactionRadius(e)&&(e.exit||clearLine(player,e))).sort((a,b)=>dist(a,player)-dist(b,player))[0];}
   function interact(){if(mode!=='world'||player.roll>0)return;const e=nearestEntity();if(e)e.action();else catchCritter();}
   function setScene(s,x,y){hideDiscovery();quiz?.cancel();transitionToken++;audio.stop();journey.cancelQuestion();closePanel();occlusionAlpha.clear();altarGuide=null;scene=s;critterScene='';wildlife=null;player.x=x;player.y=y;player.moving=false;player.roll=0;player.boostUntil=0;route=[];routeAction=null;returningHome=false;entryCooldown=2;resize();updateHUD();persist();}
-  function goHome(){const e=worlds.hub.exits.find(e=>e.region===state.activeRegion);const p={x:e.x+(840-e.x)*.18,y:e.y+(560-e.y)*.18};setScene('hub',p.x,p.y);speech(journey.allComplete()?'五枚印记照亮了世界之心。谢谢你，小小探险家！':'走回世界之心啦');}
+  function goHome(){const e=worlds.hub.exits.find(e=>e.region===state.activeRegion);const p={x:e.x+(840-e.x)*.18,y:e.y+(560-e.y)*.18};setScene('hub',p.x,p.y);render();speech(journey.allComplete()?'五枚印记照亮了世界之心。谢谢你，小小探险家！':'走回世界之心啦');}
   async function enterArea(n,back=false){
     area=n;if(TEST_OPEN){const r=state.regions[state.activeRegion];r.segments=n;r.bag=[];r.used=[];r.assignments={};journey.cancelQuestion();}mode='transition';route=[];routeAction=null;keys.clear();
     notify('正在打开这条小路…',30);
@@ -283,7 +295,10 @@
       const a=k*Math.PI/16,p={x:door[0]+Math.cos(a)*radius,y:door[1]+Math.sin(a)*radius};if(!walkable(p.x,p.y))continue;
       const value=dist(p,{x:inward[0],y:inward[1]})+radius*.4;if(value<score){best=p;score=value;}
     }
-    if(best){player.x=best.x;player.y=best.y;}else{const safe=nearest(...door);if(safe){player.x=safe.x*STEP+9;player.y=safe.y*STEP+9;}}
+    if(best){player.x=best.x;player.y=best.y;}else{const safe=nearest(...door),step=navigationStep();if(safe){player.x=(safe.x+.5)*step;player.y=(safe.y+.5)*step;}}
+    // resize clears the canvas. Paint the loaded scene immediately even when
+    // the browser defers its next animation frame after a transition.
+    render();
     speech('来到'+areaNames[n]+'。'+(n<state.segments?'沿前面的小路继续吧':state.activeRegion==='sea'?'听听鱼儿的诗，跟着读一读':'找五样新的发现吧'));
     const next=region().stages[n+1];if(next)setTimeout(()=>loadAsset(next.image).catch(()=>{}),800);
   }
@@ -314,7 +329,7 @@
   }
   $('interact').onclick=()=>{audio.unlock();interact();};$('lamp').onclick=()=>{audio.unlock();help();};$('voice').onclick=()=>{if(!['world','quiz'].includes(mode))return;audio.unlock();if(journey.question)quiz.repeat();else audio.say(lastSpeech||'沿着小路，找找小宝贝',{interrupt:true});};$('roll').onclick=roll;$('home').onclick=()=>{if(mode==='world')guideHome();};$('pause').onclick=pause;
   function inputAction(action){
-    if(discoveryCard&&['confirm','roll'].includes(action)){hideDiscovery();return;}
+    if(discoveryCard){if(['confirm','roll','pause'].includes(action))hideDiscovery();return;}
     if(['feedback','action','transition'].includes(mode))return;
     if(action==='pause'){pause();return;}if(action==='home'){if(mode==='world')guideHome();return;}
     if(action==='voice'){if(mode==='parent-confirm')$('parentRetry')?.click();else $('voice').click();return;}if(action==='lamp'){help();return;}
@@ -326,7 +341,7 @@
   addEventListener('keydown',e=>{
     setInputMode('keyboard');
     const k=e.key.toLowerCase();if(e.target.matches('input,textarea')){if(k==='escape'){e.preventDefault();quiz.draw();}return;}if(['arrowup','arrowdown','arrowleft','arrowright',' ','enter','escape'].includes(k))e.preventDefault();
-    audio.unlock();if(e.repeat)return;keys.add(k);
+    audio.unlock();if(discoveryCard&&k==='tab'){e.preventDefault();discoveryCard.querySelector('button').focus();return;}if(e.repeat)return;keys.add(k);
     if(mode==='world'&&['arrowup','arrowdown','arrowleft','arrowright','w','a','s','d'].includes(k)){actionWakeAt=performance.now();actionWakeUntil=actionWakeAt+150;runFrame();keepActionVisible();}
     if(mode!=='world'&&mode!=='action'&&['arrowleft','arrowright','arrowup','arrowdown'].includes(k)){moveFocus(k==='arrowleft'?-1:k==='arrowright'?1:0,k==='arrowup'?-1:k==='arrowdown'?1:0);return;}
     const action={enter:'confirm',' ':'confirm',escape:'pause',x:'voice',c:'lamp',z:'roll',t:'home'}[k];if(action)inputAction(action);
@@ -502,11 +517,16 @@
     const water=(scene!=='hub'&&stage().water)||window.AdventureWater?.[mapName()]?[]:scene==='hub'?[[1490,130],[1550,430],[1500,650],[1450,880]]:state.activeRegion==='castle'?[]:state.activeRegion==='beach'?[[65,350],[80,510],[90,770],[570,910]]:state.activeRegion==='valley'?[[80,520],[120,670],[260,850]]:area===0?[[1610,330],[1540,610],[1290,785],[970,850],[570,900]]:area===1?[[300,180],[650,190],[1000,185],[1400,195]]:[[1580,350],[1530,580],[1510,820]];
     ctx.save();ctx.strokeStyle='#d1f4df';ctx.lineWidth=2;ctx.globalAlpha=.28;
     water.forEach(([x,y],n)=>{for(let i=0;i<4;i++){const drift=(time*20+i*22+n*9)%85;ctx.beginPath();ctx.moveTo(x-32+drift,y+i*6);ctx.quadraticCurveTo(x-20+drift,y+i*6-3,x-9+drift,y+i*6);ctx.stroke();}});ctx.restore();
-    const grasses=scene==='hub'?[[300,665],[1250,660],[470,735]]:state.activeRegion==='castle'?[]:state.activeRegion!=='forest'?[[195,575],[1430,670],[525,290]]:area===0?[[510,390],[1040,425],[1150,630]]:area===1?[[310,530],[1275,680],[575,370]]:[[485,420],[1250,630],[360,760]];
+    const grasses=scene!=='hub'&&stage().regenerated?[]:scene==='hub'?[[300,665],[1250,660],[470,735]]:state.activeRegion==='castle'?[]:state.activeRegion!=='forest'?[[195,575],[1430,670],[525,290]]:area===0?[[510,390],[1040,425],[1150,630]]:area===1?[[310,530],[1275,680],[575,370]]:[[485,420],[1250,630],[360,760]];
     grasses.forEach(([x,y],i)=>{ctx.save();ctx.strokeStyle='#769148';ctx.lineWidth=2;ctx.lineCap='round';const sway=Math.sin(time*1.5+i)*4;for(let b=0;b<6;b++){const bx=x+b*3;ctx.beginPath();ctx.moveTo(bx,y);ctx.quadraticCurveTo(bx+sway,y-7,bx+(b-2)*2+sway,y-13-(b%3)*3);ctx.stroke();}ctx.restore();});
 
   }
   const faunaNames=['奶油黄蝶','蓝翅蝶','桃粉蝶','橘纹蝶','薄荷白蝶','金纹小鱼','蓝色小鱼','橘色小鱼','紫色小鱼','银色小鱼','红瓢虫','金甲虫','绿蜻蜓','萤火虫','棕色飞蛾'];
+  function faunaDescription(i){
+    if(i<5)return '蝴蝶有两对翅膀，常在花朵间飞舞。观察完，把它放回花园吧。';
+    if(i<10)return '小鱼用鳃呼吸，用鳍帮助游动。看看它的颜色，再让它回到水里吧。';
+    return ['瓢虫有六条腿，背上有硬硬的翅鞘。观察一下它的斑点，再把它放回叶子上吧。','甲虫的前翅像一件小盔甲，保护着身体。观察完，让它继续探索吧。','蜻蜓有两对翅膀，飞行时能灵活转弯。观察完，让它自由飞走吧。','萤火虫的身体能发光。轻轻观察，不要带走它，让它继续照亮夜晚吧。','飞蛾和蝴蝶一样都有两对翅膀。许多飞蛾喜欢在夜间活动，观察完放它飞走吧。'][i-10];
+  }
   function catchTool(){return scene==='hub'?'捕虫网':{forest:'捕虫网',castle:'羽毛光环',beach:'浅滩小网',valley:'草叶兜',sea:'泡泡圈'}[state.activeRegion];}
   function drawFauna(index,x,y,w=42,h=w){drawAtlas('fauna',index,4,x,y,w,h);}
   function initWildlife(){
@@ -534,6 +554,7 @@
     if(!target||!wildlife.capture(target.instance)){notify('再靠近一点，朝着小动物挥动'+catchTool(),2);return;}
     const result=journey.recordCatch(target.species,scene==='hub'?'hub':state.activeRegion);if(!result)return;
     catchBurst={...target,startedAt:performance.now()};persist();audio.tone([784,988,1175]);speech((result.first?'发现了':'又见到')+faunaNames[target.species]+'，记进图鉴，再让它自由玩吧');
+    animation.discovery={item:{name:faunaNames[target.species],desc:faunaDescription(target.species),caption:result.first?'第一次观察到':'又见到这位小邻居'},illustration:atlas('fauna',target.species+5,4)};
   }
   function drawCatchTool(avatar){
     const {f,scale,sx,sy,bob,depth,progress,frame}=avatar,index=scene==='hub'?0:region().index,tool=AdventureCatchAnchors.tools[index];
@@ -703,8 +724,8 @@
     if(TEST_OPEN)$('game').dataset.test='open';
     if(mode==='world'||mode==='action'){time+=dt;initWildlife();wildlife.update(dt,!reduced);}const pad=padAxes;if(time>noticeUntil)$('notice').classList.remove('show');
     entryCooldown=Math.max(0,entryCooldown-dt);
-    if(animation){const now=performance.now();animation.t+=Math.min(.08,Math.max(0,(now-animation.frameAt)/1000));animation.frameAt=now;if(animation.kind==='catch'&&!animation.contact&&animation.t>=animation.duration*.48){animation.contact=true;catchContact();}if(animation.kind==='borrowLight'&&animation.t/animation.duration>=.8&&restoringLight){restoringLight=false;updateHUD();}if(animation.t>=animation.duration){const done=animation.resolve,resume=animation.resume;animation=null;mode='world';if(resume){route=pathTo(resume.x,resume.y);routeAction=resume.action;}done?.();}}
-    if(mode!=='world'){player.moving=false;return;}
+    if(animation){const now=performance.now();animation.t+=Math.min(.08,Math.max(0,(now-animation.frameAt)/1000));animation.frameAt=now;if(animation.kind==='catch'&&!animation.contact&&animation.t>=animation.duration*.48){animation.contact=true;catchContact();}if(animation.kind==='borrowLight'&&animation.t/animation.duration>=.8&&restoringLight){restoringLight=false;updateHUD();}if(animation.t>=animation.duration){const done=animation.resolve,resume=animation.resume,discovery=animation.discovery;animation=null;mode='world';if(discovery)showDiscovery(discovery.item,discovery.illustration);if(resume&&!discoveryCard){route=pathTo(resume.x,resume.y);routeAction=resume.action;}done?.();}}
+    if(mode!=='world'||discoveryCard){player.moving=false;return;}
     let x=pad.x+(keys.has('arrowright')||keys.has('d')?1:0)-(keys.has('arrowleft')||keys.has('a')?1:0),y=pad.y+(keys.has('arrowdown')||keys.has('s')?1:0)-(keys.has('arrowup')||keys.has('w')?1:0);
     const boostRemaining=Math.max(0,(player.boostUntil||0)-performance.now()),fastReturn=returningHome&&routeAction==='entry'&&route.length&&!x&&!y,speed=WALK_SPEED*(fastReturn?2:1+.35*smooth(boostRemaining/250)),before={x:player.x,y:player.y};
     if(player.roll>0){

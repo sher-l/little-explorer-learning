@@ -1,5 +1,5 @@
 {
-  "version": "20261106.17",
+  "version": "20261106.18",
   "bank": "2026-11-06.2",
   "files": [
     {
@@ -14,8 +14,8 @@
     },
     {
       "file": "about.html",
-      "bytes": 3867,
-      "sha256": "0a0d1349c9a4890435e68138595a99b973fc38a66a40c09fcc7f9fa63b9a582a"
+      "bytes": 4277,
+      "sha256": "2471e844e43f572d0129fc8bd96ecbd3f7b8801473fb5de6153e8c193d090199"
     },
     {
       "file": "assets/autumn-ref.webp",
@@ -12788,6 +12788,131 @@
       "sha256": "f432aa606fcf8691359d2db7eb80339cb5f290be5b0ce257243392ca152ff2e9"
     },
     {
+      "file": "assets/regen18-beach-1.webp",
+      "bytes": 585230,
+      "sha256": "43aa75acf037c987be65d8918b5eb9fc5a66c8ec654b6ac308c9d2ad4173f272"
+    },
+    {
+      "file": "assets/regen18-beach-2.webp",
+      "bytes": 564042,
+      "sha256": "bd62b5693caa25ef0c6d284ed25934a4f7c0183b05a90dccab0bd4bf59fa4835"
+    },
+    {
+      "file": "assets/regen18-beach-3.webp",
+      "bytes": 550386,
+      "sha256": "75caa2989ff6790c5fef813bed4cef6284beda34d4317f6ece50ddb7ce91f018"
+    },
+    {
+      "file": "assets/regen18-beach-4.webp",
+      "bytes": 619580,
+      "sha256": "77a18b205096e1fd5cacf097c9e917651da6b7cd38d3f3708ca2cec6b4988c85"
+    },
+    {
+      "file": "assets/regen18-beach-5.webp",
+      "bytes": 694008,
+      "sha256": "41d5476a5ea650f81680201da53ae733af58024387372afc23556a4eb24e82c8"
+    },
+    {
+      "file": "assets/regen18-castle-1.webp",
+      "bytes": 677752,
+      "sha256": "1625107802b89393661aa68bbd69e93d14b9d17cc97aa8b2d975541588fedefa"
+    },
+    {
+      "file": "assets/regen18-castle-2.webp",
+      "bytes": 649478,
+      "sha256": "45bef06e3f433e76dad74aab7af7486d9a79239b4cbd2d51c1c5ef8fa2287e70"
+    },
+    {
+      "file": "assets/regen18-castle-3.webp",
+      "bytes": 676784,
+      "sha256": "e2914fdccf03759dd264d8eb2ec250c2dce310293cc82a2d08e9b7426884e202"
+    },
+    {
+      "file": "assets/regen18-castle-4.webp",
+      "bytes": 685824,
+      "sha256": "d7550af3041c7f5f7c1b9849ee93756de8d61c0efe06a63e4e98279dbdf49299"
+    },
+    {
+      "file": "assets/regen18-castle-5.webp",
+      "bytes": 726634,
+      "sha256": "d654b9016714af2d5c6d8815403a9ef5c3ac96d3b36669dbe28e9342eabef97f"
+    },
+    {
+      "file": "assets/regen18-forest-1.webp",
+      "bytes": 654592,
+      "sha256": "c8991274a5895370c5520eb411b551612e8ad37f4e0cdf4483fe1a2cc0172fc1"
+    },
+    {
+      "file": "assets/regen18-forest-2.webp",
+      "bytes": 613166,
+      "sha256": "87ae6e75a788f002ebe157f6461095c6d4fd2fc39ba915ad3e66d029a9a30bfe"
+    },
+    {
+      "file": "assets/regen18-forest-3.webp",
+      "bytes": 581362,
+      "sha256": "eb6bc775dbff48672ba92ec611de5faad660dce2af14fa58c6577d20139bbbbb"
+    },
+    {
+      "file": "assets/regen18-forest-4.webp",
+      "bytes": 592300,
+      "sha256": "cd78149c480729d45779ed2aca88cfb5fd184ed77c1e9b3afaebc5d4bd3075fb"
+    },
+    {
+      "file": "assets/regen18-forest-5.webp",
+      "bytes": 662488,
+      "sha256": "2c8117029fc1d3116fad6a4dcd38c75b40aff06e7f0b9ed3f0726238cd9a8c20"
+    },
+    {
+      "file": "assets/regen18-sea-1.webp",
+      "bytes": 540170,
+      "sha256": "2671d57b5c2d8f2a9e3699c13ddee7914c2e5e8e687d0f368568233bfae29c6a"
+    },
+    {
+      "file": "assets/regen18-sea-2.webp",
+      "bytes": 523884,
+      "sha256": "b499b2305dad6699efd0b6f26ad88c552ae2255da184d57823fd45e07015ef6c"
+    },
+    {
+      "file": "assets/regen18-sea-3.webp",
+      "bytes": 531636,
+      "sha256": "78338d0a809e43b3b39160db694083659e626f79c15d21a9e32a43ab29684608"
+    },
+    {
+      "file": "assets/regen18-sea-4.webp",
+      "bytes": 516026,
+      "sha256": "b10ab75e3f600b3bab78d446f2f4cc1339f4972798a1536aa9f2e9a474f244d4"
+    },
+    {
+      "file": "assets/regen18-sea-5.webp",
+      "bytes": 585834,
+      "sha256": "0498778d565d7be22c4406c48265120f4be1031f87156ad9b30dc760748d7aee"
+    },
+    {
+      "file": "assets/regen18-valley-1.webp",
+      "bytes": 610460,
+      "sha256": "0b06add9f91b55c7838093cbed8c4f808789baf3e8aff5b69b96a3c11e69d097"
+    },
+    {
+      "file": "assets/regen18-valley-2.webp",
+      "bytes": 602264,
+      "sha256": "c4e930147c9cde6379f30452da222654fc362df59c214b796f8bafb4d0363cab"
+    },
+    {
+      "file": "assets/regen18-valley-3.webp",
+      "bytes": 576528,
+      "sha256": "3c6956dbd5125e1e2ee402c024355fc10410ae2440e7f59f368e5db19187ab6d"
+    },
+    {
+      "file": "assets/regen18-valley-4.webp",
+      "bytes": 624380,
+      "sha256": "0bdd24c7dee9d559dd90361fe8d1671c2186df79e94e6625ae70d4bee7ce5ce7"
+    },
+    {
+      "file": "assets/regen18-valley-5.webp",
+      "bytes": 702488,
+      "sha256": "79406a69e4fbc76b4b08fa9c78772671b6c52844465483e2958a810e48b6addd"
+    },
+    {
       "file": "assets/sea-0-natural.webp",
       "bytes": 465458,
       "sha256": "880885e285eff809b67528858eeaeb311001c33b02163baf67497dbab2d85423"
@@ -12894,8 +13019,8 @@
     },
     {
       "file": "couch-ui.css",
-      "bytes": 7039,
-      "sha256": "f05c91adbf44443f3b4c887182f60b77ba24161fca02f521316be22ca3ccaa07"
+      "bytes": 7944,
+      "sha256": "8cc0632eebf44979fd0d963b59acf471ae5d6d40ae774677a92bcc981400b7ac"
     },
     {
       "file": "full-world.css",
@@ -12904,8 +13029,8 @@
     },
     {
       "file": "game.js",
-      "bytes": 91798,
-      "sha256": "c3285bfd53a4ae1c3979a249d07c8cc3fb5f312a2a83c062da4cc094826b37ac"
+      "bytes": 93508,
+      "sha256": "177f5cb4af696f23bf6ab178d146c671777c456afc5f8d07fa9d2f7b850949be"
     },
     {
       "file": "growth-menu.js",
@@ -12919,8 +13044,8 @@
     },
     {
       "file": "index.html",
-      "bytes": 4764,
-      "sha256": "1aa4230adac1c4c1996d09c98c88168721791149209a79cac3b4d89db097e9fb"
+      "bytes": 4799,
+      "sha256": "a08fa0603c0a6e2c9671536161603f73691b71dce581097229d04058f3939403"
     },
     {
       "file": "licenses/natural-voice/ATTRIBUTION.md",
@@ -12954,8 +13079,8 @@
     },
     {
       "file": "new-worlds.js",
-      "bytes": 7273,
-      "sha256": "1b53fdf6e5ecf4d8327badba8684486b3bf847ceef31cf098dcf6ca9b3a11709"
+      "bytes": 12799,
+      "sha256": "5e7f7971e7901a864b1beb3a410c1f2c47087b599ac738058ce2e3f830c5597e"
     },
     {
       "file": "poem-catalog.json",
@@ -12976,6 +13101,11 @@
       "file": "reference-ui.css",
       "bytes": 4445,
       "sha256": "47fb4ed3b1302c9c091f11f604f393ac9c80d4501acc965c430dc1f574dfdfb8"
+    },
+    {
+      "file": "regenerated-worlds.js",
+      "bytes": 381117,
+      "sha256": "ad7abf3ae331a822de3a84935997b696f0518b6cdeeece1609e64b9b34f99d68"
     },
     {
       "file": "region-ui.css",
