@@ -1,7 +1,8 @@
 (() => {
   'use strict';
   const $=id=>document.getElementById(id), cv=$('world'),ctx=cv.getContext('2d',{alpha:false});
-  const data=window.AdventureContent, QA=new URLSearchParams(location.search).get('qa');
+  const TEST_OPEN=new URLSearchParams(location.search).get('test')==='open';
+  const data=window.AdventureContent, QA=TEST_OPEN?'open-doors17':new URLSearchParams(location.search).get('qa');
   const SAVE=QA?'forest.adventure.qa.'+QA:(window.AdventureRuntime?.storagePrefix||'forest.adventure.')+'v1';
   let saved;try{saved=localStorage.getItem(SAVE)||undefined;}catch{}
   const journey=new ForestJourney(data,saved),state=journey.state;
@@ -48,10 +49,11 @@
   }return inside;}
   function walkable(x,y){
     const geometry=scene==='hub'?worlds.hub:stage();if(geometry.maze)return AdventureMaze.walkable(geometry.maze,x,y);
+    if((geometry.blocked||[]).some(b=>((x-b.x)/b.rx)**2+((y-b.y)/b.ry)**2<1))return false;
     const inside=pointPoly(x,y,geometry.walk)||(geometry.extraWalk||[]).some(p=>pointPoly(x,y,p))||(geometry.paths||[]).some(path=>path.points.some((b,i)=>{if(!i)return false;const a=path.points[i-1],dx=b[0]-a[0],dy=b[1]-a[1],t=clamp01(((x-a[0])*dx+(y-a[1])*dy)/(dx*dx+dy*dy));return Math.hypot(x-a[0]-t*dx,y-a[1]-t*dy)<=path.width/2;}));
     if(!inside){const margin=geometry.pathMargin??18;let close=false;for(let i=0,j=geometry.walk.length-1;i<geometry.walk.length;j=i++){const a=geometry.walk[j],b=geometry.walk[i],dx=b[0]-a[0],dy=b[1]-a[1],t=clamp01(((x-a[0])*dx+(y-a[1])*dy)/(dx*dx+dy*dy));if(Math.hypot(x-a[0]-t*dx,y-a[1]-t*dy)<=margin){close=true;break;}}if(!close)return false;}
 
-    if(scene==='forest'&&area<4&&state.segments<=area){const [gx,gy]=areaExits[area];if(Math.abs(x-gx)<62&&Math.abs(y-gy)<(gy>600?42:35))return false;}
+    if(!TEST_OPEN&&scene==='forest'&&area<4&&state.segments<=area){const [gx,gy]=areaExits[area];if(Math.abs(x-gx)<62&&Math.abs(y-gy)<(gy>600?42:35))return false;}
     return true;
   }
   function clearLine(a,b){const maze=scene!=='hub'&&stage().maze;if(maze?.mask)return AdventureMaze.clearLine(maze,a,b);const n=Math.ceil(dist(a,b)/2);for(let i=1;i<=n;i++)if(!walkable(a.x+(b.x-a.x)*i/n,a.y+(b.y-a.y)*i/n))return false;return true;}
@@ -218,9 +220,12 @@
       closePanel();rewardBurst={item:result.item,startedAt:performance.now()};
       $('bag').classList.remove('reward-pop');void $('bag').offsetWidth;$('bag').classList.add('reward-pop');
       audio.tone([659,880,1047]);notify((result.item.discoveryKind==='creature'?'认识了':'收集到')+result.item.name+(result.full?' · 五样齐啦，去点亮印记吧':''),4);
-      audio.say(result.item.name+'。'+result.item.desc+'。',{interrupt:true});
+      audio.say(result.item.name+'。'+result.item.desc+'。',{interrupt:true});showDiscovery(result.item);
     }
   }
+  let discoveryCard=null;
+  function hideDiscovery(){discoveryCard?.remove();discoveryCard=null;}
+  function showDiscovery(item){hideDiscovery();const card=document.createElement('aside');card.className='discovery-card';card.setAttribute('aria-label','新发现介绍');card.innerHTML=itemAsset(item.id)+'<div><strong>'+esc(item.name)+'</strong><p>'+esc(item.desc)+'</p></div><button aria-label="关闭介绍">'+(inputMode==='gamepad'?'A / B 收好':'Enter / Z 收好')+'</button>';card.querySelector('button').onclick=hideDiscovery;$('game').append(card);discoveryCard=card;}
   function helperRestored(){return {forest:'萤火虫飞进提灯，灯又亮了',castle:'故事星火点亮烛灯啦',beach:'海风吹进海螺，它又能唱歌啦',valley:'晶石连起光纹，萤石又亮了',sea:'水母吸收小气泡，又能引路啦'}[state.activeRegion];}
   function charge(){
     showPanel(`<h2>今天复习哪里？</h2><p>复习三题，只恢复对应区域的道具。</p><div class="review-regions">${Object.entries(regions).map(([id,r])=>`<button class="wood-button" data-review="${id}">${atlas('helpers',r.index,2)}<strong>${esc(r.name)}</strong><small>${esc(r.helper)} · ${state.regions[id].energy?'已准备好':journey.reviewQuestions(id).length?'复习进度 '+state.regions[id].review+'/3':'还没有学过的题'}</small></button>`).join('')}</div><button class="wood-button quiet-button" id="leaveReview">先去探险</button>`,'review-select');
@@ -259,15 +264,15 @@
     return list.concat([
       {id:'altar',x:altar[0],y:altar[1],artX:stage().altarArt?.mark[0],artY:stage().altarArt?stage().altarArt.mark[1]+25:undefined,label:stage().exitSubmission?(area<state.segments?'出口 · 回世界之心':state.bag.length===5?'迷宫出口 · 提交印记':'迷宫出口 · 还差 '+(5-state.bag.length)+' 件'):area<state.segments?'印记已点亮':state.activeRegion==='sea'?(state.bag.length===5?'请贝壳点亮印记':'结识五位伙伴，再来找贝壳'):state.bag.length===5?'交给石坛':'收集五样交给石坛',action:()=>stage().exitSubmission&&area<state.segments?goHome():deliver()},
       {id:'entry',x:entry[0],y:entry[1],exit:true,label:area===0?'← 世界之心':'← '+areaNames[area-1],action:()=>area===0?goHome():enterArea(area-1,true)},
-      ...(area<4?[{id:'next',x:exit[0],y:exit[1],exit:true,locked:state.segments<=area,label:state.segments>area?'前往 '+areaNames[area+1]+' →':state.activeRegion==='sea'?'请贝壳点亮印记，打开通道':'五样交给石坛，打开木门',action:()=>{if(state.segments>area)enterArea(area+1);else speech(state.bag.length===5?'已经收集齐啦，沿金色虚线去提交，点亮印记吧':state.activeRegion==='sea'?'结识五位小伙伴，再请贝壳点亮印记':'先找到五样小宝贝，点亮石坛，木门就会打开');}}]:[])
+      ...(area<4?[{id:'next',x:exit[0],y:exit[1],exit:true,locked:!TEST_OPEN&&state.segments<=area,label:TEST_OPEN||state.segments>area?'前往 '+areaNames[area+1]+' →':state.activeRegion==='sea'?'请贝壳点亮印记，打开通道':'五样交给石坛，打开木门',action:()=>{if(TEST_OPEN||state.segments>area)enterArea(area+1);else speech(state.bag.length===5?'已经收集齐啦，沿金色虚线去提交，点亮印记吧':state.activeRegion==='sea'?'结识五位小伙伴，再请贝壳点亮印记':'先找到五样小宝贝，点亮石坛，木门就会打开');}}]:[])
     ]);
   }
   function nearestEntity(){return entities().filter(e=>dist(player,e)<interactionRadius(e)&&(e.exit||clearLine(player,e))).sort((a,b)=>dist(a,player)-dist(b,player))[0];}
   function interact(){if(mode!=='world'||player.roll>0)return;const e=nearestEntity();if(e)e.action();else catchCritter();}
-  function setScene(s,x,y){quiz?.cancel();transitionToken++;audio.stop();journey.cancelQuestion();closePanel();occlusionAlpha.clear();altarGuide=null;scene=s;critterScene='';wildlife=null;player.x=x;player.y=y;player.moving=false;player.roll=0;player.boostUntil=0;route=[];routeAction=null;returningHome=false;entryCooldown=2;resize();updateHUD();persist();}
+  function setScene(s,x,y){hideDiscovery();quiz?.cancel();transitionToken++;audio.stop();journey.cancelQuestion();closePanel();occlusionAlpha.clear();altarGuide=null;scene=s;critterScene='';wildlife=null;player.x=x;player.y=y;player.moving=false;player.roll=0;player.boostUntil=0;route=[];routeAction=null;returningHome=false;entryCooldown=2;resize();updateHUD();persist();}
   function goHome(){const e=worlds.hub.exits.find(e=>e.region===state.activeRegion);const p={x:e.x+(840-e.x)*.18,y:e.y+(560-e.y)*.18};setScene('hub',p.x,p.y);speech(journey.allComplete()?'五枚印记照亮了世界之心。谢谢你，小小探险家！':'走回世界之心啦');}
   async function enterArea(n,back=false){
-    area=n;mode='transition';route=[];routeAction=null;keys.clear();
+    area=n;if(TEST_OPEN){const r=state.regions[state.activeRegion];r.segments=n;r.bag=[];r.used=[];r.assignments={};journey.cancelQuestion();}mode='transition';route=[];routeAction=null;keys.clear();
     notify('正在打开这条小路…',30);
     try{await Promise.all([stage().image,'gates','maze-props',state.activeRegion==='forest'?'items':state.activeRegion+'-items','pictures-0','pictures-1'].map(loadAsset));}catch{goHome();notify('这条小路暂时没下载好，再走到入口试一次吧',8);return;}
     const door=back?stage().exit:stage().entry;setScene('forest',...door);
@@ -289,8 +294,8 @@
     pausedMode=mode;pausedAt=performance.now();quiz?.cancel();mode='pause';audio.stop();showPause();
   }
   function showPause(){
-    showPanel(`<h2>歇一会儿</h2><div class="menu"><button class="wood-button" id="resume">继续探险</button><button class="wood-button quiet-button" id="pauseHome">沿原路返回</button><button class="wood-button quiet-button" id="volume">声音 ${Math.round(state.volume*100)}%</button><button class="wood-button quiet-button" id="fullscreen">全屏</button><button class="wood-button" id="replayMenu">再探险一轮</button><button class="wood-button quiet-button" id="characterMenu">伙伴：${esc(character().name)}</button><button class="wood-button quiet-button" id="weatherMode">天气：${AdventureAtmosphere.label}</button></div><button class="wood-button quiet-button" id="parentTools">家长：成长记录与题库</button><button class="wood-button quiet-button" id="restart">家长：重新开始</button><p class="small-print" id="pauseInputHint">进度已经记下了 · ${inputMode==='gamepad'?'Start':inputMode==='touch'?'点继续探险':'Esc'} 继续</p>`,'pause');
-    growthMenu=window.createGrowthMenu({journey,data,saveKey:SAVE,showPanel,persist,goHome,enterArea,back:showPause});$('replayMenu').onclick=growthMenu.rounds;$('parentTools').onclick=growthMenu.settings;$('weatherMode').onclick=()=>{AdventureAtmosphere.cycle();showPause();};
+    showPanel(`<h2>歇一会儿</h2><div class="menu"><button class="wood-button" id="resume">继续探险</button><button class="wood-button quiet-button" id="pauseHome">沿原路返回</button><button class="wood-button quiet-button" id="volume">声音 ${Math.round(state.volume*100)}%</button><button class="wood-button quiet-button" id="fullscreen">全屏</button><button class="wood-button" id="replayMenu">再探险一轮</button><button class="wood-button quiet-button" id="characterMenu">伙伴：${esc(character().name)}</button><button class="wood-button quiet-button" id="testDoors">${TEST_OPEN?'退出测试，回正式进度':'测试选项：默认开门（独立进度）'}</button></div><button class="wood-button quiet-button" id="parentTools">家长：成长记录与题库</button><button class="wood-button quiet-button" id="restart">家长：重新开始</button><p class="small-print" id="pauseInputHint">进度已经记下了 · ${inputMode==='gamepad'?'Start':inputMode==='touch'?'点继续探险':'Esc'} 继续</p>`,'pause');
+    growthMenu=window.createGrowthMenu({journey,data,saveKey:SAVE,showPanel,persist,goHome,enterArea,back:showPause});$('replayMenu').onclick=growthMenu.rounds;$('parentTools').onclick=growthMenu.settings;$('testDoors').onclick=()=>{const url=new URL(location.href);if(TEST_OPEN)url.searchParams.delete('test');else url.searchParams.set('test','open');location.href=url.href;};
     $('characterMenu').onclick=showCharacters;
     $('resume').onclick=resume;$('pauseHome').onclick=()=>{closePanel();guideHome();};
     $('volume').onclick=()=>{const levels=[0,.35,.7,1];state.volume=levels[(levels.indexOf(state.volume)+1)%4];persist();showPause();audio.say('声音调好啦');};
@@ -309,6 +314,7 @@
   }
   $('interact').onclick=()=>{audio.unlock();interact();};$('lamp').onclick=()=>{audio.unlock();help();};$('voice').onclick=()=>{if(!['world','quiz'].includes(mode))return;audio.unlock();if(journey.question)quiz.repeat();else audio.say(lastSpeech||'沿着小路，找找小宝贝',{interrupt:true});};$('roll').onclick=roll;$('home').onclick=()=>{if(mode==='world')guideHome();};$('pause').onclick=pause;
   function inputAction(action){
+    if(discoveryCard&&['confirm','roll'].includes(action)){hideDiscovery();return;}
     if(['feedback','action','transition'].includes(mode))return;
     if(action==='pause'){pause();return;}if(action==='home'){if(mode==='world')guideHome();return;}
     if(action==='voice'){if(mode==='parent-confirm')$('parentRetry')?.click();else $('voice').click();return;}if(action==='lamp'){help();return;}
@@ -694,6 +700,7 @@
     ctx.restore();
   }
   function update(dt){
+    if(TEST_OPEN)$('game').dataset.test='open';
     if(mode==='world'||mode==='action'){time+=dt;initWildlife();wildlife.update(dt,!reduced);}const pad=padAxes;if(time>noticeUntil)$('notice').classList.remove('show');
     entryCooldown=Math.max(0,entryCooldown-dt);
     if(animation){const now=performance.now();animation.t+=Math.min(.08,Math.max(0,(now-animation.frameAt)/1000));animation.frameAt=now;if(animation.kind==='catch'&&!animation.contact&&animation.t>=animation.duration*.48){animation.contact=true;catchContact();}if(animation.kind==='borrowLight'&&animation.t/animation.duration>=.8&&restoringLight){restoringLight=false;updateHUD();}if(animation.t>=animation.duration){const done=animation.resolve,resume=animation.resume;animation=null;mode='world';if(resume){route=pathTo(resume.x,resume.y);routeAction=resume.action;}done?.();}}

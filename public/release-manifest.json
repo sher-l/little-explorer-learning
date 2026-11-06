@@ -1,6 +1,6 @@
 {
-  "version": "20261106.16",
-  "bank": "2026-11-06.1",
+  "version": "20261106.17",
+  "bank": "2026-11-06.2",
   "files": [
     {
       "file": ".nojekyll",
@@ -14,8 +14,8 @@
     },
     {
       "file": "about.html",
-      "bytes": 3475,
-      "sha256": "dad37ae6da898279ff9f2c0b75f9f8c5dafb2f2d877f68019863c0b6f7401643"
+      "bytes": 3867,
+      "sha256": "0a0d1349c9a4890435e68138595a99b973fc38a66a40c09fcc7f9fa63b9a582a"
     },
     {
       "file": "assets/autumn-ref.webp",
@@ -12854,8 +12854,8 @@
     },
     {
       "file": "atmosphere.js",
-      "bytes": 1453,
-      "sha256": "10acf526836312773cf48c9d8b42f497edc7de63fdd3edc72a75390afed75aae"
+      "bytes": 1374,
+      "sha256": "3a765c7a14f627bbd1780f66cc87842aefc1795d43d30cf397269cd9765edb25"
     },
     {
       "file": "bank-loader.js",
@@ -12879,8 +12879,8 @@
     },
     {
       "file": "content-full.js",
-      "bytes": 1712323,
-      "sha256": "053d3202728fd134254f5924fb3e4c26e0e7f04d6439b536c0c5284903b6d357"
+      "bytes": 1155615,
+      "sha256": "4b8b03a22063068adc4d92c14bdfdbcabb7f6b83e1e91f43b887b40382e52bde"
     },
     {
       "file": "content-packs.js",
@@ -12889,13 +12889,13 @@
     },
     {
       "file": "core.js",
-      "bytes": 28505,
-      "sha256": "324e6185eb735171f9b2987d936b4d0126093ea2f2ef573dd971dddeef9a49f0"
+      "bytes": 28526,
+      "sha256": "47b5d0d4a1a72f2b78e6ae6da6a85bd5341b3526a778704e677d68a1d155f8b0"
     },
     {
       "file": "couch-ui.css",
-      "bytes": 5594,
-      "sha256": "9485d8425413a9dbc08c0b757ab2e57ab5c583294f33d2c2eb7cfd6fa283be08"
+      "bytes": 7039,
+      "sha256": "f05c91adbf44443f3b4c887182f60b77ba24161fca02f521316be22ca3ccaa07"
     },
     {
       "file": "full-world.css",
@@ -12904,8 +12904,8 @@
     },
     {
       "file": "game.js",
-      "bytes": 90515,
-      "sha256": "6f54815976950301b9caa92bc435e809fe8df04f1d40c4eddb1e4a8a5ca74c14"
+      "bytes": 91798,
+      "sha256": "c3285bfd53a4ae1c3979a249d07c8cc3fb5f312a2a83c062da4cc094826b37ac"
     },
     {
       "file": "growth-menu.js",
@@ -12920,7 +12920,7 @@
     {
       "file": "index.html",
       "bytes": 4764,
-      "sha256": "112a38230ad294ae29826ab2145f279f36b20d1bf22aa2a3ea49ae593edec8a5"
+      "sha256": "1aa4230adac1c4c1996d09c98c88168721791149209a79cac3b4d89db097e9fb"
     },
     {
       "file": "licenses/natural-voice/ATTRIBUTION.md",
@@ -12954,8 +12954,8 @@
     },
     {
       "file": "new-worlds.js",
-      "bytes": 6036,
-      "sha256": "069941872cace16af82a216d6871b231b11dc6c8323a283c24a524f469588686"
+      "bytes": 7273,
+      "sha256": "1b53fdf6e5ecf4d8327badba8684486b3bf847ceef31cf098dcf6ca9b3a11709"
     },
     {
       "file": "poem-catalog.json",

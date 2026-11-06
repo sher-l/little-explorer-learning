@@ -48,3 +48,11 @@
 @media(max-width:600px){#game #overlay #panel .whole-poem{font-size:27px;letter-spacing:0}#game #overlay[data-mode=quiz] #panel:has(.poem-quiz){padding:25px 14px}#game #overlay[data-mode=parent-confirm] #panel{padding:25px 14px}}
 
 #game #panel #helpQ{display:inline-flex;align-items:center;justify-content:center;gap:8px}#helpQ .tool-icon{display:inline-block;width:48px;height:48px;flex-shrink:0}#helpQ.is-dim .tool-icon{filter:brightness(.65) saturate(.3)}
+
+#game #overlay[data-mode=quiz] .answer{transform:scale(.88);transition:transform .16s ease,box-shadow .16s ease;position:relative}
+#game #overlay[data-mode=quiz] .answer.focused,#game #overlay[data-mode=quiz] .answer:focus-visible{transform:scale(1.08);z-index:2;outline:4px solid #fff9cf;box-shadow:0 0 0 8px #b58436,0 0 32px 12px #ffe59ab0;background-color:#fff3c4}
+.discovery-card{position:absolute;z-index:12;top:100px;right:24px;width:min(430px,88vw);display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding:20px;border:3px solid #b18a51;border-radius:24px;background:#fff6dfed;box-shadow:0 8px 28px #493a3340;color:#4c4832;font-size:25px}.discovery-card .asset{width:80px;height:80px;flex-shrink:0}.discovery-card div{flex:1}.discovery-card p{font-size:22px;margin:8px 0}.discovery-card button{font:inherit;border:0;border-radius:16px;padding:8px 18px;background:#ddc99b;color:#493d27;margin-left:auto}
+#game[data-test=open]:after{content:'测试模式 · 默认开门 · 独立进度';position:absolute;bottom:100px;left:20px;padding:8px 16px;background:#653b29ed;color:white;border-radius:12px;font-size:22px;pointer-events:none}
+@media(prefers-reduced-motion:reduce){#game #overlay[data-mode=quiz] .answer{transition:none}}
+
+.discovery-card{display:grid;grid-template-columns:80px minmax(0,1fr)}.discovery-card button{grid-column:1/-1;justify-self:end}.discovery-card div{min-width:0}.discovery-card p{line-height:1.45}

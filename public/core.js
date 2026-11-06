@@ -160,7 +160,7 @@
       const q=copy(source);q.baseId=source.baseId||source.id;q.id=q.baseId+'.item'+item.id;
       const name=item.name,n=q.n,m=q.m,art={picture:'seed',itemIcon:item.icon},unit=item.measure||({松果:'颗',蘑菇:'朵',橡果:'颗',橡树叶:'片',红莓:'串',梨:'个',银杏叶:'片',鸡油菌:'朵',葡萄:'串',苹果:'个',柠檬:'个',枫叶:'片',蓝莓:'堆',青松果:'颗',栗子:'颗'}[name]||'个');
       if(q.kind==='count'){q.text='这里有几'+unit+name+'？选出数字。';q.art={type:'groups',groups:[{count:n,...art}]};}
-      else if(['sum','subtract','story'].includes(q.kind)){const add=q.kind==='sum'||q.operation==='sum';q.text='有'+n+unit+name+'，'+(add?'又找到':'拿走')+m+unit+'。'+(add?'一共有':'还剩')+'几'+unit+'？';q.art={type:'equation',...(n<=20&&m<=20?art:{}),left:n,operator:add?'+':'−',right:m,result:'?'};}
+      else if(['sum','subtract','story'].includes(q.kind)){const add=q.kind==='sum'||q.operation==='sum';q.text='有'+n+unit+name+'，'+(add?'又找到':'拿走')+m+unit+'。'+(add?'一共有':'还剩')+'几'+unit+'？';q.art={type:'equation',...(n<10&&m<10?art:{}),left:n,operator:add?'+':'−',right:m,result:'?'};}
       else if(q.kind==='compare'){q.text='两边分别有'+n+unit+'和'+m+unit+name+'。'+(q.comparison==='difference'?'相差几'+unit+'？':q.comparison==='more'?'较多的一边有几'+unit+'？':'较少的一边有几'+unit+'？');q.art={type:'groups',groups:[{count:n,...art},{count:m,...art}]};}
       else if(q.kind==='missing'){q.text='袋里有'+n+unit+name+'，一共需要'+m+unit+'。还缺几'+unit+'？';q.art={type:'equation',...art,left:n,operator:'+',right:'?',result:m};}
       else if(q.kind==='pattern')q.text=name+'旁有一串数字。'+source.text;
