@@ -1,5 +1,5 @@
 {
-  "version": "20261107.30",
+  "version": "20261107.31",
   "bank": "2026-11-06.2",
   "files": [
     {
@@ -679,8 +679,8 @@
     },
     {
       "file": "quiz-ui.js",
-      "bytes": 11063,
-      "sha256": "a84787236bdf7719207b620c1496c84b93a60310cd17e7df602f53817542e412"
+      "bytes": 11491,
+      "sha256": "cae7802c73ff3edd2d44643f093cf1360fa89dfabb2921360d2286768eaa36a6"
     },
     {
       "file": "reference-ui.css",
@@ -774,13 +774,13 @@
     },
     {
       "file": "speech-bank.js",
-      "bytes": 393295,
-      "sha256": "cc3a53836eb93117ad4434df0436808fc6c7693b87880735a998a14e24fe4d77"
+      "bytes": 395618,
+      "sha256": "3cccac0334d447038f964ab3d99fbed574f20001a82045657bd044499bedf1e6"
     },
     {
       "file": "assets/mimo-voice/manifest.json",
-      "bytes": 1072656,
-      "sha256": "7b02860549f1a109cf0b876a5774e53eb6b22e5ddcb50061b8eacaab3b306784"
+      "bytes": 1048210,
+      "sha256": "0c486546ec77e6d78c9a8a6127c77582038679a050361be7ac737633a1213dcf"
     },
     {
       "file": "licenses/mimo-voice/ATTRIBUTION.md",
@@ -795,7 +795,7 @@
     {
       "file": "index.html",
       "bytes": 5058,
-      "sha256": "b306b242708ae2afebfa4c2fbcfa713e67ac19316974fba8538fbd7357b8d47f"
+      "sha256": "8712d9e3acc1c8fc2972cc368440fa29bd8e81eb212588710671dbdad74600dc"
     },
     {
       "file": "assets/mimo-voice/e7c9725cce980177bb69.mp3",
@@ -22571,6 +22571,131 @@
       "file": "assets/mimo-voice/ffe8a193a5eb425d423f.mp3",
       "bytes": 25920,
       "sha256": "c8516cb6f8176af85f48145233e232efc01b744eb10193a0cb08fff5e4f66cce"
+    },
+    {
+      "file": "assets/mimo-voice/poem-intro-273f710b162dc0fea4a6.mp3",
+      "bytes": 18240,
+      "sha256": "281a9d34d8835b63b5c62a99ac56b9b8b0307be9cbaaba756dd74f48be2408d0"
+    },
+    {
+      "file": "assets/mimo-voice/poem-intro-0f36b5b4fa6536b5bcff.mp3",
+      "bytes": 17856,
+      "sha256": "b02da63b0f18776cbcd917d5f42920fe0cdb9212a50b2e19ac5e33a1d31317dd"
+    },
+    {
+      "file": "assets/mimo-voice/poem-intro-901b3bf5f999ff8639bd.mp3",
+      "bytes": 35472,
+      "sha256": "ff559143dc7e3e4cb42d2e515ed423808b0d39ffcfe0b767ba0f08154dc76146"
+    },
+    {
+      "file": "assets/mimo-voice/poem-intro-105ab51d67c0f8e92936.mp3",
+      "bytes": 18336,
+      "sha256": "01b147f42f188b6ccdc6d4667ebc02c04c085b01a3dddec6b89b509d062605d6"
+    },
+    {
+      "file": "assets/mimo-voice/poem-intro-09951b8f3758921101eb.mp3",
+      "bytes": 19728,
+      "sha256": "f62838cb916d08c136f492d29868c2654fb7627bd7e6f50b0af34d14333bb1b7"
+    },
+    {
+      "file": "assets/mimo-voice/poem-intro-9e63c8ff4d7f11ec7873.mp3",
+      "bytes": 18864,
+      "sha256": "ec194edf9a0b9c95d5add899e3a27510893d28e95c7d8663631514d2a7bca9d8"
+    },
+    {
+      "file": "assets/mimo-voice/poem-intro-4ed238f7e8d907958f5d.mp3",
+      "bytes": 16248,
+      "sha256": "9c3e023ff0c9ec8c88d835b2ff8a45743439b2833aed2e709305c70ac9844921"
+    },
+    {
+      "file": "assets/mimo-voice/poem-intro-6b1d5ed688aecdf152f8.mp3",
+      "bytes": 21792,
+      "sha256": "957e00211342caf9b25d18e01599607652375268295ccbe210c6ba8fc4108d89"
+    },
+    {
+      "file": "assets/mimo-voice/poem-intro-5909821195b665f4251e.mp3",
+      "bytes": 20112,
+      "sha256": "43827344de92cd18a24cbe1a2066beef675b06c79b28738dbb3342dde574b1f9"
+    },
+    {
+      "file": "assets/mimo-voice/poem-intro-c5a3516faebc9c9c5b54.mp3",
+      "bytes": 20136,
+      "sha256": "a79a7d5e534858f982a66b68a028b38f5d62a22a82c00f77606158ec1a06b178"
+    },
+    {
+      "file": "assets/mimo-voice/poem-intro-094de1b76ff316930b6c.mp3",
+      "bytes": 19368,
+      "sha256": "b858e9d7773ecb921341055e6ca92ae75fb48a21335741fc88362bcdb9f3a815"
+    },
+    {
+      "file": "assets/mimo-voice/poem-intro-0d6b0d569803a94621d4.mp3",
+      "bytes": 20592,
+      "sha256": "0ede580ddcc88b334971d5fdfbac56f8dfeb9ce81bc061628d53c79b73ac4c09"
+    },
+    {
+      "file": "assets/mimo-voice/poem-intro-0087cca4e2ca523b3c16.mp3",
+      "bytes": 22104,
+      "sha256": "b6e3db0dbfc108d23fa1ab7931ca0df313e05f4973047a4f95cf9e475ebce24a"
+    },
+    {
+      "file": "assets/mimo-voice/poem-intro-227ffd1ed6ec1d8b3a91.mp3",
+      "bytes": 18888,
+      "sha256": "317b653f4fb67ad3c6b0fcebae03e0852bf465462da0e9d523cb932934168867"
+    },
+    {
+      "file": "assets/mimo-voice/poem-intro-2f805846fd60d0b00cfb.mp3",
+      "bytes": 18912,
+      "sha256": "53ec708bdb6a1e840412c30b0b7d5e3077647323a6d1a92fad9cf233dc820a39"
+    },
+    {
+      "file": "assets/mimo-voice/poem-intro-a951cccd5a50b2d398e4.mp3",
+      "bytes": 17640,
+      "sha256": "4a45707feb84739bc1f25236ead15e0adfdd68486a3bf47acc11a40a8e3ea2c0"
+    },
+    {
+      "file": "assets/mimo-voice/poem-intro-d7dcbde2d99c72605bc9.mp3",
+      "bytes": 9624,
+      "sha256": "65a4df0293985a57d2c829c72c00c43fddd895eaa10381f4deefb036a16b3d48"
+    },
+    {
+      "file": "assets/mimo-voice/poem-intro-45ee4b63af2eb9a5a08c.mp3",
+      "bytes": 20112,
+      "sha256": "352466fc94030ed83a09bd55b5801f6277d6caca2af8f793fde54b7a843225dc"
+    },
+    {
+      "file": "assets/mimo-voice/poem-intro-9fb5769ebaa48ad9df59.mp3",
+      "bytes": 18792,
+      "sha256": "e9b827a869ccbcf72f32c67f4c0da20ee70734b5f16c503bc5100cba6c36e29f"
+    },
+    {
+      "file": "assets/mimo-voice/poem-intro-48bd185b825de1e36121.mp3",
+      "bytes": 16656,
+      "sha256": "a4cfe4555c35b81bec0bb7291b521c35eae0460b7c25fb0133d23bdfe0e5f0ec"
+    },
+    {
+      "file": "assets/mimo-voice/poem-intro-a6b783438d430bb33a82.mp3",
+      "bytes": 26376,
+      "sha256": "13d8e33d8810e87c688f41a1c4349bbc9c629decd478ec3bf456887f67c026fe"
+    },
+    {
+      "file": "assets/mimo-voice/poem-intro-2f17345318b0f16fc322.mp3",
+      "bytes": 17088,
+      "sha256": "80c1ec51ec42aa9687158bd1c5677f036d934c97891aa5dffb919e3f77dc6219"
+    },
+    {
+      "file": "assets/mimo-voice/poem-intro-52faa22dfed29a7c73e6.mp3",
+      "bytes": 17592,
+      "sha256": "73ddeca5d274193559919c627f3625c991c9e22f6ee4ec9de2a3539d59995646"
+    },
+    {
+      "file": "assets/mimo-voice/poem-intro-c4e71dae02c5eb84cd1c.mp3",
+      "bytes": 16224,
+      "sha256": "5d16f63df0640f9b99943886c9eff431ea63ea2783994a84f7b02f6df663b4cc"
+    },
+    {
+      "file": "assets/mimo-voice/poem-intro-ecd1953dc8346f856f29.mp3",
+      "bytes": 15480,
+      "sha256": "04d2864dc4c49ce06cc8845d14eedf4b9c923bcf568d048eba9981516fd3bbd2"
     }
   ]
 }

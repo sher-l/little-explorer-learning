@@ -38,7 +38,7 @@
     }
     function optionLabel(o,q,index){return q.region==='castle'&&q.kind==='character'?'选项'+(index+1)+(o.type==='picture'?'，观察图片':'，观察字形'):(o.label||o.n);}
     function toolButton(a){const r=root.AdventureWorlds.regions[state.activeRegion],label=a.review?'复习中不使用道具':state.lamp?r.tool.use:r.tool.empty;return `<span class="asset tool-icon" aria-hidden="true" style="background-image:url('assets/helpers.webp');background-size:500% 200%;background-position:${r.index*25}% 0%"></span><span>${esc(label)}</span>`;}
-    function footer(a){return `<div class="panel-actions quiz-actions"><button class="wood-button quiet-button" id="repeatQ">♫ 再听一次</button><button class="wood-button ${state.lamp?'':'is-dim'}" id="helpQ" ${a.review?'disabled':''}>${toolButton(a)}</button><button class="wood-button quiet-button" id="leaveQ">先收起来</button></div><p class="quiz-caption">${a.review?`复习旧题 · ${esc(state.review)}/3`:a.q.kind==='poem'?(a.q.wholePoem?'听完整首，再念给家长听':'听一句，跟着念一句'):'听清题目，再选答案'}</p>`;}
+    function footer(a){return `<div class="panel-actions quiz-actions"><button class="wood-button quiet-button" id="repeatQ">♫ 再听一次</button><button class="wood-button ${state.lamp?'':'is-dim'}" id="helpQ" ${a.review?'disabled':''}>${toolButton(a)}</button><button class="wood-button quiet-button" id="leaveQ">先收起来</button></div><p class="quiz-caption">${a.review?`复习旧题 · ${esc(state.review)}/3`:a.q.kind==='poem'?(a.q.wholePoem?'听完整首，再跟着念':'听一句，跟着念一句'):'听清题目，再选答案'}</p>`;}
     function bindCommon(){
       $('repeatQ').onclick=()=>repeat();
       $('helpQ').onclick=()=>help();
@@ -54,7 +54,16 @@
       focusSerial++;speaking=true;syncMic();
       if(a.q.kind==='poem')status(a.hinted?'用引路水母听慢速范读，再试一遍。':(a.q.wholePoem?'先听完整首，听完再开始。':'先听这一句，听完再开始。'));
       if($('choiceStatus'))$('choiceStatus').textContent='正在读题…';
-      prompt=Promise.resolve(audio.say(a.q.say||a.q.text,{interrupt:true,lang:a.q.lang||'zh-CN',rate:a.hinted ? .72 : a.q.kind==='poem' ? .85 : 1})).catch(()=>({reason:'error'})).then(result=>{
+      const serial=focusSerial,rate=a.hinted ? .72 : a.q.kind==='poem' ? .85 : 1;
+      const readPrompt=async()=>{
+        const header=a.q.kind==='poem'&&a.q.title&&a.q.author?a.q.title+'。'+a.q.author:'';
+        if(header){
+          const intro=await audio.say(header,{interrupt:true,lang:'zh-CN',rate});
+          if(!current(version,token)||serial!==focusSerial||intro?.reason==='cancelled')return {reason:'cancelled'};
+        }
+        return audio.say(a.q.say||a.q.text,{interrupt:!header,lang:a.q.lang||'zh-CN',rate});
+      };
+      prompt=Promise.resolve(readPrompt()).catch(()=>({reason:'error'})).then(result=>{
         if(!current(version,token))return;
         speaking=false;syncMic();
         const failed=result&&['unavailable','local-voice-unavailable','error','timeout','blocked','recorded-timeout'].includes(result.reason);
