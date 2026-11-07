@@ -1,5 +1,5 @@
 {
-  "version": "20261107.29",
+  "version": "20261107.30",
   "bank": "2026-11-06.2",
   "files": [
     {
@@ -614,8 +614,8 @@
     },
     {
       "file": "core.js",
-      "bytes": 29050,
-      "sha256": "42c20bfb35147854b096a08084d9f6fd4a7c451f8e3500a916201f137a868288"
+      "bytes": 29634,
+      "sha256": "45e608d49783c23449206f2e6fb3beb49cb7117149b3d4deb99254e2d7379c56"
     },
     {
       "file": "couch-ui.css",
@@ -629,8 +629,8 @@
     },
     {
       "file": "game.js",
-      "bytes": 95226,
-      "sha256": "38a3ba7da86b9e62220ad709b327448501e4297cd078a5e2598b9e8ec90ec4dd"
+      "bytes": 96939,
+      "sha256": "4143863dc7462eb3328ad5e4a4f9e10af50b0a894b9894a91e935a3c492b63e0"
     },
     {
       "file": "growth-menu.js",
@@ -679,8 +679,8 @@
     },
     {
       "file": "quiz-ui.js",
-      "bytes": 11924,
-      "sha256": "0648128976c96f6fd3a02b4a784dbdfb6cd912881821d15cc7ff9087e398ffbe"
+      "bytes": 11063,
+      "sha256": "a84787236bdf7719207b620c1496c84b93a60310cd17e7df602f53817542e412"
     },
     {
       "file": "reference-ui.css",
@@ -714,8 +714,8 @@
     },
     {
       "file": "startup.js",
-      "bytes": 1932,
-      "sha256": "06049333cd1d72bb8dae5013fe6d820438fb9b2f5bf676000d938fc33162ea82"
+      "bytes": 1947,
+      "sha256": "abc0acf2781749f850be174815f0f62dfa6b5090c090de2eac5f920c4dbf77f0"
     },
     {
       "file": "style.css",
@@ -764,8 +764,8 @@
     },
     {
       "file": "adventure-extras.js",
-      "bytes": 8418,
-      "sha256": "2cc7bb7bb6019b28d7be88ea3b131aa25b525979c4f9ffe79ca61a66b09a4eae"
+      "bytes": 15134,
+      "sha256": "5cc20c361f36fe9d32584a2dd688ade970bdb886a68790c8ca63fbeda117b7d3"
     },
     {
       "file": "quiz-large.css",
@@ -789,13 +789,13 @@
     },
     {
       "file": "about.html",
-      "bytes": 4388,
-      "sha256": "579e14d72189d28058efee81237b073f0fe50ab5c4724a674d0c585f8b8e7859"
+      "bytes": 4381,
+      "sha256": "a0f5dd9f55a0e845c693ca4fc9087e7285f8ab76e48730d101d1a04aa1242c09"
     },
     {
       "file": "index.html",
-      "bytes": 5052,
-      "sha256": "97fd3657853d58771cf18c6c381fa0edc2542a393966d87fedec5e920238bb3a"
+      "bytes": 5058,
+      "sha256": "b306b242708ae2afebfa4c2fbcfa713e67ac19316974fba8538fbd7357b8d47f"
     },
     {
       "file": "assets/mimo-voice/e7c9725cce980177bb69.mp3",

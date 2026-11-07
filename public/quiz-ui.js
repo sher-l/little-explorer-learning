@@ -54,14 +54,14 @@
       focusSerial++;speaking=true;syncMic();
       if(a.q.kind==='poem')status(a.hinted?'用引路水母听慢速范读，再试一遍。':(a.q.wholePoem?'先听完整首，听完再开始。':'先听这一句，听完再开始。'));
       if($('choiceStatus'))$('choiceStatus').textContent='正在读题…';
-      prompt=Promise.resolve(audio.say(a.q.say||a.q.text,{interrupt:true,lang:a.q.lang||'zh-CN',rate:a.hinted ? .72 : 1})).catch(()=>({reason:'error'})).then(result=>{
+      prompt=Promise.resolve(audio.say(a.q.say||a.q.text,{interrupt:true,lang:a.q.lang||'zh-CN',rate:a.hinted ? .72 : a.q.kind==='poem' ? .85 : 1})).catch(()=>({reason:'error'})).then(result=>{
         if(!current(version,token))return;
         speaking=false;syncMic();
         const failed=result&&['unavailable','local-voice-unavailable','error','timeout','blocked','recorded-timeout'].includes(result.reason);
-        const readStatus=failed?'声音没播出来，按 X 或“再听一次”重试；也可以请家长念。':result?.reason==='silent'?'声音已关闭，可在暂停菜单调高音量。':a.q.region==='castle'?'先观察字形和图片，选好后再听读音。':'听清题目，再选答案';
+        const readStatus=failed?'声音没播出来，按 X 或“再听一次”重试；也可以自己看着念。':result?.reason==='silent'?'声音已关闭，可在暂停菜单调高音量。':a.q.region==='castle'?'先观察字形和图片，选好后再听读音。':'听清题目，再选答案';
         if($('choiceStatus'))$('choiceStatus').textContent=readStatus;
         if(failed){if(a.q.kind==='poem')status(readStatus);return result;}
-        if(a.q.kind==='poem')status('轮到你啦，念给爸爸妈妈听；念完请家长确认。');
+        if(a.q.kind==='poem')status('轮到你啦，跟着念一念，念完自己继续探险。');
         return result;
       });
       return prompt;
@@ -98,16 +98,10 @@
       initialPrompt.then(()=>{if(current(version,token)&&!busy&&focusSerial===initialFocus&&q.focusVoicePolicy!=='silent')optionVoice(q.options[0],q,version,token,initialFocus);});
     }
     function poemBody(q){return `<div class="poem-line${q.wholePoem?' whole-poem':''}" lang="zh-CN">${q.wholePoem?q.poemLines.map(line=>`<span>${esc(line)}</span>`).join(''):esc(q.expectedText||q.expected_text)}</div>`;}
-    function parentConfirm(){
-      const a=journey.question;if(!a||a.q.kind!=='poem')return;const token=a.token;cancel();
-      showPanel(`<h2>请爸爸妈妈听一听</h2><div class="poem-heading"><h3>${esc(a.q.title)}</h3><span>${esc(a.q.author)}</span></div>${poemBody(a.q)}<p>孩子念完${a.q.wholePoem?'整首诗':'这一句'}后，由在旁边的家长确认。</p><div class="panel-actions"><button class="wood-button quiet-button" id="parentRetry">再听再念一次</button><button class="wood-button" id="parentPass">家长确认 · ${a.q.wholePoem?'整首':'这句'}通过</button></div><button class="wood-button quiet-button" id="cancelParent">返回</button>`,'parent-confirm');
-      $('panel').scrollTop=0;$('cancelParent').onclick=draw;$('parentRetry').onclick=draw;
-      let submitted=false;$('parentPass').onclick=()=>{if(submitted||journey.question?.token!==token)return;submitted=true;const result=journey.confirmPoemByParent(token,true);persist();if(result.q)finishAnswer(result,-1);};
-    }
     function poetry(a,version){
-      const q=a.q;
-      showPanel(`<section class="adventure-quiz poem-quiz" aria-labelledby="quizTitle"><div class="poem-heading"><h2 id="quizTitle">${esc(q.title||'一起念古诗')}</h2><span>${esc(q.author)}</span></div>${poemBody(q)}<p id="poemStatus" role="status" aria-live="polite">听完整首示范，念给爸爸妈妈听。</p><div class="poem-record-actions"><button class="wood-button" id="parentReading">念完了 · 请家长确认</button></div>${footer(a)}</section>`,'quiz');
-      $('panel').scrollTop=0;bindCommon();$('parentReading').onclick=parentConfirm;repeat();
+      const q=a.q,token=a.token;
+      showPanel(`<section class="adventure-quiz poem-quiz" aria-labelledby="quizTitle"><div class="poem-heading"><h2 id="quizTitle">${esc(q.title||'一起念古诗')}</h2><span>${esc(q.author)}</span></div>${poemBody(q)}<p id="poemStatus" role="status" aria-live="polite">先听一听，跟着念；念完就可以继续探险。</p><div class="poem-record-actions"><button class="wood-button" id="selfReading">我念完啦 · 继续探险</button></div>${footer(a)}</section>`,'quiz');
+      $('panel').scrollTop=0;bindCommon();$('selfReading').onclick=()=>{if(!current(version,token))return;const result=journey.confirmPoemBySelf(token);persist();if(result.q)finishAnswer(result,-1);};repeat();
     }
     function draw(){cancel();const a=journey.question;if(!a)return;if(a.q.region==='castle'&&a.q.kind==='character')a.q.focusVoicePolicy='silent';const version=epoch;a.q.kind==='poem'?poetry(a,version):choices(a,version);}
     return {draw,cancel,repeat};

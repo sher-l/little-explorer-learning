@@ -25,9 +25,9 @@ window.AdventureExtras = function (api) {
   function menu() {
     const complete = Object.keys(progress.completed).length;
     panel('探险手册', `<p>和小伙伴玩一玩，故事不会影响你的主线进度。已帮助 ${complete}/5 位伙伴。</p>`,
-      Object.entries(quests).map(([id,q])=>btn('extra-'+id,`${q.icon} ${labels[id]} · ${progress.completed[id]?'再玩一次':'伙伴故事'}`)).join('') + btn('extra-garden','🌱 我的小花园') + btn('extra-outfit','🎀 探险装扮') + btn('extra-nature','🔎 自然图鉴'));
+      Object.entries(quests).map(([id,q])=>btn('extra-'+id,`${q.icon} ${labels[id]} · ${progress.completed[id]?'再玩一次':'伙伴故事'}`)).join('') + btn('extra-garden','🌱 我的小花园') + btn('extra-outfit','🎀 探险装扮') + btn('extra-checklist','🔎 自然观察清单') + btn('extra-nature','📖 自然图鉴') + modes.map(m=>btn('mode-'+m.id,m.icon+' '+m.label)).join(''));
     for (const id of Object.keys(quests)) on('extra-'+id,()=>story(id));
-    on('extra-garden',garden); on('extra-outfit',outfit); on('extra-nature',api.nature);
+    on('extra-garden',careGarden); on('extra-outfit',outfit); on('extra-checklist',checklist); on('extra-nature',api.nature); modes.forEach(m=>on('mode-'+m.id,()=>playMode(api.region(),m.id)));
   }
   function story(id) {
     const q=quests[id];
@@ -80,5 +80,83 @@ window.AdventureExtras = function (api) {
     panel('探险装扮','<p>选一个喜欢的装饰，随时可以更换。</p>',options.map(([id,label])=>btn('wear-'+id,(progress.outfit===id?'✓ ':'')+label)).join(''));
     options.forEach(([id])=>on('wear-'+id,()=>{progress.outfit=id;save();api.dirty();outfit();}));
   }
-  return {menu,story,progress,quests};
+  const discoveries = {
+    forest: {clue:'树上跳来跳去，蓬松的大尾巴，喜欢橡果。', answer:'🐿️ 松鼠', options:['🐿️ 松鼠','🐢 海龟','🐠 小鱼'], fact:'松鼠会收集和藏起食物。'},
+    castle: {clue:'有羽毛和翅膀，会在树枝上唱歌。', answer:'🐦 小鸟', options:['🐢 海龟','🐦 小鸟','🦋 蝴蝶'], fact:'鸟儿用树枝等材料筑巢。'},
+    beach: {clue:'背着硬硬的壳，用鳍在海里游泳。', answer:'🐢 海龟', options:['🐢 海龟','🐿️ 松鼠','🐦 小鸟'], fact:'海龟用鳍游泳。'},
+    valley: {clue:'有彩色翅膀，在花朵之间飞舞。', answer:'🦋 蝴蝶', options:['🐠 小鱼','🦋 蝴蝶','🐢 海龟'], fact:'蝴蝶会到花朵上寻找花蜜。'},
+    sea: {clue:'住在水里，用鳍游泳，身上有鳞片。', answer:'🐠 小鱼', options:['🐿️ 松鼠','🐦 小鸟','🐠 小鱼'], fact:'鱼用鳃从水里获取氧气。'}
+  };
+  progress.observed = progress.observed || {};
+  progress.bridges = progress.bridges || {};
+  progress.kindness = progress.kindness || {};
+  progress.listens = progress.listens || {};
+  progress.growth = Array.isArray(progress.growth) ? progress.growth : [0,0,0];
+  const modes = [
+    {id:'detective',icon:'🔎',label:'自然侦探'},
+    {id:'bridge',icon:'🌈',label:'规律铺路'},
+    {id:'feelings',icon:'💛',label:'心情小帮手'},
+    {id:'sounds',icon:'🔊',label:'听声寻宝'}
+  ];
+  function checklist(){
+    panel('🔎 自然观察清单','<p>在各个地方找到自然侦探，读线索、认识小动物。每找到一个，就记在这里。</p>'+Object.entries(discoveries).map(([id,d])=>`<p>${progress.observed[id]?'✅ '+d.answer+'：'+d.fact:'⬜ '+labels[id]+'：等待发现'}</p>`).join(''),btn('viewNature','📖 打开自然图鉴'));
+    on('viewNature',api.nature);
+  }
+  function detective(id){
+    const d=discoveries[id];
+    panel('🔎 '+labels[id]+'自然侦探',`<p>找找是谁留下了线索？</p><p style="font-size:1.3em">${d.clue}</p>`,d.options.map((o,i)=>btn('clue-'+i,o)).join(''));
+    d.options.forEach((o,i)=>on('clue-'+i,()=>{
+      if(o!==d.answer){api.notice('再看看线索，试试其他的');return;}
+      progress.observed[id]=true;save();api.tone([659,880]);api.dirty();
+      panel('发现啦！ '+d.answer,`<p>${d.fact}</p><p>已经记入自然观察清单。</p>`,btn('clueList','看看观察清单')+btn('clueAgain','再看一次线索'));
+      on('clueList',checklist);on('clueAgain',()=>detective(id));
+    }));
+  }
+  function bridge(id){
+    const sets=[['🌼','🌷'],['🔵','🟡'],['🐚','⭐'],['🍃','🌸']];
+    const pair=sets[Math.floor(Math.random()*sets.length)],length=4+Math.floor(Math.random()*2);let step=0;
+    const draw=()=>{
+      const sequence=Array.from({length:length+step},(_,i)=>pair[i%2]).join('　');
+      panel('🌈 规律铺路',`<p>照着规律铺路，帮小伙伴走过去。还要铺 ${3-step} 块。</p><p style="font-size:1.6em">${sequence}　❔</p>`,pair.map((p,i)=>btn('stone-'+i,p)).join(''));
+      pair.forEach((p,i)=>on('stone-'+i,()=>{
+        if(i!==(length+step)%2){api.notice('看看前面是怎样轮流出现的');return;}
+        step++;if(step<3){draw();return;}
+        progress.bridges[id]=true;save();api.dirty();api.tone([523,659,784]);
+        panel('🌈 小路铺好啦',`<p>你发现了交替的规律！${labels[id]}的小路又有生机了。</p>`,btn('bridgeAgain','再铺一条'));
+        on('bridgeAgain',()=>bridge(id));
+      }));
+    };draw();
+  }
+  function feelings(id){
+    const situations=[['小兔的积木倒了，它低着头。','难过','我们陪它一起慢慢重搭。'],['小鸟找不到朋友，走来走去。','着急','先陪它停一停，再一起找。'],['小猫看到新游戏，蹦蹦跳跳。','开心','和它一起分享这份开心。']];
+    const s=situations[Math.floor(Math.random()*situations.length)],choices=['难过','着急','开心'];
+    panel('💛 心情小帮手',`<p>${s[0]}</p><p>你觉得它可能是什么心情？</p>`,choices.map((x,i)=>btn('feeling-'+i,x)).join(''));
+    choices.forEach((x,i)=>on('feeling-'+i,()=>{
+      panel('💛 一起陪伴',`<p>你猜它${x}。它也许会觉得${s[1]}，每个人的感受都可能不一样。</p><p>我们可以怎样陪它？</p>`,btn('help-listen','先听它说说')+btn('help-breathe','陪它慢慢呼吸')+btn('help-together','问问它需要什么'));
+      ['help-listen','help-breathe','help-together'].forEach(key=>on(key,()=>{
+        progress.kindness[id]=true;save();api.dirty();
+        panel('💛 温暖的陪伴',`<p>${s[2]}</p><p>愿意倾听和陪伴，就是很棒的帮助。</p>`,btn('feelingAgain','再听一个故事'));on('feelingAgain',()=>feelings(id));
+      }));
+    }));
+  }
+  function sounds(id){
+    const animals=[['turtle','🐢 海龟'],['bird','🐦 小鸟'],['fish','🐠 小鱼']];let target=animals[Math.floor(Math.random()*animals.length)],round=0;
+    const draw=()=>{
+      panel('🔊 听声寻宝',`<p>听英文声音，找到相应的动物。第 ${round+1} / 3 次。</p>`,btn('soundPlay','🔊 听一听')+animals.map((a,i)=>btn('sound-'+i,a[1])).join(''));
+      on('soundPlay',()=>api.say(target[0],'en-US'));
+      animals.forEach((a,i)=>on('sound-'+i,()=>{
+        if(a!==target){api.notice('再听一听，试试其他小动物');return;}
+        round++;if(round<3){const next=animals.filter(x=>x!==target);target=next[Math.floor(Math.random()*next.length)];draw();return;}
+        progress.listens[id]=true;save();api.dirty();api.tone([659,784,988]);
+        panel('🔊 找到了！','<p>你听到声音，找到了小动物。宝藏是闪闪发光的贝壳！</p>',btn('soundAgain','再玩一次'));on('soundAgain',()=>sounds(id));
+      }));api.say(target[0],'en-US');
+    };draw();
+  }
+  function playMode(id,mode){({detective,bridge,feelings,sounds})[mode]?.(id);}
+  function careGarden(){
+    panel('🌱 照顾小花园','<p>给花盆播种、浇水，看它开花。帮助小伙伴还可以获得新的花园装饰。</p>',progress.growth.map((n,i)=>btn('care-'+i,`花盆 ${i+1} · ${['🟤 播种','🌱 浇水','🌼 开花啦'][n]}`)).join('')+btn('gardenDecor','🌷 布置花园'));
+    progress.growth.forEach((n,i)=>on('care-'+i,()=>{progress.growth[i]=(n+1)%3;progress.garden[i]=['🌱','🌿','🌼'][progress.growth[i]];save();api.dirty();careGarden();}));on('gardenDecor',garden);
+  }
+
+  return {menu,story,progress,quests,modes,playMode,careGarden,checklist};
 };

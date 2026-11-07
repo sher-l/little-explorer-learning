@@ -123,7 +123,7 @@
           this.nativeSpeaking=true;try{speechSynthesis.speak(u);}catch{finish('unavailable');}
         };
         const path=window.AdventureSpeech?.[lang+'\n'+text];
-        if(path&&this.ctx?.state!=='running'){$('enableSound').hidden=false;notify('请家长点一下“开启声音”，再按 X 重听',7);finish('blocked');return;}
+        if(path&&this.ctx?.state!=='running'){$('enableSound').hidden=false;notify('点一下“开启声音”，再按 X 重听',7);finish('blocked');return;}
         if(path&&this.ctx?.state==='running'){
           // Keep the recorded question authoritative while it loads. A slow
           // download must not silently replace it with unavailable device TTS.
@@ -268,11 +268,25 @@
     showPanel(`<h2>${state.segments===5?'一整枚印记，亮起来啦':'点亮第 '+state.segments+' 片印记'}</h2>${medal(state.activeRegion,state.segments,true)}<p>${state.segments===5?'带回世界之心，去探索其他区域吧':'前面的小路，已经打开啦'}</p><button class="wood-button" id="continueStage">继续探险</button>`,'reward');
     if(stage().exitSubmission){$('continueStage').textContent='带印记回世界之心';$('continueStage').onclick=()=>{closePanel();goHome();};}else $('continueStage').onclick=closePanel;audio.say(state.segments===5?'这枚印记完整啦':'点亮了一片印记，继续沿小路探索吧',{interrupt:true});
   }
+  const activityLocations=new Map();
   function entities(){
-    if(scene==='hub')return [{id:'book',x:worlds.hub.book[0],y:worlds.hub.book[1],label:'收集册',action:()=>book()},{id:'charge',x:worlds.hub.tree[0],y:worlds.hub.tree[1],label:'世界之心 · 选择复习区域',action:charge},...worlds.hub.exits.map(e=>({...e,id:e.region,exit:true,label:e.x<500?'← '+e.label:e.region==='valley'?e.label+' ↓':e.label+' →',action:()=>{journey.selectRegion(e.region);enterArea(0);}}))];
+    if(scene==='hub')return [{id:'gardenActivity',x:575,y:485,label:'🌱 小花园',icon:'🌱',action:()=>extras.careGarden()},{id:'discoveryActivity',x:1090,y:485,label:'🔎 观察清单',icon:'🔎',action:()=>extras.checklist()},{id:'book',x:worlds.hub.book[0],y:worlds.hub.book[1],label:'收集册',action:()=>book()},{id:'charge',x:worlds.hub.tree[0],y:worlds.hub.tree[1],label:'世界之心 · 选择复习区域',action:charge},...worlds.hub.exits.map(e=>({...e,id:e.region,exit:true,label:e.x<500?'← '+e.label:e.region==='valley'?e.label+' ↓':e.label+' →',action:()=>{journey.selectRegion(e.region);enterArea(0);}}))];
     const altar=altars[area],entry=areaEntries[area],exit=areaExits[area];
     const list=area===state.segments?journey.available().map(it=>({id:'item'+it.id,...spots[it.id],icon:it.icon,label:'这次的新发现',item:it.id,action:()=>beginItem(it.id)})):[];
-    if(area===0){const p=stage().start;list.push({id:'sidequest',x:Math.max(150,Math.min(1500,p[0]+170)),y:Math.max(300,Math.min(790,p[1]-75)),label:extras.quests[state.activeRegion].name,action:()=>extras.story(state.activeRegion)});}
+    const place=(offset,occupied)=>{
+      const key=state.activeRegion+':'+area+':'+offset;if(activityLocations.has(key))return activityLocations.get(key);
+      const start=stage().start, safe=walkable(...start)?null:nearest(...start), step=navigationStep();
+      const origin=safe?{x:(safe.x+.5)*step,y:(safe.y+.5)*step}:{x:start[0],y:start[1]};
+      for(const radius of [150,110,190,75,220,45,0])for(let k=0;k<16;k++){
+        const a=(k+offset)*Math.PI/8,p={x:origin.x+Math.cos(a)*radius,y:origin.y+Math.sin(a)*radius};
+        if(p.x<45||p.x>1627||p.y<65||p.y>880||!walkable(p.x,p.y)||!clearLine(origin,p))continue;
+        if(occupied.some(e=>Math.hypot(e.x-p.x,e.y-p.y)<82))continue;activityLocations.set(key,p);return p;
+      }activityLocations.set(key,null);return null;
+    };
+    const occupied=list.concat([{x:altar[0],y:altar[1]},{x:entry[0],y:entry[1]}],exit?[{x:exit[0],y:exit[1]}]:[]);
+    if(area===0){const p=place(0,occupied);if(p){const q=extras.quests[state.activeRegion];list.push({id:'sidequest',...p,icon:q.icon,label:q.name,action:()=>extras.story(state.activeRegion)});occupied.push(p);}}
+    const activity=extras.modes[(area+region().index)%extras.modes.length],p=place(5,occupied);
+    if(p)list.push({id:'worldActivity',...p,icon:activity.icon,label:activity.label,action:()=>extras.playMode(state.activeRegion,activity.id)});
     return list.concat([
       {id:'altar',x:altar[0],y:altar[1],artX:stage().altarArt?.mark[0],artY:stage().altarArt?stage().altarArt.mark[1]+25:undefined,label:stage().exitSubmission?(area<state.segments?'出口 · 回世界之心':state.bag.length===5?'迷宫出口 · 提交印记':'迷宫出口 · 还差 '+(5-state.bag.length)+' 件'):area<state.segments?'印记已点亮':state.activeRegion==='sea'?(state.bag.length===5?'请贝壳点亮印记':'结识五位伙伴，再来找贝壳'):state.bag.length===5?'交给石坛':'收集五样交给石坛',action:()=>stage().exitSubmission&&area<state.segments?goHome():deliver()},
       {id:'entry',x:entry[0],y:entry[1],exit:true,label:area===0?'← 世界之心':'← '+areaNames[area-1],action:()=>area===0?goHome():enterArea(area-1,true)},
@@ -576,7 +590,7 @@
   function natureBook(){
     showPanel(`<h2>自然图鉴 · ${Object.keys(state.nature).length}/15</h2><p>捕捉观察后放回自然，不占任务袋。</p><div class="book-grid">${faunaNames.map((name,i)=>`<button class="book-item ${state.nature[i]?'':'unseen'}" data-fauna="${i}">${atlas('fauna',i+5,4)}<span>${state.nature[i]?esc(name):'还没遇见'}</span>${state.nature[i]?`<small>遇见 ${state.nature[i].count} 次</small>`:''}</button>`).join('')}</div><button class="wood-button" id="backDiscovery">回到学习收集册</button><button class="wood-button quiet-button" id="closeNature">继续探险</button>`,'book');$('backDiscovery').onclick=()=>book();$('closeNature').onclick=closePanel;document.querySelectorAll('[data-fauna]').forEach(b=>b.onclick=()=>audio.say(state.nature[b.dataset.fauna]?faunaNames[+b.dataset.fauna]:'还没遇见它，继续找一找吧',{interrupt:true}));
   }
-  const extras=AdventureExtras({storageKey:SAVE,panel:showPanel,close:closePanel,nature:natureBook,
+  const extras=AdventureExtras({storageKey:SAVE,panel:showPanel,close:closePanel,nature:natureBook,region:()=>state.activeRegion,
     notice:t=>notify(t,4),tone:notes=>audio.tone(notes),say:(t,lang)=>audio.say(t,{interrupt:true,lang}),dirty:()=>{renderDirty=true;}});
   const altarLightCache=new Map(),mazeRowsCache=new Map();
   function mazeRows(){
@@ -656,14 +670,15 @@
         if(state.activeRegion==='forest'&&[3,6,11].includes(e.item)){ctx.save();ctx.translate(ax,ay-8);ctx.rotate(-.5);ctx.scale(1,.5);drawItem(e.item,0,0,45);ctx.restore();}
         else drawItem(e.item,ax,itemY,w);ctx.restore();
       }else{
-        if(e.id==='sidequest'){ctx.save();ctx.font='44px sans-serif';ctx.textAlign='center';ctx.fillText(extras.quests[state.activeRegion].icon,ax,ay);ctx.restore();}
+        if(e.icon&&['sidequest','worldActivity','gardenActivity','discoveryActivity'].includes(e.id)){ctx.save();halo(ax,ay-22,55,'rgba(255,235,139,.7)');ctx.font='44px sans-serif';ctx.textAlign='center';ctx.fillText(e.icon,ax,ay);ctx.restore();}
+        if(e.id==='worldActivity'&&extras.progress.bridges[state.activeRegion]){ctx.save();ctx.font='24px sans-serif';ctx.fillText('🌸',ax+35,ay+18);ctx.fillText('🌿',ax-40,ay+18);ctx.restore();}
         if(e.id==='altar'&&stage().maze&&!stage().maze.painted)drawMazeAltar(e);
         if(e.id==='altar'){if(area<state.segments)text('✓ 已提交',ax,ay+24);else if(area===state.segments&&state.bag.length===5)halo(ax,ay-22,80,'rgba(255,220,91,.65)');}
         if(scene==='hub'&&e.id==='charge'&&!state.lamp){
           halo(e.x,e.y-75,100,'rgba(255,230,159,.14)');
           for(let i=0;i<3;i++){ctx.fillStyle=i<state.review?'#ffe9a3':'#fff4cd55';ctx.strokeStyle='#b99459';ctx.lineWidth=2;ctx.beginPath();ctx.arc(e.x-23+i*23,e.y-24,6,0,7);ctx.fill();ctx.stroke();}
         }
-        if((scene==='hub'||dist(player,e)<230||routeAction===e.id)&&!(e.id==='altar'&&area<state.segments))text(e.label,ax,ay+26);
+        if((scene==='hub'||e.id==='sidequest'||e.id==='worldActivity'||dist(player,e)<230||routeAction===e.id)&&!(e.id==='altar'&&area<state.segments))text(e.label,ax,ay+26);
       }
       if(dist(player,e)<80&&mode==='world'){ctx.fillStyle='#fff6d9';ctx.beginPath();ctx.arc(ax,ay-70,14,0,7);ctx.fill();text(inputMode==='gamepad'?'A':inputMode==='touch'?'点':'↵',ax,ay-64);}
     };

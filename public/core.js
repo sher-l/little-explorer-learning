@@ -7,7 +7,7 @@
   const copy=value=>JSON.parse(JSON.stringify(value));
   const regionOf=item=>REGIONS.includes(item?.region)?item.region:REGIONS[Math.floor(Number(item?.id)/15)]||'forest';
   const stageOf=item=>Number.isInteger(item?.stage)?item.stage:Math.floor((Number(item?.id)%15)/5);
-  const fresh=()=>({version:4,character:'rabbit',celebrated:false,nature:{},replays:{},replayRounds:{},recentQuestions:{},skillRecords:{},activeRegion:'forest',regions:Object.fromEntries(REGIONS.map(id=>[id,{segments:0,bag:[],used:[],assignments:{},energy:1,review:0,reviewCursor:0}])),collected:[],learned:[],learnedSnapshots:{},poemRead:[],parentRead:[],poemHinted:[],unverifiedPoems:[],lastQuestion:{},volume:0.7});
+  const fresh=()=>({version:4,character:'rabbit',celebrated:false,nature:{},replays:{},replayRounds:{},recentQuestions:{},skillRecords:{},activeRegion:'forest',regions:Object.fromEntries(REGIONS.map(id=>[id,{segments:0,bag:[],used:[],assignments:{},energy:1,review:0,reviewCursor:0}])),collected:[],learned:[],learnedSnapshots:{},poemRead:[],parentRead:[],selfRead:[],poemHinted:[],unverifiedPoems:[],lastQuestion:{},volume:0.7});
 
   // Only data fields needed to present a studied question survive a bank upgrade.
   function cleanQuestion(raw){
@@ -89,7 +89,7 @@
       if(typeof s==='string'){try{s=JSON.parse(s);}catch{this.issue('INVALID_SAVE_JSON');return;}}
       if(!s||typeof s!=='object'||Array.isArray(s)){this.issue('INVALID_SAVE_SHAPE');return;}
       if(![1,2,3,4].includes(s.version)){this.issue('UNSUPPORTED_SAVE_VERSION');return;}
-      for(const key of ['collected','learned','parentRead','poemRead','poemHinted','unverifiedPoems'])if(key in s&&!Array.isArray(s[key]))this.issue('INVALID_SAVE_ARRAY');
+      for(const key of ['collected','learned','parentRead','selfRead','poemRead','poemHinted','unverifiedPoems'])if(key in s&&!Array.isArray(s[key]))this.issue('INVALID_SAVE_ARRAY');
       this.state.character=['rabbit','kitten','puppy'].includes(s.character)?s.character:'rabbit';
       this.state.activeRegion=REGIONS.includes(s.activeRegion)?s.activeRegion:'forest';
       if(s.version>=2&&s.regions&&(typeof s.regions!=='object'||Array.isArray(s.regions)))this.issue('INVALID_REGION_PROGRESS');
@@ -126,11 +126,11 @@
       }
       const requestedLearned=unique(array(s.learned).filter(id=>typeof id==='string'));
       const validLearned=requestedLearned.filter(id=>!!this.getQuestion(id));
-      for(const key of ['parentRead','poemRead','poemHinted','unverifiedPoems'])this.state[key]=unique(array(s[key]).filter(id=>this.getQuestion(id)?.kind==='poem'));
+      for(const key of ['parentRead','selfRead','poemRead','poemHinted','unverifiedPoems'])this.state[key]=unique(array(s[key]).filter(id=>this.getQuestion(id)?.kind==='poem'));
       // Old saves did not distinguish listening with help from an ASR pass. Preserve
       // their discoveries, but retain those poem records as unverified exposure.
-      this.state.unverifiedPoems=unique(this.state.unverifiedPoems.concat(validLearned.filter(id=>this.getQuestion(id).kind==='poem'&&!this.state.poemRead.includes(id)&&!this.state.parentRead.includes(id)))).filter(id=>!this.state.poemRead.includes(id)&&!this.state.parentRead.includes(id));
-      this.state.learned=validLearned.filter(id=>this.getQuestion(id).kind!=='poem'||this.state.poemRead.includes(id)||this.state.parentRead.includes(id));
+      this.state.unverifiedPoems=unique(this.state.unverifiedPoems.concat(validLearned.filter(id=>this.getQuestion(id).kind==='poem'&&!this.state.poemRead.includes(id)&&!this.state.parentRead.includes(id)&&!this.state.selfRead.includes(id)))).filter(id=>!this.state.poemRead.includes(id)&&!this.state.parentRead.includes(id)&&!this.state.selfRead.includes(id));
+      this.state.learned=validLearned.filter(id=>this.getQuestion(id).kind!=='poem'||this.state.poemRead.includes(id)||this.state.parentRead.includes(id)||this.state.selfRead.includes(id));
       // A shared review counter has no per-answer subject log. Only migrate its
       // partial credit when the entire surviving old pool proves one subject.
       if(s.version<3&&s.lamp===0){
@@ -269,6 +269,13 @@
       this.state.unverifiedPoems=this.state.unverifiedPoems.filter(id=>id!==active.q.id);
       return this.complete(false);
     }
+    confirmPoemBySelf(token){
+      const active=this.question;if(!active||active.token!==token)return {type:'stale'};
+      if(active.q.kind!=='poem')return {type:'unavailable'};
+      if(!this.state.selfRead.includes(active.q.id))this.state.selfRead.push(active.q.id);
+      this.state.unverifiedPoems=this.state.unverifiedPoems.filter(id=>id!==active.q.id);
+      return this.complete(false);
+    }
     confirmPoemByParent(token,confirmed){
       const active=this.question;if(!active||active.token!==token)return {type:'stale'};
       if(active.q.kind!=='poem'||confirmed!==true)return {type:'unavailable'};
@@ -292,7 +299,7 @@
       if(active.q.kind==='poem'&&helped)return {type:'unavailable'};
       if(!this.state.learned.includes(active.q.id))this.state.learned.push(active.q.id);
       this.state.learnedSnapshots[active.q.id]=cleanQuestion(active.q);
-      if(helped||active.q.kind==='poem')this.trackSkill(active.q,!helped,helped,active.review);
+      if(helped||active.q.kind==='poem')this.trackSkill(active.q,!helped&&!this.state.selfRead.includes(active.q.id),helped,active.review);
       const base=active.q.baseId||active.q.id,recent=this.state.recentQuestions[active.region]||[];this.state.recentQuestions[active.region]=recent.filter(id=>id!==base).concat(base).slice(-24);
       this.question=null;
       if(active.review){
