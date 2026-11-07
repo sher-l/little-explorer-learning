@@ -1,5 +1,5 @@
 {
-  "version": "20261107.22",
+  "version": "20261107.23",
   "bank": "2026-11-06.2",
   "files": [
     {
@@ -23460,7 +23460,7 @@
     {
       "file": "index.html",
       "bytes": 4799,
-      "sha256": "cfa531c0bfdffe7da5d42bfc02b0ab7a15ea6bbe9f743891ad57e339eb2f19a7"
+      "sha256": "db189be2fb94b7a7b3ff356b8a79673b9ffdd647b3d71507e4b541d462f6f688"
     },
     {
       "file": "licenses/natural-voice/ATTRIBUTION.md",
@@ -23524,8 +23524,8 @@
     },
     {
       "file": "regenerated-worlds.js",
-      "bytes": 241178,
-      "sha256": "b658f1f20a3417be2aa3e782e100bb897c7b08e905090f9654724290c23f7269"
+      "bytes": 254158,
+      "sha256": "6ec9d64f486608c0429eb4506d77495e6fd5d9f8a039bec9661c71acbd5bea53"
     },
     {
       "file": "region-ui.css",
