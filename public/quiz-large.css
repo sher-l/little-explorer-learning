@@ -23,3 +23,9 @@
   #overlay[data-mode="quiz"] .quiz-option-label{font-size:clamp(17px,3vw,24px)}
 }
 .extras-actions{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;max-height:45dvh;overflow:auto}
+@media (min-width:901px) and (min-height:651px){
+  #overlay[data-mode="extras"] #panel{width:78vw;height:82dvh;max-width:none;padding:clamp(45px,5vh,75px) clamp(55px,5vw,110px);overflow:auto}
+  #overlay[data-mode="extras"] h2{font-size:clamp(30px,2.9vw,58px)}
+  #overlay[data-mode="extras"] p{font-size:clamp(24px,2.1vw,40px);line-height:1.5}
+  #overlay[data-mode="extras"] .wood-button{font-size:clamp(20px,1.6vw,30px);min-height:58px;padding:12px 22px}
+}

@@ -1,5 +1,5 @@
 {
-  "version": "20261107.26",
+  "version": "20261107.27",
   "bank": "2026-11-06.2",
   "files": [
     {
@@ -23460,7 +23460,7 @@
     {
       "file": "index.html",
       "bytes": 4922,
-      "sha256": "7cff7b189dac90a7883f155cf87fba77b5195d7d321a1dfedbdb2846694dfe87"
+      "sha256": "0b1c8e162a98e0c20418cb8708a359e73e7788199c7eee13b83729bac1577f5b"
     },
     {
       "file": "licenses/natural-voice/ATTRIBUTION.md",
@@ -23609,8 +23609,8 @@
     },
     {
       "file": "quiz-large.css",
-      "bytes": 2273,
-      "sha256": "599511fb7772dfff3bfe5f1d2d553fbb01eaa55f54e6964d05b2f687f87ed7ea"
+      "bytes": 2730,
+      "sha256": "885877daf404ceae6e76151f7288fc4e63f6056014b826df3d3f7dafd0dbd6d2"
     }
   ]
 }
