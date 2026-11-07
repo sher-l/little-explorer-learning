@@ -1,0 +1,25 @@
+/* Make the learning content readable from a distance on a large display. */
+@media (min-width:901px) and (min-height:651px){
+  #overlay[data-mode="quiz"],#overlay[data-mode="quiz"][data-side="left"]{justify-items:center;background:#16332566;backdrop-filter:blur(3px)}
+  #overlay[data-mode="quiz"] #panel{width:78vw;height:82dvh;max-width:none;padding:clamp(45px,5vh,75px) clamp(55px,5vw,110px);}
+  #overlay[data-mode="quiz"] .adventure-quiz{width:100%;max-width:none;padding:8px 14px}
+  #overlay[data-mode="quiz"] h2{font-size:clamp(30px,2.9vw,58px);line-height:1.35}
+  #overlay[data-mode="quiz"] #question-art,#overlay[data-mode="quiz"] .adventure-quiz:has(#reviewProgress) #question-art{height:clamp(145px,19vh,260px)}
+  #overlay[data-mode="quiz"] .quiz-object{width:clamp(42px,3.7vw,68px);height:clamp(42px,3.7vw,68px)}
+  #overlay[data-mode="quiz"] .quiz-term{max-width:25%}
+  #overlay[data-mode="quiz"] .quiz-answers,#overlay[data-mode="quiz"] .adventure-quiz:has(#reviewProgress) .quiz-answers{width:100%;max-width:1050px;margin:clamp(10px,2vh,28px) auto;gap:clamp(12px,2vw,32px)}
+  #overlay[data-mode="quiz"] .answer,#overlay[data-mode="quiz"] .adventure-quiz:has(#reviewProgress) .answer{max-width:clamp(150px,13vw,250px);padding:14px}
+  #overlay[data-mode="quiz"] .quiz-option-picture{width:clamp(75px,6vw,115px);height:clamp(75px,6vw,115px)}
+  #overlay[data-mode="quiz"] .quiz-option-label{font-size:clamp(23px,2.1vw,38px)}
+  #overlay[data-mode="quiz"] .quiz-option-text{font-size:clamp(35px,3.7vw,65px)}
+  #overlay[data-mode="quiz"] .quiz-answer-number{font-size:clamp(55px,5vw,90px)}
+  #overlay[data-mode="quiz"] .wood-button{font-size:clamp(20px,1.6vw,28px);min-height:58px;padding:12px 22px}
+  #overlay[data-mode="quiz"] .quiz-caption,#overlay[data-mode="quiz"] .choice-status{font-size:clamp(20px,1.5vw,27px)!important}
+  #overlay[data-mode="quiz"] .poem-line{font-size:clamp(48px,5vw,88px)}
+  #game:has(#overlay[data-mode="quiz"]:not([hidden])) #collectionTray{display:none}
+}
+@media (max-width:900px){
+  #overlay[data-mode="quiz"] h2{font-size:clamp(22px,4vw,32px)}
+  #overlay[data-mode="quiz"] .quiz-option-label{font-size:clamp(17px,3vw,24px)}
+}
+.extras-actions{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;max-height:45dvh;overflow:auto}

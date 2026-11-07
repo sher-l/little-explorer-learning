@@ -249,9 +249,9 @@
   }
   function book(id=bookRegion){
     bookRegion=id;const group=data.items.filter(it=>it.region===id);
-    showPanel(`<h2>我的发现 · ${state.collected.length}/125</h2><button class="wood-button quiet-button" id="natureBook">自然图鉴 · ${Object.keys(state.nature).length}/15</button><div class="book-tabs">${Object.entries(regions).map(([r,v])=>`<button class="wood-button ${r===id?'':'quiet-button'}" data-book="${r}">${esc(v.name)}</button>`).join('')}</div><div class="book-grid">${group.map(it=>`<button class="book-item" data-item="${it.id}" aria-label="${state.collected.includes(it.id)?esc(it.name):'还没发现'}">${itemAsset(it.id,state.collected.includes(it.id)?'':'undiscovered-silhouette')}<span>${state.collected.includes(it.id)?esc(it.name):'还没发现'}</span></button>`).join('')}</div><button class="wood-button" id="closeBook">合上</button>`,'book');
+    showPanel(`<h2>我的发现 · ${state.collected.length}/125</h2><button class="wood-button quiet-button" id="extrasBook">探险手册 · 伙伴故事</button><button class="wood-button quiet-button" id="natureBook">自然图鉴 · ${Object.keys(state.nature).length}/15</button><div class="book-tabs">${Object.entries(regions).map(([r,v])=>`<button class="wood-button ${r===id?'':'quiet-button'}" data-book="${r}">${esc(v.name)}</button>`).join('')}</div><div class="book-grid">${group.map(it=>`<button class="book-item" data-item="${it.id}" aria-label="${state.collected.includes(it.id)?esc(it.name):'还没发现'}">${itemAsset(it.id,state.collected.includes(it.id)?'':'undiscovered-silhouette')}<span>${state.collected.includes(it.id)?esc(it.name):'还没发现'}</span></button>`).join('')}</div><button class="wood-button" id="closeBook">合上</button>`,'book');
     $('panel').querySelectorAll('[data-book]').forEach(b=>b.onclick=()=>book(b.dataset.book));
-    $('panel').querySelectorAll('[data-item]').forEach(b=>b.onclick=()=>{const it=data.items[+b.dataset.item];audio.say(state.collected.includes(it.id)?it.name+'。'+it.desc:'还没发现它，沿小路找一找吧',{interrupt:true});});$('closeBook').onclick=closePanel;$('natureBook').onclick=natureBook;
+    $('panel').querySelectorAll('[data-item]').forEach(b=>b.onclick=()=>{const it=data.items[+b.dataset.item];audio.say(state.collected.includes(it.id)?it.name+'。'+it.desc:'还没发现它，沿小路找一找吧',{interrupt:true});});$('closeBook').onclick=closePanel;$('natureBook').onclick=natureBook;$('extrasBook').onclick=()=>extras.menu();
   }
   const shards=['polygon(50% 47%,43% 31%,50% 0%,100% 0%,100% 34%,73% 39%,65% 48%)','polygon(50% 47%,65% 48%,73% 39%,100% 34%,100% 100%,79% 91%,70% 68%)','polygon(50% 47%,70% 68%,79% 91%,80% 100%,20% 100%,32% 76%,37% 62%)','polygon(50% 47%,37% 62%,32% 76%,20% 100%,0% 100%,0% 34%,26% 42%,37% 47%)','polygon(50% 47%,37% 47%,26% 42%,0% 34%,0% 0%,50% 0%,43% 31%)'];
   function medal(id,count,animate=false){const r=regions[id];return `<div class="medal-pieces ${count===5?'complete':''}" aria-label="${esc(r.name)}印记，已点亮 ${count}/5 片">${shards.map((clip,i)=>`<span class="medal-piece ${i<count?'on':''} ${animate&&i===count-1?'new-piece':''}" style="clip-path:${clip};--piece:${i};--dx:${[4,5,0,-5,-4][i]}px;--dy:${[-4,2,5,2,-4][i]}px">${atlas('helpers',r.index+5,2)}</span>`).join('')}</div>`;}
@@ -272,6 +272,7 @@
     if(scene==='hub')return [{id:'book',x:worlds.hub.book[0],y:worlds.hub.book[1],label:'收集册',action:()=>book()},{id:'charge',x:worlds.hub.tree[0],y:worlds.hub.tree[1],label:'世界之心 · 选择复习区域',action:charge},...worlds.hub.exits.map(e=>({...e,id:e.region,exit:true,label:e.x<500?'← '+e.label:e.region==='valley'?e.label+' ↓':e.label+' →',action:()=>{journey.selectRegion(e.region);enterArea(0);}}))];
     const altar=altars[area],entry=areaEntries[area],exit=areaExits[area];
     const list=area===state.segments?journey.available().map(it=>({id:'item'+it.id,...spots[it.id],icon:it.icon,label:'这次的新发现',item:it.id,action:()=>beginItem(it.id)})):[];
+    if(area===0){const p=stage().start;list.push({id:'sidequest',x:Math.max(150,Math.min(1500,p[0]+170)),y:Math.max(300,Math.min(790,p[1]-75)),label:extras.quests[state.activeRegion].name,action:()=>extras.story(state.activeRegion)});}
     return list.concat([
       {id:'altar',x:altar[0],y:altar[1],artX:stage().altarArt?.mark[0],artY:stage().altarArt?stage().altarArt.mark[1]+25:undefined,label:stage().exitSubmission?(area<state.segments?'出口 · 回世界之心':state.bag.length===5?'迷宫出口 · 提交印记':'迷宫出口 · 还差 '+(5-state.bag.length)+' 件'):area<state.segments?'印记已点亮':state.activeRegion==='sea'?(state.bag.length===5?'请贝壳点亮印记':'结识五位伙伴，再来找贝壳'):state.bag.length===5?'交给石坛':'收集五样交给石坛',action:()=>stage().exitSubmission&&area<state.segments?goHome():deliver()},
       {id:'entry',x:entry[0],y:entry[1],exit:true,label:area===0?'← 世界之心':'← '+areaNames[area-1],action:()=>area===0?goHome():enterArea(area-1,true)},
@@ -335,7 +336,7 @@
     if(action==='voice'){if(mode==='parent-confirm')$('parentRetry')?.click();else $('voice').click();return;}if(action==='lamp'){help();return;}
     if(action==='zoom'){if(mode==='world'&&scene!=='hub'&&stage().maze)$('mazeZoom').click();return;}
     if(action==='book'){if(mode==='world')book();return;}
-    if(action==='roll'){if(mode==='world')roll();else{const back={quiz:'leaveQ','parent-confirm':'cancelParent',characters:'characterBack',book:$('closeBook')?'closeBook':'closeNature',nature:'closeNature','review-select':'leaveReview',growth:$('growthCancel')?'growthCancel':'growthBack',pause:'resume',reset:'keep',reward:'continueStage',completion:'finishJourney'}[mode];if(back)$(back)?.click();}return;}
+    if(action==='roll'){if(mode==='world')roll();else{const back={extras:'extrasClose',quiz:'leaveQ','parent-confirm':'cancelParent',characters:'characterBack',book:$('closeBook')?'closeBook':'closeNature',nature:'closeNature','review-select':'leaveReview',growth:$('growthCancel')?'growthCancel':'growthBack',pause:'resume',reset:'keep',reward:'continueStage',completion:'finishJourney'}[mode];if(back)$(back)?.click();}return;}
     if(action==='confirm'){if(mode==='world')interact();else{const list=buttons(),focused=list.find(b=>b===document.activeElement)||list.find(b=>b.classList.contains('focused'));(focused||list[focusIndex]||list[0])?.click();}}
   }
   addEventListener('keydown',e=>{
@@ -575,6 +576,8 @@
   function natureBook(){
     showPanel(`<h2>自然图鉴 · ${Object.keys(state.nature).length}/15</h2><p>捕捉观察后放回自然，不占任务袋。</p><div class="book-grid">${faunaNames.map((name,i)=>`<button class="book-item ${state.nature[i]?'':'unseen'}" data-fauna="${i}">${atlas('fauna',i+5,4)}<span>${state.nature[i]?esc(name):'还没遇见'}</span>${state.nature[i]?`<small>遇见 ${state.nature[i].count} 次</small>`:''}</button>`).join('')}</div><button class="wood-button" id="backDiscovery">回到学习收集册</button><button class="wood-button quiet-button" id="closeNature">继续探险</button>`,'book');$('backDiscovery').onclick=()=>book();$('closeNature').onclick=closePanel;document.querySelectorAll('[data-fauna]').forEach(b=>b.onclick=()=>audio.say(state.nature[b.dataset.fauna]?faunaNames[+b.dataset.fauna]:'还没遇见它，继续找一找吧',{interrupt:true}));
   }
+  const extras=AdventureExtras({storageKey:SAVE,panel:showPanel,close:closePanel,nature:natureBook,
+    notice:t=>notify(t,4),tone:notes=>audio.tone(notes),say:(t,lang)=>audio.say(t,{interrupt:true,lang}),dirty:()=>{renderDirty=true;}});
   const altarLightCache=new Map(),mazeRowsCache=new Map();
   function mazeRows(){
     if(scene==='hub'||!stage().maze||stage().maze.painted)return[];const m=stage().maze,key=state.activeRegion;
@@ -631,6 +634,8 @@
       });
       if(journey.allComplete())for(let i=0;i<9;i++)firefly(650+i*48,340+Math.sin(time+i)*13,.8);
     }
+    if(scene==='hub'){ctx.save();ctx.textAlign='center';ctx.font='35px sans-serif';extras.progress.garden.forEach((p,i)=>ctx.fillText(p,690+i*75,425));ctx.restore();}
+    else if(extras.progress.completed[state.activeRegion]&&area===0){ctx.save();ctx.font='30px sans-serif';ctx.fillText(extras.quests[state.activeRegion].reward,stage().start[0]+220,stage().start[1]-115);ctx.restore();}
     const ents=entities();
     if(route.length){const target=route[route.length-1];ctx.strokeStyle='#fff4c4aa';ctx.lineWidth=2;ctx.beginPath();ctx.ellipse(target.x,target.y,13,7,0,0,7);ctx.stroke();}
     const drawEntity=e=>{
@@ -651,6 +656,7 @@
         if(state.activeRegion==='forest'&&[3,6,11].includes(e.item)){ctx.save();ctx.translate(ax,ay-8);ctx.rotate(-.5);ctx.scale(1,.5);drawItem(e.item,0,0,45);ctx.restore();}
         else drawItem(e.item,ax,itemY,w);ctx.restore();
       }else{
+        if(e.id==='sidequest'){ctx.save();ctx.font='44px sans-serif';ctx.textAlign='center';ctx.fillText(extras.quests[state.activeRegion].icon,ax,ay);ctx.restore();}
         if(e.id==='altar'&&stage().maze&&!stage().maze.painted)drawMazeAltar(e);
         if(e.id==='altar'){if(area<state.segments)text('✓ 已提交',ax,ay+24);else if(area===state.segments&&state.bag.length===5)halo(ax,ay-22,80,'rgba(255,220,91,.65)');}
         if(scene==='hub'&&e.id==='charge'&&!state.lamp){
@@ -695,6 +701,7 @@
 
       }
       ctx.restore();
+      const badge={ribbon:'🎀',star:'⭐',flower:'🌼'}[extras.progress.outfit];if(badge){ctx.save();ctx.font=Math.round(24*depth)+'px sans-serif';ctx.textAlign='center';ctx.fillText(badge,player.x,player.y-100*depth);ctx.restore();}
       if(action&&animation.kind==='pickup'&&animation.item){const item=animation.item,spot=spots[item.id],t=Math.max(0,Math.min(1,(progress-.12)/.75)),sx=spot.artX,sy=spot.artY-24;drawItem(item.id,sx+(player.x+7*animation.facing-sx)*t,sy+(player.y-42*depth-sy)*t-Math.sin(t*Math.PI)*38,45*(1-.45*t));}
     };
     ctx.save();ctx.setTransform(renderDPR,0,0,renderDPR,0,0);window.AdventureAtmosphere?.draw(ctx,innerWidth,innerHeight,time,state.activeRegion,reduced);ctx.restore();

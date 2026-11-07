@@ -1,5 +1,5 @@
 {
-  "version": "20261107.25",
+  "version": "20261107.26",
   "bank": "2026-11-06.2",
   "files": [
     {
@@ -23444,8 +23444,8 @@
     },
     {
       "file": "game.js",
-      "bytes": 93715,
-      "sha256": "92cac8d89f4f4ac884abf9444d232e3198679a7516f5226598f5f513e4c7dc4b"
+      "bytes": 95137,
+      "sha256": "76dfd196ea8022453bf8b3e14bbd0363f264b9d9a29b79940b1be1efa2d78ce3"
     },
     {
       "file": "growth-menu.js",
@@ -23459,8 +23459,8 @@
     },
     {
       "file": "index.html",
-      "bytes": 4799,
-      "sha256": "3b86a4446837a80d6656967959722ac5c32cd786080d63d82562accb8a377681"
+      "bytes": 4922,
+      "sha256": "7cff7b189dac90a7883f155cf87fba77b5195d7d321a1dfedbdb2846694dfe87"
     },
     {
       "file": "licenses/natural-voice/ATTRIBUTION.md",
@@ -23601,6 +23601,16 @@
       "file": "assets/sea-maze-ground.webp",
       "bytes": 232314,
       "sha256": "97d01da15d66e675f6e0815666b7474a226cfb8fbef9d7b042c46962a1eee50e"
+    },
+    {
+      "file": "adventure-extras.js",
+      "bytes": 7893,
+      "sha256": "93dcf9cb215b7a9af19105c500e451e5d1c7a09ecaf658836036ce600111725c"
+    },
+    {
+      "file": "quiz-large.css",
+      "bytes": 2273,
+      "sha256": "599511fb7772dfff3bfe5f1d2d553fbb01eaa55f54e6964d05b2f687f87ed7ea"
     }
   ]
 }
