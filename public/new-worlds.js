@@ -31,7 +31,7 @@
   for(const[id,r]of Object.entries(definitions)){
     const w=worlds[id];r.stages[3]={...w,image:id+'-3-new',walk:[],pathMargin:0};
     const maze=AdventureMaze.create(r.index),altarArt=id==='sea'?{polygon:[[1583,445],[1597,421],[1630,414],[1655,427],[1666,450],[1657,474],[1653,490],[1618,498],[1586,485]],mark:[1627,459]}:id==='beach'?{polygon:[[1595,462],[1606,445],[1630,439],[1651,447],[1665,472],[1657,491],[1617,496],[1597,481]],mark:[1630,469]}:id==='valley'?{polygon:[[1590,458],[1617,442],[1649,448],[1666,464],[1658,482],[1616,491],[1592,478]],mark:[1628,466]}:id==='castle'?{polygon:[[1595,502],[1600,479],[1604,435],[1625,410],[1648,423],[1654,477],[1668,485],[1666,510]],mark:[1630,458]}:{polygon:[[1600,488],[1607,450],[1628,431],[1648,441],[1658,486],[1646,503],[1611,504]],mark:[1628,468]};
-    r.stages[4]={name:mazeNames[id],image:id+'-maze-painted',walk:[],pathMargin:0,maze,altarArt,entry:[maze.entry.x,maze.entry.y],start:[maze.entry.x,maze.entry.y-96],exit:[maze.exit.x,maze.exit.y],altar:[maze.exit.x,maze.exit.y],spots:maze.items.map(p=>({...p,artX:p.x,artY:p.y})),exitSubmission:true};
+    r.stages[4]={name:mazeNames[id],image:id+'-maze-ground',walk:[],pathMargin:0,maze,altarArt,entry:[maze.entry.x,maze.entry.y],start:[maze.entry.x,maze.entry.y-96],exit:[maze.exit.x,maze.exit.y],altar:[maze.exit.x,maze.exit.y],spots:maze.items.map(p=>({...p,artX:p.x,artY:p.y})),exitSubmission:true};
   }
 })();
 
