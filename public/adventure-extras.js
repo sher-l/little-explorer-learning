@@ -42,20 +42,23 @@ window.AdventureExtras = function (api) {
     const done = () => finish(id);
     const retry = () => { api.notice('再看看，慢慢来'); api.tone([392,440]); };
     if(q.activity==='count') {
-      panel('数一数橡果','<p>小松鼠找到这些橡果：<br><strong style="font-size:2em">🌰 🌰 🌰</strong></p><p>一共有几个？</p>',[2,3,4].map(n=>btn('count-'+n,n+' 个')).join(''));
-      [2,3,4].forEach(n=>on('count-'+n,n===3?done:retry));
+      const answer=2+Math.floor(Math.random()*4), choices=[answer-1,answer,answer+1];
+      panel('数一数橡果','<p>小松鼠找到这些橡果：<br><strong style="font-size:2em">'+Array(answer).fill('🌰').join(' ')+'</strong></p><p>一共有几个？</p>',choices.map(n=>btn('count-'+n,n+' 个')).join(''));
+      choices.forEach(n=>on('count-'+n,n===answer?done:retry));
     } else if(q.activity==='sequence') {
-      panel('种子的故事','<p>种子发芽后，接下来会变成什么？</p><p style="font-size:2em">🌱 → ？ → 🌼</p>',btn('seq-flower','小花苗 🌿')+btn('seq-shell','贝壳 🐚')+btn('seq-stone','石头 🪨'));
-      on('seq-flower',done);on('seq-shell',retry);on('seq-stone',retry);
+      let step=0;const order=['种子','小花苗','小花'],icons=['🫘','🌱','🌼'];
+      const draw=()=>{panel('种子的故事','<p>按长大的顺序，依次点选：'+(step?icons.slice(0,step).join(' → ')+' → ':'')+'？</p>',order.map((name,i)=>btn('seq-'+i,icons[i]+' '+name)).join(''));
+        order.forEach((_,i)=>on('seq-'+i,()=>{if(i!==step){retry();return;}step++;if(step===order.length)done();else draw();}));};draw();
     } else if(q.activity==='listen') {
       panel('听一听，找一找','<p>听英文，找出对应的动物。可以多听几次。</p>',btn('listen-again','🔊 再听一次')+btn('listen-turtle','🐢 海龟')+btn('listen-bird','🐦 小鸟')+btn('listen-fish','🐠 小鱼'));
       const say=()=>api.say('turtle','en-US');on('listen-again',say);on('listen-turtle',done);on('listen-bird',retry);on('listen-fish',retry);say();
     } else if(q.activity==='match') {
-      panel('蝴蝶找花','<p>蝴蝶想找一朵粉色的花，点一朵试试。</p>',btn('pink','🌸 粉色')+btn('yellow','🌼 黄色')+btn('red','🌹 红色'));
-      on('pink',done);on('yellow',retry);on('red',retry);
+      const flowers=[['pink','🌸','粉色'],['yellow','🌼','黄色'],['red','🌹','红色']],target=flowers[Math.floor(Math.random()*flowers.length)];
+      panel('蝴蝶找花','<p>蝴蝶想找一朵'+target[2]+'的花，点一朵试试。</p>',flowers.map(([key,icon,name])=>btn(key,icon+' '+name)).join(''));
+      flowers.forEach(([key])=>on(key,key===target[0]?done:retry));
     } else {
-      let target=1;
-      panel('记住珍珠的位置','<p id="memoryHint">先看一看：珍珠在中间的贝壳里。</p><p style="font-size:2em">🐚　💎　🐚</p>',btn('memoryStart','我记住了'));
+      const target=Math.floor(Math.random()*3),places=['左边','中间','右边'];
+      panel('记住珍珠的位置','<p id="memoryHint">先看一看：珍珠在'+places[target]+'的贝壳里。</p><p style="font-size:2em">'+[0,1,2].map(i=>i===target?'💎':'🐚').join('　')+'</p>',btn('memoryStart','我记住了'));
       on('memoryStart',()=>{
         panel('找到珍珠','<p>珍珠藏在哪个贝壳里？</p>',[0,1,2].map(n=>btn('shell-'+n,'🐚 '+['左边','中间','右边'][n])).join(''));
         [0,1,2].forEach(n=>on('shell-'+n,n===target?done:retry));

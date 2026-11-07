@@ -328,7 +328,7 @@
     player.rollBase=player.moving?WALK_SPEED*ROLL_DURATION:0;player.rollBonus=player.moving?30:ROLL_DISTANCE;player.rollTarget=route.length?{...route.at(-1)}:null;player.roll=ROLL_DURATION;player.rollStartedAt=performance.now();player.rollDistance=0;audio.tone([330,440]);
     actionWakeAt=performance.now();actionWakeUntil=actionWakeAt+ROLL_DURATION*1000+150;render();renderDirty=false;keepActionVisible();
   }
-  $('interact').onclick=()=>{audio.unlock();interact();};$('lamp').onclick=()=>{audio.unlock();help();};$('voice').onclick=()=>{if(!['world','quiz'].includes(mode))return;audio.unlock();if(journey.question)quiz.repeat();else audio.say(lastSpeech||'沿着小路，找找小宝贝',{interrupt:true});};$('roll').onclick=roll;$('home').onclick=()=>{if(mode==='world')guideHome();};$('pause').onclick=pause;
+  $('adventureActivities').onclick=()=>{if(mode==='world'){audio.unlock();extras.menu();}};$('interact').onclick=()=>{audio.unlock();interact();};$('lamp').onclick=()=>{audio.unlock();help();};$('voice').onclick=()=>{if(!['world','quiz'].includes(mode))return;audio.unlock();if(journey.question)quiz.repeat();else audio.say(lastSpeech||'沿着小路，找找小宝贝',{interrupt:true});};$('roll').onclick=roll;$('home').onclick=()=>{if(mode==='world')guideHome();};$('pause').onclick=pause;
   function inputAction(action){
     if(discoveryCard){if(['confirm','roll','pause'].includes(action))hideDiscovery();return;}
     if(['feedback','action','transition'].includes(mode))return;
