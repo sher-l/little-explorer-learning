@@ -591,7 +591,7 @@
     showPanel(`<h2>自然图鉴 · ${Object.keys(state.nature).length}/15</h2><p>捕捉观察后放回自然，不占任务袋。</p><div class="book-grid">${faunaNames.map((name,i)=>`<button class="book-item ${state.nature[i]?'':'unseen'}" data-fauna="${i}">${atlas('fauna',i+5,4)}<span>${state.nature[i]?esc(name):'还没遇见'}</span>${state.nature[i]?`<small>遇见 ${state.nature[i].count} 次</small>`:''}</button>`).join('')}</div><button class="wood-button" id="backDiscovery">回到学习收集册</button><button class="wood-button quiet-button" id="closeNature">继续探险</button>`,'book');$('backDiscovery').onclick=()=>book();$('closeNature').onclick=closePanel;document.querySelectorAll('[data-fauna]').forEach(b=>b.onclick=()=>audio.say(state.nature[b.dataset.fauna]?faunaNames[+b.dataset.fauna]:'还没遇见它，继续找一找吧',{interrupt:true}));
   }
   const extras=AdventureExtras({storageKey:SAVE,panel:showPanel,close:closePanel,nature:natureBook,region:()=>state.activeRegion,
-    notice:t=>notify(t,4),tone:notes=>audio.tone(notes),say:(t,lang)=>audio.say(t,{interrupt:true,lang}),dirty:()=>{renderDirty=true;}});
+    notice:t=>notify(t,4),tone:notes=>audio.tone(notes),say:(t,lang)=>audio.say(t,{interrupt:true,lang}),stop:()=>audio.stop(),dirty:()=>{renderDirty=true;}});
   const altarLightCache=new Map(),mazeRowsCache=new Map();
   function mazeRows(){
     if(scene==='hub'||!stage().maze||stage().maze.painted)return[];const m=stage().maze,key=state.activeRegion;

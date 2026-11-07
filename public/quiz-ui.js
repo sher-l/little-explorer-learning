@@ -2,7 +2,7 @@
   'use strict';
   const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   root.createAdventureQuiz=function({journey,state,audio,showPanel,closePanel,notify,persist,finishAnswer,help,onLeave,picture,itemAsset}){
-    let epoch=0,session=null,prompt=Promise.resolve(),speaking=false,busy=false,focusSerial=0,poemSubmit=null;
+    let epoch=0,session=null,prompt=Promise.resolve(),speaking=false,busy=false,focusSerial=0,poemSubmit=null,poemToken=null,poemStep=0,poemCurrent='';
     const $=id=>document.getElementById(id);
     const current=(version,token)=>version===epoch&&journey.question?.token===token;
     function cancel(){epoch++;focusSerial++;busy=false;speaking=false;const old=session;session=null;poemSubmit=null;old?.cancel().catch(()=>{});audio.stop?.();}
@@ -52,19 +52,23 @@
       if(a.q.kind==='poem'&&(busy||session?.state==='recording'||session?.state==='requesting'))return Promise.resolve();
       const version=epoch,token=a.token;
       focusSerial++;speaking=true;syncMic();
-      if(a.q.kind==='poem')status(a.hinted?'用引路水母听慢速范读，再试一遍。':(a.q.wholePoem?'先听完整首，听完再开始。':'先听这一句，听完再开始。'));
+      if(a.q.kind==='poem')status('跟着念一念，准备好了就点下一句。');
       if($('choiceStatus'))$('choiceStatus').textContent='正在读题…';
-      const serial=focusSerial,rate=a.hinted ? .72 : a.q.kind==='poem' ? .85 : 1;
+      const serial=focusSerial;
       const readPrompt=async()=>{
-        const header=a.q.kind==='poem'&&a.q.title&&a.q.author?a.q.title+'。'+a.q.author:'';
-        if(header){
-          const intro=await audio.say(header,{interrupt:true,lang:'zh-CN',rate});
-          if(!current(version,token)||serial!==focusSerial||intro?.reason==='cancelled')return {reason:'cancelled'};
+        if(a.q.kind!=='poem')return audio.say(a.q.say||a.q.text,{interrupt:true,lang:a.q.lang||'zh-CN',rate:a.hinted?.72:1});
+        const lines=Array.isArray(a.q.poemLines)&&a.q.poemLines.length?a.q.poemLines:[a.q.expectedText||a.q.expected_text].filter(Boolean);
+        const items=poemCurrent==='__whole__'?[[a.q.title,a.q.author].filter(Boolean).join('。'),...lines]:[poemCurrent];
+        let result;
+        for(const item of items.filter(Boolean)){
+          if(!current(version,token)||serial!==focusSerial)return {reason:'cancelled'};
+          result=await audio.say(item,{interrupt:true,lang:'zh-CN',rate:1});
+          if(result?.reason==='cancelled')return result;
         }
-        return audio.say(a.q.say||a.q.text,{interrupt:!header,lang:a.q.lang||'zh-CN',rate});
+        return result;
       };
       prompt=Promise.resolve(readPrompt()).catch(()=>({reason:'error'})).then(result=>{
-        if(!current(version,token))return;
+        if(!current(version,token)||serial!==focusSerial)return;
         speaking=false;syncMic();
         const failed=result&&['unavailable','local-voice-unavailable','error','timeout','blocked','recorded-timeout'].includes(result.reason);
         const readStatus=failed?'声音没播出来，按 X 或“再听一次”重试；也可以自己看着念。':result?.reason==='silent'?'声音已关闭，可在暂停菜单调高音量。':a.q.region==='castle'?'先观察字形和图片，选好后再听读音。':'听清题目，再选答案';
@@ -109,8 +113,12 @@
     function poemBody(q){return `<div class="poem-line${q.wholePoem?' whole-poem':''}" lang="zh-CN">${q.wholePoem?q.poemLines.map(line=>`<span>${esc(line)}</span>`).join(''):esc(q.expectedText||q.expected_text)}</div>`;}
     function poetry(a,version){
       const q=a.q,token=a.token;
-      showPanel(`<section class="adventure-quiz poem-quiz" aria-labelledby="quizTitle"><div class="poem-heading"><h2 id="quizTitle">${esc(q.title||'一起念古诗')}</h2><span>${esc(q.author)}</span></div>${poemBody(q)}<p id="poemStatus" role="status" aria-live="polite">先听一听，跟着念；念完就可以继续探险。</p><div class="poem-record-actions"><button class="wood-button" id="selfReading">我念完啦 · 继续探险</button></div>${footer(a)}</section>`,'quiz');
-      $('panel').scrollTop=0;bindCommon();$('selfReading').onclick=()=>{if(!current(version,token))return;const result=journey.confirmPoemBySelf(token);persist();if(result.q)finishAnswer(result,-1);};repeat();
+      const lines=Array.isArray(q.poemLines)&&q.poemLines.length?q.poemLines:[q.expectedText||q.expected_text].filter(Boolean);
+      if(poemToken!==token){poemToken=token;poemStep=0;poemCurrent=[q.title,q.author].filter(Boolean).join('。');}
+      showPanel(`<section class="adventure-quiz poem-quiz" aria-labelledby="quizTitle"><div class="poem-heading"><h2 id="quizTitle">${esc(q.title||'一起念古诗')}</h2><span>${esc(q.author)}</span></div>${poemBody(q)}<p id="poemStatus" role="status" aria-live="polite">先听题目和作者，再自己点下一句。</p><div class="poem-record-actions"><button class="wood-button" id="poemNext">${poemStep<lines.length?'下一句':'听整首古诗'}</button><button class="wood-button" id="selfReading">我念完啦 · 继续探险</button></div>${footer(a)}</section>`,'quiz');
+      $('panel').scrollTop=0;bindCommon();
+      $('poemNext').onclick=()=>{if(!current(version,token))return;if(poemStep<lines.length){poemCurrent=lines[poemStep++];$('poemNext').textContent=poemStep<lines.length?'下一句':'听整首古诗';}else poemCurrent='__whole__';repeat();};
+      $('selfReading').onclick=()=>{if(!current(version,token))return;const result=journey.confirmPoemBySelf(token);persist();if(result.q)finishAnswer(result,-1);};repeat();
     }
     function draw(){cancel();const a=journey.question;if(!a)return;if(a.q.region==='castle'&&a.q.kind==='character')a.q.focusVoicePolicy='silent';const version=epoch;a.q.kind==='poem'?poetry(a,version):choices(a,version);}
     return {draw,cancel,repeat};
