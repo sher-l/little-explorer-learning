@@ -4149,8 +4149,8 @@
       "region": "valley",
       "level": 2,
       "kind": "knowledge",
-      "text": "雨从哪里落下来？",
-      "say": "雨从哪里落下来？",
+      "text": "什么天气会下雨？",
+      "say": "什么天气会下雨？",
       "lang": "zh-CN",
       "art": {
         "type": "glyph",

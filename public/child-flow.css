@@ -1,0 +1,5 @@
+#overlay[data-mode="quiz"] .quiz-actions{position:sticky;bottom:0;z-index:5;background:#fff7dcf5;border-radius:22px;padding:12px;display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+#overlay[data-mode="quiz"] .confirm-answer{background:#66ad5e;color:#fff;min-width:clamp(150px,16vw,260px);font-weight:900}
+#overlay[data-mode="quiz"] .confirm-answer:disabled{opacity:.5}
+#overlay[data-mode="quiz"] .answer.is-selected{outline:6px solid #50aa60;outline-offset:3px}
+#overlay[data-mode="extras"] .extras-actions{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:16px}

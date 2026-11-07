@@ -30,21 +30,26 @@ window.AdventureExtras = function (api) {
     const phrases=[spoken(title),...paragraphs,...options].filter(Boolean);
     const nodes=document.querySelectorAll('#panel .extras-actions button');
     nodes.forEach((node,i)=>node.addEventListener('focus',()=>{narrationEpoch++;if(options[i])api.say(options[i],'zh-CN');}));
-    (async()=>{for(const phrase of phrases){if(epoch!==narrationEpoch||!document.querySelector('#panel .extras-actions'))return;await api.say(phrase,'zh-CN');}})();
+    return (async()=>{for(const phrase of phrases){if(epoch!==narrationEpoch||!document.querySelector('#panel .extras-actions'))return;await api.say(phrase,'zh-CN');}})();
   };
   const btn = (id, label) => `<button class="wood-button" id="${id}">${label}</button>`;
   const on = (id, fn) => { document.getElementById(id).onclick = fn; };
   function menu() {
-    const complete = Object.keys(progress.completed).length;
-    panel('探险手册', `<p>一起帮小伙伴！已经帮助 ${complete}/5 个小伙伴。</p>`,
-      Object.entries(quests).map(([id,q])=>btn('extra-'+id,`${q.icon} ${labels[id]} · ${progress.completed[id]?'再玩一次':'帮帮朋友'}`)).join('') + btn('extra-garden','🌱 我的小花园') + btn('extra-outfit','🎀 探险装扮') + btn('extra-checklist','🔎 找过的动物') + btn('extra-nature','📖 自然图鉴') + modes.map(m=>btn('mode-'+m.id,m.icon+' '+m.label)).join(''));
-    for (const id of Object.keys(quests)) on('extra-'+id,()=>story(id));
-    on('extra-garden',careGarden); on('extra-outfit',outfit); on('extra-checklist',checklist); on('extra-nature',api.nature); modes.forEach(m=>on('mode-'+m.id,()=>playMode(api.region(),m.id)));
+    panel('一起玩', '<p>选一个。</p>',btn('menu-friends','🐿️ 帮小伙伴')+btn('menu-games','🎲 玩游戏')+btn('menu-garden','🌱 小花园')+btn('menu-outfit','🎀 换装扮')+btn('menu-animals','🐾 小动物'));
+    on('menu-friends',friends);on('menu-games',games);on('menu-garden',careGarden);on('menu-outfit',outfit);on('menu-animals',api.nature);
+  }
+  function friends(){
+    panel('帮小伙伴','<p>选一个小伙伴。</p>',Object.entries(quests).map(([id,q])=>btn('extra-'+id,`${q.icon} ${labels[id]}`)).join(''));
+    for(const id of Object.keys(quests))on('extra-'+id,()=>story(id));
+  }
+  function games(){
+    panel('玩游戏','<p>选一个游戏。</p>',modes.map(m=>btn('mode-'+m.id,m.icon+' '+m.label)).join('')+btn('extra-checklist','🔎 找过的动物'));
+    modes.forEach(m=>on('mode-'+m.id,()=>playMode(api.region(),m.id)));on('extra-checklist',checklist);
   }
   function story(id) {
     const q=quests[id];
-    panel(q.icon+' '+q.name, `<p>${q.intro}</p><p>${q.question}</p>`, q.choices.map((c,i)=>btn('choice-'+i,c)).join(''));
-    q.choices.forEach((_,i)=>on('choice-'+i,()=>{
+    panel(q.icon+' '+q.name, `<p>${q.intro}</p><p>${q.question}</p>`, btn('choice-0','▶ 开始帮忙'));
+    [0].forEach((_,i)=>on('choice-'+i,()=>{
       panel(q.icon+' '+q.name, `<p>${q.story}</p>`,btn('startActivity','开始帮忙'));
       on('startActivity',()=>activity(id));
     }));
@@ -62,8 +67,8 @@ window.AdventureExtras = function (api) {
       const draw=()=>{panel('种子的故事','<p>按长大的顺序，依次点选：'+(step?icons.slice(0,step).join(' → ')+' → ':'')+'？</p>',order.map((name,i)=>btn('seq-'+i,icons[i]+' '+name)).join(''));
         order.forEach((_,i)=>on('seq-'+i,()=>{if(i!==step){retry();return;}step++;if(step===order.length)done();else draw();}));};draw();
     } else if(q.activity==='listen') {
-      panel('听一听，找一找','<p>听一听，找动物。</p>',btn('listen-again','🔊 再听一次')+btn('listen-turtle','🐢 海龟')+btn('listen-bird','🐦 小鸟')+btn('listen-fish','🐠 小鱼'));
-      const say=()=>{narrationEpoch++;return api.say('turtle','en-US');};on('listen-again',say);on('listen-turtle',done);on('listen-bird',retry);on('listen-fish',retry);
+      const intro=panel('听一听，找一找','<p>听一听，找动物。</p>',btn('listen-again','🔊 再听一次')+btn('listen-turtle','🐢 海龟')+btn('listen-bird','🐦 小鸟')+btn('listen-fish','🐠 小鱼'));
+      const entryEpoch=narrationEpoch;const say=()=>{narrationEpoch++;return api.say('turtle','en-US');};intro.then(()=>{if(entryEpoch===narrationEpoch&&document.getElementById('listen-again'))say();});on('listen-again',say);on('listen-turtle',done);on('listen-bird',retry);on('listen-fish',retry);
     } else if(q.activity==='match') {
       const flowers=[['pink','🌸','粉色'],['yellow','🌼','黄色'],['red','🌹','红色']],target=flowers[Math.floor(Math.random()*flowers.length)];
       panel('蝴蝶找花','<p>蝴蝶想找一朵'+target[2]+'的花，点一朵试试。</p>',flowers.map(([key,icon,name])=>btn(key,icon+' '+name)).join(''));
@@ -142,7 +147,7 @@ window.AdventureExtras = function (api) {
   function feelings(id){
     const situations=[['小兔的积木倒了，它低着头。','难过','我们陪它一起慢慢重搭。'],['小鸟找不到朋友，走来走去。','着急','先陪它停一停，再一起找。'],['小猫看到新游戏，蹦蹦跳跳。','开心','和它一起分享这份开心。']];
     const s=situations[Math.floor(Math.random()*situations.length)],choices=['难过','着急','开心'];
-    panel('💛 心情小帮手',`<p>${s[0]}</p><p>它的心情怎样？</p>`,choices.map((x,i)=>btn('feeling-'+i,x)).join(''));
+    panel('💛 心情小帮手',`<p>${s[0]}</p><p>它的心情怎样？</p>`,choices.map((x,i)=>btn('feeling-'+i,({'难过':'😢','着急':'😟','开心':'😄'}[x]||'')+' '+x)).join(''));
     choices.forEach((x,i)=>on('feeling-'+i,()=>{
       panel('💛 一起陪伴',`<p>你猜它${x}。它也许会觉得${s[1]}，每个人的感受都可能不一样。</p><p>怎么陪它呢？</p>`,btn('help-listen','听它说')+btn('help-breathe','陪它慢慢呼吸')+btn('help-together','问问它需要什么'));
       ['help-listen','help-breathe','help-together'].forEach(key=>on(key,()=>{
@@ -154,7 +159,8 @@ window.AdventureExtras = function (api) {
   function sounds(id){
     const animals=[['turtle','🐢 海龟'],['bird','🐦 小鸟'],['fish','🐠 小鱼']];let target=animals[Math.floor(Math.random()*animals.length)],round=0;
     const draw=()=>{
-      panel('🔊 听声寻宝',`<p>听一听，找动物。第 ${round+1} / 3 次。</p>`,btn('soundPlay','🔊 听一听')+animals.map((a,i)=>btn('sound-'+i,a[1])).join(''));
+      const intro=panel('🔊 听声寻宝',`<p>听一听，找动物。第 ${round+1} / 3 次。</p>`,btn('soundPlay','🔊 听一听')+animals.map((a,i)=>btn('sound-'+i,a[1])).join(''));
+      const entryEpoch=narrationEpoch;intro.then(()=>{if(entryEpoch===narrationEpoch&&document.getElementById('soundPlay')){narrationEpoch++;api.say(target[0],'en-US');}});
       on('soundPlay',()=>{narrationEpoch++;api.say(target[0],'en-US');});
       animals.forEach((a,i)=>on('sound-'+i,()=>{
         if(a!==target){narrationEpoch++;api.notice('再听听，找一找');api.say('再听听，找一找','zh-CN');return;}

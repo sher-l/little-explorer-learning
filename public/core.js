@@ -183,7 +183,7 @@
     pick(pool){if(!pool.length)return null;const r=Number(this.random());const index=Math.min(pool.length-1,Math.max(0,Math.floor((Number.isFinite(r)?r:0)*pool.length)));return pool[index];}
     present(question){
       const q=copy(question);if(q.kind==='poem')return q;
-      for(let i=q.options.length-1;i>0;i--){const r=Number(this.random());const j=Math.min(i,Math.max(0,Math.floor((Number.isFinite(r)?r:0)*(i+1))));[q.options[i],q.options[j]]=[q.options[j],q.options[i]];}
+      let seed=2166136261;for(const c of String(q.id))seed=Math.imul(seed^c.charCodeAt(0),16777619)>>>0;for(let i=q.options.length-1;i>0;i--){seed=(Math.imul(seed,1664525)+1013904223)>>>0;const j=seed%(i+1);[q.options[i],q.options[j]]=[q.options[j],q.options[i]];}
       q.correct=q.options.findIndex(o=>o.id===q.correctOptionId);return q;
     }
     beginItem(id){
