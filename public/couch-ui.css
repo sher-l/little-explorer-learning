@@ -59,3 +59,10 @@
 .discovery-card .asset{width:150px;height:150px}.discovery-card div{min-width:0}.discovery-card h2{font-size:clamp(30px,3.2vw,42px);margin:6px 0 14px}.discovery-card p{font-size:clamp(24px,2.5vw,30px);line-height:1.5;margin:0}.discovery-card small{font-size:20px;color:#786247}.discovery-card button{grid-column:1/-1;justify-self:center;font:inherit;font-size:28px;border:2px solid #9d7136;border-radius:18px;padding:12px 28px;background:#ead3a2;color:#493d27;cursor:pointer}.discovery-card button:focus{outline:4px solid #be8c35;outline-offset:4px;box-shadow:0 0 20px #f2cc6b}.discovery-controls{grid-column:1/-1;text-align:center}
 @media(max-width:600px){.discovery-card{grid-template-columns:1fr;text-align:center;padding:22px;gap:10px}.discovery-card .asset{width:110px;height:110px;justify-self:center}.discovery-card h2{margin:0 0 8px}.discovery-card p{font-size:24px}.discovery-card button{font-size:24px}}
 @media(max-height:500px){.discovery-card{grid-template-columns:100px minmax(0,1fr);padding:16px;gap:8px 16px}.discovery-card .asset{width:100px;height:100px}.discovery-card h2{font-size:28px;margin:0 0 6px}.discovery-card p{font-size:22px}.discovery-card button{padding:7px 22px;font-size:24px}.discovery-card small{font-size:17px}}
+
+/* Scrollbars follow the parchment and wood palette while remaining usable. */
+#game *{scrollbar-width:thin;scrollbar-color:#b58a55 #f5e7c9}
+#game *::-webkit-scrollbar{width:10px;height:10px}
+#game *::-webkit-scrollbar-track{background:#f5e7c9;border-radius:10px}
+#game *::-webkit-scrollbar-thumb{background:#b58a55;border:2px solid #f5e7c9;border-radius:10px}
+#game *::-webkit-scrollbar-thumb:hover{background:#967044}
