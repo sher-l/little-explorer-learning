@@ -1,5 +1,5 @@
 {
-  "version": "20261107.32",
+  "version": "20261107.33",
   "bank": "2026-11-06.2",
   "files": [
     {
@@ -604,8 +604,8 @@
     },
     {
       "file": "content-full.js",
-      "bytes": 1158469,
-      "sha256": "48884651664a211f76e02b46500b99b1c208def6e2dc7a422c962d97e646b16d"
+      "bytes": 1155913,
+      "sha256": "a7fbfb7be1c0898cc3d01d38b70e479f4a9b6cade96cd827f1fbad5e4bafbeb8"
     },
     {
       "file": "content-packs.js",
@@ -629,13 +629,13 @@
     },
     {
       "file": "game.js",
-      "bytes": 96961,
-      "sha256": "2f8d4471fd58b78f815ea649165bd0772ca9b129f55ccf222751b456851b23c9"
+      "bytes": 100569,
+      "sha256": "3c6e86c4e3a260f6819b62914582336a2401943bf7aec699762e4832a95e92fd"
     },
     {
       "file": "growth-menu.js",
-      "bytes": 4701,
-      "sha256": "fcb5352a628590f76d62935dde74189158fb4bd0339adec627141c8a6d8bd75f"
+      "bytes": 4697,
+      "sha256": "39e7b338aa4e021f1759fe87f9da338121cd69699b4aafcbee59da72ede86623"
     },
     {
       "file": "image-formats.json",
@@ -669,8 +669,8 @@
     },
     {
       "file": "question-bank.json",
-      "bytes": 1820176,
-      "sha256": "7b9ef54e8d4c59f5808a86207dd2ed9ee960120dea5d6dd5e9d692b3d4ceccd6"
+      "bytes": 1817621,
+      "sha256": "0ae64b900e94d229232db7b0d5cf09c435d5581caee187b6ffa9411bd713d702"
     },
     {
       "file": "quiz-ui.css",
@@ -679,8 +679,8 @@
     },
     {
       "file": "quiz-ui.js",
-      "bytes": 12186,
-      "sha256": "48607ff760ce0925da0524b52eabed1bdb27825413ee271413da6f459ea847d0"
+      "bytes": 20211,
+      "sha256": "60ac8088a7b6863d3e57b8b5fd33c4e6f669b1332aa7b1b8505ce980454fa79a"
     },
     {
       "file": "reference-ui.css",
@@ -774,13 +774,13 @@
     },
     {
       "file": "speech-bank.js",
-      "bytes": 425087,
-      "sha256": "6b7e984c2c6cfd51d4217f2a8a12aa6bdceaf896abddc7872583375a9f0d9ce1"
+      "bytes": 433371,
+      "sha256": "c4ad51d22c5979be5ef64f25d0f59bce3f594df9e086e6339bef12cbdab11c64"
     },
     {
       "file": "assets/mimo-voice/manifest.json",
-      "bytes": 1126402,
-      "sha256": "166d6432479a0244fdf6792859edb84ac394af6d03e3106c7953a0b5fb1d0b21"
+      "bytes": 1148692,
+      "sha256": "89d142939c4d987f23974296a358ee85641e7fcb1180a7e80bc261fe475dcf7b"
     },
     {
       "file": "licenses/mimo-voice/ATTRIBUTION.md",
@@ -794,8 +794,8 @@
     },
     {
       "file": "index.html",
-      "bytes": 5120,
-      "sha256": "af0168e0482f165a57b62b5ac928e66e706bf80646b4d7807278960b3ee203fd"
+      "bytes": 5177,
+      "sha256": "6d1a699ce838c1bf2672a32b93a8521f800cb2d38aad00c9d4c9bdfe743119c4"
     },
     {
       "file": "assets/mimo-voice/e7c9725cce980177bb69.mp3",
@@ -24336,6 +24336,481 @@
       "file": "assets/mimo-voice/extra-d451c07d739b33060e74.mp3",
       "bytes": 7800,
       "sha256": "504d16bbd6b1d376a7d45c5e40a53998b51e1a5d0f75bd25c7e93ea8ecd880a9"
+    },
+    {
+      "file": "child-ui.css",
+      "bytes": 3324,
+      "sha256": "aa00f8091b105066ac9a8b5114c98abc613d7fed82d0ef42b13409c8dbff2d4f"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-306dd0df5acb8686cd8d.mp3",
+      "bytes": 7584,
+      "sha256": "73b60e559f096ccbff409233e1efed2a2639487c8369e68f4fcdeff5ab21cb1e"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-c760aa23762e77b0cc22.mp3",
+      "bytes": 17904,
+      "sha256": "ce179fffa8745c06e4093c45e2ec3c0c2f11528f95320fd6f5a59ba243517615"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-551ca4e4cf6dd240de66.mp3",
+      "bytes": 15720,
+      "sha256": "c7e3bbee100184c63220ee108d41d9d24975ca5eedd64f2a18130c58ed0e61c1"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-10ecbd3a6ed7bc7ae559.mp3",
+      "bytes": 22080,
+      "sha256": "f2ddcff19929f27f59b7df66cdd6dddcf8ab659c35e133faa198f72f81ecaff1"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-cd3a7edba20183890170.mp3",
+      "bytes": 13752,
+      "sha256": "c2bc8e68e0a88f4533587e4c1296a8787ada31065f89149fb54243f6bd30c90c"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-34a5813c8c841d8551f6.mp3",
+      "bytes": 16536,
+      "sha256": "c5fab7c9eb0cb525850712864789106aeb598826ad198eefc9f4886098c6b4c3"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-0b50ae752c56f30bff5d.mp3",
+      "bytes": 12024,
+      "sha256": "0dc9c2858f4cafd1852831373812f239d5bbdc2428e0cd288de3a8e3d626f827"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-87263b7b658add7fe9b8.mp3",
+      "bytes": 13176,
+      "sha256": "344643cab87f915556afad23d265f5be78563ff3ba2191ce0bef3a428dd4d78e"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-176c06063045bf7866f7.mp3",
+      "bytes": 12744,
+      "sha256": "3cc6385c26a0edf4c4858ce38cfdf9edbe30c6db91e8b247a9a37ae4dfe70951"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-461e489d5e3d33720f5d.mp3",
+      "bytes": 7224,
+      "sha256": "db9202f9afb0f27e3e45fd63a0e458ff6af694a964011ade13f5acb2d4ff0b0b"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-22ea3f47fee80536c2f2.mp3",
+      "bytes": 7080,
+      "sha256": "80f824bbce8576b02e98e64e407400d7c21c89c973e8ff324e33cb9520f6213a"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-419d02bc528bcc3a8b2c.mp3",
+      "bytes": 5352,
+      "sha256": "47471731132c3d934cb0f86c89b7a3c0247c7303ede121b3ba1282299f999c64"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-0b8fd8c0745fdb1207c9.mp3",
+      "bytes": 10320,
+      "sha256": "c455f94687c806746728af93c415e1a14f0485c662402a0085243f76260f62a9"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-38ce2897a114b9917dc0.mp3",
+      "bytes": 10224,
+      "sha256": "0f71a5fc7ad7e86ab1c0a88483dbdba5cf8a571bcd0ee44a49466c914756c51a"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-71546e309e4d21c80b84.mp3",
+      "bytes": 7632,
+      "sha256": "7c3863d0f68346b20526b388d9cb197a9b6c047411381399a36e884eb893bb2e"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-267c6884d88fedc942dd.mp3",
+      "bytes": 12768,
+      "sha256": "ff0790fa9b9c77435d2f2627f8d45dc9b1aea1c3f7a819590202643945a42826"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-1e47176a3714da9ad5c0.mp3",
+      "bytes": 10200,
+      "sha256": "6da3a42eb3241a7a9dbfe413f82ebbf269acf0334d8681d570304053b5144a64"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-ea59193a2e8e05486de2.mp3",
+      "bytes": 7752,
+      "sha256": "1d173d68e10fe4e452af7aae262a4cd5834507d829c214a283e224e5926f3d6d"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-ef8a7b88e03c128c73db.mp3",
+      "bytes": 12072,
+      "sha256": "fadcccdeb5b573178874dad6aa10606da3900930dfe55d4628bf7a54ef68468f"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-54dd389d0530f2d5a62a.mp3",
+      "bytes": 13752,
+      "sha256": "d36d132240d8a5ea557de23086f9327c276fe4fb7c2a3f410b65a7d652d79908"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-762e73279e19f8669a07.mp3",
+      "bytes": 18144,
+      "sha256": "517e072d4201cacf49c90a988ec50da8ef672f3ad566434ef09be068562c75c7"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-882101357fe06861aa17.mp3",
+      "bytes": 9144,
+      "sha256": "6c99a4f86b76dded12b6d67b2c428f65af8b4607c280cb6ff7d7d02328c384d8"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-542ab6b5350b9fc52a20.mp3",
+      "bytes": 9552,
+      "sha256": "a11f5547c1126a4d43382f964a11603403fbe09fc95c4bad492f45e5b3b52a2e"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-1632a932a7b2d83010c5.mp3",
+      "bytes": 14568,
+      "sha256": "5e0301a2dbd34f6317dc2afe030331bcc10639fe63575a4f089ddebfe4de3271"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-b61758ff4fa15700f3df.mp3",
+      "bytes": 20808,
+      "sha256": "431f07e2b07116f412a571057d71ec9a75c71dd20086acc4c950a993a1554406"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-3b024fb090be51ffd0a2.mp3",
+      "bytes": 17520,
+      "sha256": "4d92547e21cfd69aa121f1735bbaff2f87f6e8c2999c4c38c2991efc0b654dcf"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-473400815c0f687da9d5.mp3",
+      "bytes": 7056,
+      "sha256": "13319c3b981d994606d355c18d93f8a71371fedda5bd35d763f42caa18977645"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-d75f8e7cfb331b0c9acf.mp3",
+      "bytes": 21696,
+      "sha256": "795b7526da0a1021dc8ae57b37bae04b07271232619794432e58a425753a2118"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-342c7e73309ca7aebd80.mp3",
+      "bytes": 7680,
+      "sha256": "564338292a3b40ae0bd427d7cd8d39ffe53c12c0a16a9a34fcef42f495625215"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-0893128c07d9dad046c9.mp3",
+      "bytes": 23304,
+      "sha256": "6bcacf2baebd692416868f3b2d4682af0a3bb848d06d8ffa1cdc0cecf03cf030"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-d1ebab84d0133d33af7c.mp3",
+      "bytes": 8640,
+      "sha256": "51c2d352f6a09f6cee4d30da4fe1dcfdae82b95b741edc92a83f47d62c410d81"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-0afb507476e1860084e4.mp3",
+      "bytes": 10032,
+      "sha256": "3468ca9c5edc73373126dc71abaa117d138a48ac533cd1a3d3c4fda9464d94ba"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-37d453ff3292c88572ce.mp3",
+      "bytes": 10992,
+      "sha256": "cad2e2ec2ca763108c022cd52632e46d17fa5693da80932d35c3ea71527af59a"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-7e621605ec61acd1a230.mp3",
+      "bytes": 9456,
+      "sha256": "37c6e7a2431cfd2d041979738f915d2f1d2027da9b156d136044be77bac0d7f5"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-c7bfb63dffffbd074f04.mp3",
+      "bytes": 20184,
+      "sha256": "9273187ad9912f38f78cb9f94b4b11ed69dd7227cc29d7ab92109604ca18be7d"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-d1ea64740a35a476eb8b.mp3",
+      "bytes": 21312,
+      "sha256": "6c4eb1e1ca4c3cf226bf3b2d5ef506bc4fd5dbdd527a031c7596b79e8f0113cf"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-0cfc59d197be47c899ff.mp3",
+      "bytes": 11448,
+      "sha256": "2de5ce33369b8fe32f31c7e9407661657247776c98ad0985fecdee21e859b89f"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-6bae903813ad53274a35.mp3",
+      "bytes": 20496,
+      "sha256": "de032a1f5f687ce271a8cc7f9825900f3f2edf5457e2d1c592d5eae194ae3600"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-9d29027e5b84096e5aa2.mp3",
+      "bytes": 15408,
+      "sha256": "8e7b6a79542013d4f860cd4b3c52c4cb5a40ab266907ced6a08d49a4698b84d7"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-e164ca2825b67e1d6051.mp3",
+      "bytes": 9840,
+      "sha256": "bcfe98782398c45f1f76ae67399a7270989f8a8f9aae2e2ff15ebd3f3a1875e7"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-d3e90630248502c2bdb9.mp3",
+      "bytes": 10488,
+      "sha256": "f3310b7b8f40c3b90bec3c82335226916035f3aac495c11856b5ec347eb6e5c3"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-f18542ae1a358e9e7ee6.mp3",
+      "bytes": 16008,
+      "sha256": "d1b75d33f16964becfd938a9ac2b09ca80bd57b583b97d3c1f6d9644ad18c9ff"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-b7c59628854728b7297a.mp3",
+      "bytes": 11832,
+      "sha256": "642c66ccee9ae293ba149209e264ea75f219c169e0fbd529c1440e0d057ae779"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-2de86b8d38573374b918.mp3",
+      "bytes": 12840,
+      "sha256": "5e92f942d039bb0854977e196842c276545e473bfbe37a697985f28c4ba846f6"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-45385dc02e2ea7290263.mp3",
+      "bytes": 15432,
+      "sha256": "9a10b88bee29f3c1874e3be59e4753f83c58ae31b0ba78daf2285cbe3347f23b"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-a8ec1342c943dc9550f2.mp3",
+      "bytes": 11616,
+      "sha256": "3af562e62d90c615b34d72903c56cc084d72ef4fdf1a23ce91158ddd87900f59"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-8e158c17c2f85ffbce83.mp3",
+      "bytes": 15768,
+      "sha256": "3a4451c469ceb11f42b359f4c3eefc23e5c92749a8662f55e6ce9f0fa66dd9fc"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-01d6348ba88d5cbdac8d.mp3",
+      "bytes": 15216,
+      "sha256": "7a7b63c8c9be72c3b7aa8c38b0ecbfe283c7dc65eb1062c4e0cdb781488e91ef"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-4d0c3e704af4bbdc8548.mp3",
+      "bytes": 13584,
+      "sha256": "2e1879237c64ca5aeee2046c714858ca1fa71e349ac5771cfc9c0db270f4265c"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-762c354bab14bbba4382.mp3",
+      "bytes": 8736,
+      "sha256": "2b09c23e6a068a99f3462f904ba7b5757b579e405991d8a8dad3bd106bd77f58"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-efe65de467580bc95bb5.mp3",
+      "bytes": 16104,
+      "sha256": "7a012b0b2cc830eecfaa7d11054059ae85a322e81e2f05873e82ee47b641fe4a"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-5d1df098832551f719dc.mp3",
+      "bytes": 19200,
+      "sha256": "6bc2e2ac5cbc694d7de50ecead22a67dc4c3a3d8cf68f00fcfc0c852751a1f34"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-bdc92288aaac124b4764.mp3",
+      "bytes": 18216,
+      "sha256": "211f726c1466616f3fefe9049a0b44574e71d03295e759c4fe9397db1a09305e"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-0a1dfd7d8b0386e3632f.mp3",
+      "bytes": 9600,
+      "sha256": "403455231f4612c88c03fa9a3832ba4818b87cf0b9653e89bfd5b359959a2864"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-a3816b9503e97865c9ed.mp3",
+      "bytes": 8304,
+      "sha256": "1dfbc2623339554e34ad5877df7f08d3612c80bde68d2086dbfd074f006ed195"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-3c35e43bd973a39144ee.mp3",
+      "bytes": 14448,
+      "sha256": "800591c2642f43657f4c271947238f997f0e29264d8cfa68c2a1e2c172832c3e"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-5b3af54268bc18c46ab3.mp3",
+      "bytes": 13968,
+      "sha256": "65b372f942d8eb2ba8d272d4f7ffdcef67ff4d0283bdbd8b749ef72c77c056b1"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-4f5d3a6ba0799c203110.mp3",
+      "bytes": 18552,
+      "sha256": "a752ebf81e294e1e9c32b84997597bfcd15ac474056fb01b8edd2076f7cd3767"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-fd525cbc60d1ba94d8d5.mp3",
+      "bytes": 16392,
+      "sha256": "812a2f466d8ce98daeef73f1f1985a6dec9d590334fd0683af34702883eeb33f"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-b52643ed13aff521a578.mp3",
+      "bytes": 17928,
+      "sha256": "673ab9d73a16311ea09c3cdab8bf25b96e5b156113a2d0fdae845cca6317181f"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-420c989b156f8e6056ca.mp3",
+      "bytes": 17304,
+      "sha256": "56728c859a93222a1027c4c46430f68c5e73db8ee9b2b18a566d45f2f52cb4d9"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-8f31fab005f35eb4d617.mp3",
+      "bytes": 18984,
+      "sha256": "53e358b51d93884ba308f33adf09fe7daab6e32035566aa53ee8522b5cf8247b"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-31f712a0698366da2b27.mp3",
+      "bytes": 13632,
+      "sha256": "58cba5edcd81fb7b3c13cf54a29ba4a25d22bb6d4630cbad02a453d9148bea34"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-319394ae832c846a9bca.mp3",
+      "bytes": 14736,
+      "sha256": "1bef21040e422e0b9cbb02e266589ae387c02097e8d4510d5c0795f6e3944549"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-9ae3add6002df3cfd74b.mp3",
+      "bytes": 14952,
+      "sha256": "67b3ecf32a46f8be79df4a5b766feed11f86b2a7f825dfde39dc7555adf0e5a4"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-623e839795756663cc0d.mp3",
+      "bytes": 9360,
+      "sha256": "469b44b1071aac84e56875bd7ce9fe8916b5bfd57aa2468b225e6a0423ea913a"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-625541f14522a53a5d8e.mp3",
+      "bytes": 12216,
+      "sha256": "96bc8be28c19a0ef689eb0c52961d72d8a2938d1324795c8b62ec48b65d1e3ad"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-684594856d5b2245947e.mp3",
+      "bytes": 10416,
+      "sha256": "e4a8b1496fc90dabd3fcf6d7e76b42b76c5051652294693c338ebbb53b6d00fe"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-5e6999024481b7e2f269.mp3",
+      "bytes": 9672,
+      "sha256": "f4421a411832ee980016b0fab1bf6bba54181142dd1b1d2bd714713685830e40"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-a14701c4e8b3d04bd027.mp3",
+      "bytes": 8808,
+      "sha256": "5b450233f71836e42a2def9ffc825e9f2d77e3661fdf4060315baf8d398b129a"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-adc7388b09d3b54f0c71.mp3",
+      "bytes": 8928,
+      "sha256": "57456835763de5908c087f44066f465fbdbeaa414f13b78a593011d83a243cf7"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-51ea0464854c594c491e.mp3",
+      "bytes": 22656,
+      "sha256": "05fd549182bca2207a82b3faa300288828809cb14a8a2f71fc9bf3edb80a0c97"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-baadd00c00baf14892dd.mp3",
+      "bytes": 16008,
+      "sha256": "d9afcffb47663dc792faeb47b972e4a312ab9688d73719073e2f33d4c568b7f2"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-eeb2f2e11056dcc7df7d.mp3",
+      "bytes": 13608,
+      "sha256": "f65e57633648d5db5c1d5deb327132c3061885f5438d17ef9ff067fe15e985b1"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-1240f7c175a712a916b3.mp3",
+      "bytes": 16560,
+      "sha256": "cc356e9fbbf8631d695b9376d61768e193712982aa1d6baa1659e83aff065a14"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-4ac9f701e3eada92e89d.mp3",
+      "bytes": 10920,
+      "sha256": "6d45a0e357c2796f6776c7aabd3e73acc0ff147080bf5091796c6e951bcb6537"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-f48d3b0a17dfd389263f.mp3",
+      "bytes": 14688,
+      "sha256": "ff6df49c2fedcfd61a47fd6731ba34012875c7656ac0a02e676890f5d0250a1c"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-b2f5e87cd7dacb0d8b30.mp3",
+      "bytes": 17280,
+      "sha256": "a179cbc5578e50b7c8478dd927b8fd5ab316467687f9827278120fbcb2b1ba44"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-64d6ae75a24fc28dff0c.mp3",
+      "bytes": 11568,
+      "sha256": "b59bf75722400996f9e926a7265e8d3ff7891fdd2686b15f8ca90c989c76fe16"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-9afd9fbe6086d7de4f56.mp3",
+      "bytes": 9576,
+      "sha256": "9f5232b3da90b40ce103bef9465e492d998d829099f09e6e29e59bb2a4cb6591"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-218912f41eaefef3f004.mp3",
+      "bytes": 9384,
+      "sha256": "b1cac2a3589aaf601fa9db49bfca32692d7e3220c831a8f08f8cd7d90f8e0692"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-39a82f9eda6faad7f864.mp3",
+      "bytes": 12984,
+      "sha256": "5af7caacb462ac729f372f0b754b29b7ecced1fd99385a650055009d9a3e2ef7"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-3af8554d843d15a5dadd.mp3",
+      "bytes": 10536,
+      "sha256": "868942c05b6165996cbe23ba3b92fa9261155c517966c208f314f3ad314d9147"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-a3271abc40fe05eb678a.mp3",
+      "bytes": 11256,
+      "sha256": "e3c1b9c4308c59684b89b5f6677c2268ac088a30066ba5bee1669992c3556cdd"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-572cf45ba43634b3448a.mp3",
+      "bytes": 6792,
+      "sha256": "3b78a441f0247693876f1c297080e585dc48557f53aaec3e333fdd4c7b9395f0"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-c116be5b39c1043081ab.mp3",
+      "bytes": 8832,
+      "sha256": "f61fad5c31a849e7f057c21332849b5e332c5e3c0a1b1de28cea89dbba4af552"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-7ee6c241e8b6866be360.mp3",
+      "bytes": 8472,
+      "sha256": "4abb2a238cbc8c63ea5106a469d20fb898c20f27df8d111f8050b5388d4669d7"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-6c9f6c7693ac1b5ccf08.mp3",
+      "bytes": 12768,
+      "sha256": "26fb64b36066b4b25ca2e07f37194143e1a5e2d77a075b45b8d576a4caa81811"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-6b4e646f7b81eb8e7da1.mp3",
+      "bytes": 16488,
+      "sha256": "e5fab3d5640862b40ddcb8799b3b6c93029f6319283b0a40874bcb51a02c1745"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-a6b9eca293fc17874dd1.mp3",
+      "bytes": 9552,
+      "sha256": "2ff3a26bf863a6f7bc05362431e48010337f563717cc77ed97b2da1c672afe87"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-cc92cb4b8980dc15533d.mp3",
+      "bytes": 9192,
+      "sha256": "48bdfb2fb4db0f95bb1ed9e89261b5d23f9c4e389ccb6168a6382a1ac13c38e5"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-dec831901dc6ebe9fe59.mp3",
+      "bytes": 13680,
+      "sha256": "94b3bfede1ae94d3158ae95b8c79ba35f02efb681bca64a72adc890f9a7f5b20"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-62610ba55b1c1b7eba16.mp3",
+      "bytes": 19704,
+      "sha256": "38dec6450e8f79793c98ab35ce9a1d3b709d58814e643e31a519f4f607ae99fc"
+    },
+    {
+      "file": "assets/mimo-voice/child-ui-ae3af2db06fba731b816.mp3",
+      "bytes": 13944,
+      "sha256": "4cd7c5a01b6c2179a494c05e9168c0d090eb00cef127a5e346e5ddfbb4079d84"
     }
   ]
 }

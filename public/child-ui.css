@@ -1,0 +1,23 @@
+/* Scale the content itself for shared, large-screen play. */
+#overlay[data-mode="quiz"] #panel,#overlay[data-mode="extras"] #panel{align-content:start;justify-content:safe center}
+#overlay[data-mode="quiz"] .adventure-quiz h2,#overlay[data-mode="extras"] h2{font-size:clamp(36px,4.3vw,88px)!important;line-height:1.25}
+#overlay[data-mode="quiz"] .quiz-answers{max-width:none;gap:clamp(16px,2vw,40px)}
+#overlay[data-mode="quiz"] .answer,#overlay[data-mode="quiz"] .adventure-quiz:has(#reviewProgress) .answer{max-width:none;min-width:min(24vw,260px);min-height:clamp(160px,19vw,330px);padding:clamp(16px,2vw,36px)}
+#overlay[data-mode="quiz"] .quiz-option-text,#overlay[data-mode="quiz"] .quiz-option-label{font-size:clamp(32px,3.5vw,68px)!important;line-height:1.25}
+#overlay[data-mode="quiz"] .quiz-answer-number{font-size:clamp(70px,7vw,140px)!important}
+#overlay[data-mode="quiz"] .quiz-option-picture{width:clamp(100px,12vw,210px);height:clamp(100px,12vw,210px)}
+#overlay[data-mode="quiz"] .quiz-option-symbol{display:block;font-size:clamp(64px,7vw,130px);line-height:1.15}
+#overlay[data-mode="quiz"] .quiz-glyph{font-size:clamp(90px,10vw,190px)!important}
+#overlay[data-mode="quiz"] .quiz-object{width:clamp(48px,6vw,105px);height:clamp(48px,6vw,105px)}
+#overlay[data-mode="quiz"] .quiz-equation-number,#overlay[data-mode="quiz"] .quiz-operator,#overlay[data-mode="quiz"] .quiz-sequence-value{font-size:clamp(55px,6vw,115px)}
+#overlay[data-mode="quiz"] .wood-button,#overlay[data-mode="extras"] .wood-button{font-size:clamp(26px,2.6vw,48px);min-height:clamp(70px,7vw,112px)}
+#overlay[data-mode="extras"] p,#overlay[data-mode="extras"] .extras-actions button{font-size:clamp(28px,2.8vw,50px)}
+#overlay[data-mode="quiz"] .poem-line{font-size:clamp(48px,5.4vw,100px)}
+#overlay[data-mode="book"] #panel,#overlay[data-mode="pause"] #panel,#overlay[data-mode="review-select"] #panel,#overlay[data-mode="characters"] #panel,#overlay[data-mode="growth"] #panel:has([data-replay]){width:90vw;max-width:none;max-height:86dvh;overflow:auto;padding:clamp(24px,3vw,55px)}
+#overlay[data-mode="book"] h2,#overlay[data-mode="pause"] h2,#overlay[data-mode="review-select"] h2,#overlay[data-mode="characters"] h2,#overlay[data-mode="growth"] #panel:has([data-replay]) h2{font-size:clamp(32px,3.8vw,68px)}
+#overlay[data-mode="book"] button,#overlay[data-mode="pause"] button,#overlay[data-mode="review-select"] button,#overlay[data-mode="characters"] button,#overlay[data-mode="growth"] .replay-choice{font-size:clamp(22px,2.3vw,40px);min-height:64px}
+#overlay[data-mode="book"] .book-grid{max-height:40dvh}
+#overlay .hear-menu,#overlay .listen-options{margin:12px auto;display:block}
+.parent-more:not([hidden]){display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+.replay-choice span{display:block;font-size:clamp(40px,4vw,75px)}
+@media(max-width:600px){#overlay[data-mode="quiz"] .answer,#overlay[data-mode="quiz"] .adventure-quiz:has(#reviewProgress) .answer{min-width:110px;min-height:120px}#overlay[data-mode="quiz"] .adventure-quiz h2,#overlay[data-mode="extras"] h2{font-size:30px!important}#overlay[data-mode="quiz"] .quiz-option-text,#overlay[data-mode="quiz"] .quiz-option-label{font-size:25px!important}#overlay[data-mode="quiz"] .wood-button,#overlay[data-mode="extras"] .wood-button{font-size:20px;min-height:52px}}

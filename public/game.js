@@ -157,9 +157,31 @@
     $('lampGlow').textContent=bright?'✦':'·';$('lamp').classList.toggle('is-dim',!bright);$('lamp').classList.toggle('is-bright',!!bright);
     $('lamp').setAttribute('aria-label',bright?region().tool.ready:region().tool.empty+'。'+region().tool.restore);
   }
-  function showPanel(html,newMode){renderDirty=true;$('overlay').dataset.mode=newMode;$('overlay').dataset.region=state.activeRegion;$('overlay').dataset.side=player.x>836?'left':'right';mode=newMode;route=[];routeAction=null;keys.clear();$('overlay').hidden=false;$('panel').innerHTML=html;focusIndex=0;setFocus(0,false);}
+  function showPanel(html,newMode){renderDirty=true;$('overlay').dataset.mode=newMode;$('overlay').dataset.region=state.activeRegion;$('overlay').dataset.side=player.x>836?'left':'right';mode=newMode;route=[];routeAction=null;keys.clear();$('overlay').hidden=false;$('panel').innerHTML=html;focusIndex=0;setFocus(0,false);setupChildPanel(newMode);}
   function closePanel(){renderDirty=true;quiz?.cancel();mode='world';$('overlay').hidden=true;$('panel').innerHTML='';}
-  function buttons(){return [...$('panel').querySelectorAll('button:not([disabled])')];}
+  let childPanelEpoch=0;
+  function setupChildPanel(panelMode){
+    const intros={'book':'看看你的发现。点一点击听名字。','review-select':'选一个地方，答三道题。','pause':'歇一会儿。选一选你想做什么。','characters':'点一点，选伙伴。'};
+    if(panelMode==='growth'&&$('panel').querySelector('[data-replay]'))intros.growth='选一个亮起来的地方。';
+    const epoch=++childPanelEpoch;if(!intros[panelMode])return;
+    const panel=$('panel'),narratable=()=>[...panel.querySelectorAll('button:not([disabled])')].filter(b=>!b.closest('[hidden]')&&!b.matches('.book-item')&&b.id!=='hearMenu');
+    const sayName=button=>{
+      const named={extrasBook:'帮帮小伙伴',natureBook:'小动物',closeBook:'关上',backDiscovery:'回到我的发现',closeNature:'继续探险',resume:'继续探险',pauseHome:'返回',volume:'声音',fullscreen:'全屏',replayMenu:'再玩一次',characterMenu:'选一个小伙伴',parentMoreToggle:'家长设置',leaveReview:'去探险',characterBack:'返回',growthBack:'返回'};
+      if(named[button.id])return named[button.id];
+      if(button.dataset.replay)return button.querySelector('strong')?.textContent||'';
+      if(button.dataset.character)return button.querySelector('span:last-child')?.textContent.replace(' · 正在玩','')||'';
+      if(button.dataset.review)return button.querySelector('strong')?.textContent||'';
+      if(button.dataset.item||button.dataset.fauna)return button.getAttribute('aria-label')||button.querySelector('span')?.textContent||'小动物';
+      return (button.getAttribute('aria-label')||button.textContent||'').replace(/[\u{1f000}-\u{1faff}\u2600-\u27bf\ufe0f\u200d]/gu,'').replace(/\s+/g,' ').replace(/\s*\d+\s*%/g,'').trim();
+    };
+    const hear=document.createElement('button');hear.id='hearMenu';hear.className='wood-button quiet-button hear-menu';hear.textContent='🔊 听一听';
+    panel.appendChild(hear);
+    const readMenu=async()=>{const serial=++childPanelEpoch;for(const text of [intros[panelMode],...narratable().map(sayName).filter(Boolean)]){if(serial!==childPanelEpoch||$('overlay').hidden||mode!==panelMode)return;const result=await audio.say(text,{interrupt:true,lang:'zh-CN'});if(result?.reason==='cancelled')return;}};
+    hear.onclick=readMenu;
+    panel.querySelectorAll('button:not(#hearMenu)').forEach(button=>button.addEventListener('focus',()=>{childPanelEpoch++;const text=sayName(button);if(text)audio.say(text,{interrupt:true,lang:'zh-CN'});}));
+    queueMicrotask(()=>{if(epoch===childPanelEpoch&&!$('overlay').hidden&&mode===panelMode)audio.say(intros[panelMode],{interrupt:true,lang:'zh-CN'});});
+  }
+  function buttons(){return [...$('panel').querySelectorAll('button:not([disabled])')].filter(b=>!b.closest('[hidden]'));}
   function setFocus(n,dom=true){const list=buttons();if(!list.length)return;focusIndex=(n+list.length)%list.length;list.forEach((b,i)=>b.classList.toggle('focused',i===focusIndex));if(dom){list[focusIndex].focus({preventScroll:true});list[focusIndex].scrollIntoView({block:'nearest',inline:'nearest'});}}
   function moveFocus(dx,dy){const list=buttons();if(!list.length)return;const current=list[focusIndex]||list[0],r=current.getBoundingClientRect(),cx=r.x+r.width/2,cy=r.y+r.height/2;
     const candidates=list.map((b,i)=>{const s=b.getBoundingClientRect(),x=s.x+s.width/2-cx,y=s.y+s.height/2-cy,forward=dx?x*dx:y*dy,cross=dx?Math.abs(y):Math.abs(x);return{i,forward,score:forward+cross*2.5};}).filter(x=>x.forward>4).sort((a,b)=>a.score-b.score);setFocus(candidates[0]?.i??focusIndex+((dx||dy)>0?1:-1));}
@@ -232,14 +254,14 @@
   function showDiscovery(item,illustration){
     hideDiscovery();route=[];routeAction=null;returningHome=false;player.moving=false;
     const layer=document.createElement('div');layer.className='discovery-layer';
-    layer.innerHTML='<section class="discovery-card" role="dialog" aria-modal="true" aria-labelledby="discoveryTitle">'+(illustration||itemAsset(item.id))+'<div><small>'+esc(item.caption||'收集到新发现')+'</small><h2 id="discoveryTitle">'+esc(item.name)+'</h2><p>'+esc(item.desc)+'</p></div><button aria-label="关闭介绍">收好，继续探险</button><small class="discovery-controls">A / B · Enter / Z 关闭</small></section>';
+    layer.innerHTML='<section class="discovery-card" role="dialog" aria-modal="true" aria-labelledby="discoveryTitle">'+(illustration||itemAsset(item.id))+'<div><small>'+esc(item.caption||'收集到新发现')+'</small><h2 id="discoveryTitle">'+esc(item.name)+'</h2><p>'+esc(item.desc)+'</p></div><button aria-label="关闭介绍">收好，▶ 继续探险</button><small class="discovery-controls">A / B · Enter / Z 关闭</small></section>';
     layer.querySelector('button').onclick=e=>{e.stopPropagation();hideDiscovery();};
     layer.addEventListener('pointerdown',e=>e.stopPropagation());$('game').append(layer);discoveryCard=layer;layer.querySelector('button').focus({preventScroll:true});
   }
 
   function helperRestored(){return {forest:'萤火虫飞进提灯，灯又亮了',castle:'故事星火点亮烛灯啦',beach:'海风吹进海螺，它又能唱歌啦',valley:'晶石连起光纹，萤石又亮了',sea:'水母吸收小气泡，又能引路啦'}[state.activeRegion];}
   function charge(){
-    showPanel(`<h2>今天复习哪里？</h2><p>复习三题，只恢复对应区域的道具。</p><div class="review-regions">${Object.entries(regions).map(([id,r])=>`<button class="wood-button" data-review="${id}">${atlas('helpers',r.index,2)}<strong>${esc(r.name)}</strong><small>${esc(r.helper)} · ${state.regions[id].energy?'已准备好':journey.reviewQuestions(id).length?'复习进度 '+state.regions[id].review+'/3':'还没有学过的题'}</small></button>`).join('')}</div><button class="wood-button quiet-button" id="leaveReview">先去探险</button>`,'review-select');
+    showPanel(`<h2>去哪儿复习？</h2><p>选一个地方，答三道题。</p><div class="review-regions">${Object.entries(regions).map(([id,r])=>`<button class="wood-button" data-review="${id}">${atlas('helpers',r.index,2)}<strong>${esc(r.name)}</strong><small>${esc(r.helper)} · ${state.regions[id].energy?'已准备好':journey.reviewQuestions(id).length?'复习进度 '+state.regions[id].review+'/3':'还没有学过的题'}</small></button>`).join('')}</div><button class="wood-button quiet-button" id="leaveReview">去探险</button>`,'review-select');
     $('leaveReview').onclick=closePanel;
     $('panel').querySelectorAll('[data-review]').forEach(b=>b.onclick=()=>{
       const id=b.dataset.review;if(state.regions[id].energy){speech(regions[id].helper+'已经准备好啦');return;}
@@ -249,9 +271,9 @@
   }
   function book(id=bookRegion){
     bookRegion=id;const group=data.items.filter(it=>it.region===id);
-    showPanel(`<h2>我的发现 · ${state.collected.length}/125</h2><button class="wood-button quiet-button" id="extrasBook">探险手册 · 伙伴故事</button><button class="wood-button quiet-button" id="natureBook">自然图鉴 · ${Object.keys(state.nature).length}/15</button><div class="book-tabs">${Object.entries(regions).map(([r,v])=>`<button class="wood-button ${r===id?'':'quiet-button'}" data-book="${r}">${esc(v.name)}</button>`).join('')}</div><div class="book-grid">${group.map(it=>`<button class="book-item" data-item="${it.id}" aria-label="${state.collected.includes(it.id)?esc(it.name):'还没发现'}">${itemAsset(it.id,state.collected.includes(it.id)?'':'undiscovered-silhouette')}<span>${state.collected.includes(it.id)?esc(it.name):'还没发现'}</span></button>`).join('')}</div><button class="wood-button" id="closeBook">合上</button>`,'book');
+    showPanel(`<h2>🎒 我的发现 · ${state.collected.length}/125</h2><button class="wood-button quiet-button" id="extrasBook">📖 帮帮小伙伴</button><button class="wood-button quiet-button" id="natureBook">🐾 小动物 · ${Object.keys(state.nature).length}/15</button><div class="book-tabs">${Object.entries(regions).map(([r,v])=>`<button class="wood-button ${r===id?'':'quiet-button'}" data-book="${r}">${esc(v.name)}</button>`).join('')}</div><div class="book-grid">${group.map(it=>`<button class="book-item" data-item="${it.id}" aria-label="${state.collected.includes(it.id)?esc(it.name):'还没找到'}">${itemAsset(it.id,state.collected.includes(it.id)?'':'undiscovered-silhouette')}<span>${state.collected.includes(it.id)?esc(it.name):'还没找到'}</span></button>`).join('')}</div><button class="wood-button" id="closeBook">关上</button>`,'book');
     $('panel').querySelectorAll('[data-book]').forEach(b=>b.onclick=()=>book(b.dataset.book));
-    $('panel').querySelectorAll('[data-item]').forEach(b=>b.onclick=()=>{const it=data.items[+b.dataset.item];audio.say(state.collected.includes(it.id)?it.name+'。'+it.desc:'还没发现它，沿小路找一找吧',{interrupt:true});});$('closeBook').onclick=closePanel;$('natureBook').onclick=natureBook;$('extrasBook').onclick=()=>extras.menu();
+    $('panel').querySelectorAll('[data-item]').forEach(b=>b.onclick=()=>{const it=data.items[+b.dataset.item];audio.say(state.collected.includes(it.id)?it.name+'。'+it.desc:'还没找到它，沿小路找一找吧',{interrupt:true});});$('closeBook').onclick=closePanel;$('natureBook').onclick=natureBook;$('extrasBook').onclick=()=>extras.menu();
   }
   const shards=['polygon(50% 47%,43% 31%,50% 0%,100% 0%,100% 34%,73% 39%,65% 48%)','polygon(50% 47%,65% 48%,73% 39%,100% 34%,100% 100%,79% 91%,70% 68%)','polygon(50% 47%,70% 68%,79% 91%,80% 100%,20% 100%,32% 76%,37% 62%)','polygon(50% 47%,37% 62%,32% 76%,20% 100%,0% 100%,0% 34%,26% 42%,37% 47%)','polygon(50% 47%,37% 47%,26% 42%,0% 34%,0% 0%,50% 0%,43% 31%)'];
   function medal(id,count,animate=false){const r=regions[id];return `<div class="medal-pieces ${count===5?'complete':''}" aria-label="${esc(r.name)}印记，已点亮 ${count}/5 片">${shards.map((clip,i)=>`<span class="medal-piece ${i<count?'on':''} ${animate&&i===count-1?'new-piece':''}" style="clip-path:${clip};--piece:${i};--dx:${[4,5,0,-5,-4][i]}px;--dy:${[-4,2,5,2,-4][i]}px">${atlas('helpers',r.index+5,2)}</span>`).join('')}</div>`;}
@@ -265,7 +287,7 @@
     const replay=journey.isReplaying();
     if(!journey.deliver()){speech(state.segments===5?'这枚印记已经完整啦':'再找'+(5-state.bag.length)+'样，就能点亮这一片印记啦');return;}
     altarGuide=null;noticeUntil=0;$('notice').classList.remove('show');persist();audio.tone([523,659,784,1047]);if(replay){const done=!journey.isReplaying();showPanel('<h2>'+ (done?'这一轮探险完成啦':'这一站又有新发现')+'</h2><p>'+ (done?'印记和成长记录都保留了。下次还可以再出发！':'沿着打开的小路，继续找新题吧')+'</p><button class="wood-button" id="continueStage">'+(done?'回到世界之心':'继续探险')+'</button>','reward');$('continueStage').onclick=done?goHome:closePanel;return;}if(journey.allComplete()){celebrate();return;}
-    showPanel(`<h2>${state.segments===5?'一整枚印记，亮起来啦':'点亮第 '+state.segments+' 片印记'}</h2>${medal(state.activeRegion,state.segments,true)}<p>${state.segments===5?'带回世界之心，去探索其他区域吧':'前面的小路，已经打开啦'}</p><button class="wood-button" id="continueStage">继续探险</button>`,'reward');
+    showPanel(`<h2>${state.segments===5?'一整枚印记，亮起来啦':'点亮第 '+state.segments+' 片印记'}</h2>${medal(state.activeRegion,state.segments,true)}<p>${state.segments===5?'带回世界之心，去探索其他区域吧':'前面的小路，已经打开啦'}</p><button class="wood-button" id="continueStage">▶ 继续探险</button>`,'reward');
     if(stage().exitSubmission){$('continueStage').textContent='带印记回世界之心';$('continueStage').onclick=()=>{closePanel();goHome();};}else $('continueStage').onclick=closePanel;audio.say(state.segments===5?'这枚印记完整啦':'点亮了一片印记，继续沿小路探索吧',{interrupt:true});
   }
   const activityLocations=new Map();
@@ -324,7 +346,8 @@
     pausedMode=mode;pausedAt=performance.now();quiz?.cancel();mode='pause';audio.stop();showPause();
   }
   function showPause(){
-    showPanel(`<h2>歇一会儿</h2><div class="menu"><button class="wood-button" id="resume">继续探险</button><button class="wood-button quiet-button" id="pauseHome">沿原路返回</button><button class="wood-button quiet-button" id="volume">声音 ${Math.round(state.volume*100)}%</button><button class="wood-button quiet-button" id="fullscreen">全屏</button><button class="wood-button" id="replayMenu">再探险一轮</button><button class="wood-button quiet-button" id="characterMenu">伙伴：${esc(character().name)}</button><button class="wood-button quiet-button" id="testDoors">${TEST_OPEN?'退出测试，回正式进度':'测试选项：默认开门（独立进度）'}</button></div><button class="wood-button quiet-button" id="parentTools">家长：成长记录与题库</button><button class="wood-button quiet-button" id="restart">家长：重新开始</button><p class="small-print" id="pauseInputHint">进度已经记下了 · ${inputMode==='gamepad'?'Start':inputMode==='touch'?'点继续探险':'Esc'} 继续</p>`,'pause');
+    showPanel(`<h2>歇一会儿</h2><div class="menu"><button class="wood-button" id="resume">▶ 继续探险</button><button class="wood-button quiet-button" id="pauseHome">🏠 返回</button><button class="wood-button quiet-button" id="volume">声音 ${Math.round(state.volume*100)}%</button><button class="wood-button quiet-button" id="fullscreen">全屏</button><button class="wood-button" id="replayMenu">🔄 再玩一次</button><button class="wood-button quiet-button" id="characterMenu">伙伴：${esc(character().name)}</button></div><button class="wood-button quiet-button" id="parentMoreToggle">⚙️ 家长设置</button><div id="parentMore" class="parent-more" hidden><button class="wood-button quiet-button" id="parentTools">成长记录与题库</button><button class="wood-button quiet-button" id="testDoors">${TEST_OPEN?'退出测试，回正式进度':'测试选项：默认开门（独立进度）'}</button><button class="wood-button quiet-button" id="restart">重新开始</button></div><p class="small-print" id="pauseInputHint">进度已经记下了 · ${inputMode==='gamepad'?'Start':inputMode==='touch'?'点继续探险':'Esc'} 继续</p>`,'pause');
+    $('parentMoreToggle').onclick=()=>{$('parentMore').hidden=!$('parentMore').hidden;};
     growthMenu=window.createGrowthMenu({journey,data,saveKey:SAVE,showPanel,persist,goHome,enterArea,back:showPause});$('replayMenu').onclick=growthMenu.rounds;$('parentTools').onclick=growthMenu.settings;$('testDoors').onclick=()=>{const url=new URL(location.href);if(TEST_OPEN)url.searchParams.delete('test');else url.searchParams.set('test','open');location.href=url.href;};
     $('characterMenu').onclick=showCharacters;
     $('resume').onclick=resume;$('pauseHome').onclick=()=>{closePanel();guideHome();};
@@ -442,7 +465,7 @@
   }
   function showCharacters(){
     const request=++characterRequest;
-    showPanel('<h2>今天和谁一起探险？</h2><p>伙伴换好了，发现和印记都还在。</p><div class="character-choices">'+Object.entries(AdventureCharacters).map(([id,c])=>'<button class="wood-button character-choice" data-character="'+id+'" aria-pressed="'+(id===activeCharacter)+'"><span class="character-preview" style="background-image:url('+c.preview+')"></span><span>'+esc(c.name)+(id===activeCharacter?' · 一起探险中':'')+'</span></button>').join('')+'</div><p id="characterStatus" role="status"></p><button id="characterBack" class="wood-button quiet-button">返回</button>','characters');
+    showPanel('<h2>选一个小伙伴</h2><p>点一点，选伙伴。</p><div class="character-choices">'+Object.entries(AdventureCharacters).map(([id,c])=>'<button class="wood-button character-choice" data-character="'+id+'" aria-pressed="'+(id===activeCharacter)+'"><span class="character-preview" style="background-image:url('+c.preview+')"></span><span>'+esc(c.name)+(id===activeCharacter?' · 正在玩':'')+'</span></button>').join('')+'</div><p id="characterStatus" role="status"></p><button id="characterBack" class="wood-button quiet-button">返回</button>','characters');
     $('characterBack').onclick=()=>{characterRequest++;showPause();};
     document.querySelectorAll('[data-character]').forEach(b=>b.onclick=async()=>{
       document.querySelectorAll('[data-character]').forEach(el=>el.disabled=true);$('characterStatus').textContent='伙伴正在整理行囊…';
@@ -588,7 +611,7 @@
     const matrix=avatar.matrix,grip=matrix.transformPoint({x:hx,y:hy});visualState.catch={direction:animation.dir,frame,grip:{x:grip.x,y:grip.y},tool:index,behind:animation.dir===3,phase:progress};
   }
   function natureBook(){
-    showPanel(`<h2>自然图鉴 · ${Object.keys(state.nature).length}/15</h2><p>捕捉观察后放回自然，不占任务袋。</p><div class="book-grid">${faunaNames.map((name,i)=>`<button class="book-item ${state.nature[i]?'':'unseen'}" data-fauna="${i}">${atlas('fauna',i+5,4)}<span>${state.nature[i]?esc(name):'还没遇见'}</span>${state.nature[i]?`<small>遇见 ${state.nature[i].count} 次</small>`:''}</button>`).join('')}</div><button class="wood-button" id="backDiscovery">回到学习收集册</button><button class="wood-button quiet-button" id="closeNature">继续探险</button>`,'book');$('backDiscovery').onclick=()=>book();$('closeNature').onclick=closePanel;document.querySelectorAll('[data-fauna]').forEach(b=>b.onclick=()=>audio.say(state.nature[b.dataset.fauna]?faunaNames[+b.dataset.fauna]:'还没遇见它，继续找一找吧',{interrupt:true}));
+    showPanel(`<h2>🐾 小动物 · ${Object.keys(state.nature).length}/15</h2><p>看看你遇见的小动物。</p><div class="book-grid">${faunaNames.map((name,i)=>`<button class="book-item ${state.nature[i]?'':'unseen'}" data-fauna="${i}">${atlas('fauna',i+5,4)}<span>${state.nature[i]?esc(name):'还没遇见'}</span>${state.nature[i]?`<small>遇见 ${state.nature[i].count} 次</small>`:''}</button>`).join('')}</div><button class="wood-button" id="backDiscovery">回到我的发现</button><button class="wood-button quiet-button" id="closeNature">▶ 继续探险</button>`,'book');$('backDiscovery').onclick=()=>book();$('closeNature').onclick=closePanel;document.querySelectorAll('[data-fauna]').forEach(b=>b.onclick=()=>audio.say(state.nature[b.dataset.fauna]?faunaNames[+b.dataset.fauna]:'还没遇见它，继续找一找吧',{interrupt:true}));
   }
   const extras=AdventureExtras({storageKey:SAVE,panel:showPanel,close:closePanel,nature:natureBook,region:()=>state.activeRegion,
     notice:t=>notify(t,4),tone:notes=>audio.tone(notes),say:(t,lang)=>audio.say(t,{interrupt:true,lang}),stop:()=>audio.stop(),dirty:()=>{renderDirty=true;}});
@@ -792,7 +815,7 @@
   quiz=createAdventureQuiz({journey,state,audio,showPanel,closePanel,notify,persist,finishAnswer,help,onLeave:()=>{journey.cancelQuestion();persist();closePanel();},picture,itemAsset:i=>asset(i)});
   addEventListener('pagehide',()=>{padAxes={x:0,y:0};padOld=[];quiz.cancel();audio.stop();});
   function introduction(){
-    showPanel(`<div class="intro-art">${helperAsset(true)}<span class="startRabbit" style="background-image:url('${character().preview}')"></span>${asset(0)}</div><h1>小小探险家</h1><p>五条小路，五种新的发现。<br>听题、思考、跟读，把五枚印记点亮。</p><button class="wood-button" id="start">出发 · 开启声音</button><p class="small-print">第一次请家长点一下开启声音，再交给手柄玩</p>`,'intro');
+    showPanel(`<div class="intro-art">${helperAsset(true)}<span class="startRabbit" style="background-image:url('${character().preview}')"></span>${asset(0)}</div><h1>小小探险家</h1><p>选一条小路，一起出发！</p><button class="wood-button" id="start">▶ 出发</button><p class="small-print">点出发，打开声音</p>`,'intro');
     $('start').onclick=()=>{audio.unlock();closePanel();if(journey.allComplete()&&!state.celebrated)celebrate();else speech('欢迎来到世界之心。选一条小路，出发吧');if(!journey.canPersist)notify('旧存档暂时无法完整读取，已保留原数据。请家长备份后检查。',12);};
   }
   function loadAsset(name){
