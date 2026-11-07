@@ -49,18 +49,13 @@
   }return inside;}
   function walkable(x,y){
     const geometry=scene==='hub'?worlds.hub:stage();if(geometry.maze)return AdventureMaze.walkable(geometry.maze,x,y);
-    if(geometry.groundMask){if(!AdventureMaze.walkable({mask:geometry.groundMask},x,y))return false;}else{
-    if((geometry.solidFootprints||[]).some(o=>pointPoly(x,y,o.poly)))return false;
-    if(geometry.visibleFloor&&!pointPoly(x,y,geometry.visibleFloor))return false;
-    if((geometry.blocked||[]).some(b=>((x-b.x)/b.rx)**2+((y-b.y)/b.ry)**2<1))return false;
-    const inside=pointPoly(x,y,geometry.walk)||(geometry.extraWalk||[]).some(p=>pointPoly(x,y,p))||(geometry.paths||[]).some(path=>path.points.some((b,i)=>{if(!i)return false;const a=path.points[i-1],dx=b[0]-a[0],dy=b[1]-a[1],t=clamp01(((x-a[0])*dx+(y-a[1])*dy)/(dx*dx+dy*dy));return Math.hypot(x-a[0]-t*dx,y-a[1]-t*dy)<=path.width/2;}));
-    if(!inside){const margin=geometry.pathMargin??18;let close=false;for(let i=0,j=geometry.walk.length-1;i<geometry.walk.length;j=i++){const a=geometry.walk[j],b=geometry.walk[i],dx=b[0]-a[0],dy=b[1]-a[1],t=clamp01(((x-a[0])*dx+(y-a[1])*dy)/(dx*dx+dy*dy));if(Math.hypot(x-a[0]-t*dx,y-a[1]-t*dy)<=margin){close=true;break;}}if(!close)return false;}
-
-    }
+    // Open exploration everywhere inside ordinary maps. Only the outer edge
+    // and the unopened progression doorway block movement; mazes keep walls.
+    if(!Number.isFinite(x)||!Number.isFinite(y)||x<4||x>1668||y<4||y>937)return false;
     if(!TEST_OPEN&&scene==='forest'&&area<4&&state.segments<=area){const [gx,gy]=areaExits[area];if(Math.abs(x-gx)<62&&Math.abs(y-gy)<(gy>600?42:35))return false;}
     return true;
   }
-  function clearLine(a,b){const maze=scene!=='hub'&&(stage().maze||(stage().groundMask?{mask:stage().groundMask}:null));if(maze?.mask)return AdventureMaze.clearLine(maze,a,b);const n=Math.ceil(dist(a,b)/2);for(let i=1;i<=n;i++)if(!walkable(a.x+(b.x-a.x)*i/n,a.y+(b.y-a.y)*i/n))return false;return true;}
+  function clearLine(a,b){const maze=scene!=='hub'&&stage().maze;if(maze?.mask)return AdventureMaze.clearLine(maze,a,b);const n=Math.ceil(dist(a,b)/2);for(let i=0;i<=n;i++)if(!walkable(a.x+(b.x-a.x)*i/(n||1),a.y+(b.y-a.y)*i/(n||1)))return false;return true;}
   const navigationStep=()=>scene!=='hub'&&stage().maze?12:18;
   function nearest(x,y,visible=false){const STEP=navigationStep();let best=null,dd=Infinity;for(let gy=0;gy<Math.ceil(941/STEP);gy++)for(let gx=0;gx<Math.ceil(1672/STEP);gx++){
     const px=gx*STEP+STEP/2,py=gy*STEP+STEP/2,d=(px-x)**2+(py-y)**2;

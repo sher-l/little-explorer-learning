@@ -1,5 +1,5 @@
 {
-  "version": "20261106.20",
+  "version": "20261107.21",
   "bank": "2026-11-06.2",
   "files": [
     {
@@ -14,8 +14,8 @@
     },
     {
       "file": "about.html",
-      "bytes": 4277,
-      "sha256": "47b1a774f96d70dfbd7761fc033a47809f32b2fa397399f5a84e198e8c6e62ec"
+      "bytes": 4376,
+      "sha256": "b92b5ddc37b0790208ca8f2174e9698837446f50307988c9c77038e7a6368630"
     },
     {
       "file": "assets/autumn-ref.webp",
@@ -23444,8 +23444,8 @@
     },
     {
       "file": "game.js",
-      "bytes": 94576,
-      "sha256": "5124c98674dc77e99acf0180dd6428cc0ae0034cfab3d633dc73bf44c8a7744b"
+      "bytes": 93715,
+      "sha256": "92cac8d89f4f4ac884abf9444d232e3198679a7516f5226598f5f513e4c7dc4b"
     },
     {
       "file": "growth-menu.js",
@@ -23460,7 +23460,7 @@
     {
       "file": "index.html",
       "bytes": 4799,
-      "sha256": "27fe48dcf26a4e6e693eb927f7955d4e19063a9f8a54d6327d350cf7e17457c2"
+      "sha256": "4ad3cdddcb3e1868fb9b02eb5633b9b3c61dba9c9e69ebb255c9b62fd5d44554"
     },
     {
       "file": "licenses/natural-voice/ATTRIBUTION.md",
