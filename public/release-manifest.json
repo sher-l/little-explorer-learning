@@ -1,5 +1,5 @@
 {
-  "version": "20261108.1",
+  "version": "20261108.2",
   "bank": "2026-11-06.2",
   "files": [
     {
@@ -774,13 +774,13 @@
     },
     {
       "file": "speech-bank.js",
-      "bytes": 441983,
-      "sha256": "e6fc4a2ea8630975b0fbe70aaaf0788417990422437ae4e0ea1f2a9f7b630654"
+      "bytes": 470215,
+      "sha256": "74bad98b7fe82d62e22aab9f6ea67070f2f5a1c6d0a7dedf230ea183292f6e5b"
     },
     {
       "file": "assets/mimo-voice/manifest.json",
-      "bytes": 1212809,
-      "sha256": "c96c0df358372832c902b11770a341abac02e7badc9cae57490f058fc870c198"
+      "bytes": 1283957,
+      "sha256": "d4d57597b77a4f2640b6f67749a930b5ee5c7fcf2d209570e3515fd8dd003d8a"
     },
     {
       "file": "licenses/mimo-voice/ATTRIBUTION.md",
@@ -795,7 +795,7 @@
     {
       "file": "index.html",
       "bytes": 5321,
-      "sha256": "7b09e17f2f2f2765f1e838de05224e8d1e6cd3577ca3e0a562d6a27177c80d51"
+      "sha256": "1f293d4a6830dfff370c7ce4bf9e6ce6720365d19375ab5ccb37fdc657edd5f4"
     },
     {
       "file": "assets/mimo-voice/e7c9725cce980177bb69.mp3",
@@ -26096,6 +26096,1456 @@
       "file": "assets/mimo-voice/child-flow-682fba81eab47cf58ace.mp3",
       "bytes": 9840,
       "sha256": "cffdc169d7ea3c8b5f917d4fb7d846aacc7ebe19a95e831f330636bf0531c49e"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-8af3795e64f8e4c16bc897b9.mp3",
+      "bytes": 22632,
+      "sha256": "707fdc87b33326fceec4b7bd4c915e523d655eaae0b0bdbcf4b4f2df0884b6c3"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-dfc7036130e38fef3a6031d6.mp3",
+      "bytes": 17304,
+      "sha256": "5b22f24cbe343fb81c805b204ea97f67b11ab38ab990cacf41a21739f09ae1c5"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-3c22f0e04ce3b420c57222a7.mp3",
+      "bytes": 15312,
+      "sha256": "307968ff4c3ea256236a0265d54213f348095bea7409de3926ddeef3c69a44db"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-271a44fda8e9ec60fcfc6aaf.mp3",
+      "bytes": 6936,
+      "sha256": "79a008b068fbfe38a762be9dddb0f6928bdf45c550c0e2c3cf92b090dd4bfb49"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-a3038fbd55f3f866a916a4a5.mp3",
+      "bytes": 8304,
+      "sha256": "84e5f4f567266a69452ac18b247374944d96d72952c631fdb99bf268f3a66c3c"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-ee8e006ac9bef6776c55ca0b.mp3",
+      "bytes": 7056,
+      "sha256": "89726e29228c3bb2242edfec94800003e1d359d6297bf3d5fdb30d2b64d8edf0"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-9fdbed9c60bec217d4cdb3c1.mp3",
+      "bytes": 14160,
+      "sha256": "c32fb5f7091f56a53081dd30644bf8042da29a563d483b0e03bf452afaa5c082"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-35cab30f205681ca0ccb1b15.mp3",
+      "bytes": 13440,
+      "sha256": "812d670d7a8940116099110cf09f9266a1716fe6398bf8261c62d2bd32538051"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-368365607c6cfe3aa8b5795c.mp3",
+      "bytes": 23064,
+      "sha256": "26385386e2dfb6f7256854e91e1f628c5f84385cfebd942d8ee07582901404ef"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-8b40d9ac5c2513e0d5cf6a18.mp3",
+      "bytes": 23616,
+      "sha256": "c5790d2a5f0c2d8da64d9539f568c130de23aa7326c835e55932902a8de3cbfb"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-d48c6780d50f1874b69bd8bf.mp3",
+      "bytes": 23088,
+      "sha256": "79432fbaf3184b678014adfd08b3125fd1b2e11865ea3bb8112582225b098bc8"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-213eaf6de6f24f86b62c4f59.mp3",
+      "bytes": 28704,
+      "sha256": "85aa9988c71e72b81ec1cda28d564b570fb792e86030b4a33bbbf391e2a75aa8"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-d674c6d0a1542c76ce43fdb6.mp3",
+      "bytes": 21096,
+      "sha256": "a26461f510488491a48ddfd612e429aeee1fc5a2aa1ad5e3aa340bc3e47eee88"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-f2f78c6fe1bee5499ce28c4b.mp3",
+      "bytes": 22608,
+      "sha256": "faaabf8f969f327a6b1a795a04f25046a2c2f595b8ec7bde2a71a1e5f6bcdc40"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-72036164df92acf134f0a9ee.mp3",
+      "bytes": 14424,
+      "sha256": "dee4e37b0bb54c1f1fbf6f5dcbe054eea86568fb984519db870dcc46fbdf3fbb"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-ad3180bdbdedf2f20e64ad70.mp3",
+      "bytes": 27504,
+      "sha256": "0d2f709391448344ad85ee625451c52811a3795e5b4346ff8913b119232f0a03"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-f05de42dae39b6f4fa6f2b41.mp3",
+      "bytes": 16872,
+      "sha256": "25970d7f28d81a7c6987e17196815e3b902ba8fe6b8b9213b17d54ec17fa4d08"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-77de2ed0473032f32d92fd86.mp3",
+      "bytes": 27408,
+      "sha256": "674644cb8c975081ed9e2df4c4aa1e454a9a0a9c8215557dd70cf34cfda8d762"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-cb7fc883d0f43c971c8998bf.mp3",
+      "bytes": 24264,
+      "sha256": "1c40197809cffe705c14578fe756db92a8261c02d67e938a53e29285647f8574"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-2d2a337edfa1f4228f4b6338.mp3",
+      "bytes": 23208,
+      "sha256": "4b509f9fa9cfdf98b03e31cd95db69e6e1668e0b11076c357cc78271c9a19cb0"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-82e8fc2347ef6bc83afd0a01.mp3",
+      "bytes": 23664,
+      "sha256": "57be8ea0be2ba97a346cab41a183c400d90114fc2d37b40ae6f2ed3598e6eba1"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-e93deb904bc3f605f30ce4c1.mp3",
+      "bytes": 24576,
+      "sha256": "fbe380c935ae34f69a28c59d4d758460a3c902501969aa5c59c178855af573bf"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-e753575e99483b16d5958907.mp3",
+      "bytes": 25056,
+      "sha256": "77b8d982fa288d3c20cb38022d74fa821fc5abc7b6c2a887044a73d4683ab41d"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-1c7e1aa99e2dd8c14267e0e4.mp3",
+      "bytes": 22296,
+      "sha256": "0517becce2c3f00ca39bb858d8120abdf6af51e753d862c17535e41f2679c554"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-a580dd7099e209352b7df589.mp3",
+      "bytes": 22608,
+      "sha256": "a08a7b02ab75a6e3770f53c6ec0fd909fca31e8297e0e01987e472ded1cd6a4e"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-174a4f8d0b6ca90e23d46320.mp3",
+      "bytes": 24144,
+      "sha256": "c1b7ebcd84689fc4248081cfbf9d84426be0072bda796b2553deb2d302455971"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-f9043e8a6a8e35d689d83fea.mp3",
+      "bytes": 23496,
+      "sha256": "d498959eb7ee5946414ee1f20f42e6440dcd7a31197dfa1b0197fbc417ca9af7"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-61a057deb7baba46d569f0fa.mp3",
+      "bytes": 25416,
+      "sha256": "99475372380fa9c86355ba2d1f271c062fb58aa1798e5714f27fda20d2cb5bab"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-054a776c253d46eceec4c49e.mp3",
+      "bytes": 23328,
+      "sha256": "864d2cf71b1a1c25b95cc4c52405f4168d3b4529d1faac671b4af26ba88fca15"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-0dc428fb9736fdef763f3d39.mp3",
+      "bytes": 21552,
+      "sha256": "dc1454dbe24bbf18906461a5d588c26865b24c2f9f7c6dc43c983721c12705b9"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-a53a800ef9717f7d256927bd.mp3",
+      "bytes": 22920,
+      "sha256": "3056f0ff2fcbeeaec7b3df64355b3dc2a2e8d46f1e0d8b8e77f236c9f188f9c2"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-f7e15fbf66f38bde770b07df.mp3",
+      "bytes": 22560,
+      "sha256": "d825e296dbc66968c5267774e257ed0001999d4a2a82a98d7e2a701aebecdc90"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-a11995555ea40ba363aa1f29.mp3",
+      "bytes": 22752,
+      "sha256": "08c058447969f04f31a4f924388a147e6c622e91790a8bc24a9812eb86a16d30"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-9b3ed3836d072dded44cda97.mp3",
+      "bytes": 24360,
+      "sha256": "988c01feb69dafce1893b052754b0c176b33a51e4fa0a4c92c6293f3b0274a17"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-d498a058554524a763a0abb4.mp3",
+      "bytes": 23616,
+      "sha256": "93e3d05b67ea3b97a5c2a7be919711808d289d2a155ccc9fdacf154679d1b567"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-6baf3268a2803b5df780fc59.mp3",
+      "bytes": 21792,
+      "sha256": "7af5493339eeb76d913b76eb2b67c9089c4dc07aec327a5ae04bafe598179ed2"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-51b19b4ac9c10ddcb46cad7f.mp3",
+      "bytes": 22296,
+      "sha256": "d4939673c5f2265e30d2a593b6fcb99c711d9c8ab467ed5565694a40ce039abc"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-c210fdd87b4e82543ba8bd92.mp3",
+      "bytes": 24696,
+      "sha256": "5e955ffa72a5bc4ac025b742b302d659d1dbdbeb015ccb3b00db8ded5515f069"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-f1b6d21acf7a50ea76b2f08c.mp3",
+      "bytes": 21336,
+      "sha256": "b4ae189fb5b5758b3ae515a01c8fe84d56d98c449ada70b7582ecb03e745a8a8"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-de8a8c33b50b616696661e21.mp3",
+      "bytes": 23208,
+      "sha256": "4d2312a856233403ff0862bff7c2537ccb3fcbef456682aaa0ba052c51f34a5c"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-a2a26313b06c89d79f6a7b82.mp3",
+      "bytes": 24576,
+      "sha256": "f2489e783df029721f3a7382f4bc314d8d556c6927b8a98453b9b5a8f00138c5"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-d8cfb8355f9ef4f111d0646b.mp3",
+      "bytes": 21888,
+      "sha256": "1d894b02754488bd102af983182d7b5d0fead714b2b2179f622743ce551edffa"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-cb1bf789eac9bd11983c991d.mp3",
+      "bytes": 27768,
+      "sha256": "59bc5b3fc7d2d8666078b31c6d6ac9450f2ad030ee62f5a3d1e044aa83d7cb08"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-c70b2112f8147905a42a8aa9.mp3",
+      "bytes": 26688,
+      "sha256": "92f516c702d6ff7fa1e1b0275311bffc0202cd3cbb4ee0734da9e785794fbc45"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-a16f9e19377c3f2f4f891ae6.mp3",
+      "bytes": 36264,
+      "sha256": "76e4484ee5a4211121efa2e14749d7aa5b4c21e0d30dfb0bc9f70d270b97a8ae"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-9b81ccb5e316d62497e6a35e.mp3",
+      "bytes": 40344,
+      "sha256": "eb4b07c59b31b65a6cbe6355dd0a0a2663da4f0e6c925cd998ec18bf431d5328"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-f9520a3d1e73436bc87eb663.mp3",
+      "bytes": 36456,
+      "sha256": "74b154837ca5af2901faa5f4aff0d7f36e539d0f6b4368cd04f8d185a7f1663f"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-914156ee634dc10110667605.mp3",
+      "bytes": 37680,
+      "sha256": "e75ce03af792d0ebdb7a788f9d88dd8070d83bced8e7fe87ca1b2970bd0d4ee5"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-5b1c97e0179245ce526126ae.mp3",
+      "bytes": 24264,
+      "sha256": "6780a5d4544162cbde1464f6480b7edd2dda78f64f488a0785d7628cf3f718f6"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-400a20b911aa2d8242414109.mp3",
+      "bytes": 27528,
+      "sha256": "2708a96e6432047c1ed3284010a8e388d3f4bf680f97b895a757041ad02d89c9"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-0e682eb91c545665eb89762d.mp3",
+      "bytes": 28152,
+      "sha256": "511b3b289bf3174f792696acea36ade9979ee035827d60c30870f4f1d91285be"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-acad797da2e902099e2db173.mp3",
+      "bytes": 26472,
+      "sha256": "df43fac3cb1d0dd26b238d826db63e22f20ffc390f16eca8196fd970635ce0ba"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-755cd7e4e3f028ecb05bb99c.mp3",
+      "bytes": 25512,
+      "sha256": "f03ffac1be2290383dcfd74c52462323cc3f05898931860906ee931fb16b5f37"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-017464e910e817f5ced3fcee.mp3",
+      "bytes": 25296,
+      "sha256": "03c21a4492e10b4290fb7126bd4260a5bb62aec9d890346c259e8c14a507b776"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-fc5f12f3c201560b6cd91b61.mp3",
+      "bytes": 27504,
+      "sha256": "7a0ee172c94b8c91f3c951ff1062340d18ee2172f6b783b6bf5778a92653d19e"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-cf06e9fac058ee779326cbfc.mp3",
+      "bytes": 26112,
+      "sha256": "563b2091089ef550d81ff69c2434d642ab611234bc4d90a358fdaea4c65143c1"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-500b7a51fa356a2c3ea2593e.mp3",
+      "bytes": 24456,
+      "sha256": "cbc48e40d5a30520948a1672249dda9b21817516fc5022e130c58ff90b74be5f"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-2a8c61905caeb7d86856b8c3.mp3",
+      "bytes": 31728,
+      "sha256": "b781e160390cc993943728965fa89f22eea64a81e7c7c66040c5f44027b7f9ff"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-d14b0361265594bfe54f40f7.mp3",
+      "bytes": 38448,
+      "sha256": "de247a6c58dccd6f8b5a71b6b32d21af21386c4b931ba0b89b2b56d8389c87f8"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-9013bd41199908faf5bcc362.mp3",
+      "bytes": 31560,
+      "sha256": "edeccc033a63e5c01786b8b714a0c316e2c21587a493e7581c0b381a5ecfafe6"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-ea29474ae57e65596291b14e.mp3",
+      "bytes": 29112,
+      "sha256": "ac050cddd2806dce63d3e1741c1d4f66e40e35b9840c5cf502ff0d7ae8d10a55"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-306f68507b22db4ca067fd84.mp3",
+      "bytes": 30240,
+      "sha256": "08369209fde569047c792ab3a17ba6e16f5a14271b91d4b29ece0d07541e5c84"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-36ba588b73ca610b36466571.mp3",
+      "bytes": 27408,
+      "sha256": "6c6d36a6b92f791f049005ba07afacf9f8ca210a1abd8d5a9656095589dcadea"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-e8eba2ed50bca8b7209e4991.mp3",
+      "bytes": 28776,
+      "sha256": "3e5960a59be019ebc039c9d54e6a55a649905bef8264e381aad76ff9bee001c1"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-131c3c73650483c9d1a460e6.mp3",
+      "bytes": 35472,
+      "sha256": "14f25588cccb98f8a1ab7af14acdb5de3408529d7e67008be3d5a45cc989fa9b"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-d5b2b3f77e7267cc020ad875.mp3",
+      "bytes": 6888,
+      "sha256": "3e9e361c6275e59d16f3491ff186c5a247c047a513733b77723f2a7581ff85a0"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-399ff71b297395f8ad3875fc.mp3",
+      "bytes": 6312,
+      "sha256": "8cbf586ea694dcadb91ab89fcbeacd07778c3560638baf9632a5cfe56991d438"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-c5443d2c59e08ab7ead8defe.mp3",
+      "bytes": 6744,
+      "sha256": "e53fe2e7f19eca3ff296d912a2ad8e76159a2cc2a108173bba25c342eb7fc202"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-177b28958582acdc678509fb.mp3",
+      "bytes": 8832,
+      "sha256": "1265cffe08b916023e94f0f0d52490076e3fce4f5b237298bc8ac9b6633fb8c9"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-e5ee4349ebe9cfc2b9a1f6c0.mp3",
+      "bytes": 6168,
+      "sha256": "010a48e16080e1daebf6e8e02b4a3b3e67bec9b7cce3690c91ce797214bb2597"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-9948da0285c181a692bf1a20.mp3",
+      "bytes": 8712,
+      "sha256": "8ad5fe9a3cb2a8e4a37e9b0f05182043a2af01aac85700d8ef5a72162e623918"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-eac8df269511cdd4fc64c6c3.mp3",
+      "bytes": 7128,
+      "sha256": "f24d9a680688b6261fb45e02f195d52be213011525dc967cbf6299a1191db5f8"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-60867f2b056744fa0f19193c.mp3",
+      "bytes": 10776,
+      "sha256": "53f040b1cade6e1dbcecbd6a2c3bcf5527667db88ec88e4287a8fbfc4fbd656a"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-4ea8e64075c63b928b6766da.mp3",
+      "bytes": 12000,
+      "sha256": "7bbd9a8ce3e74953a4981af9e96a33e5ccddc4f0ac5527e70ccca473349f06c1"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-07c6085e7976a4f6c3f69714.mp3",
+      "bytes": 17688,
+      "sha256": "97d35bc3ee952fd2d1a73c6e19cc63d2f3c0a1e62ff98c758b695d0cdacc5544"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-999c4c650c218e754cd52dd3.mp3",
+      "bytes": 15120,
+      "sha256": "af5c38f12227d2915e40b6a990528869f0f1a391a76ffea5f409176fa0ccc9ad"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-56dd983ff21f91f3a3bfe9b2.mp3",
+      "bytes": 13632,
+      "sha256": "5897f27a8bea4447df0d3e96eaa28c2a8194f841ba34c823f45b6c3707b50511"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-90e7e19a991f4322adfceeb4.mp3",
+      "bytes": 18408,
+      "sha256": "278a86463585fe79820727bb4d695522ffa1cf074d84d5879888d5d214b26c1d"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-eeac9ba9a13316d49d2adae0.mp3",
+      "bytes": 17592,
+      "sha256": "57f9d878caf50e19ca0165a7cc54056540a4322f49b9a6d32858788133492150"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-e51fad317764e54c7c3f2e44.mp3",
+      "bytes": 19104,
+      "sha256": "ea02514f8c4ab4221e4b738db6f4d0c52ae8ff9c228b1a2d086fb9f1cab144f3"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-884da48f58236ed41d6fc15f.mp3",
+      "bytes": 20376,
+      "sha256": "f72da4a12f01fb85c7f9bcbb32b1a6320fd03067451f376a3884aa10c260440e"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-daa19825b14598ada0175fcf.mp3",
+      "bytes": 14736,
+      "sha256": "a6c820dd6d68156c7cafef17747f53f9430a990773fbe1bc627611d3b945e044"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-5722e12c4a405ef3523dabd3.mp3",
+      "bytes": 15672,
+      "sha256": "8dbdffb632ba23611b6be628876f2965070fd847681bca5e246ae27b419b161d"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-d106cd69fd3ee3adba4a2f08.mp3",
+      "bytes": 15312,
+      "sha256": "9dd5a916fa0b72a57988421daf5ee197756194b7016eac4bf45ff45f72c52819"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-4487d3232beaaa4b4e44812f.mp3",
+      "bytes": 12384,
+      "sha256": "10dbef971cc4b2aac82789622a8e7d39f4bca9ec83fccd439d35d5cd45dbe3d3"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-d87f86ad167ddb0da77f9c20.mp3",
+      "bytes": 15240,
+      "sha256": "9bed2165b8745848f9b3725659c0baebb75131d98d65668e136f1a9b878fe468"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-5fc89f640683b76ab0f2fc56.mp3",
+      "bytes": 11232,
+      "sha256": "b0366ec997706207290aab3f784eecd1956f6f86b7e00cd8121cc1e0a444d0e7"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-777b647b2318113eafd2e3ea.mp3",
+      "bytes": 12552,
+      "sha256": "b76877f4c427aa7d104c3a9cd86a3f22c93e286788a0336099106ad363c81a10"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-3e608a22db839b93147cb052.mp3",
+      "bytes": 12648,
+      "sha256": "78460d3d159a623d6086cbfdc5977cc3c974aacd343aa1cdc5c24bb030f2817f"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-ee1e5b80fef4d00d4b4b0537.mp3",
+      "bytes": 11880,
+      "sha256": "d4af987f5365527934930a4aa77357eefa64547907151000fecb56bbe1f0925f"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-1762de679008863811d3c5f7.mp3",
+      "bytes": 11736,
+      "sha256": "47ab04218c8cbc9a7191f0cc35199ed238742a7c25b31421ab9eb995de8871bb"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-5c8f57f27e8631b6805283d6.mp3",
+      "bytes": 11424,
+      "sha256": "01f36ef6372750fb170c822f1808c638a34cf14e7aa5d85b952948cba7cc8b1d"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-cf20acaf6cff91b6121b572d.mp3",
+      "bytes": 11736,
+      "sha256": "4c7e89530abcff090e5219c1d972468948ea169b728c97fa683445fc0d243b8d"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-b462fc789d43a53d5a27cabf.mp3",
+      "bytes": 11616,
+      "sha256": "e1da6599dbb06496199867a002fca3c43c37fdf60eddd4f5b6f036b5934537c4"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-a175c7ef8bad42eebf780e5a.mp3",
+      "bytes": 12240,
+      "sha256": "fec12e4c6e56ac6d53027fda7303b74bc7c56e29eac76e3716f5ae3a6f9f9f3a"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-adec6594b3aae679e17ec8e2.mp3",
+      "bytes": 14712,
+      "sha256": "cd282ddf4952d19b53af9ee1a762b65dbc6b3eeaeba80d8e947ce4c426e84279"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-0162caa00f6b785cde7ee983.mp3",
+      "bytes": 12144,
+      "sha256": "f66de603f3805f1f5934b7c84cb2d72b34a91de8cb53ebbf5dc0ead6a506cacb"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-2f7ae69401fdb4052c3832ca.mp3",
+      "bytes": 12936,
+      "sha256": "0eee7bddd4b334476320615f0908b6d30b37e9606ebc5e74c856ca87af71b424"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-858a5f7f58d226344bccb1e5.mp3",
+      "bytes": 12912,
+      "sha256": "355d38ad4e59118559ee36f2eaf3d2989c260af8f7b3afda269cf871ce0e3665"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-97c96134431808e6409c9821.mp3",
+      "bytes": 11568,
+      "sha256": "170e2f06e546f6bb0a2813c4c5d3077bf42926756e4cdf5a9a2c67d8667eee74"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-44b2d038da4c4cfa12bc71e2.mp3",
+      "bytes": 9336,
+      "sha256": "a0a70f4335f8f4e148d671e209a941d42d7754a7868e58a18add1825e2262249"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-8f085ad6b22df711e7849c65.mp3",
+      "bytes": 13656,
+      "sha256": "075ff3838763a0c57fdf8c365628e76f06f23c72249024ddc4d99f9421e127c4"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-4e5f8ea867cc18e294f57cfe.mp3",
+      "bytes": 14016,
+      "sha256": "3b9adfe4c8efea00fb208b6b3a723fae7a614b2da2abdbc8d336d00fa1ee4335"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-26010462493a70eb20c39a54.mp3",
+      "bytes": 11784,
+      "sha256": "0fc8645d69e7991d929a10dd28af6800d8c436fba867fd00763287efbf66c86b"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-bbe4d315f890df51e8d9a82d.mp3",
+      "bytes": 11448,
+      "sha256": "aaba3341f8d26abd891653018fc0f763302a342c633670c20827cbab908fc5b1"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-958be0f49fe9ae053a8a5c61.mp3",
+      "bytes": 14928,
+      "sha256": "53863dc72a05002523a87ec7e21a592d28405df3ce1344767677b77ed4273fb3"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-d8171c4f92cdd682bd960dd0.mp3",
+      "bytes": 12288,
+      "sha256": "d475bf3daf3a32df739e0a23782184ae860b77bad4b3442e4937b4026cf11c31"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-87ffd43ae89d92c68ebf3f32.mp3",
+      "bytes": 10440,
+      "sha256": "b20f6abb54879670b708d6937a3f58f1f6bbe830539f845058034cd2605b9c2c"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-a3bb5bf82d52ca2a737fffb1.mp3",
+      "bytes": 6528,
+      "sha256": "52c51eefa772c692f0c4bb47244b886e3ccba29eaaa94329c09c1bb96084f68b"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-4b134438f39f5e1793625b12.mp3",
+      "bytes": 15120,
+      "sha256": "fd7752e0fe50fd5fa635dbbf4598ea5fba82e28e364afa3e6b5982af7b96d332"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-2da32e69aec9b295102a2515.mp3",
+      "bytes": 5880,
+      "sha256": "ba70a914f6cec86891c6e6d1cf6d2f99527456aaf3349c8c309f0119c2b24bab"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-cc8675cf1d2e430d95e2f49d.mp3",
+      "bytes": 17568,
+      "sha256": "dca0881e38e63220148ef8ed80a1843a664d3bb50f93b93f87ac33f1fcc54c8c"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-639fd9157d248a5f0fa8c330.mp3",
+      "bytes": 9216,
+      "sha256": "b5d46fcc8b2aa1518d40743159d2236b8c8309adca953a9312d48e4c933926ec"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-0c3b9d370da6a497e8094c7b.mp3",
+      "bytes": 5832,
+      "sha256": "28490d637e3798f99335eb2f544850665514fdce8a088d907e3e58cbd574464a"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-33600949771bb56ed646b2cf.mp3",
+      "bytes": 11088,
+      "sha256": "9cdcd2b468e129c57e5ade90d88131da7d7f17031cc1fbae763cf1cfbfbf3a96"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-53d4b649939719ae24928654.mp3",
+      "bytes": 9168,
+      "sha256": "6fd958f37b5040014313dc11f0410ca4e229c44855458cf5e9ef7f763a63349d"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-525194b26054ece9e3e0e33f.mp3",
+      "bytes": 17496,
+      "sha256": "2952331518fba3a8b3dd87dd4a08b3e073af34259f442c0916e1ccd46d6b40f4"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-2cfa6c2a36290a5aac775afe.mp3",
+      "bytes": 13920,
+      "sha256": "b465e4ca94931ba5bc2e983be2cd8ed187f11dff063050ea0b5756b6511b7062"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-f1c851af14db64e912f5b06f.mp3",
+      "bytes": 8640,
+      "sha256": "00c05ff50e77699a78e9a6665390e1c4c2f0c6712587e44f1079de2f0b46ec43"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-7548f465cd9bcbc55afea6e5.mp3",
+      "bytes": 7752,
+      "sha256": "3b217beb6a561aca65c1a3d1fe408f3d72e98085e259e45216eb92f3f559f8b7"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-c39d2c854019fdd4cf526962.mp3",
+      "bytes": 20784,
+      "sha256": "7614f0fb58a0a375c8292c17b5393ff078a2a08e8196851c02c3e2937cbbdf25"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-fedcfe0483a440f8467531f8.mp3",
+      "bytes": 12720,
+      "sha256": "8ff0ddf5169fa67a85b0f8ed0e6180289d9efc547161c1a897d4fd8851e0d98a"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-52da85ea4cd372ece81ac3a1.mp3",
+      "bytes": 8976,
+      "sha256": "98b70857fc869534dfe37aa7aceb37d29b9a432df74beb9c6f8fca5d9ea7eb50"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-ea26f88e9cc0974a16adf4ac.mp3",
+      "bytes": 20928,
+      "sha256": "0138a253d9890919c23c0a6b312993cd896d0bcd52d569208cba39b775dd242f"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-582f0cccfe65da1f4f408ce8.mp3",
+      "bytes": 11592,
+      "sha256": "cd4706c96ce1468b70fc934c7a3a4e3b319b13076497415c8b7a656dfa22d107"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-b59fe34717a0771cc1afc240.mp3",
+      "bytes": 8208,
+      "sha256": "2848a92dd935123645fbfd9804657d017e72b32e835371b06945185a6f9be2e3"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-73730a41355a7ac9a329b566.mp3",
+      "bytes": 10272,
+      "sha256": "f5b9d47b6a810f7f0d8d876f6605fe8c69ad8633cc7495838875f6884932f5a4"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-5327e18d6d0af5a25dd629e6.mp3",
+      "bytes": 15480,
+      "sha256": "69a9c12a985d0f188d4763c748bc1d06ab75f7ebb9b778077c652beb10f9d605"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-a4e0d07990e4978d4aa27d58.mp3",
+      "bytes": 12120,
+      "sha256": "0d8246b27d14d536a169adcb72f903b31864a42610e745d2aaceca219d20da65"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-d7d4ac6d5ee8be12e798f058.mp3",
+      "bytes": 7704,
+      "sha256": "d76e7f93c451de3b71342e42064668592256f23b26cc9b0b91fe2c120f18e76d"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-aea9de1a2bcde4ac3cdfddbc.mp3",
+      "bytes": 19896,
+      "sha256": "a5540359ebe82c5d3c612bbacfa72950e998dbb029261e1f484931e6b6834859"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-986eb07eb1764d49907a6154.mp3",
+      "bytes": 13632,
+      "sha256": "bc92a48e1c2366236af4b6b0aea33411cb6bb72a68164bed1aa361aa162be25d"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-489458aaf18bdeec29ff3b80.mp3",
+      "bytes": 21768,
+      "sha256": "6228c4dc762f1fdf4546524b18568343ab0abb64ae204b1e2adab60098e0e8ec"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-3c361f0fdc4ddcdb9c49a6db.mp3",
+      "bytes": 12288,
+      "sha256": "4c4455afb46e4406e29381c6aea0eb4e5c9dbc7111ee93efade436b3eaa5a5ab"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-4a7b66b3d755dfcac68b7f55.mp3",
+      "bytes": 9024,
+      "sha256": "a1a345be46e7e6a396ef1ad1e999b37f1b37370786a7301d82e59769b247a314"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-2780e716952437d14938833e.mp3",
+      "bytes": 19848,
+      "sha256": "1de114ed569a863a45013c3ff49e49a1e9a36ad21183e39af2eaf5aa6c7ae9df"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-5f05951809ebc8cc18afd865.mp3",
+      "bytes": 13800,
+      "sha256": "e34b964733a0a26f8fc2bd279c5eb38d65660674112d49b2e539a118bc9bb987"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-6f1ac648cc41f63c0937354d.mp3",
+      "bytes": 8040,
+      "sha256": "23bd18333a606346233cb6abc621ffbde5745a0fe1720d0895862afa02ebb548"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-7bddbff30c3bdef17023a88d.mp3",
+      "bytes": 20952,
+      "sha256": "9a2c350f5f979a20a6cfd352c21cca63bc59f064b6f35b382a269c6ee5eb9ae3"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-f25391035993097684917e3a.mp3",
+      "bytes": 13056,
+      "sha256": "2364cfc9f3c6ece6a51ca683a2b7023df8eea080847c629f769e9068f38b2380"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-d10ade89e527c64b6d9bc259.mp3",
+      "bytes": 9696,
+      "sha256": "fe5fbcf44f5027f41d6698a168222e606a2ed2d0f28bfd6bcc7b3204849b4253"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-811e1dc7623745e3cc515919.mp3",
+      "bytes": 22800,
+      "sha256": "b77d0288b4740a347dfccb8a74bc2c4ac3983edfac1837bf46847ff008f63255"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-67def0dd8c4570ac1719343e.mp3",
+      "bytes": 12912,
+      "sha256": "dae76b669619afa13888e81c8e55389b3bf001e31002945ca979b1115e2b7d09"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-f82da3a19144c2d6930540b9.mp3",
+      "bytes": 18384,
+      "sha256": "d49c5090df9bd4f26ab9c1880584b5cf7f342d8daac9aa2ba6c7848564742727"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-4557317fee808db7799db648.mp3",
+      "bytes": 12000,
+      "sha256": "0c4bdaba35b9cae65408ef10460ac8fa5fa1a20df3de19eb439a511f636f1f72"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-cddd28b0ccf89e42eb10c9ed.mp3",
+      "bytes": 16176,
+      "sha256": "b0f8d12de77c7e2cad13fe20cce01ca0a83ba20bb9173172e0384c9c004c4454"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-a1404f40b2cc2bdf8b4b1f49.mp3",
+      "bytes": 13920,
+      "sha256": "5321172526b1ee96f40f04918e4dd799bf5246513bd96cf321dfdbbe4e0dee7e"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-1927dee6391d61a57648ddf6.mp3",
+      "bytes": 19464,
+      "sha256": "63f0944fd30a70aa4f90ac5b53134820d34b2d3259e7ba128a3cba819a670dad"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-b817e303c3b9e54d9b244f5c.mp3",
+      "bytes": 10200,
+      "sha256": "3cf1fe55018fc2c4d63e5604e2a3f372f66afd4da87825723c4bd1d92e958ac8"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-cb274a468baa0eb154429170.mp3",
+      "bytes": 17688,
+      "sha256": "e7b6bb15eef1d4e9029a6ed1512b61147527a45a1b0438cf9b86f7f42104140f"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-ed19b4e7a6e915b374fcb2a6.mp3",
+      "bytes": 13728,
+      "sha256": "2826b24dd0c52eca44c479d95c40c236524d5eb196dbe441f879c1951842f483"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-387a056ef0d45b571e7fbf6e.mp3",
+      "bytes": 19608,
+      "sha256": "1d1dc9444db0edfe58638617a26b8ff3c28315920f4701b79bfab4d69ebea5f0"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-596e8094559109bb6cb7b487.mp3",
+      "bytes": 11616,
+      "sha256": "522066132a4c09bc59adca805f82137d33e3f9c0672340e4ace34e3391b95533"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-be9a0f26b1d8e1accfa9dd2c.mp3",
+      "bytes": 12672,
+      "sha256": "f3a7d4173249721e65e1bf6dca6c2c3b796090ff101b226d49fffe55d89b8731"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-f287bf982e2de9ae918f66dc.mp3",
+      "bytes": 18552,
+      "sha256": "9a68cc5288069100b6f8afab254eee32506ba86aea721973d235416e0a018e32"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-e8c7bb84cbea35f48ad6c515.mp3",
+      "bytes": 11544,
+      "sha256": "830f555d43e13bfecaff2d891c310ba4b05b24f7708b7e40b8771beb4caae819"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-f3408999b9fa60e39dc8fbd3.mp3",
+      "bytes": 13296,
+      "sha256": "001cd3f94d0a92d794af5035239f30b00e44eab30ebae82cd48f065bde271d35"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-bea84958bed719e4ffaae350.mp3",
+      "bytes": 10320,
+      "sha256": "0953e4ec11fd2fefcb0fb8f4807ff7c89a5903b73c1478b6d6769b9e300cd843"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-f31dad0aa51f8a84fa2fdaf7.mp3",
+      "bytes": 13680,
+      "sha256": "149952fd221d3f6395c4edbfbc2a7afeafd6facec1776bec10a97aa6e41c1482"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-6dd39cd0f7293b6aba4d24c4.mp3",
+      "bytes": 12840,
+      "sha256": "e1151e4c6cc55e454fd414fa0c030648c2a9c40420506aaa5400f4466248d0dc"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-5dc21ceb12533aaec8789ebe.mp3",
+      "bytes": 13512,
+      "sha256": "a1995eec6b9cc764d4ae8b4cfcff51a2cdd236dc3b531855e60f08c6f1c2803a"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-42fa69c91ed5314f151aaeae.mp3",
+      "bytes": 11904,
+      "sha256": "f82ca761e5720209d51a69bbc980dbde06ef0cdd4241bc001df796af1e2a9a84"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-1e610f33d07a7104c4aa2def.mp3",
+      "bytes": 9936,
+      "sha256": "e7942bd057ab8059077435750dc0c162d1816e72a487f87f0bb11743908735e0"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-8247dd811d3491774993c77d.mp3",
+      "bytes": 11640,
+      "sha256": "07f3e566bfacaf90da7503cc18e10ca9e0a3167c336c375d61d4e6ff2cfd3fce"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-609701bf748209fe7ab3fbf6.mp3",
+      "bytes": 14424,
+      "sha256": "8dbc172a6f1088dcd31defdf61e42734015016a591f79b1656118536be3f1be3"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-024886005ba0d0b443eeadbc.mp3",
+      "bytes": 13992,
+      "sha256": "0c9eea07517193866804a4e6cf3ae3923bddd8d54816ad999fe272899f0f4102"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-c1cf0b4f0353949ee6eb3618.mp3",
+      "bytes": 12144,
+      "sha256": "6299dfcc9d75cf5d2d2087eae57fa555b60c94d10fb34ffb59bab3eff5667aaf"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-4fb2d560f439734e30169510.mp3",
+      "bytes": 12144,
+      "sha256": "6158ebcf4d307d5dc8f9bd253fc34639804d76881aae60088f050213dc907928"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-1119eea85f5b62832103558c.mp3",
+      "bytes": 12096,
+      "sha256": "b1d2d3f42e4eae30d2dc8df14a6b87592f3c3748b9a549d2fdab02b9cd2b42ca"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-e82e5e2b7a353fb52309fde2.mp3",
+      "bytes": 14352,
+      "sha256": "e16012b254727b974a10964e964ba8e47351b8d6aaf8dd22cba31408624a0498"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-59b7b78d490869aba57caa5e.mp3",
+      "bytes": 10848,
+      "sha256": "a1bc28edd1fddd94d99339fdd35e896d24f449a204ebdd9193cfc81453df6a7b"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-b67a9566f45c586d5b37cb3d.mp3",
+      "bytes": 11040,
+      "sha256": "e42150c9ec2da5b4d07d9f08683bfe44a2d7ba2b2894f88f20e0e92720979b55"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-c26a36e7296a100e9b40daae.mp3",
+      "bytes": 11232,
+      "sha256": "fe51d476beee570f9fe00268fa2477050498ea59b2ed95cb6c3731c07e856a69"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-7ddbd464e2caf5c9516671ba.mp3",
+      "bytes": 12960,
+      "sha256": "f36098abc59adaff10428cf9ad8e300baca5e283fe1447624c4163bb35af0a88"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-2dab3ed6afe1496d3bb6abd5.mp3",
+      "bytes": 9312,
+      "sha256": "234fb2bea71492c86abbd050f330cff2ae9784e1a031f125187f57fe636374e0"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-a95bbec342533fe14e9cdc4c.mp3",
+      "bytes": 11736,
+      "sha256": "1924b93301d79ff6759ec590e07cbb13649ec4f47da1742c6e7133cb86d305f6"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-e6223e81703cabec7f1a41e4.mp3",
+      "bytes": 11256,
+      "sha256": "f5d15a2bca20d93058ce074a4dfc142a955e2ec44be3ae17f4e2319a85392efb"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-f66942a1ee0591e38c10b311.mp3",
+      "bytes": 12576,
+      "sha256": "2268a644eaf5986e1431b05fb238bbda4504ec84ef5df4705f236ab9183df63d"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-329f4c49adef3833025e85ea.mp3",
+      "bytes": 11592,
+      "sha256": "affe80a39c893306bfb4eec2eb3199529af155d09d06bf71c564d1a4bc1d8c96"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-49a1e2c62abba192520e0ae7.mp3",
+      "bytes": 13032,
+      "sha256": "904a270cfd57c203bb67bc1cc8db8e88c71f30cec3ec4f193270cc7c1ed25dc5"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-849aee8c9e7ae0fcbad75063.mp3",
+      "bytes": 13296,
+      "sha256": "f360e654ec7f0280abe5436892a31190d50211a41787baf9b15adc06405f62d2"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-f98ce748c33ddb26a53db15f.mp3",
+      "bytes": 11640,
+      "sha256": "5eab0d687edf921f4730c889855be5bd99c4a12133dd7cc481cdc9a6028eff3e"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-f41f6db20c671415c54480bf.mp3",
+      "bytes": 11904,
+      "sha256": "db13026c6e0bcf95d96e9fd218a2624ebb024fdd47f2d277eb55a5eeed7b76eb"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-8a329a42328d651579418c47.mp3",
+      "bytes": 10248,
+      "sha256": "06df42d3a1384963bc2f9435411774998fed48c15f9d589f6b9971ad2ad2c45d"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-c89d5853db172dc2bd1a70af.mp3",
+      "bytes": 13248,
+      "sha256": "b3fcbf6cf8b1950317b1ad83b99e0801a4d015fc83858b0c7295546fe249c9f3"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-4040055ef16c2254463e8bae.mp3",
+      "bytes": 13728,
+      "sha256": "879852a91bc4d1798b867c86ee450d65c58b57328303b2df2a2f7fb33967bdfc"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-28dad17fceb4b84354d62633.mp3",
+      "bytes": 10752,
+      "sha256": "42bd41e58a0be1c59d51a75983be2b01e9ed4afeb2c6b5049e71654c9e553fa7"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-5014fc9f221f40492ec01b8a.mp3",
+      "bytes": 13128,
+      "sha256": "070b78ae82752cd78f71302aa35d8e21b77d846a2690ad5f09c9afaf7c2b1afc"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-f495718c6ea9db061e892219.mp3",
+      "bytes": 12336,
+      "sha256": "fea61f843fa587d675765d60aadf9190231f93a25b2cfc9388513c1f05f5b168"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-86cc890066666590c38ff26e.mp3",
+      "bytes": 13752,
+      "sha256": "fd1ec278b4d0e35078caee748ac61a1303fdda31b778b26c33e6f7ec3af86982"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-b56b2608f552d4b4089da1e5.mp3",
+      "bytes": 10944,
+      "sha256": "8c5f182f9c3a55bda8644a896f83a2ad36368962a949b3e5f870d2cb36c486d7"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-ea897b9c0cb86f2a911045fb.mp3",
+      "bytes": 13992,
+      "sha256": "8350ccb3e5c848ddfee1831e60e0a88b963ad141204fafc8d025d498b6abb337"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-9cb56aeffb517a866b69eff3.mp3",
+      "bytes": 11400,
+      "sha256": "97a46f0a90744fed5f0b9cd2584120e2f97d632ddb53c1b859d607306d928155"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-02e665e8b5b259460b2f7a21.mp3",
+      "bytes": 12528,
+      "sha256": "3abbedcd20c85d82e5fa4a65567b28b88152f21b7a36623e5ec4591cd26f1ed4"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-927b2d592c8bdce27132651f.mp3",
+      "bytes": 11856,
+      "sha256": "7a1a29e8152c4fe260c5b06758f4b0794ca43cb18c4697a3e4945dc518e41e5a"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-fcf1665e7ca13a59e96056f1.mp3",
+      "bytes": 10752,
+      "sha256": "f9376177bf16f0d6b9d0e417f5fb56df2e58eccf63ba83782bf0457dbfb6b10e"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-81677ae35f9f685c2929d7ca.mp3",
+      "bytes": 12816,
+      "sha256": "95c44c4edae60130d22d8b6703cc936acf2f509ec903958a94af77922a079a18"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-29d72ef6314dd7e93e24f9b9.mp3",
+      "bytes": 12168,
+      "sha256": "cbbe6325c6c831face29e7e3d1503389d434b2e4402df997c039cd9d837d48b9"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-213ae899786c7a82fba3fda6.mp3",
+      "bytes": 10584,
+      "sha256": "5ae4deaac1687cc4378f299af5c51c9975114a0f5096ed992a95288ff048598b"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-f425183c094ee02e907269e8.mp3",
+      "bytes": 10824,
+      "sha256": "bbf412437e5d75a30edb85e4d8b0176e59cc1a9c05e652345db499b1aa160035"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-945af04615bbe7868ee2f44f.mp3",
+      "bytes": 12336,
+      "sha256": "829c127089bf99621fad642f1dcf2ac2e33e4990db7c0ff89eea579f405b2503"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-3514478463214fc5bc4bffb2.mp3",
+      "bytes": 13800,
+      "sha256": "06fce73c3d4ddc113aa11706acbf9a44c38549670f0e6862ec5c45dcbc84d4f6"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-67e1850ee1470c735976be55.mp3",
+      "bytes": 12096,
+      "sha256": "dfb91362c96f1ecc5f46a48c8f9173e95387ce72b300902595e063f5ca193463"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-84ec1f52e11f3b42395410fb.mp3",
+      "bytes": 11040,
+      "sha256": "2871a5df61a3903b9d15d880e9b252b523067de512b77998be93adaf44e12bf6"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-3b81ee19bf7cfc8dd2d4f0bc.mp3",
+      "bytes": 12120,
+      "sha256": "88d5b0bdc9ef8142f09a250220a221f7aed9856caa7dde4959d4f344c3a2e7d2"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-4c72c0c3b58aa7a772f7f4f8.mp3",
+      "bytes": 11880,
+      "sha256": "44c77ccda423353aad7f538405f682018b160092682cca03662f93b35da85a63"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-72bbc91b7a3c29463c2698e5.mp3",
+      "bytes": 14232,
+      "sha256": "0198f927526d73d71a526792a01052571969fa12779dbe022384be703b3ef9de"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-f5f44c99127297340b390aff.mp3",
+      "bytes": 11664,
+      "sha256": "6334e901104385489614f701013553ece09488860882c482984f5bac187fc2ea"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-1aca959397dc83d26f65c783.mp3",
+      "bytes": 12360,
+      "sha256": "07ecdcc67fbc47e3e9f5a8305f3c30eed06ef7234bd32dab92302708068e43da"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-042317c99519c34e48b6607d.mp3",
+      "bytes": 13080,
+      "sha256": "9504a1407bad1aebd96a5c7dcdbb3bfa61cf4b447d27596cc7e3e876915e8f67"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-8160ea721a1617a58611738a.mp3",
+      "bytes": 13920,
+      "sha256": "f9017e9701e38036472614b80ab6ace1cdfcb085ec68b073a4acb12479ad55f1"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-8cff295efa838fe4f655847a.mp3",
+      "bytes": 10584,
+      "sha256": "a6742ee06a695794d2dafd2baa2aa68ff6acbab3153603137a5c0148d966cec4"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-a002bbe1f231541632ca1482.mp3",
+      "bytes": 9888,
+      "sha256": "db8b821a79335e74cbe7edbe8a727dc6e66627a2cb0c61a820804e913915c659"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-9f2ac2a5df774c6fb3019806.mp3",
+      "bytes": 10656,
+      "sha256": "ced487c46b4ecd44a92bfd4cb30f3ab9a31e134b2a4ff26717c05307356448f7"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-34c55f185293dc06233f9111.mp3",
+      "bytes": 11640,
+      "sha256": "a093bf06a8b35837270d8516034d5e8e7ff6e5bd29721f9859cf3dcc76d350f5"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-77a52f22a22f21d1f4ce6a10.mp3",
+      "bytes": 10608,
+      "sha256": "3c1060cca9a0ed226d60c1a445f6d1312eee40224505433e4ecae79dd3bd93b2"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-13af5971473603b37ba265ab.mp3",
+      "bytes": 11976,
+      "sha256": "873086162c9c475442d1c9a96ed941a39d7022a6fe275e19ed8232e483e65399"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-1d37c3791f3d91f6582969a8.mp3",
+      "bytes": 13944,
+      "sha256": "18240040394ae97e9d8f9ca30bf8ad33aaee5a2618eca0244e58a397bdacb22f"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-a9048b91d4d6ef838ee5b959.mp3",
+      "bytes": 12456,
+      "sha256": "30c319cd619f911c96c4e8dfe906845cacc4a7777c3929a0e8d835146ad130fe"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-b1b6fe5ce9494a5ee9c303e2.mp3",
+      "bytes": 10176,
+      "sha256": "8407c6c500307e48b654db4a1e0a919fdf908360e41424f5a3cb2a393c3b77c4"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-1894fef30b57b6deedb62e6c.mp3",
+      "bytes": 14232,
+      "sha256": "d030c5ae2690ac79bfdbcea9051f562971d47f54934d9c16b36693b0352f6151"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-ab2005ba316fdc713dd97329.mp3",
+      "bytes": 12144,
+      "sha256": "a4bcb0f100aafb38cc91b071f61b4d72b68773f03277b90c568bddecca5d9a01"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-6decf3ddafb74a68c28d8a9a.mp3",
+      "bytes": 13968,
+      "sha256": "1832fd35cd40bb712c6befeb73f16335aac2881ca0a283ceaae1470db3c89f10"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-a7f8cce58025356639cb27e7.mp3",
+      "bytes": 13368,
+      "sha256": "8ae5d1be1cb6afcb92a61e7ba2ba8759d409baa734e67f9d1bacf28846678c19"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-8d8c3db38caab005bd3cf355.mp3",
+      "bytes": 15096,
+      "sha256": "190fefc0bb2ff88be87898de901d4692b53add7fa303148abe502a9c457879ae"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-83cf7b59669656b7c397c7c3.mp3",
+      "bytes": 11760,
+      "sha256": "1eabfff8b3ff8abc455614795ae282ae9cd9071faafd8cc577b4c3463ae07111"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-18c85b54b48e91f5fd4fcd3b.mp3",
+      "bytes": 13896,
+      "sha256": "94048ddd4342aa408c97eb17acf780e1f3eeff6864af485242324af70f42928f"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-cac5583d1bc7a25ef3e14723.mp3",
+      "bytes": 11952,
+      "sha256": "ba57bb22e37ce30584a45d48512d25718b5472a338147ae658f8aec40aa0b6e5"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-c335e9966983087342004470.mp3",
+      "bytes": 14232,
+      "sha256": "f0296bdbb3e04d174cc0e9a6b3979559aaf7d4177e073a0615b24c17aa0c321b"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-d67f1e6f629aa188c42f4679.mp3",
+      "bytes": 13224,
+      "sha256": "6a7942551dc5372b24fd7871eb6c944e6d8ee7431036a8f6645dda31481d9b57"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-83e1d305447848ccb6ceb0fc.mp3",
+      "bytes": 13824,
+      "sha256": "06d1bdfb34a1d13733263578a1c021396f17f6b0abbcda9a829e43d2254aa399"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-48967c1b190a7fc02efb4cae.mp3",
+      "bytes": 12576,
+      "sha256": "e4d1ec521adb8f095b4d3ead66c5e6c59de993d329027a9cdd339760679481f7"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-e41de6cf58a1a8769b5f4dd1.mp3",
+      "bytes": 14544,
+      "sha256": "7b46ff45f08854d0e8b4c61338900220377e6d175263a59773cc91e690cb0e39"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-60b5e6377b33facbdd44a2ea.mp3",
+      "bytes": 13416,
+      "sha256": "e762cdb23cc16bbc2a1506f419b4d7fcd7ce4ad75d28d62717faf496c0947236"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-7ddb537509ace920dd5f38d6.mp3",
+      "bytes": 15504,
+      "sha256": "ff005138245eb466ed5dce0dcd945184b7c6341742d24b0f1864196111ecd09f"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-149a361c58fbb106e2bb78f0.mp3",
+      "bytes": 15192,
+      "sha256": "97be9288d1770bd810cf75bc40e32e48cdac994ae779f499312d27a98ff6cfc3"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-d63d8f641b1902414ee99d15.mp3",
+      "bytes": 15336,
+      "sha256": "de6f4955a74d559665fa378c4814f89b13f80568482424d5faed2e1a0ec34a73"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-d88c1b4ff4f2fd8ad7ddf312.mp3",
+      "bytes": 14808,
+      "sha256": "1f7ccc71d363986568df1603611bb3182cabbb9fae58612590c68b3a160af090"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-e55be286d46d89776fe00843.mp3",
+      "bytes": 14328,
+      "sha256": "6ba588aa34e96b61d6f0bd28acfea445e79dea321e25bc54c22d4386695a1f14"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-10d210302f5d187325d05f6b.mp3",
+      "bytes": 12912,
+      "sha256": "fd5d80908e592dac0f22ff1a2ffd3706c8e698830a6ed6a7662a679119b23f70"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-138c00d9eba1ecfaae5d4183.mp3",
+      "bytes": 10848,
+      "sha256": "eb4698d8a6f3cda5b18f7328656b5cbfdcc51032c2c341e499497e9c488f5764"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-02e34a3bba0bc256ec7569c0.mp3",
+      "bytes": 11760,
+      "sha256": "d0a0b2bd1a1059a7208df05144c8bb70778345c4b0a30f5f2525ba854556cafc"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-7ae1d8e9c2b557500c37d893.mp3",
+      "bytes": 14568,
+      "sha256": "c75272cc83e1db5aa8f088ed92ddf6a74f02790ddb39a0091254a4c522664161"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-59b2f4a9af7f23ed06df0ccb.mp3",
+      "bytes": 13296,
+      "sha256": "93307ef582a80dbbf3003420779916644bacb49889e4f0d8d4be5baf13c73d0b"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-3511ef02f1fa9e22aac75a2c.mp3",
+      "bytes": 13800,
+      "sha256": "29f726939233b23ba0f07129566af07b536255e9903ffef89a124c807ac0c7c1"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-9afa21214f39ee2e97326c47.mp3",
+      "bytes": 11688,
+      "sha256": "c8e2264dd5f3c2501be14b4a28ba69b7a64c7d1cac4a967e73823edca83f5d02"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-ca034c343c57e80c1fc0ebd7.mp3",
+      "bytes": 15216,
+      "sha256": "a4ddd04d6ce5b4a9723c3773cba32d3ea1949e6e753539c92ac69144927d3f19"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-5695f551a2dc690b849a8fcc.mp3",
+      "bytes": 15360,
+      "sha256": "c84cfc1fd10ad4b5b4644c38ff9a5a10aac8b34690d71ca2f0882ec5081637d4"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-208fd30c80a80e1f8241f077.mp3",
+      "bytes": 30528,
+      "sha256": "96f8ebdd184fa94f4f58b8e5141d8be93f9bfd5bc4205016585c6b990faecb7a"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-e0d7920d241c2c8d414fc358.mp3",
+      "bytes": 28896,
+      "sha256": "e99ee4bca683e6841cd972ad5ac120a67799c40829163f018ff4dbe6fac08f36"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-d96ca1b9f6ed900ea512f9ae.mp3",
+      "bytes": 31344,
+      "sha256": "daa009373deb8e46802664737cf92d4b794e80256050e4c69df26b729dd044eb"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-0acff39df4dac8af83f0b1f9.mp3",
+      "bytes": 28848,
+      "sha256": "609123f6b8cc5afc6525169d58a0331ba80e482a7928ccef37c3ef93ff6c5f07"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-a82b2e4f180a411339747297.mp3",
+      "bytes": 31872,
+      "sha256": "2d103c547118bf3b9262b583b03eb398cb9c150ad19f790105af4402c8b883d9"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-46c5eb3137daa2d0a8e04979.mp3",
+      "bytes": 29520,
+      "sha256": "6b05cd24ecdf9a53f1e063c5f279151d182486c4a6fcdae9d9fcb006a2efb5c9"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-508fb2cd94ed409de7933e5e.mp3",
+      "bytes": 31584,
+      "sha256": "f7c55be0c9ab9853a52d2309ec8c071e247f21f80e1427ad35c2134dda8d4986"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-9a759cc5f06d02f43512e0dc.mp3",
+      "bytes": 29928,
+      "sha256": "cfc9e0cffdb4bc19553217e8d5519869561576fe1923147ce52f30baaeec93d6"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-50fec1c82ee9e6c55aa45a52.mp3",
+      "bytes": 34968,
+      "sha256": "c0de9cffa032a70f5a6cf0ff82925f907222ffd6da6e7e9e106fe3b8d697c414"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-3cdcbe187c58ea65bae1c5ff.mp3",
+      "bytes": 30528,
+      "sha256": "4f957cd9051e1cf8e254c5355a4f97a95e6b6007efac39e0ca149ce86e8d725f"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-7010483c5062da77b523478e.mp3",
+      "bytes": 27960,
+      "sha256": "e3aaffd7c1e7df4b3858ef67abd0accea5154d9fff72ed80580ee8a5c4aa68a0"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-a9d0be6732d1cb4d45fa2069.mp3",
+      "bytes": 31848,
+      "sha256": "ae5c732175695b9a0f171a5a9641a0c39bae5b27d23d756341df74cf59555e7a"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-88ec1eea715d4cdcfca870da.mp3",
+      "bytes": 30840,
+      "sha256": "360f65e7c5d334ac52e3defcfc10d392469915f44a5792e3341381f28cc580a9"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-08fabc2e87e77d8a45c7c0cc.mp3",
+      "bytes": 32016,
+      "sha256": "3e5e39d0117625aeb570ce1bb4737d7716c7fc07b707b0136de5a4db9e5983b5"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-3d409b27ddb6b4eaf4eaa65e.mp3",
+      "bytes": 30192,
+      "sha256": "2b448cba28c3d3b1845c8af02b68558784c80c7a99984bb98c400f482343b5d9"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-24719d4a93b5fe755de90b23.mp3",
+      "bytes": 34368,
+      "sha256": "49c2c45be3cb1449ee169eb14336a920311056ec3bb93e8f369e45e66539c695"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-f324eaf4e5ca60e0d82694ee.mp3",
+      "bytes": 30672,
+      "sha256": "42e9dd6d3b0627a931ed6621d0ee496c9fbda3bcf5f4b6c7cd6d93fc34f537ec"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-0c6db463fcbd019bfc194b4f.mp3",
+      "bytes": 30336,
+      "sha256": "4c51fe725092398c74ae57c712098c2284a5031a76ea541e62374d01ec6bd0c6"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-1cc997b069f85dba40c058f6.mp3",
+      "bytes": 30600,
+      "sha256": "c6dd05a0f11399bd8c36fef1b18a648bc71aa055c5230472dab2191776157b6f"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-58672a6d58c6fb9aa2fcbe47.mp3",
+      "bytes": 32568,
+      "sha256": "9a8473af7493fbf8837e09a86b1a597d252fad27d10d59b5b52c96d6c97077a4"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-a506273246c469fcccd7158e.mp3",
+      "bytes": 23928,
+      "sha256": "461607ef6201331062fea00f689dde7f6793c6e0465edf25ba3ff762dbe50112"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-6784576d47345fc22041814c.mp3",
+      "bytes": 23280,
+      "sha256": "e0d819b9611256d4e9c9ec36d729ec05588f55e7c24855e514688bbb421ab938"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-9f28d5debc723cedaa8ab721.mp3",
+      "bytes": 24432,
+      "sha256": "e15045676e2f58ea83c5994cc92f61077491e68f529cd7b15dbf730f7639ee7d"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-bdcf91ca723b171470c749b5.mp3",
+      "bytes": 21984,
+      "sha256": "39ac099f25454b9ea5af1dac2148fe1ba11be623cba41fc6da585dcd69f0ace2"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-b2cce6960b1e58d02ce60442.mp3",
+      "bytes": 27456,
+      "sha256": "b742c8bc144a36bd6557f15bbf9f798ea3f4bef1cc5c2542a4bd96ee6c44ff5e"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-711f6ffb2b9d989e072bff27.mp3",
+      "bytes": 7152,
+      "sha256": "8ad818ec8d1a64182d7ea4ca183a035712792bf4e7fee536d2d56f5ba9c25299"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-71abacb68216362cee73d4d3.mp3",
+      "bytes": 28320,
+      "sha256": "f5b8644d90dbfa4857ed630a1387898d071b7279c0f46fe13fa4d8b5d4a34cd7"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-d1cef95eec690f7110b74658.mp3",
+      "bytes": 31176,
+      "sha256": "e8dab5589af867b4f12ae4e996d961941ee2bda299552e4f31c79cf3ec6b4ac3"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-429364fc855170f3fde8f2ea.mp3",
+      "bytes": 42744,
+      "sha256": "7fdfdd3dcf6d2a66ac1a7fd2060c02ac66bc0ce33eafd52900b3a36b1cadb56b"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-bb0ff2866ef5a965cf4d5571.mp3",
+      "bytes": 35760,
+      "sha256": "d581e604a1d1760dfa469f01b11b49630b5afc71288007c071d63c8bfd6f117a"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-aad3c089f8bf4d364fd6a93e.mp3",
+      "bytes": 49944,
+      "sha256": "83201bcce9c346a8b7290735e4463f1ddff25ac528620a02d10a96a1cb30398d"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-7b0f95e6060dfc1d406d6e5e.mp3",
+      "bytes": 27024,
+      "sha256": "83af82ada0543b04acfdb0b8f0d6096938dd2c7be3d68d8df99006186e45f1d4"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-abe9fa39d5d777717badbd1d.mp3",
+      "bytes": 27504,
+      "sha256": "4d3ba99459d2d090276bc8bba62ac340a4a2f6011760ace027da3466ca39e385"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-458b58b63ccff8a65df713a4.mp3",
+      "bytes": 26544,
+      "sha256": "f2c14f765718f18387c484e507d0c4a369740ac6de151693710b0e60b158e700"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-23198c1b629e057939a13a87.mp3",
+      "bytes": 19512,
+      "sha256": "f2d074f5e4cbdbb70c0fd0b86cf03f13e85d56296aab3397edf2fc583a59482a"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-1a8c7f5f824135ac79c1fb37.mp3",
+      "bytes": 10464,
+      "sha256": "6447899fc862626cdc0c5837fcaf88fcde6ed67c8a106872d012c44b6849f01f"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-b6f08f447b9c370086670ec8.mp3",
+      "bytes": 8808,
+      "sha256": "1ad5cb6c3c57986a98a430aafa454c12239a99cc1721fea0c7890fd878ff71ae"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-71935416aeab16f9030f2997.mp3",
+      "bytes": 10344,
+      "sha256": "7c2a770f838e1902b05ce5802b835094b60d890b7fee9b6478ff79356d7766ba"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-d38fef3bdd883f452a1d5d4f.mp3",
+      "bytes": 33648,
+      "sha256": "502758f816f810e75ffc90ecf1a08dd75326c695cecc74cc04d686444da6d522"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-d76b2eabb8514be921005cb5.mp3",
+      "bytes": 28560,
+      "sha256": "9de666ea513547a834bb1907e540a1c9699dfc844779d3236773f57033d52c0f"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-c592c56bbab588d7e441442e.mp3",
+      "bytes": 18960,
+      "sha256": "6c67fec55062f65dd190632809a0a7b936aa64d2ab3f682f525703a217b87b3d"
+    },
+    {
+      "file": "assets/mimo-voice/coverage-3f260f3e94526fac0cb38f7b.mp3",
+      "bytes": 13800,
+      "sha256": "33c3650ec9b05b6b0320d6511d17786193947fe6e7cdf3751e35d98bc8bb9885"
     }
   ]
 }
