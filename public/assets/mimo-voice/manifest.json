@@ -35536,6 +35536,20 @@
       "voice": "冰糖",
       "sha256": "7725da8bd55e6dd0d9a4767ac0f7a2d425e88267dd1b1c616893b2ba0ac9e512",
       "tempo": 0.8
+    },
+    {
+      "file": "child-flow-ebf2e0f59590f4661275.mp3",
+      "text": "休息时间到啦，找家长解锁。",
+      "lang": "zh-CN",
+      "voice": "冰糖",
+      "sha256": "9d5454e89bd1995e6341c35e1d0bd8d9a85d3290900d536458906ee69655dccb"
+    },
+    {
+      "file": "child-flow-682fba81eab47cf58ace.mp3",
+      "text": "定时休息",
+      "lang": "zh-CN",
+      "voice": "冰糖",
+      "sha256": "cffdc169d7ea3c8b5f917d4fb7d846aacc7ebe19a95e831f330636bf0531c49e"
     }
   ]
 }

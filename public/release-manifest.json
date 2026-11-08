@@ -1,5 +1,5 @@
 {
-  "version": "20261107.34",
+  "version": "20261108.1",
   "bank": "2026-11-06.2",
   "files": [
     {
@@ -629,8 +629,8 @@
     },
     {
       "file": "game.js",
-      "bytes": 100569,
-      "sha256": "3c6e86c4e3a260f6819b62914582336a2401943bf7aec699762e4832a95e92fd"
+      "bytes": 99982,
+      "sha256": "b20e1b8e98b7e65ed7184c9cc3b1d9a7155105ddf38b1f434e0bb95b9b619522"
     },
     {
       "file": "growth-menu.js",
@@ -774,13 +774,13 @@
     },
     {
       "file": "speech-bank.js",
-      "bytes": 441800,
-      "sha256": "aac43377cc3762ca3f5da00e9c0526c28baac2d4ab61dce7d83c0d1289998413"
+      "bytes": 441983,
+      "sha256": "e6fc4a2ea8630975b0fbe70aaaf0788417990422437ae4e0ea1f2a9f7b630654"
     },
     {
       "file": "assets/mimo-voice/manifest.json",
-      "bytes": 1212328,
-      "sha256": "f26374fa77a54afaac306b5ea228687ca53c801f9b765a871ab591e829192f8b"
+      "bytes": 1212809,
+      "sha256": "c96c0df358372832c902b11770a341abac02e7badc9cae57490f058fc870c198"
     },
     {
       "file": "licenses/mimo-voice/ATTRIBUTION.md",
@@ -794,8 +794,8 @@
     },
     {
       "file": "index.html",
-      "bytes": 5236,
-      "sha256": "3122890775e916ca4b6fc3c59e097bbd662c0fabe2e9f52baa3d109082f99d7d"
+      "bytes": 5321,
+      "sha256": "7b09e17f2f2f2765f1e838de05224e8d1e6cd3577ca3e0a562d6a27177c80d51"
     },
     {
       "file": "assets/mimo-voice/e7c9725cce980177bb69.mp3",
@@ -26081,6 +26081,21 @@
       "file": "assets/mimo-voice/poem-slow-94930a011a1b389cad53.mp3",
       "bytes": 15045,
       "sha256": "7725da8bd55e6dd0d9a4767ac0f7a2d425e88267dd1b1c616893b2ba0ac9e512"
+    },
+    {
+      "file": "play-timer.js",
+      "bytes": 5732,
+      "sha256": "45ec0b103dc9e96aef67a2b4a490ccc50ad479ea9280bf43bcd487b7cbf41705"
+    },
+    {
+      "file": "assets/mimo-voice/child-flow-ebf2e0f59590f4661275.mp3",
+      "bytes": 21432,
+      "sha256": "9d5454e89bd1995e6341c35e1d0bd8d9a85d3290900d536458906ee69655dccb"
+    },
+    {
+      "file": "assets/mimo-voice/child-flow-682fba81eab47cf58ace.mp3",
+      "bytes": 9840,
+      "sha256": "cffdc169d7ea3c8b5f917d4fb7d846aacc7ebe19a95e831f330636bf0531c49e"
     }
   ]
 }

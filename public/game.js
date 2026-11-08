@@ -97,10 +97,9 @@
     unlock(){
       if(!this.ctx){try{this.ctx=new (window.AudioContext||window.webkitAudioContext)();}catch{}}
       if(this.ctx){this.ctx.onstatechange=()=>{$('enableSound').hidden=this.ctx.state==='running';};if(this.ctx.state==='suspended'){$('enableSound').hidden=false;this.ctx.resume().catch(()=>{});}}
-      if(!this.enabled){this.enabled=true;try{const u=new SpeechSynthesisUtterance(' ');u.volume=0;speechSynthesis.speak(u);}catch{}}
-      this.voices=window.speechSynthesis?.getVoices()||[];
+      this.enabled=true;
     },
-    stop(){this.epoch++;const native=this.nativeSpeaking;if(this.cancel)this.cancel();if(native)try{speechSynthesis.cancel();}catch{}this.chain=Promise.resolve();},
+    stop(){this.epoch++;if(this.cancel)this.cancel();this.chain=Promise.resolve();},
     say(text,{interrupt=false,lang='zh-CN',rate=1}={}){
       text=String(text).replace(/。{2,}/g,'。');
       rate=Math.max(.65,Math.min(1.2,Number(rate)||1));
@@ -112,16 +111,6 @@
         const finish=reason=>{if(done)return;done=true;clearTimeout(timer);if(playback){playback.onended=null;try{playback.stop();}catch{}playback.disconnect();}playbackGain?.disconnect();this.active=false;this.nativeSpeaking=false;this.cancel=null;this.events.push({text,reason,ms:Math.round(performance.now()-started)});if(this.events.length>200)this.events.shift();resolve({reason});};
         this.cancel=()=>finish('cancelled');this.active=true;
         if(!this.enabled||!state.volume){timer=setTimeout(()=>finish('silent'),Math.min(3000,800+text.length*100));return;}
-        const native=()=>{
-          if(done||nativeStarted||epoch!==this.epoch)return;nativeStarted=true;clearTimeout(timer);
-          if(!window.speechSynthesis){finish('unavailable');return;}
-          const u=new SpeechSynthesisUtterance(text);u.lang=lang;u.rate=.95*rate;u.pitch=1;u.volume=state.volume;
-          this.voices=speechSynthesis.getVoices();const voice=this.voices.find(v=>v.localService&&(lang.startsWith('en')?/^en/i.test(v.lang):/^zh|^cmn/i.test(v.lang)));if(voice)u.voice=voice;
-          if(!voice){notify('这句声音暂时没有准备好，请再听一次，或请家长念一下',6);finish('local-voice-unavailable');return;}
-          u.onend=()=>finish('ended');u.onerror=()=>finish('error');
-          timer=setTimeout(()=>{try{speechSynthesis.cancel();}catch{}finish('timeout');},text.length*.22/(.88*rate)*1000+800);
-          this.nativeSpeaking=true;try{speechSynthesis.speak(u);}catch{finish('unavailable');}
-        };
         const path=window.AdventureSpeech?.[lang+'\n'+text];
         if(path&&this.ctx?.state!=='running'){$('enableSound').hidden=false;notify('点一下“开启声音”，再按 X 重听',7);finish('blocked');return;}
         if(path&&this.ctx?.state==='running'){
@@ -135,7 +124,7 @@
             playback.onended=()=>finish('recorded');
             timer=setTimeout(()=>finish('recorded-timeout'),buffer.duration/rate*1000+1200);playback.start();
           }).catch(()=>{notify('这句录音暂时没下载好，按 X 或“再听一次”重试',7);finish('unavailable');});
-        }else native();
+        }else{notify('这句录音暂时没有准备好',6);finish('unavailable');}
       });this.chain=this.chain.catch(()=>{}).then(run);return this.chain;
     },
     tone(notes=[523,659,784]){
@@ -145,7 +134,6 @@
     }
   };
   $('enableSound').onclick=()=>{audio.unlock();audio.say(lastSpeech||'欢迎来到世界之心',{interrupt:true});};
-  if(window.speechSynthesis)speechSynthesis.addEventListener('voiceschanged',()=>{audio.voices=speechSynthesis.getVoices();});
   function updateHUD(){
     $('place').textContent=scene==='hub'?'世界之心':areaNames[area];
     $('task').textContent=scene==='hub'?(journey.allComplete()?'五枚印记都亮了 · 再去看看老朋友':'五条小路，五种新的发现'):state.segments===5?'这一枚印记已经完整啦':area<state.segments?'沿前面的小路，继续探险':state.bag.length===5?(state.activeRegion==='sea'?'伙伴齐啦，找发光贝壳吧':'五样齐啦，送到石坛吧'):region().action+' · '+(area+1)+'/5';
@@ -346,8 +334,9 @@
     pausedMode=mode;pausedAt=performance.now();quiz?.cancel();mode='pause';audio.stop();showPause();
   }
   function showPause(){
-    showPanel(`<h2>歇一会儿</h2><div class="menu"><button class="wood-button" id="resume">▶ 继续探险</button><button class="wood-button quiet-button" id="pauseHome">🏠 返回</button><button class="wood-button quiet-button" id="volume">声音 ${Math.round(state.volume*100)}%</button><button class="wood-button quiet-button" id="fullscreen">全屏</button><button class="wood-button" id="replayMenu">🔄 再玩一次</button><button class="wood-button quiet-button" id="characterMenu">伙伴：${esc(character().name)}</button></div><button class="wood-button quiet-button" id="parentMoreToggle">⚙️ 家长设置</button><div id="parentMore" class="parent-more" hidden><button class="wood-button quiet-button" id="parentTools">成长记录与题库</button><button class="wood-button quiet-button" id="testDoors">${TEST_OPEN?'退出测试，回正式进度':'测试选项：默认开门（独立进度）'}</button><button class="wood-button quiet-button" id="restart">重新开始</button></div><p class="small-print" id="pauseInputHint">进度已经记下了 · ${inputMode==='gamepad'?'Start':inputMode==='touch'?'点继续探险':'Esc'} 继续</p>`,'pause');
+    showPanel(`<h2>歇一会儿</h2><div class="menu"><button class="wood-button" id="resume">▶ 继续探险</button><button class="wood-button quiet-button" id="pauseHome">🏠 返回</button><button class="wood-button quiet-button" id="volume">声音 ${Math.round(state.volume*100)}%</button><button class="wood-button quiet-button" id="fullscreen">全屏</button><button class="wood-button" id="replayMenu">🔄 再玩一次</button><button class="wood-button quiet-button" id="characterMenu">伙伴：${esc(character().name)}</button></div><button class="wood-button quiet-button" id="parentMoreToggle">⚙️ 家长设置</button><div id="parentMore" class="parent-more" hidden><button class="wood-button quiet-button" id="parentTimer">⏰ 定时休息</button><button class="wood-button quiet-button" id="parentTools">成长记录与题库</button><button class="wood-button quiet-button" id="testDoors">${TEST_OPEN?'退出测试，回正式进度':'测试选项：默认开门（独立进度）'}</button><button class="wood-button quiet-button" id="restart">重新开始</button></div><p class="small-print" id="pauseInputHint">进度已经记下了 · ${inputMode==='gamepad'?'Start':inputMode==='touch'?'点继续探险':'Esc'} 继续</p>`,'pause');
     $('parentMoreToggle').onclick=()=>{$('parentMore').hidden=!$('parentMore').hidden;};
+    $('parentTimer').onclick=()=>window.AdventurePlayTimer.open();
     growthMenu=window.createGrowthMenu({journey,data,saveKey:SAVE,showPanel,persist,goHome,enterArea,back:showPause});$('replayMenu').onclick=growthMenu.rounds;$('parentTools').onclick=growthMenu.settings;$('testDoors').onclick=()=>{const url=new URL(location.href);if(TEST_OPEN)url.searchParams.delete('test');else url.searchParams.set('test','open');location.href=url.href;};
     $('characterMenu').onclick=showCharacters;
     $('resume').onclick=resume;$('pauseHome').onclick=()=>{closePanel();guideHome();};
@@ -367,6 +356,7 @@
   }
   $('adventureActivities').onclick=()=>{if(mode==='world'){audio.unlock();extras.menu();}};$('interact').onclick=()=>{audio.unlock();interact();};$('lamp').onclick=()=>{audio.unlock();help();};$('voice').onclick=()=>{if(!['world','quiz'].includes(mode))return;audio.unlock();if(journey.question)quiz.repeat();else audio.say(lastSpeech||'沿着小路，找找小宝贝',{interrupt:true});};$('roll').onclick=roll;$('home').onclick=()=>{if(mode==='world')guideHome();};$('pause').onclick=pause;
   function inputAction(action){
+    if(window.AdventurePlayTimer.blocked())return;
     if(discoveryCard){if(['confirm','roll','pause'].includes(action))hideDiscovery();return;}
     if(['feedback','action','transition'].includes(mode))return;
     if(action==='pause'){pause();return;}if(action==='home'){if(mode==='world')guideHome();return;}
@@ -386,6 +376,7 @@
   });
   addEventListener('keyup',e=>keys.delete(e.key.toLowerCase()));addEventListener('blur',()=>{keys.clear();if(mode==='world'||mode==='quiz')pause();});
   function pollPad(dt){
+    if(window.AdventurePlayTimer.blocked())return {x:0,y:0};
     const pad=[...(navigator.getGamepads?.()||[])].find(Boolean);if(!pad){padOld=[];navCooldown=0;return {x:0,y:0};}
     const btn=pad.buttons.map(b=>b.pressed);const edges=btn.map((b,i)=>b&&!padOld[i]);padOld=btn;
     if(edges.some(Boolean)||pad.axes.some(x=>Math.abs(x)>.25))setInputMode('gamepad');
@@ -800,7 +791,7 @@
     // or walking away from a return spawn that lies inside the larger doorway.
     if(entryCooldown===0&&player.moving&&!player.roll){const exit=ents.find(e=>e.exit&&!e.locked&&(intent>.01||routeAction===e.id)&&dist(player,e)<EXIT_RADIUS&&dist(player,e)<dist(before,e));if(exit){exit.action();return;}}
   }
-  function runFrame(){const begin=performance.now(),dt=Math.min(.1,Math.max(0,(begin-last)/1000)||0);last=begin;update(dt);const updated=performance.now();if(mode==='world'||mode==='action'||renderDirty){render();renderDirty=false;}perf.push({update:updated-begin,render:performance.now()-updated});if(perf.length>120)perf.shift();}
+  function runFrame(){if(window.AdventurePlayTimer.blocked())return;const begin=performance.now(),dt=Math.min(.1,Math.max(0,(begin-last)/1000)||0);last=begin;update(dt);const updated=performance.now();if(mode==='world'||mode==='action'||renderDirty){render();renderDirty=false;}perf.push({update:updated-begin,render:performance.now()-updated});if(perf.length>120)perf.shift();}
   function loop(){lastNativeFrame=performance.now();runFrame();requestAnimationFrame(loop);}
   function keepActionVisible(){
     clearTimeout(actionTimer);
@@ -813,6 +804,7 @@
   }
   addEventListener('visibilitychange',()=>{if(animation)animation.frameAt=performance.now();if(animation||player.roll)keepActionVisible();});
   quiz=createAdventureQuiz({journey,state,audio,showPanel,closePanel,notify,persist,finishAnswer,help,onLeave:()=>{journey.cancelQuestion();persist();closePanel();},picture,itemAsset:i=>asset(i)});
+  window.AdventurePlayTimer.configure({onLock:()=>{keys.clear();route=[];padAxes={x:0,y:0};audio.stop();if(!['pause','intro','reward','feedback','action','transition','loading'].includes(mode))pause();persist();audio.say('休息时间到啦，找家长解锁。',{interrupt:true});},speak:()=>{audio.unlock();audio.say('休息时间到啦，找家长解锁。',{interrupt:true});}});
   addEventListener('pagehide',()=>{padAxes={x:0,y:0};padOld=[];quiz.cancel();audio.stop();});
   function introduction(){
     showPanel(`<div class="intro-art">${helperAsset(true)}<span class="startRabbit" style="background-image:url('${character().preview}')"></span>${asset(0)}</div><h1>小小探险家</h1><p>选一条小路，一起出发！</p><button class="wood-button" id="start">▶ 出发</button><p class="small-print">点出发，打开声音</p>`,'intro');
