@@ -1091,6 +1091,7 @@ var engine = {
   p6Lights: null,
   p6LightWave: null,
   p6TreasureStage: null,
+  p6LitLevel: 1,
   p7Candles: [],
   p7CandleLight: null,
   p7Cloud: null,
@@ -1945,7 +1946,10 @@ function startOpenBookTransition(onComplete) {
   engine.bookState = "opening";
   engine.coverHoverMix = 0;
   engine.hoveredObj = null;
-  applyTheme(engine.currentPage === 8);
+  applyTheme(engine.currentPage === 8 || engine.currentPage === 6);
+  if (engine.currentPage === 6 && engine.p6Lights) {
+    applyP6Lighting(engine.p6Lights.on ? 1 : 0);
+  }
   if (engine.canvas) {
     engine.canvas.style.cursor = "default";
   }
@@ -2289,6 +2293,7 @@ function clearCurrentDiorama() {
   engine.p6Lights = null;
   engine.p6LightWave = null;
   engine.p6TreasureStage = null;
+  engine.p6LitLevel = 1;
   engine.p7Candles = [];
   engine.p7CandleLight = null;
   engine.p7Cloud = null;
@@ -2331,16 +2336,75 @@ function clampWalkTarget(x, z) {
   return { x: tx, z: tz };
 }
 
+function isSpotBlockedForActor(st, tx, tz) {
+  for (var i = 0; i < engine.standeeList.length; i += 1) {
+    var other = engine.standeeList[i];
+    if (!other || other === st || !other.movable) {
+      continue;
+    }
+    var ox = other.isWalking ? other.targetX : other.curX;
+    var oz = other.isWalking ? other.targetZ : other.curZ;
+    if (Math.hypot(tx - ox, tz - oz) < 0.72) {
+      return true;
+    }
+  }
+  if (engine.p5Car && Math.hypot(tx - engine.p5Car.curX, tz - engine.p5Car.curZ) < 0.78) {
+    return true;
+  }
+  return false;
+}
+
+function pickSafeWalkTarget(st, rawX, rawZ) {
+  var base = clampWalkTarget(rawX, rawZ);
+  if (!isSpotBlockedForActor(st, base.x, base.z)) {
+    return base;
+  }
+  var best = base;
+  var bestClear = -1;
+  for (var ai = 0; ai < 6; ai += 1) {
+    var ang = (ai / 6) * Math.PI * 2;
+    var cand = clampWalkTarget(base.x + Math.cos(ang) * 0.65, base.z + Math.sin(ang) * 0.65);
+    var minD = 9;
+    for (var j = 0; j < engine.standeeList.length; j += 1) {
+      var o = engine.standeeList[j];
+      if (!o || o === st || !o.movable) {
+        continue;
+      }
+      var d = Math.hypot(cand.x - o.curX, cand.z - o.curZ);
+      if (d < minD) {
+        minD = d;
+      }
+    }
+    if (engine.p5Car) {
+      var dc = Math.hypot(cand.x - engine.p5Car.curX, cand.z - engine.p5Car.curZ);
+      if (dc < minD) {
+        minD = dc;
+      }
+    }
+    if (minD > bestClear) {
+      bestClear = minD;
+      best = cand;
+    }
+  }
+  return best;
+}
+
 function commandActorMove(st, x, z, isUser) {
   if (!st || !st.movable) {
     return;
   }
-  var pt = clampWalkTarget(x, z);
+  var pt = pickSafeWalkTarget(st, x, z);
+  var nowMove = performance.now();
   st.targetX = pt.x;
   st.targetZ = pt.z;
   st.isWalking = true;
   st.isUserCommanded = Boolean(isUser);
   st.walkSpeed = isUser ? 1.85 : 0.58 + Math.random() * 0.24;
+  st.walkStartTs = nowMove;
+  st.lastProgTs = nowMove;
+  st.lastProgX = st.curX;
+  st.lastProgZ = st.curZ;
+  st.walkMaxMs = isUser ? 4200 : 3200;
   st.orbitBurst = null;
 }
 
@@ -2602,6 +2666,15 @@ function addStandeeActor(pageNum, actor, idx, total, pageState, token) {
       isWalking: false,
       isUserCommanded: false,
       walkSpeed: 0.72,
+      walkStartTs: 0,
+      lastProgTs: 0,
+      lastProgX: placement.x,
+      lastProgZ: placement.z,
+      walkMaxMs: 3400,
+      lastAutoJumpTs: 0,
+      lastChaseCmdTs: 0,
+      chaseBalloonId: null,
+      chaseLockUntil: 0,
       walkCycle: idx * 1.4,
       facing: 1,
       prevFacing: 1,
@@ -3645,11 +3718,12 @@ function buildP6PartyLights(pageState) {
   root.add(hitBar);
   pushInteractable(hitBar, "lights", 6, "p6-string-lights", "点亮星光灯串", hitBar);
 
-  configurePageLight(1, 0xffcf70, 10, 1.4, 0, 2.1, -0.5, lightsOn ? 3.2 : 0);
+  configurePageLight(1, 0xffcf70, 10, 1.4, 0, 2.1, -0.5, lightsOn ? 4.2 : 0);
 
   engine.dioramaGroup.add(root);
   registerFoldable(root, "shrink", { order: 0.05 });
   engine.p6Lights = { group: root, bulbs: bulbs, glassOn: glassOn, glassOff: glassOff, on: lightsOn };
+  applyP6Lighting(lightsOn ? 1 : 0);
 }
 
 function setP6Lights(on) {
@@ -3658,7 +3732,6 @@ function setP6Lights(on) {
     return;
   }
   L.on = on;
-  setPageLightBase(1, on ? 3.2 : 0);
   for (var i = 0; i < L.bulbs.length; i += 1) {
     var b = L.bulbs[i];
     b.glass.material = on ? L.glassOn[b.palette] : L.glassOff;
@@ -3668,6 +3741,7 @@ function setP6Lights(on) {
   if (engine.p6TreasureStage && engine.p6TreasureStage.crystalMat) {
     engine.p6TreasureStage.crystalMat.emissiveIntensity = on ? 1.15 : 0.25;
   }
+  applyP6Lighting(on ? 1 : 0);
 }
 
 /* ---------------- P4 汪汪队 3D 勇敢徽章（随小狗登场、收集后飞向 KIKI 护航） ---------------- */
@@ -3852,7 +3926,7 @@ function makeFlameGeometry(scale) {
 }
 
 function buildP7CandlesAndCloud(cakeSt, dieCut, pageState) {
-  registerObstacle(cakeSt.baseX, cakeSt.baseZ, 0.88);
+  registerObstacle(cakeSt.baseX, cakeSt.baseZ, 0.82);
   var blownMap = (pageState && pageState.p7 && pageState.p7.blown) || {};
   var candleTips = (engine.storyData && engine.storyData.spriteConfig && engine.storyData.spriteConfig.defaultCakeCandleTips) || [];
   var cakeW = cakeSt.wWorld;
@@ -4084,7 +4158,7 @@ function buildP7PartyTableProps(cakeSt) {
     pInner.add(sBerry, pHit);
     engine.dioramaGroup.add(pRoot);
     registerFoldable(pRoot, "squash", { order: ps.order });
-    registerObstacle(ps.x, ps.z, 0.34);
+    registerObstacle(ps.x, ps.z, 0.28);
     addContactShadow(ps.x, ps.z + 0.015, 0.48, 0.24, 0.34);
     var pObj = { id: "p7-macarons-" + pi, inner: pInner, x: ps.x, z: ps.z, bounceUntil: 0 };
     engine.p7Treats.push(pObj);
@@ -4162,7 +4236,6 @@ function buildP7PartyTableProps(cakeSt) {
     gRoot.add(gBox, r1, r2, bowKnot);
     engine.dioramaGroup.add(gRoot);
     registerFoldable(gRoot, "squash", { order: gs.order });
-    registerObstacle(gs.x, gs.z, 0.24);
     addContactShadow(gs.x, gs.z + 0.015, 0.3, 0.16, 0.34);
   }
 
@@ -4190,9 +4263,6 @@ function buildP7PartyTableProps(cakeSt) {
     tRoot.add(cupGlass, tFlame, tHalo);
     engine.dioramaGroup.add(tRoot);
     registerFoldable(tRoot, "squash", { order: tsSpot.order });
-    if (tsSpot.z < 0.8) {
-      registerObstacle(tsSpot.x, tsSpot.z, 0.18);
-    }
     engine.p7TeaFlames.push({ flame: tFlame, halo: tHalo, phase: ti * 1.4 });
   }
 }
@@ -4424,7 +4494,7 @@ function buildPageContents(pageNum, pageState, startFolded) {
   engine.popAnim = null;
   clearCurrentDiorama();
   updateBookStackHeight(pageNum);
-  applyTheme(pageNum === 8);
+  applyTheme(engine.bookState !== "closed" && (pageNum === 8 || pageNum === 6));
 
   var pageData = getPageData(pageNum);
   if (!pageData) {
@@ -4442,7 +4512,7 @@ function buildPageContents(pageNum, pageState, startFolded) {
   }).catch(function (err) {
     console.warn("KikiPopup3D spread load failed:", err);
   });
-  applyTheme(engine.bookState !== "closed" && pageNum === 8);
+  applyTheme(engine.bookState !== "closed" && (pageNum === 8 || pageNum === 6));
 
   var actors = pageData.actors || [];
   var actorProms = [];
@@ -4472,6 +4542,23 @@ function buildPageContents(pageNum, pageState, startFolded) {
       buildP8NightSkyHotspot();
     }
 
+    for (var siPos = 0; siPos < engine.standeeList.length; siPos += 1) {
+      var stPos = engine.standeeList[siPos];
+      if (stPos.movable) {
+        var safeSpawn = clampWalkTarget(stPos.curX, stPos.curZ);
+        stPos.curX = safeSpawn.x;
+        stPos.curZ = safeSpawn.z;
+        stPos.targetX = safeSpawn.x;
+        stPos.targetZ = safeSpawn.z;
+        stPos.lastProgX = safeSpawn.x;
+        stPos.lastProgZ = safeSpawn.z;
+        stPos.root.position.set(safeSpawn.x, pageSurfaceY(safeSpawn.x), safeSpawn.z);
+        if (stPos.contact) {
+          stPos.contact.position.set(safeSpawn.x, pageSurfaceY(safeSpawn.x) + 0.004, safeSpawn.z + 0.02);
+        }
+      }
+    }
+
     if (engine.bookState === "closed") {
       setCurrentDioramaFoldFactor(1);
     } else if (engine.bookState === "opening") {
@@ -4498,10 +4585,72 @@ function buildPageContents(pageNum, pageState, startFolded) {
   });
 }
 
+function resetBookPaperTint() {
+  var mats = [engine.leftFloorMat, engine.rightFloorMat, engine.leftWallMat, engine.rightWallMat];
+  for (var i = 0; i < mats.length; i += 1) {
+    if (mats[i] && mats[i].color) {
+      mats[i].color.setHex(0xffffff);
+    }
+  }
+}
+
+var _p6BgDark = null;
+var _p6BgLit = null;
+var _p6KeyDark = null;
+var _p6KeyLit = null;
+var _p6PaperDark = null;
+var _p6PaperLit = null;
+
+function applyP6Lighting(litProgress) {
+  var p = clamp(litProgress, 0, 1);
+  engine.p6LitLevel = p;
+  if (!engine.scene) {
+    return;
+  }
+  if (!_p6BgDark) {
+    _p6BgDark = new THREE.Color(0x120d26);
+    _p6BgLit = new THREE.Color(0x261a42);
+    _p6KeyDark = new THREE.Color(0x8ea8ff);
+    _p6KeyLit = new THREE.Color(0xffe5b0);
+    _p6PaperDark = new THREE.Color(0x5b6084);
+    _p6PaperLit = new THREE.Color(0xffffff);
+  }
+  engine.scene.background.copy(_p6BgDark).lerp(_p6BgLit, p);
+  if (engine.scene.fog && engine.scene.fog.color) {
+    engine.scene.fog.color.copy(engine.scene.background);
+  }
+  if (engine.ambLight) {
+    engine.ambLight.intensity = 0.24 + p * 0.74;
+  }
+  if (engine.hemiLight) {
+    engine.hemiLight.intensity = 0.18 + p * 0.62;
+  }
+  if (engine.keyLight) {
+    engine.keyLight.intensity = 0.28 + p * 1.14;
+    engine.keyLight.color.copy(_p6KeyDark).lerp(_p6KeyLit, p);
+  }
+  if (engine.lampLight) {
+    engine.lampLight.intensity = 1.6 + p * 5.8;
+  }
+  if (engine.lampShadeMat) {
+    engine.lampShadeMat.emissiveIntensity = 0.22 + p * 0.93;
+  }
+  var mats = [engine.leftFloorMat, engine.rightFloorMat, engine.leftWallMat, engine.rightWallMat];
+  for (var mi = 0; mi < mats.length; mi += 1) {
+    if (mats[mi] && mats[mi].color) {
+      mats[mi].color.copy(_p6PaperDark).lerp(_p6PaperLit, p);
+    }
+  }
+  setPageLightBase(1, p * 4.2);
+}
+
 function applyTheme(isNight) {
   engine.isNight = Boolean(isNight);
   if (!engine.scene) {
     return;
+  }
+  if (!engine.isNight || engine.currentPage !== 6) {
+    resetBookPaperTint();
   }
   if (engine.isNight) {
     engine.scene.background.setHex(0x16102d);
@@ -4511,6 +4660,10 @@ function applyTheme(isNight) {
     if (engine.wallMesh && engine.nightWallTex) {
       engine.wallMesh.material.map = engine.nightWallTex;
       engine.wallMesh.material.needsUpdate = true;
+    }
+    if (engine.currentPage === 6 && engine.bookState !== "closed") {
+      applyP6Lighting(engine.p6Lights && engine.p6Lights.on ? 1 : 0);
+      return;
     }
     if (engine.ambLight) {
       engine.ambLight.intensity = 0.72;
@@ -4622,7 +4775,7 @@ function updateFlipAnimation(nowTs) {
 
 function setActorFacing(actorSt, dir, ts) {
   var sign = dir >= 0 ? 1 : -1;
-  if (sign !== actorSt.facing && ts - (actorSt.facingChangeTs || 0) >= 320) {
+  if (sign !== actorSt.facing && ts - (actorSt.facingChangeTs || 0) >= 650) {
     actorSt.prevFacing = actorSt.facing;
     actorSt.facing = sign;
     actorSt.facingChangeTs = ts;
@@ -4772,19 +4925,52 @@ function updateStandees(t, ts, dt) {
           st.actionBurst = { kind: "jump", startTs: ts, duration: 420 };
         }
       } else {
+        var oldX = st.curX;
+        var oldZ = st.curZ;
         var step = Math.min(dist, st.walkSpeed * dt);
         var vx = (ddx / dist) * step;
         var vz = (ddz / dist) * step;
-        if (Math.abs(vx) > 0.008 && Math.abs(ddx) > 0.06) {
+        if (Math.abs(vx) > 0.015 && Math.abs(ddx) > 0.14) {
           setActorFacing(st, vx, ts);
         }
-        var stepped = clampWalkTarget(st.curX + vx, st.curZ + vz);
+        var stepped = clampWalkTarget(oldX + vx, oldZ + vz);
+        var moved = Math.hypot(stepped.x - oldX, stepped.z - oldZ);
+        if (moved < step * 0.35 && step > 0.002) {
+          var cosA = 0.5;
+          var sinA = 0.8660254;
+          var candL = clampWalkTarget(oldX + vx * cosA - vz * sinA, oldZ + vx * sinA + vz * cosA);
+          var candR = clampWalkTarget(oldX + vx * cosA + vz * sinA, oldZ - vx * sinA + vz * cosA);
+          var mL = Math.hypot(candL.x - oldX, candL.z - oldZ);
+          var mR = Math.hypot(candR.x - oldX, candR.z - oldZ);
+          var dL = Math.hypot(st.targetX - candL.x, st.targetZ - candL.z);
+          var dR = Math.hypot(st.targetX - candR.x, st.targetZ - candR.z);
+          if (mL > moved && (mL >= mR || dL <= dR)) {
+            stepped = candL;
+            moved = mL;
+          } else if (mR > moved) {
+            stepped = candR;
+            moved = mR;
+          }
+        }
         st.curX = stepped.x;
         st.curZ = stepped.z;
-        st.walkCycle += dt * (st.isUserCommanded ? 12.5 : 8.5);
-        if (ts - st.lastStepFxTs >= 180) {
-          st.lastStepFxTs = ts;
-          spawnParticleBurst3D(st.curX, pageSurfaceY(st.curX) + 0.06, st.curZ, 1, "firework");
+        if (Math.hypot(st.curX - st.lastProgX, st.curZ - st.lastProgZ) >= 0.06) {
+          st.lastProgTs = ts;
+          st.lastProgX = st.curX;
+          st.lastProgZ = st.curZ;
+        }
+        if (ts - (st.lastProgTs || 0) >= 520 || ts - (st.walkStartTs || 0) >= (st.walkMaxMs || 3400)) {
+          st.isWalking = false;
+          st.isUserCommanded = false;
+          st.targetX = st.curX;
+          st.targetZ = st.curZ;
+          st.nextWanderTs = ts + 2200 + Math.random() * 2000;
+        } else if (moved > 0.001) {
+          st.walkCycle += dt * (st.isUserCommanded ? 12.5 : 8.5);
+          if (ts - st.lastStepFxTs >= 180) {
+            st.lastStepFxTs = ts;
+            spawnParticleBurst3D(st.curX, pageSurfaceY(st.curX) + 0.06, st.curZ, 1, "firework");
+          }
         }
       }
     }
@@ -4815,6 +5001,20 @@ function updateStandees(t, ts, dt) {
           sa.curZ = pa.z;
           sb.curX = pb.x;
           sb.curZ = pb.z;
+          if (sa.isWalking && Math.hypot(sa.targetX - sb.curX, sa.targetZ - sb.curZ) < 0.62) {
+            sa.isWalking = false;
+            sa.isUserCommanded = false;
+            sa.targetX = sa.curX;
+            sa.targetZ = sa.curZ;
+            sa.nextWanderTs = ts + 1800 + Math.random() * 1400;
+          }
+          if (sb.isWalking && Math.hypot(sb.targetX - sa.curX, sb.targetZ - sa.curZ) < 0.62) {
+            sb.isWalking = false;
+            sb.isUserCommanded = false;
+            sb.targetX = sb.curX;
+            sb.targetZ = sb.curZ;
+            sb.nextWanderTs = ts + 1800 + Math.random() * 1400;
+          }
         }
       }
     }
@@ -4838,6 +5038,13 @@ function updateStandees(t, ts, dt) {
         var safePt = clampWalkTarget(sm.curX + cnx * cpush, sm.curZ + cnz * cpush);
         sm.curX = safePt.x;
         sm.curZ = safePt.z;
+        if (sm.isWalking && Math.hypot(sm.targetX - carSt.curX, sm.targetZ - carSt.curZ) < 0.78) {
+          sm.isWalking = false;
+          sm.isUserCommanded = false;
+          sm.targetX = sm.curX;
+          sm.targetZ = sm.curZ;
+          sm.nextWanderTs = ts + 1800 + Math.random() * 1400;
+        }
       }
     }
   }
@@ -5010,10 +5217,10 @@ function updateStandees(t, ts, dt) {
 
     actorSt.pivot.position.set(dx, dy, dz);
     actorSt.pivot.rotation.set(0, ry, rz);
-    actorSt.pivot.scale.set(pScale, pScaleY, pScale);
     var isHovered = engine.hoveredObj && engine.hoveredObj.id === actorSt.config.id;
     actorSt.hoverMix += ((isHovered ? 1 : 0) - actorSt.hoverMix) * 0.18;
-    actorSt.pivot.scale.setScalar(1 + actorSt.hoverMix * (actorSt.isAir ? 0.05 : 0.07));
+    var hMul = 1 + actorSt.hoverMix * (actorSt.isAir ? 0.05 : 0.07);
+    actorSt.pivot.scale.set(pScale * hMul, pScaleY * hMul, pScale * hMul);
 
     if (actorSt.contact) {
       var lift = clamp(dy / 0.6, 0, 1);
@@ -5177,14 +5384,36 @@ function updatePageProps(t, ts, dt) {
         bl.vy = -Math.abs(bl.vy) * 0.55;
       }
       if (bl.curY < 1.32 && bl.vy < 0.06 && ts - bl.lastHitTs > 820) {
-        var catcher = findNearestMovable(bl.curX, bl.curZ);
+        var catcher = null;
+        var catcherD2 = Infinity;
+        for (var ci3 = 0; ci3 < engine.standeeList.length; ci3 += 1) {
+          var cand3 = engine.standeeList[ci3];
+          if (!cand3.movable) {
+            continue;
+          }
+          if (cand3.chaseBalloonId && cand3.chaseBalloonId !== bl.id && ts < (cand3.chaseLockUntil || 0)) {
+            continue;
+          }
+          var cd2 = (cand3.curX - bl.curX) * (cand3.curX - bl.curX) + (cand3.curZ - bl.curZ) * (cand3.curZ - bl.curZ);
+          if (cd2 < catcherD2) {
+            catcherD2 = cd2;
+            catcher = cand3;
+          }
+        }
+        if (!catcher) {
+          catcher = findNearestMovable(bl.curX, bl.curZ);
+        }
         if (catcher) {
+          catcher.chaseBalloonId = bl.id;
+          catcher.chaseLockUntil = ts + 1100;
           var cDist = Math.hypot(catcher.curX - bl.curX, catcher.curZ - bl.curZ);
-          if (cDist > 0.54) {
+          if (cDist > 0.54 && ts - (catcher.lastChaseCmdTs || 0) >= 420 && Math.hypot(catcher.targetX - bl.curX, catcher.targetZ - bl.curZ) > 0.34) {
             commandActorMove(catcher, bl.curX, clamp(bl.curZ + 0.14, -0.82, 1.02), false);
             catcher.walkSpeed = 1.68;
+            catcher.lastChaseCmdTs = ts;
           }
-          if (cDist <= 0.62 || bl.curY <= 0.9) {
+          var catcherHit = cDist <= 0.76;
+          if (catcherHit || bl.curY <= 0.88) {
             bl.vy = 1.08 + Math.random() * 0.28;
             bl.vx += (Math.random() - 0.5) * 0.62;
             bl.vz += (Math.random() - 0.5) * 0.34;
@@ -5192,12 +5421,17 @@ function updatePageProps(t, ts, dt) {
             bl.lastHitTs = ts;
             bl.squishUntil = ts + 420;
             bl.bounceEnd = ts + 420;
-            catcher.actionBurst = { kind: "jump", startTs: ts, duration: 500 };
-            setActorFacing(catcher, bl.curX - catcher.curX, ts);
             spawnParticleBurst3D(bl.curX, bl.curY - 0.15, bl.curZ, 8, "confetti");
-            if (ts - (engine.p3LastAutoSpeakTs || 0) >= 6500 && typeof engine.callbacks.onInteractItem === "function") {
-              engine.p3LastAutoSpeakTs = ts;
-              engine.callbacks.onInteractItem(3, "p3-auto-bounce", catcher.config.id);
+            if (catcherHit) {
+              if (!catcher.actionBurst && ts - (catcher.lastAutoJumpTs || 0) >= 950) {
+                catcher.actionBurst = { kind: "jump", startTs: ts, duration: 500 };
+                catcher.lastAutoJumpTs = ts;
+              }
+              setActorFacing(catcher, bl.curX - catcher.curX, ts);
+              if (ts - (engine.p3LastAutoSpeakTs || 0) >= 6500 && typeof engine.callbacks.onInteractItem === "function") {
+                engine.p3LastAutoSpeakTs = ts;
+                engine.callbacks.onInteractItem(3, "p3-auto-bounce", catcher.config.id);
+              }
             }
           }
         }
@@ -5341,7 +5575,7 @@ function updatePageProps(t, ts, dt) {
       spawnParticleBurst3D(wPos6.x, wPos6.y, wPos6.z, 3, "firework");
     }
     lw.litIdx = upTo;
-    setPageLightBase(1, wp6 * 3.2);
+    applyP6Lighting(easeOutCubic(wp6));
     if (wp6 >= 1) {
       lw.active = false;
       setP6Lights(true);
@@ -5354,6 +5588,9 @@ function updatePageProps(t, ts, dt) {
         }
       }
     }
+  }
+  if (L && !L.on && L.glassOff) {
+    L.glassOff.emissiveIntensity = 0.28 + Math.sin(t * 2.4) * 0.1;
   }
   if (L && L.on) {
     for (var li = 0; li < L.bulbs.length; li += 1) {
@@ -6364,7 +6601,7 @@ var KikiPopup3D = {
       return false;
     }
     var st = engine.standees[actorId];
-    if (!st || st.orbitBurst) {
+    if (!st || st.orbitBurst || st.actionBurst) {
       return false;
     }
     st.actionBurst = { kind: "jump", startTs: performance.now(), duration: 520 };

@@ -67,7 +67,7 @@
       childNameEn: "KIKI",
       birthDate: "2021-11-18",
       age: 5,
-      assetVersion: "14",
+      assetVersion: "15",
       deploySubpath: "/little-explorer-learning/birthday/",
       audioManifestPath: "./assets/audio/audio-manifest.json",
       spritesMetaPath: "./assets/sprites/sprites-meta.json",
@@ -326,14 +326,14 @@
             character: "小爱 Dizzy",
             audio: "./assets/audio/p2-dizzy.mp3",
             voice: "动漫原声 · 小爱",
-            text: "哈喽 Kiki，我是小爱！粉粉的祝福全部送给你！"
+            text: "你好 Kiki，我是小爱！粉粉的祝福全部送给你！"
           },
           {
             id: "p2-unbox",
             character: "拆箱惊喜",
             audio: "./assets/audio/p2-unbox.mp3",
             voice: "动漫原声 · 小爱 & KIKI",
-            text: "哇塞，快看！箱子里飞出了一顶闪闪发光的金色五岁小皇冠！哇，戴上金色小皇冠，我就像小小生日公主啦！"
+            text: "快看，快看！箱子里飞出了一顶闪闪发光的金色五岁小皇冠！哇，我戴上金色的小皇冠，就像小小生日公主啦！"
           }
         ]
       },
@@ -440,14 +440,14 @@
             character: "宾果 Bingo",
             audio: "./assets/audio/p3-bingo.mp3",
             voice: "动漫原声 · 宾果",
-            text: "嘻嘻，我是宾果！我也想要一直把彩色气球颠高高！"
+            text: "我来啦，我是宾果！我也想要一直把彩色气球颠高高！"
           },
           {
             id: "p3-balloon-win",
             character: "派对欢呼",
             audio: "./assets/audio/p3-balloon-win.mp3",
             voice: "动漫原声 · 布鲁伊 & 宾果",
-            text: "太棒啦！五只彩色气球都飞得好高呀！发光的彩虹气球，这是送给 Kiki 的礼物！"
+            text: "太棒啦！五只彩色气球都飞得好高呀！发光的彩虹气球，送给 Kiki 的礼物！"
           }
         ]
       },
@@ -614,7 +614,7 @@
             character: "毛毛 Marshall",
             audio: "./assets/audio/p4-marshall.mp3",
             voice: "动漫原声 · 毛毛",
-            text: "哈哈，我来啦，我是毛毛！祝 Kiki 吃好多香甜草莓蛋糕！"
+            text: "我来啦，我是毛毛！祝 Kiki 吃好多香甜草莓蛋糕！"
           },
           {
             id: "p4-team-cheer",

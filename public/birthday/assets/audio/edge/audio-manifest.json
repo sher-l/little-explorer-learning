@@ -1,7 +1,7 @@
 {
   "version": "4.0.0",
   "pack": "edge",
-  "generatedAt": "2026-11-20T12:13:17Z",
+  "generatedAt": "2026-11-20T16:40:04Z",
   "files": {
     "bgm-gentle.mp3": {
       "durationSec": 48.0,
@@ -44,11 +44,7 @@
       "loop": false
     },
     "p4-team-cheer.mp3": {
-      "durationSec": 7.009,
-      "loop": false
-    },
-    "p7-blow-cheer.mp3": {
-      "durationSec": 6.18,
+      "durationSec": 7.012,
       "loop": false
     },
     "kiki-1.mp3": {
@@ -56,11 +52,11 @@
       "loop": false
     },
     "kiki-2.mp3": {
-      "durationSec": 3.744,
+      "durationSec": 3.499,
       "loop": false
     },
     "kiki-3.mp3": {
-      "durationSec": 3.42,
+      "durationSec": 3.397,
       "loop": false
     },
     "p2-jett.mp3": {
@@ -76,15 +72,15 @@
       "loop": false
     },
     "p2-dizzy.mp3": {
-      "durationSec": 4.455,
+      "durationSec": 4.551,
       "loop": false
     },
     "dizzy-2.mp3": {
-      "durationSec": 3.082,
+      "durationSec": 3.079,
       "loop": false
     },
     "dizzy-3.mp3": {
-      "durationSec": 2.652,
+      "durationSec": 2.65,
       "loop": false
     },
     "p3-bluey.mp3": {
@@ -92,15 +88,15 @@
       "loop": false
     },
     "bluey-2.mp3": {
-      "durationSec": 3.253,
+      "durationSec": 2.796,
       "loop": false
     },
     "bluey-3.mp3": {
-      "durationSec": 3.513,
+      "durationSec": 3.511,
       "loop": false
     },
     "p3-bingo.mp3": {
-      "durationSec": 4.456,
+      "durationSec": 4.468,
       "loop": false
     },
     "bingo-2.mp3": {
@@ -112,67 +108,71 @@
       "loop": false
     },
     "p4-chase.mp3": {
-      "durationSec": 4.489,
+      "durationSec": 4.491,
       "loop": false
     },
     "chase-2.mp3": {
-      "durationSec": 2.595,
+      "durationSec": 2.593,
       "loop": false
     },
     "chase-3.mp3": {
-      "durationSec": 3.038,
+      "durationSec": 3.042,
       "loop": false
     },
     "p4-skye.mp3": {
-      "durationSec": 5.227,
+      "durationSec": 5.234,
       "loop": false
     },
     "skye-2.mp3": {
-      "durationSec": 2.581,
+      "durationSec": 2.241,
       "loop": false
     },
     "skye-3.mp3": {
-      "durationSec": 3.679,
+      "durationSec": 3.68,
       "loop": false
     },
     "p4-marshall.mp3": {
-      "durationSec": 5.55,
+      "durationSec": 5.011,
       "loop": false
     },
     "marshall-2.mp3": {
-      "durationSec": 2.933,
+      "durationSec": 2.788,
       "loop": false
     },
     "marshall-3.mp3": {
       "durationSec": 2.633,
       "loop": false
     },
-    "p5-lego-click.mp3": {
-      "durationSec": 3.91,
-      "loop": false
-    },
     "lego-2.mp3": {
-      "durationSec": 3.732,
+      "durationSec": 3.727,
       "loop": false
     },
     "lego-3.mp3": {
-      "durationSec": 3.862,
+      "durationSec": 3.858,
       "loop": false
     },
     "p5-lego-win.mp3": {
-      "durationSec": 7.047,
+      "durationSec": 7.044,
       "loop": false
     },
-    "p3-balloon-win.mp3": {
-      "durationSec": 7.259,
+    "p7-blow-cheer.mp3": {
+      "durationSec": 6.184,
       "loop": false
     },
     "p6-party-light.mp3": {
-      "durationSec": 9.353,
+      "durationSec": 8.724,
       "loop": false
     },
     "p2-unbox.mp3": {
-      "durationSec": 9.719,
+      "durationSec": 9.608,
+      "loop": false
+    },
+    "p3-balloon-win.mp3": {
+      "durationSec": 7.056,
+      "loop": false
+    },
+    "p5-lego-click.mp3": {
+      "durationSec": 3.951,
       "loop": false
     }
   },
