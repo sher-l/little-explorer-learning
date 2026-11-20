@@ -27,3 +27,5 @@
 20261106.20：修正门内落点、避免物品寻路误返回，移除答题前操作提示及通知中的物品名称。
 
 20261107.21：世界之心与非迷宫关卡开放行走，鼠标寻路同步调整；保留外边界、锁门和提交规则，五张迷宫碰撞不变。
+
+20261120.birthday：在独立子路径 `public/birthday/`（https://sher-l.github.io/little-explorer-learning/birthday/ ）新增《林缨祈 KIKI 的5岁生日大冒险》8 页 WebGL 3D 互动立体绘本，使用独立本地存储键 `kiki-birthday-5.*`，不改动原学习游戏代码、`public/index.html` 与 `little-explorer-learning.*` 存档。全站仅使用相对路径并兼容严格 CSP；语音采用小米 MiMo 官方预设音色 / Edge TTS 双音色包及 CC0 尤克里里真人演唱《Happy Birthday to You》，不含真人儿童照片、儿童录音、开发脚本、构建缓存或密钥。

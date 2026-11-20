@@ -1,0 +1,178 @@
+{
+  "version": 2,
+  "paddingPx": 4,
+  "sprites": {
+    "bingo": {
+      "width": 622,
+      "height": 832,
+      "aspectRatio": 0.7476,
+      "file": "bingo.webp"
+    },
+    "bluey": {
+      "width": 681,
+      "height": 924,
+      "aspectRatio": 0.737,
+      "file": "bluey.webp"
+    },
+    "cake-5candles": {
+      "width": 714,
+      "height": 861,
+      "aspectRatio": 0.8293,
+      "file": "cake-5candles.webp"
+    },
+    "chase": {
+      "width": 575,
+      "height": 903,
+      "aspectRatio": 0.6368,
+      "file": "chase.webp"
+    },
+    "crown-5": {
+      "width": 829,
+      "height": 669,
+      "aspectRatio": 1.2392,
+      "file": "crown-5.webp"
+    },
+    "dizzy": {
+      "width": 769,
+      "height": 884,
+      "aspectRatio": 0.8699,
+      "file": "dizzy.webp"
+    },
+    "jett": {
+      "width": 870,
+      "height": 713,
+      "aspectRatio": 1.2202,
+      "file": "jett.webp"
+    },
+    "kiki-cheer": {
+      "width": 602,
+      "height": 1052,
+      "aspectRatio": 0.5722,
+      "file": "kiki-cheer.webp"
+    },
+    "kiki-idle": {
+      "width": 548,
+      "height": 1067,
+      "aspectRatio": 0.5136,
+      "file": "kiki-idle.webp"
+    },
+    "lego-castle": {
+      "width": 788,
+      "height": 982,
+      "aspectRatio": 0.8024,
+      "file": "lego-castle.webp"
+    },
+    "lego-flag-5": {
+      "width": 506,
+      "height": 782,
+      "aspectRatio": 0.6471,
+      "file": "lego-flag-5.webp"
+    },
+    "lego-minifig-1": {
+      "width": 252,
+      "height": 444,
+      "aspectRatio": 0.5676,
+      "file": "lego-minifig-1.webp"
+    },
+    "lego-minifig-2": {
+      "width": 252,
+      "height": 444,
+      "aspectRatio": 0.5676,
+      "file": "lego-minifig-2.webp"
+    },
+    "lego-minifig-3": {
+      "width": 278,
+      "height": 443,
+      "aspectRatio": 0.6275,
+      "file": "lego-minifig-3.webp"
+    },
+    "marshall": {
+      "width": 658,
+      "height": 955,
+      "aspectRatio": 0.689,
+      "file": "marshall.webp"
+    },
+    "parcel-closed": {
+      "width": 690,
+      "height": 735,
+      "aspectRatio": 0.9388,
+      "file": "parcel-closed.webp"
+    },
+    "parcel-open": {
+      "width": 653,
+      "height": 818,
+      "aspectRatio": 0.7983,
+      "file": "parcel-open.webp"
+    },
+    "skye": {
+      "width": 980,
+      "height": 745,
+      "aspectRatio": 1.3154,
+      "file": "skye.webp"
+    }
+  },
+  "cakeCandleTips": [
+    {
+      "id": "candle-1",
+      "index": 1,
+      "label": "1",
+      "color": "#FF6B8A",
+      "x": 32.21,
+      "y": 0.58,
+      "xPct": 32.21,
+      "yPct": 0.58
+    },
+    {
+      "id": "candle-2",
+      "index": 2,
+      "label": "2",
+      "color": "#FFB84D",
+      "x": 41.18,
+      "y": 0.58,
+      "xPct": 41.18,
+      "yPct": 0.58
+    },
+    {
+      "id": "candle-3",
+      "index": 3,
+      "label": "3",
+      "color": "#64C8FF",
+      "x": 50.28,
+      "y": 0.58,
+      "xPct": 50.28,
+      "yPct": 0.58
+    },
+    {
+      "id": "candle-4",
+      "index": 4,
+      "label": "4",
+      "color": "#A97BFF",
+      "x": 59.31,
+      "y": 0.93,
+      "xPct": 59.31,
+      "yPct": 0.93
+    },
+    {
+      "id": "candle-5",
+      "index": 5,
+      "label": "5",
+      "color": "#5EE2A0",
+      "x": 67.23,
+      "y": 0.58,
+      "xPct": 67.23,
+      "yPct": 0.58
+    }
+  ],
+  "kikiCrownAnchor": {
+    "xPct": 54.5,
+    "yPct": 1.8,
+    "widthPct": 38.0,
+    "rotateDeg": -2
+  },
+  "kikiCheerCrownAnchor": {
+    "xPct": 50.6,
+    "yPct": 2.3,
+    "widthPct": 35.0,
+    "rotateDeg": -2
+  }
+}

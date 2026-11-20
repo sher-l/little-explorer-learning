@@ -1,0 +1,211 @@
+{
+  "version": "4.0.0",
+  "pack": "mimo",
+  "generatedAt": "2026-11-20T07:43:55Z",
+  "files": {
+    "bgm-gentle.mp3": {
+      "durationSec": 48.0,
+      "loop": true
+    },
+    "happy-birthday-en.mp3": {
+      "durationSec": 33.4,
+      "loop": false
+    },
+    "p1-narrator.mp3": {
+      "durationSec": 17.587,
+      "loop": false
+    },
+    "p2-narrator.mp3": {
+      "durationSec": 14.576,
+      "loop": false
+    },
+    "p3-narrator.mp3": {
+      "durationSec": 17.68,
+      "loop": false
+    },
+    "p4-narrator.mp3": {
+      "durationSec": 14.93,
+      "loop": false
+    },
+    "p5-narrator.mp3": {
+      "durationSec": 16.048,
+      "loop": false
+    },
+    "p6-narrator.mp3": {
+      "durationSec": 14.053,
+      "loop": false
+    },
+    "p7-narrator.mp3": {
+      "durationSec": 17.007,
+      "loop": false
+    },
+    "p8-outro.mp3": {
+      "durationSec": 14.273,
+      "loop": false
+    },
+    "p2-unbox.mp3": {
+      "durationSec": 9.688,
+      "loop": false
+    },
+    "p3-balloon-win.mp3": {
+      "durationSec": 6.114,
+      "loop": false
+    },
+    "p4-team-cheer.mp3": {
+      "durationSec": 5.965,
+      "loop": false
+    },
+    "p6-party-light.mp3": {
+      "durationSec": 8.38,
+      "loop": false
+    },
+    "p7-blow-cheer.mp3": {
+      "durationSec": 5.182,
+      "loop": false
+    },
+    "kiki-1.mp3": {
+      "durationSec": 2.171,
+      "loop": false
+    },
+    "kiki-2.mp3": {
+      "durationSec": 3.98,
+      "loop": false
+    },
+    "kiki-3.mp3": {
+      "durationSec": 3.87,
+      "loop": false
+    },
+    "p2-jett.mp3": {
+      "durationSec": 5.101,
+      "loop": false
+    },
+    "jett-2.mp3": {
+      "durationSec": 3.47,
+      "loop": false
+    },
+    "jett-3.mp3": {
+      "durationSec": 3.087,
+      "loop": false
+    },
+    "p2-dizzy.mp3": {
+      "durationSec": 3.829,
+      "loop": false
+    },
+    "dizzy-2.mp3": {
+      "durationSec": 3.487,
+      "loop": false
+    },
+    "dizzy-3.mp3": {
+      "durationSec": 2.954,
+      "loop": false
+    },
+    "p3-bluey.mp3": {
+      "durationSec": 3.655,
+      "loop": false
+    },
+    "bluey-2.mp3": {
+      "durationSec": 3.31,
+      "loop": false
+    },
+    "bluey-3.mp3": {
+      "durationSec": 2.857,
+      "loop": false
+    },
+    "p3-bingo.mp3": {
+      "durationSec": 4.39,
+      "loop": false
+    },
+    "bingo-2.mp3": {
+      "durationSec": 2.98,
+      "loop": false
+    },
+    "bingo-3.mp3": {
+      "durationSec": 4.949,
+      "loop": false
+    },
+    "p4-chase.mp3": {
+      "durationSec": 4.819,
+      "loop": false
+    },
+    "chase-2.mp3": {
+      "durationSec": 2.455,
+      "loop": false
+    },
+    "chase-3.mp3": {
+      "durationSec": 3.186,
+      "loop": false
+    },
+    "p4-skye.mp3": {
+      "durationSec": 4.793,
+      "loop": false
+    },
+    "skye-2.mp3": {
+      "durationSec": 2.953,
+      "loop": false
+    },
+    "skye-3.mp3": {
+      "durationSec": 3.996,
+      "loop": false
+    },
+    "p4-marshall.mp3": {
+      "durationSec": 4.444,
+      "loop": false
+    },
+    "marshall-2.mp3": {
+      "durationSec": 3.387,
+      "loop": false
+    },
+    "marshall-3.mp3": {
+      "durationSec": 3.614,
+      "loop": false
+    },
+    "p5-lego-click.mp3": {
+      "durationSec": 3.107,
+      "loop": false
+    },
+    "lego-2.mp3": {
+      "durationSec": 3.418,
+      "loop": false
+    },
+    "lego-3.mp3": {
+      "durationSec": 3.692,
+      "loop": false
+    },
+    "p5-lego-win.mp3": {
+      "durationSec": 7.414,
+      "loop": false
+    }
+  },
+  "happyBirthdayLyrics": [
+    {
+      "start": 0.2,
+      "end": 8.0,
+      "text": "🎵 Happy Birthday · Ukulele Intro",
+      "zh": "乌克丽丽欢乐前奏响起，准备一起大合唱！"
+    },
+    {
+      "start": 8.05,
+      "end": 12.45,
+      "text": "Happy Birthday to you,",
+      "zh": "祝你生日快乐，"
+    },
+    {
+      "start": 12.48,
+      "end": 16.95,
+      "text": "Happy Birthday to you,",
+      "zh": "祝你生日快乐，"
+    },
+    {
+      "start": 16.98,
+      "end": 23.45,
+      "text": "Happy Birthday, happy birthday,",
+      "zh": "祝亲爱的 Kiki 五岁生日快乐，"
+    },
+    {
+      "start": 23.48,
+      "end": 32.8,
+      "text": "Happy Birthday to you!",
+      "zh": "祝你生日快乐！🎉"
+    }
+  ]
+}

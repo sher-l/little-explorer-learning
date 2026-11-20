@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; media-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'none'">
+  <title>林缨祈 KIKI 的5岁生日大冒险</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23fff0f6'/%3E%3Cpath d='M14 42l4-18 10 8 4-14 4 14 10-8 4 18z' fill='%23ffbe0b' stroke='%23d97706' stroke-width='2.5' stroke-linejoin='round'/%3E%3Crect x='14' y='43' width='36' height='7' rx='3.5' fill='%23ff70a6'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css?v=13">
+</head>
+<body data-page="1">
+  <!-- 全屏 Three.js 真·3D 立体弹出书主渲染与交互画布 -->
+  <canvas id="popup3d-canvas" class="popup3d-canvas" aria-label="林缨祈 KIKI 的 3D 立体生日绘本"></canvas>
+
+  <!-- 2D CSS 兜底背景层（仅当 WebGL 不可用时启用） -->
+  <div class="ambient-backdrop" aria-hidden="true">
+    <div class="nursery-wall"></div>
+    <div class="wooden-desk-surface"></div>
+    <div class="desk-lamp-glow"></div>
+    <span class="ambient-orb orb-1"></span>
+    <span class="ambient-orb orb-2"></span>
+    <span class="ambient-orb orb-3"></span>
+  </div>
+
+  <header class="topbar" aria-label="绘本顶部状态栏">
+    <div class="topbar-left">
+      <button type="button" id="btn-book-cover" class="brand-badge" aria-label="合上绘本回到封面" title="合上绘本看立体封面">
+        <span class="brand-crown" aria-hidden="true">👑</span>
+        <span class="brand-age" aria-hidden="true">5</span>
+      </button>
+      <div class="brand-text">
+        <h1 id="book-title" class="book-title sr-only">林缨祈 KIKI 的5岁生日大冒险</h1>
+        <div class="book-meta-row">
+          <span id="page-indicator" class="page-pill">1 / 8</span>
+          <span id="page-subtitle-pill" class="subtitle-pill sr-only"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="topbar-center">
+      <div id="treasure-bar" class="treasure-bar" role="list" aria-label="生日宝物收集槽"></div>
+    </div>
+
+    <div class="topbar-right">
+      <button type="button" id="btn-toggle-bgm" class="icon-pill-btn" aria-label="开关背景音乐" aria-pressed="true" title="背景音乐开关">
+        <span class="btn-emoji" aria-hidden="true">🎵</span>
+      </button>
+      <button type="button" id="btn-replay-voice" class="icon-pill-btn" aria-label="重听本页配音" title="重听本页故事旁白">
+        <span class="btn-emoji" aria-hidden="true">🔊</span>
+      </button>
+      <button type="button" id="btn-look-closer" class="icon-pill-btn" aria-label="凑近看立体场景" aria-pressed="false" title="凑近看立体细节 (快捷键 Z)">
+        <span class="btn-emoji" aria-hidden="true">🔍</span>
+      </button>
+      <button type="button" id="btn-toggle-subtitle" class="icon-pill-btn" aria-label="家长字幕开关" aria-pressed="false" title="显示或隐藏家长字幕">
+        <span class="btn-emoji" aria-hidden="true">📖</span>
+      </button>
+      <button type="button" id="btn-open-drawer" class="icon-pill-btn drawer-trigger" aria-label="打开故事目录与设置" aria-expanded="false" aria-controls="parent-drawer" title="故事目录与设置 (快捷键 G)">
+        <span class="btn-emoji" aria-hidden="true">📑</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="reader-shell">
+    <!-- 2D DOM 降级舞台容器（WebGL 激活时隐藏，保留全部元素作为 fallback） -->
+    <div class="stage-carousel-wrap">
+      <section id="stage-frame" class="stage-frame storybook-binding" aria-label="互动绘本舞台">
+        <div class="book-hardcover-back" aria-hidden="true"></div>
+        <div id="book-edge-left" class="book-page-stack book-edge-left" aria-hidden="true"></div>
+        <div id="book-edge-right" class="book-page-stack book-edge-right" aria-hidden="true"></div>
+        <div class="book-bottom-thickness" aria-hidden="true"></div>
+        <div class="book-spine-cap cap-top" aria-hidden="true"></div>
+        <div class="book-spine-cap cap-bottom" aria-hidden="true"></div>
+        <div class="book-ribbon-bookmark" aria-hidden="true"></div>
+
+        <div id="stage-scene" class="stage-scene">
+          <img id="stage-image" class="stage-image" alt="绘本背景" draggable="false">
+          <div id="scene-depth-atmosphere" class="scene-depth-atmosphere" aria-hidden="true"></div>
+          <div class="book-spine-gutter" aria-hidden="true"></div>
+
+          <div id="stage-image-fallback" class="stage-image-fallback hidden" aria-hidden="true">
+            <div class="fallback-badge">✨ 魔法绘本画卷准备中</div>
+            <p id="fallback-page-name" class="fallback-title"></p>
+            <p class="fallback-sub">点击画中角色与魔法道具即可体验互动</p>
+          </div>
+
+          <div id="stage-mood-layer" class="stage-mood-layer" aria-hidden="true"></div>
+          <div id="stage-actors-layer" class="stage-actors-layer"></div>
+          <div id="stage-interactive-layer" class="stage-interactive-layer"></div>
+          <canvas id="fx-canvas" class="fx-canvas" aria-hidden="true"></canvas>
+          <div id="css-flip-fallback" class="css-flip-fallback hidden" aria-hidden="true"></div>
+
+          <div id="stage-bubbles-layer" class="stage-bubbles-layer" aria-live="polite"></div>
+          <div id="stage-hud" class="stage-hud" aria-live="polite"></div>
+          <div id="stage-toast" class="stage-toast hidden" role="status" aria-live="polite"></div>
+        </div>
+      </section>
+    </div>
+
+    <!-- P8 双语卡拉 OK 歌词条 & 右下角 3 枚精简操作图标（独立于 stage-frame，3D/2D 模式共用） -->
+    <div id="karaoke-bar" class="karaoke-bar hidden" aria-live="polite"></div>
+
+    <div id="finale-float-actions" class="finale-float-controls hidden" aria-label="生日派对快捷操作">
+      <button type="button" id="btn-finale-sing" class="finale-float-btn" aria-label="再唱一遍生日歌" title="再唱一遍生日歌">🎶</button>
+      <button type="button" id="btn-finale-note" class="finale-float-btn" aria-label="爸爸妈妈的一封信" title="爸爸妈妈的一封信">💌</button>
+      <button type="button" id="btn-finale-replay" class="finale-float-btn" aria-label="回到第1页再看一遍" title="回到第1页">🔄</button>
+    </div>
+
+    <!-- 家长按需查看的故事字幕卡（默认隐藏，无滚动条） -->
+    <article id="caption-card" class="caption-card" aria-label="绘本故事字幕卡">
+      <div class="caption-head">
+        <div class="caption-tags">
+          <span id="caption-speaker" class="speaker-tag"></span>
+          <span id="audio-status-chip" class="audio-status-chip hidden" aria-live="polite"></span>
+        </div>
+        <div class="caption-controls">
+          <div id="caption-actions" class="caption-actions"></div>
+          <button type="button" id="btn-toggle-caption" class="caption-collapse-btn" aria-label="收起或展开字幕卡" aria-expanded="true" title="折叠/展开字幕">▾</button>
+        </div>
+      </div>
+      <p id="caption-story" class="caption-story"></p>
+      <p id="caption-hint" class="caption-hint"></p>
+    </article>
+
+    <!-- 精巧居中的底部翻页导航条（‹ + 8 颗金星 + ›） -->
+    <div class="bottom-nav-bar" aria-label="底端翻页导航">
+      <button type="button" id="btn-prev-page" class="nav-arrow nav-arrow-prev" aria-label="上一页" title="上一页 (←)">
+        <span aria-hidden="true">‹</span>
+      </button>
+      <nav id="page-dots" class="page-dots" aria-label="快速页码导航"></nav>
+      <button type="button" id="btn-next-page" class="nav-arrow nav-arrow-next" aria-label="下一页" title="下一页 (→)">
+        <span aria-hidden="true">›</span>
+      </button>
+    </div>
+
+    <!-- 合书开局极简浮光按钮（位于书底下方，不遮挡封面） -->
+    <button type="button" id="btn-open-book" class="cover-open-btn" aria-label="翻开 KIKI 的 5 岁生日立体魔法书">
+      <span class="cover-open-sparkle" aria-hidden="true">✨</span>
+      <span>点书本翻开</span>
+    </button>
+  </main>
+
+  <div id="parent-note-backdrop" class="modal-backdrop hidden" aria-hidden="true">
+    <section id="parent-note-modal" class="parent-note-modal" role="dialog" aria-modal="true" aria-labelledby="parent-note-title">
+      <button type="button" id="btn-close-parent-note" class="modal-close-btn" aria-label="关闭爸爸妈妈的一封信">×</button>
+      <div class="envelope-seal" aria-hidden="true">💌</div>
+      <h2 id="parent-note-title" class="parent-note-title"></h2>
+      <p id="parent-note-greeting" class="parent-note-greeting"></p>
+      <div id="parent-note-paragraphs" class="parent-note-paragraphs"></div>
+      <p id="parent-note-signature" class="parent-note-signature"></p>
+    </section>
+  </div>
+
+  <div id="drawer-backdrop" class="drawer-backdrop hidden" aria-hidden="true"></div>
+  <aside id="parent-drawer" class="parent-drawer" role="dialog" aria-modal="true" aria-label="故事目录与设置" aria-hidden="true">
+    <div class="drawer-header">
+      <div>
+        <h2 class="drawer-title">📑 故事目录与设置</h2>
+        <p class="drawer-subtitle">快捷键 <kbd>G</kbd> 开关 · <kbd>Z</kbd> 凑近立体特写 · <kbd>←</kbd> <kbd>→</kbd> 翻页</p>
+      </div>
+      <button type="button" id="btn-close-drawer" class="drawer-close-btn" aria-label="关闭目录与设置">×</button>
+    </div>
+
+    <div class="drawer-body">
+      <section class="drawer-section" aria-label="配音风格选择">
+        <div class="section-head">
+          <h3>🎧 配音风格选择</h3>
+          <span id="drawer-voice-badge" class="mini-badge">当前：MiMo 动漫版</span>
+        </div>
+        <div class="voice-switch-grid" role="radiogroup" aria-label="配音音色包选择">
+          <button type="button" class="voice-pack-btn" data-voice-pack="mimo" role="radio" aria-checked="true">
+            <span class="voice-pack-icon" aria-hidden="true">🌟</span>
+            <span class="voice-pack-meta">
+              <strong>小米 MiMo 动漫版</strong>
+              <small>少儿动画配音 &amp; 双语真唱生日歌</small>
+            </span>
+          </button>
+          <button type="button" class="voice-pack-btn" data-voice-pack="edge" role="radio" aria-checked="false">
+            <span class="voice-pack-icon" aria-hidden="true">🎙️</span>
+            <span class="voice-pack-meta">
+              <strong>Edge 卡通版</strong>
+              <small>童声角色区分 &amp; 双语真唱生日歌</small>
+            </span>
+          </button>
+        </div>
+        <p id="drawer-voice-status" class="drawer-status-line"></p>
+      </section>
+
+      <section class="drawer-section" aria-label="故事进度管理">
+        <div class="section-head">
+          <h3>🛠️ 故事进度管理</h3>
+          <span id="drawer-hash-display" class="mini-badge">第 1 / 8 页</span>
+        </div>
+        <div class="drawer-tools-row">
+          <button type="button" id="btn-reset-current-page" class="tool-btn">🔄 重置当前页交互</button>
+          <button type="button" id="btn-reset-all-progress" class="tool-btn tool-btn-subtle">🧹 重置全书进度</button>
+        </div>
+      </section>
+
+      <section class="drawer-section" aria-label="全书 8 页目录">
+        <div class="section-head">
+          <h3>📖 8 页绘本目录跳转</h3>
+          <span id="drawer-treasure-summary" class="mini-badge">宝物 0 / 4</span>
+        </div>
+        <div id="drawer-page-list" class="drawer-page-list"></div>
+      </section>
+
+      <section class="drawer-section" aria-label="当前页配音台词与试听">
+        <div class="section-head">
+          <h3>🗣️ 当前页配音台词 &amp; 音频状态</h3>
+          <span id="drawer-audio-state" class="mini-badge">待解锁</span>
+        </div>
+        <div id="drawer-voice-list" class="drawer-voice-list"></div>
+      </section>
+    </div>
+  </aside>
+
+  <script src="./story-data.js?v=13"></script>
+  <script src="./sfx.js?v=13"></script>
+  <script type="module" src="./popup-book3d.js?v=13"></script>
+  <script src="./app.js?v=13"></script>
+</body>
+</html>
