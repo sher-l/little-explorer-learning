@@ -1084,6 +1084,7 @@ var engine = {
   p2Parcel: null,
   p2Delivery: null,
   p3Balloons: [],
+  p3LastAutoSpeakTs: 0,
   p4Badges: [],
   p5Bricks: [],
   p5Car: null,
@@ -2281,6 +2282,7 @@ function clearCurrentDiorama() {
   engine.p2Parcel = null;
   engine.p2Delivery = null;
   engine.p3Balloons = [];
+  engine.p3LastAutoSpeakTs = 0;
   engine.p4Badges = [];
   engine.p5Bricks = [];
   engine.p5Car = null;
@@ -3164,7 +3166,7 @@ function buildP2GiftBox(pageNum, actor, pageState) {
         active: true,
         phase: "waiting",
         startTs: 0,
-        duration: 2450,
+        duration: 3400,
         startX: -2.75,
         startY: 1.85,
         startZ: -0.92,
@@ -4652,6 +4654,16 @@ function landP2DeliveryNow(ts) {
   if (window.Sfx && typeof window.Sfx.playPop === "function") {
     window.Sfx.playPop(1);
   }
+  var jettLandSt = engine.standees["p2-jett"];
+  if (jettLandSt && !jettLandSt.orbitBurst) {
+    jettLandSt.actionBurst = { kind: "jump", startTs: ts, duration: 540 };
+  }
+  if (!dl.skipLandSpeech && !dl.landedNotified) {
+    dl.landedNotified = true;
+    if (typeof engine.callbacks.onInteractItem === "function") {
+      engine.callbacks.onInteractItem(2, "p2-delivery-landed", "p2-parcel-box");
+    }
+  }
 }
 
 function updateStandees(t, ts, dt) {
@@ -5183,6 +5195,10 @@ function updatePageProps(t, ts, dt) {
             catcher.actionBurst = { kind: "jump", startTs: ts, duration: 500 };
             setActorFacing(catcher, bl.curX - catcher.curX, ts);
             spawnParticleBurst3D(bl.curX, bl.curY - 0.15, bl.curZ, 8, "confetti");
+            if (ts - (engine.p3LastAutoSpeakTs || 0) >= 6500 && typeof engine.callbacks.onInteractItem === "function") {
+              engine.p3LastAutoSpeakTs = ts;
+              engine.callbacks.onInteractItem(3, "p3-auto-bounce", catcher.config.id);
+            }
           }
         }
       }
@@ -5966,6 +5982,7 @@ function handleCanvasClick(ev) {
   if (info.kind === "parcel") {
     var nowP2 = performance.now();
     if (engine.p2Delivery && engine.p2Delivery.active) {
+      engine.p2Delivery.skipLandSpeech = true;
       landP2DeliveryNow(nowP2);
     }
     if (engine.p2Parcel && !engine.p2Parcel.flightAnim) {
@@ -6339,6 +6356,19 @@ var KikiPopup3D = {
       return false;
     }
     commandActorMove(st, Number(x) || 0, Number(z) || 0, true);
+    return true;
+  },
+
+  nudgeActor: function (actorId) {
+    if (!engine.ready || !actorId) {
+      return false;
+    }
+    var st = engine.standees[actorId];
+    if (!st || st.orbitBurst) {
+      return false;
+    }
+    st.actionBurst = { kind: "jump", startTs: performance.now(), duration: 520 };
+    spawnParticleBurst3D(st.curX, pageSurfaceY(st.curX) + st.hWorld * 0.65, st.curZ, 8, "confetti");
     return true;
   },
 

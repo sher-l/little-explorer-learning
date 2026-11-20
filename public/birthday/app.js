@@ -153,6 +153,8 @@
     swipeJustHappened: false,
     actorNodes: {},
     actorVoiceTracker: {},
+    pendingSceneVoice: null,
+    pageAutoSpoken: {},
     pageSessionToken: 0
   };
 
@@ -182,7 +184,7 @@
     if (!cleaned || cleaned.indexOf("data:") === 0 || cleaned.indexOf("blob:") === 0) {
       return cleaned;
     }
-    var ver = (DATA.bookMeta && DATA.bookMeta.assetVersion) || "13";
+    var ver = (DATA.bookMeta && DATA.bookMeta.assetVersion) || "14";
     if (cleaned.indexOf("?v=") !== -1 || cleaned.indexOf("&v=") !== -1) {
       return cleaned;
     }
@@ -541,6 +543,7 @@
 
   function stopVoice() {
     state.voicePlaybackToken += 1;
+    state.pendingSceneVoice = null;
     if (state.narrationTimer) {
       global.clearTimeout(state.narrationTimer);
       state.narrationTimer = null;
@@ -634,6 +637,121 @@
     );
   }
 
+  function findActorById(page, actorId) {
+    if (!page || !Array.isArray(page.actors) || !actorId) {
+      return null;
+    }
+    for (var i = 0; i < page.actors.length; i += 1) {
+      if (page.actors[i].id === actorId) {
+        return page.actors[i];
+      }
+    }
+    return null;
+  }
+
+  function queueOrPlaySceneVoice(pageNum, opts) {
+    var cfg = opts || {};
+    if (state.currentPage !== pageNum || !state.audioUnlocked) {
+      return false;
+    }
+    var page = getPageByNumber(pageNum);
+    if (!page) {
+      return false;
+    }
+    var isNarrating = Boolean(page.narrationAudio && state.currentVoiceRawPath === page.narrationAudio && !voiceAudio.paused);
+    var isAnyVoiceBusy = Boolean(state.currentVoiceRawPath && !voiceAudio.paused);
+    if (isNarrating || isAnyVoiceBusy) {
+      if (cfg.priority === "high" && isNarrating) {
+        state.pendingSceneVoice = {
+          pageNum: pageNum,
+          actorId: cfg.actorId || null,
+          rawPath: cfg.rawPath || null
+        };
+      }
+      return false;
+    }
+    var actor = cfg.actorId ? findActorById(page, cfg.actorId) : null;
+    var ok = false;
+    if (cfg.rawPath) {
+      playVoice(cfg.rawPath);
+      ok = true;
+    } else if (actor) {
+      ok = playActorVoiceSmart(actor, pageNum);
+    }
+    if (ok && cfg.actorId && global.KikiPopup3D && typeof global.KikiPopup3D.nudgeActor === "function") {
+      global.KikiPopup3D.nudgeActor(cfg.actorId);
+    }
+    return ok;
+  }
+
+  function runPagePostNarrationFollowUp(pageNum) {
+    if (state.currentPage !== pageNum || !state.audioUnlocked) {
+      return;
+    }
+    var page = getPageByNumber(pageNum);
+    if (!page) {
+      return;
+    }
+    if (state.pendingSceneVoice && state.pendingSceneVoice.pageNum === pageNum) {
+      var queued = state.pendingSceneVoice;
+      state.pendingSceneVoice = null;
+      state.pageAutoSpoken[pageNum] = true;
+      var qActor = queued.actorId ? findActorById(page, queued.actorId) : null;
+      if (queued.rawPath) {
+        playVoice(queued.rawPath);
+      } else if (qActor) {
+        playActorVoiceSmart(qActor, pageNum);
+      }
+      if (queued.actorId && global.KikiPopup3D && typeof global.KikiPopup3D.nudgeActor === "function") {
+        global.KikiPopup3D.nudgeActor(queued.actorId);
+      }
+      return;
+    }
+    if (state.pageAutoSpoken[pageNum] || (state.currentVoiceRawPath && !voiceAudio.paused)) {
+      return;
+    }
+
+    var pickActorId = null;
+    var explicitPath = null;
+    if (pageNum === 1) {
+      pickActorId = "p1-kiki";
+      explicitPath = "./assets/audio/kiki-1.mp3";
+    } else if (pageNum === 2 && !state.pageState.p2.opened) {
+      // Wait for parcel delivery completion if P2 parcel is still flying in
+      if (!state.pageAutoSpoken["p2-landed"]) {
+        return;
+      }
+      pickActorId = "p2-jett";
+      explicitPath = "./assets/audio/p2-jett.mp3";
+    } else if (pageNum === 3 && !state.pageState.p3.won) {
+      pickActorId = "p3-bluey";
+      explicitPath = "./assets/audio/p3-bluey.mp3";
+    } else if (pageNum === 4 && !state.pageState.p4.cheered) {
+      pickActorId = "p4-chase";
+      explicitPath = "./assets/audio/chase-2.mp3";
+    } else if (pageNum === 5 && !state.pageState.p5.won) {
+      pickActorId = "p5-minifig-1";
+      explicitPath = "./assets/audio/lego-2.mp3";
+      if (typeof Sfx.playCarHorn === "function") {
+        Sfx.playCarHorn();
+      }
+    } else if (pageNum === 6 && !state.pageState.p6.lightsOn) {
+      pickActorId = "p6-dizzy";
+      explicitPath = "./assets/audio/dizzy-3.mp3";
+    } else if (pageNum === 7 && !state.pageState.p7.allBlown) {
+      pickActorId = "p7-bingo";
+      explicitPath = "./assets/audio/bingo-3.mp3";
+    }
+    if (!pickActorId || !explicitPath) {
+      return;
+    }
+    state.pageAutoSpoken[pageNum] = true;
+    playVoice(explicitPath, { silentOnMissing: true });
+    if (global.KikiPopup3D && typeof global.KikiPopup3D.nudgeActor === "function") {
+      global.KikiPopup3D.nudgeActor(pickActorId);
+    }
+  }
+
   function schedulePageNarration(page) {
     if (state.narrationTimer) {
       global.clearTimeout(state.narrationTimer);
@@ -647,7 +765,17 @@
       if (state.currentPage !== targetPageNum) {
         return;
       }
-      playVoice(page.narrationAudio, { silentOnMissing: true });
+      var expectedToken = state.voicePlaybackToken + 1;
+      playVoice(page.narrationAudio, {
+        silentOnMissing: true,
+        onEnded: function () {
+          global.setTimeout(function () {
+            if (state.currentPage === targetPageNum && state.voicePlaybackToken === expectedToken) {
+              runPagePostNarrationFollowUp(targetPageNum);
+            }
+          }, 180);
+        }
+      });
     }, 320);
   }
 
@@ -2140,6 +2268,7 @@
 
     if (pageNum === 1 && kind === "p1-flower") {
       Sfx.playSparkle();
+      queueOrPlaySceneVoice(1, { actorId: "p1-kiki", priority: "low" });
       return;
     }
 
@@ -2151,11 +2280,25 @@
 
     if (pageNum === 7 && kind === "p7-treat") {
       Sfx.playPop(2);
+      var treatActor = itemId && String(itemId).indexOf("macarons") !== -1 ? "p7-marshall" : "p7-kiki";
+      queueOrPlaySceneVoice(7, { actorId: treatActor, priority: "low" });
+      return;
+    }
+
+    if (pageNum === 2 && kind === "p2-delivery-landed") {
+      state.pageAutoSpoken["p2-landed"] = true;
+      if (!state.pageState.p2.opened) {
+        if (queueOrPlaySceneVoice(2, { actorId: "p2-jett", rawPath: "./assets/audio/p2-jett.mp3", priority: "high" })) {
+          state.pageAutoSpoken[2] = true;
+        }
+      }
       return;
     }
 
     if (pageNum === 2 && kind === "parcel") {
       var p2 = state.pageState.p2;
+      state.pendingSceneVoice = null;
+      state.pageAutoSpoken[2] = true;
       p2.parcelTaps = 2;
       p2.opened = true;
       Sfx.playBoxOpen();
@@ -2173,6 +2316,13 @@
       return;
     }
 
+    if (pageNum === 3 && kind === "p3-auto-bounce") {
+      if (!state.pageState.p3.won) {
+        queueOrPlaySceneVoice(3, { actorId: itemId || "p3-bluey", priority: "low" });
+      }
+      return;
+    }
+
     if (pageNum === 3 && kind === "balloon") {
       var p3 = state.pageState.p3;
       p3.bounces += 1;
@@ -2186,9 +2336,9 @@
           playVoice(bWinVoice.audio);
         }
       } else {
-        var bVoice = findVoiceById(page, p3.bounces % 2 === 1 ? "p3-bluey" : "p3-bingo");
-        if (bVoice) {
-          playVoice(bVoice.audio);
+        var bActor = findActorById(page, p3.bounces % 2 === 1 ? "p3-bluey" : "p3-bingo");
+        if (bActor) {
+          playActorVoiceSmart(bActor, 3);
         }
       }
       return;
@@ -2216,9 +2366,9 @@
           }
         }, 560);
       } else {
-        var click5 = findVoiceById(page, "p5-lego-click");
-        if (click5) {
-          playVoice(click5.audio);
+        var fig5 = findActorById(page, "p5-minifig-1");
+        if (fig5) {
+          playActorVoiceSmart(fig5, 5);
         }
       }
       return;
@@ -2231,10 +2381,10 @@
         Sfx.playLegoSnap();
       }
       showToast("🚗 嘀嘀！乐高积木小车开来送积木啦！");
-      var carVoice = findVoiceById(page, "p5-lego-click");
+      var carFig = findActorById(page, "p5-minifig-3");
       var isNarratingMain = state.currentVoiceRawPath === page.narrationAudio && !voiceAudio.paused;
-      if (carVoice && !isNarratingMain) {
-        playVoice(carVoice.audio);
+      if (carFig && !isNarratingMain) {
+        playActorVoiceSmart(carFig, 5);
       }
       return;
     }
@@ -4428,6 +4578,7 @@
 
     stopVoice();
     state.actorVoiceTracker = {};
+    state.pageAutoSpoken = {};
     if (state.audioUnlocked) {
       Sfx.playPageTurn();
     }

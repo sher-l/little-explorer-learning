@@ -1,7 +1,7 @@
 {
   "version": "4.0.0",
   "pack": "mimo",
-  "generatedAt": "2026-11-20T07:43:55Z",
+  "generatedAt": "2026-11-20T12:13:01Z",
   "files": {
     "bgm-gentle.mp3": {
       "durationSec": 48.0,
@@ -12,11 +12,11 @@
       "loop": false
     },
     "p1-narrator.mp3": {
-      "durationSec": 17.587,
+      "durationSec": 17.602,
       "loop": false
     },
     "p2-narrator.mp3": {
-      "durationSec": 14.576,
+      "durationSec": 9.236,
       "loop": false
     },
     "p3-narrator.mp3": {
@@ -40,139 +40,139 @@
       "loop": false
     },
     "p8-outro.mp3": {
-      "durationSec": 14.273,
+      "durationSec": 15.653,
       "loop": false
     },
     "p2-unbox.mp3": {
-      "durationSec": 9.688,
+      "durationSec": 13.91,
       "loop": false
     },
     "p3-balloon-win.mp3": {
-      "durationSec": 6.114,
+      "durationSec": 11.965,
       "loop": false
     },
     "p4-team-cheer.mp3": {
-      "durationSec": 5.965,
+      "durationSec": 10.692,
       "loop": false
     },
     "p6-party-light.mp3": {
-      "durationSec": 8.38,
+      "durationSec": 12.594,
       "loop": false
     },
     "p7-blow-cheer.mp3": {
-      "durationSec": 5.182,
+      "durationSec": 8.017,
       "loop": false
     },
     "kiki-1.mp3": {
-      "durationSec": 2.171,
+      "durationSec": 3.611,
       "loop": false
     },
     "kiki-2.mp3": {
-      "durationSec": 3.98,
+      "durationSec": 5.296,
       "loop": false
     },
     "kiki-3.mp3": {
-      "durationSec": 3.87,
+      "durationSec": 5.998,
       "loop": false
     },
     "p2-jett.mp3": {
-      "durationSec": 5.101,
+      "durationSec": 9.912,
       "loop": false
     },
     "jett-2.mp3": {
-      "durationSec": 3.47,
+      "durationSec": 5.615,
       "loop": false
     },
     "jett-3.mp3": {
-      "durationSec": 3.087,
+      "durationSec": 4.928,
       "loop": false
     },
     "p2-dizzy.mp3": {
-      "durationSec": 3.829,
+      "durationSec": 5.468,
       "loop": false
     },
     "dizzy-2.mp3": {
-      "durationSec": 3.487,
+      "durationSec": 4.674,
       "loop": false
     },
     "dizzy-3.mp3": {
-      "durationSec": 2.954,
+      "durationSec": 4.017,
       "loop": false
     },
     "p3-bluey.mp3": {
-      "durationSec": 3.655,
+      "durationSec": 4.885,
       "loop": false
     },
     "bluey-2.mp3": {
-      "durationSec": 3.31,
+      "durationSec": 4.37,
       "loop": false
     },
     "bluey-3.mp3": {
-      "durationSec": 2.857,
+      "durationSec": 6.653,
       "loop": false
     },
     "p3-bingo.mp3": {
-      "durationSec": 4.39,
+      "durationSec": 6.448,
       "loop": false
     },
     "bingo-2.mp3": {
-      "durationSec": 2.98,
+      "durationSec": 4.451,
       "loop": false
     },
     "bingo-3.mp3": {
-      "durationSec": 4.949,
+      "durationSec": 7.392,
       "loop": false
     },
     "p4-chase.mp3": {
-      "durationSec": 4.819,
+      "durationSec": 8.721,
       "loop": false
     },
     "chase-2.mp3": {
-      "durationSec": 2.455,
+      "durationSec": 3.311,
       "loop": false
     },
     "chase-3.mp3": {
-      "durationSec": 3.186,
+      "durationSec": 3.793,
       "loop": false
     },
     "p4-skye.mp3": {
-      "durationSec": 4.793,
+      "durationSec": 6.407,
       "loop": false
     },
     "skye-2.mp3": {
-      "durationSec": 2.953,
+      "durationSec": 4.79,
       "loop": false
     },
     "skye-3.mp3": {
-      "durationSec": 3.996,
+      "durationSec": 5.605,
       "loop": false
     },
     "p4-marshall.mp3": {
-      "durationSec": 4.444,
+      "durationSec": 6.446,
       "loop": false
     },
     "marshall-2.mp3": {
-      "durationSec": 3.387,
+      "durationSec": 4.404,
       "loop": false
     },
     "marshall-3.mp3": {
-      "durationSec": 3.614,
+      "durationSec": 4.282,
       "loop": false
     },
     "p5-lego-click.mp3": {
-      "durationSec": 3.107,
+      "durationSec": 5.127,
       "loop": false
     },
     "lego-2.mp3": {
-      "durationSec": 3.418,
+      "durationSec": 5.422,
       "loop": false
     },
     "lego-3.mp3": {
-      "durationSec": 3.692,
+      "durationSec": 6.13,
       "loop": false
     },
     "p5-lego-win.mp3": {
-      "durationSec": 7.414,
+      "durationSec": 9.35,
       "loop": false
     }
   },

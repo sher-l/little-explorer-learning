@@ -67,7 +67,7 @@
       childNameEn: "KIKI",
       birthDate: "2021-11-18",
       age: 5,
-      assetVersion: "13",
+      assetVersion: "14",
       deploySubpath: "/little-explorer-learning/birthday/",
       audioManifestPath: "./assets/audio/audio-manifest.json",
       spritesMetaPath: "./assets/sprites/sprites-meta.json",
@@ -312,28 +312,28 @@
             character: "旁白姐姐",
             audio: "./assets/audio/p2-narrator.mp3",
             voice: "冰糖 · 幼教",
-            text: "听，天空传来呼呼的风声！超级飞侠乐迪正抱着亮黄色的超级快递箱，和粉色小爱一起飞进花园啦！快等乐迪把快递箱放稳，再点一点箱子拆开看看吧！"
+            text: "听，天空传来呼呼的风声！超级飞侠乐迪正抱着亮黄色的超级快递箱，和粉色小爱一起飞进花园啦！"
           },
           {
             id: "p2-jett",
             character: "乐迪 Jett",
             audio: "./assets/audio/p2-jett.mp3",
-            voice: "苏打",
-            text: "我是乐迪！每时每刻，准时送达！祝 Kiki 五岁生日快乐！"
+            voice: "动漫原声 · 乐迪",
+            text: "我是乐迪！每时每刻，准时送达！超级快递箱我已经稳稳放好啦，快点点箱子拆开看看吧！"
           },
           {
             id: "p2-dizzy",
             character: "小爱 Dizzy",
             audio: "./assets/audio/p2-dizzy.mp3",
-            voice: "冰糖",
+            voice: "动漫原声 · 小爱",
             text: "哈喽 Kiki，我是小爱！粉粉的祝福全部送给你！"
           },
           {
             id: "p2-unbox",
             character: "拆箱惊喜",
             audio: "./assets/audio/p2-unbox.mp3",
-            voice: "冰糖 · 幼教",
-            text: "哇塞，快看！箱子里飞出了一顶闪闪发光的金色五岁小皇冠！给小寿星 Kiki 戴上，真像小公主！"
+            voice: "动漫原声 · 小爱 & KIKI",
+            text: "哇塞，快看！箱子里飞出了一顶闪闪发光的金色五岁小皇冠！哇，戴上金色小皇冠，我就像小小生日公主啦！"
           }
         ]
       },
@@ -432,22 +432,22 @@
             id: "p3-bluey",
             character: "布鲁伊 Bluey",
             audio: "./assets/audio/p3-bluey.mp3",
-            voice: "茉莉",
+            voice: "动漫原声 · 布鲁伊",
             text: "太好玩啦！千万别让彩色气球掉到地上哦！"
           },
           {
             id: "p3-bingo",
             character: "宾果 Bingo",
             audio: "./assets/audio/p3-bingo.mp3",
-            voice: "冰糖",
+            voice: "动漫原声 · 宾果",
             text: "嘻嘻，我是宾果！我也想要一直把彩色气球颠高高！"
           },
           {
             id: "p3-balloon-win",
             character: "派对欢呼",
             audio: "./assets/audio/p3-balloon-win.mp3",
-            voice: "茉莉",
-            text: "太棒啦！五只彩色气球全都颠得高高的，发光彩虹气球束送给 Kiki！"
+            voice: "动漫原声 · 布鲁伊 & 宾果",
+            text: "太棒啦！五只彩色气球都飞得好高呀！发光的彩虹气球，这是送给 Kiki 的礼物！"
           }
         ]
       },
@@ -599,28 +599,28 @@
             id: "p4-chase",
             character: "阿奇 Chase",
             audio: "./assets/audio/p4-chase.mp3",
-            voice: "苏打",
-            text: "汪汪队阿奇报到！生日保护任务包在我身上，Kiki 生日快乐！"
+            voice: "动漫原声 · 阿奇",
+            text: "汪汪队阿奇报到！祝 Kiki 生日快乐，保护任务交给我！"
           },
           {
             id: "p4-skye",
             character: "天天 Skye",
             audio: "./assets/audio/p4-skye.mp3",
-            voice: "茉莉",
-            text: "飞上云霄！我是天天，祝五岁的 Kiki 自由快乐地飞翔！"
+            voice: "动漫原声 · 天天",
+            text: "飞上云霄！我是天天！祝小寿星 Kiki 自由快乐地飞翔！"
           },
           {
             id: "p4-marshall",
             character: "毛毛 Marshall",
             audio: "./assets/audio/p4-marshall.mp3",
-            voice: "苏打",
-            text: "哈哈，我来啦，我是毛毛！祝 Kiki 吃好多美味草莓蛋糕！"
+            voice: "动漫原声 · 毛毛",
+            text: "哈哈，我来啦，我是毛毛！祝 Kiki 吃好多香甜草莓蛋糕！"
           },
           {
             id: "p4-team-cheer",
             character: "汪汪队合声",
             audio: "./assets/audio/p4-team-cheer.mp3",
-            voice: "苏打 · 茉莉",
+            voice: "动漫原声 · 汪汪队",
             text: "汪汪队出动！没有困难的工作，只有勇敢的狗狗！祝亲爱的 Kiki 五岁生日快乐！"
           }
         ]
@@ -772,14 +772,14 @@
             id: "p5-lego-click",
             character: "乐高小人仔",
             audio: "./assets/audio/p5-lego-click.mp3",
-            voice: "苏打",
+            voice: "动漫原声 · 乐高小人仔",
             text: "咔哒！这块彩色积木拼上去真稳当，加油！"
           },
           {
             id: "p5-lego-win",
             character: "乐高欢呼",
             audio: "./assets/audio/p5-lego-win.mp3",
-            voice: "苏打",
+            voice: "动漫原声 · 乐高小人仔",
             text: "太棒啦！五岁乐高大城堡终于搭好啦！祝 Kiki 成为最厉害的小小建筑师！"
           }
         ]
@@ -801,7 +801,7 @@
         interactionHint: "点击帐篷顶端的魔法星光灯串，看乐迪和小爱掠空逐盏点亮灯串并照耀中央宝物台！",
         rewardTreasureId: null,
         actors: [
-          { id: "p6-jett", role: "jett", label: "乐迪", sprite: "jett.webp", x: 14, y: 27, heightPct: 18, anchor: "center", idle: "float-left", zIndex: 16, clickable: true, bubbleSide: "bottom", audio: "./assets/audio/p2-jett.mp3", audioPool: ["./assets/audio/p2-jett.mp3", "./assets/audio/jett-2.mp3", "./assets/audio/jett-3.mp3"], feedbackText: "乐迪：花园帐篷大厅准备就绪！", action: "actor-jump" },
+          { id: "p6-jett", role: "jett", label: "乐迪", sprite: "jett.webp", x: 14, y: 27, heightPct: 18, anchor: "center", idle: "float-left", zIndex: 16, clickable: true, bubbleSide: "bottom", audio: "./assets/audio/jett-2.mp3", audioPool: ["./assets/audio/jett-2.mp3", "./assets/audio/jett-3.mp3"], feedbackText: "乐迪：花园帐篷大厅准备就绪！", action: "actor-jump" },
           { id: "p6-dizzy", role: "dizzy", label: "小爱", sprite: "dizzy.webp", x: 86, y: 27, heightPct: 18, anchor: "center", idle: "float-right", zIndex: 16, clickable: true, bubbleSide: "bottom", audio: "./assets/audio/p2-dizzy.mp3", audioPool: ["./assets/audio/p2-dizzy.mp3", "./assets/audio/dizzy-2.mp3", "./assets/audio/dizzy-3.mp3"], feedbackText: "小爱：点亮星光灯肯定超梦幻！", action: "actor-jump" },
           { id: "p6-bluey", role: "bluey", label: "布鲁伊", sprite: "bluey.webp", x: 14, y: 77, heightPct: 29, anchor: "bottom", idle: "bob", zIndex: 14, clickable: true, bubbleSide: "top", audio: "./assets/audio/p3-bluey.mp3", audioPool: ["./assets/audio/p3-bluey.mp3", "./assets/audio/bluey-2.mp3", "./assets/audio/bluey-3.mp3"], feedbackText: "布鲁伊：太棒啦！大家都集合啦！", action: "actor-jump" },
           { id: "p6-bingo", role: "bingo", label: "宾果", sprite: "bingo.webp", x: 24, y: 77, heightPct: 24, anchor: "bottom", idle: "sway", zIndex: 14, clickable: true, bubbleSide: "top", audio: "./assets/audio/p3-bingo.mp3", audioPool: ["./assets/audio/p3-bingo.mp3", "./assets/audio/bingo-2.mp3", "./assets/audio/bingo-3.mp3"], feedbackText: "宾果：派对宝物台好漂亮呀！", action: "actor-jump" },
@@ -842,8 +842,8 @@
             id: "p6-party-light",
             character: "全场好朋友合声",
             audio: "./assets/audio/p6-party-light.mp3",
-            voice: "冰糖 · 苏打",
-            text: "哇，星光彩灯全都亮起来啦！派对宝物台好梦幻呀！祝 Kiki 五岁生日快乐，派对正式开始！"
+            voice: "动漫原声 · 小爱 & 乐迪",
+            text: "哇，星光彩灯全都亮起来啦！魔法宝物台好梦幻呀！我们一起祝 Kiki 五岁生日快乐，派对正式开始！"
           }
         ]
       },
@@ -898,7 +898,7 @@
             id: "p7-blow-cheer",
             character: "全员欢呼",
             audio: "./assets/audio/p7-blow-cheer.mp3",
-            voice: "冰糖 · 苏打",
+            voice: "动漫原声 · KIKI & 阿奇",
             text: "耶！五根生日蜡烛全部吹灭啦！祝亲爱的 Kiki 五岁生日快乐！"
           }
         ]
@@ -920,7 +920,7 @@
         interactionHint: "点击夜空随时加放爱心烟花！点击“🎶 再唱一遍”或打开“💌 爸爸妈妈的信”珍藏美好祝福！",
         rewardTreasureId: null,
         actors: [
-          { id: "p8-jett", role: "jett", label: "乐迪", sprite: "jett.webp", x: 24, y: 27, heightPct: 18, anchor: "center", idle: "glide-patrol-left", zIndex: 18, clickable: true, bubbleSide: "bottom", audio: "./assets/audio/p2-jett.mp3", audioPool: ["./assets/audio/p2-jett.mp3", "./assets/audio/jett-2.mp3", "./assets/audio/jett-3.mp3"], feedbackText: "乐迪：为 KIKI 在夜空拉出彩虹彩带！", action: "jett-fly-loop" },
+          { id: "p8-jett", role: "jett", label: "乐迪", sprite: "jett.webp", x: 24, y: 27, heightPct: 18, anchor: "center", idle: "glide-patrol-left", zIndex: 18, clickable: true, bubbleSide: "bottom", audio: "./assets/audio/jett-2.mp3", audioPool: ["./assets/audio/jett-2.mp3", "./assets/audio/jett-3.mp3"], feedbackText: "乐迪：为 KIKI 在夜空拉出彩虹彩带！", action: "jett-fly-loop" },
           { id: "p8-dizzy", role: "dizzy", label: "小爱", sprite: "dizzy.webp", x: 76, y: 27, heightPct: 17, anchor: "center", idle: "glide-patrol-right", zIndex: 18, clickable: true, bubbleSide: "bottom", audio: "./assets/audio/p2-dizzy.mp3", audioPool: ["./assets/audio/p2-dizzy.mp3", "./assets/audio/dizzy-2.mp3", "./assets/audio/dizzy-3.mp3"], feedbackText: "小爱：满天星光都是给 KIKI 的祝福！", action: "dizzy-spin-hearts" },
           { id: "p8-bluey", role: "bluey", label: "布鲁伊", sprite: "bluey.webp", x: 11, y: 77, heightPct: 29, anchor: "bottom", idle: "dance", zIndex: 14, clickable: true, bubbleSide: "top", audio: "./assets/audio/bluey-3.mp3", audioPool: ["./assets/audio/bluey-3.mp3", "./assets/audio/p3-bluey.mp3", "./assets/audio/bluey-2.mp3"], feedbackText: "布鲁伊：一起摇摆合唱生日快乐歌！", action: "actor-jump" },
           { id: "p8-bingo", role: "bingo", label: "宾果", sprite: "bingo.webp", x: 21, y: 77, heightPct: 24, anchor: "bottom", idle: "dance-alt", zIndex: 14, clickable: true, bubbleSide: "top", audio: "./assets/audio/bingo-3.mp3", audioPool: ["./assets/audio/bingo-3.mp3", "./assets/audio/p3-bingo.mp3", "./assets/audio/bingo-2.mp3"], feedbackText: "宾果：啦啦啦～祝 KIKI 五岁生日快乐！", action: "actor-jump" },
@@ -968,7 +968,7 @@
             character: "旁白姐姐",
             audio: "./assets/audio/p8-outro.mp3",
             voice: "冰糖 · 幼教",
-            text: "五岁愿望顺着星光飞向夜空啦！绚丽的烟花为你绽放，好朋友们一起唱起生日快乐歌！亲爱的林缨祈，Kiki，五岁生日快乐，愿你永远快乐勇敢！"
+            text: "五岁愿望顺着星光飞向夜空啦！璀璨的烟花为你绽放，好朋友们一起唱起生日快乐歌！亲爱的林缨祈，Kiki，五岁生日快乐，愿你永远快乐勇敢！"
           },
           {
             id: "happy-birthday-en",
