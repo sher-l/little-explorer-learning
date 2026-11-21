@@ -1079,6 +1079,7 @@ var engine = {
 
   // 页面专有 3D 物件引用
   p1Flowers: [],
+  scenerySways: [],
   p1ButterflyFocus: null,
   p1EnteringGate: null,
   p2Parcel: null,
@@ -2281,6 +2282,7 @@ function clearCurrentDiorama() {
   engine.interactables = [];
   engine.hoveredObj = null;
   engine.p1Flowers = [];
+  engine.scenerySways = [];
   engine.p1ButterflyFocus = null;
   engine.p1EnteringGate = null;
   engine.p2Parcel = null;
@@ -2727,6 +2729,571 @@ function addStandeeActor(pageNum, actor, idx, total, pageState, token) {
       buildP7PartyTableProps(st);
     }
   });
+}
+
+/* ---------------- 全书多层 3D 纸艺立体布景（卡片树/灌木/栅栏/云朵/彩旗/乐高树/灯笼） ---------------- */
+
+function applyPaperDieCutBorder(tmpCanvas, borderPx) {
+  var b = typeof borderPx === "number" ? borderPx : 4;
+  var W = tmpCanvas.width;
+  var H = tmpCanvas.height;
+  var sil = document.createElement("canvas");
+  sil.width = W;
+  sil.height = H;
+  var sctx = sil.getContext("2d");
+  sctx.drawImage(tmpCanvas, 0, 0);
+  sctx.globalCompositeOperation = "source-in";
+  sctx.fillStyle = "#fffaf0";
+  sctx.fillRect(0, 0, W, H);
+  var out = document.createElement("canvas");
+  out.width = W;
+  out.height = H;
+  var octx = out.getContext("2d");
+  for (var s = 0; s < 16; s += 1) {
+    var a = (s / 16) * Math.PI * 2;
+    octx.drawImage(sil, Math.cos(a) * b, Math.sin(a) * b);
+  }
+  octx.drawImage(tmpCanvas, 0, 0);
+  return canvasTex(out);
+}
+
+function makePaperTreeTexture(themeKey) {
+  var W = 280;
+  var H = 360;
+  var tmp = document.createElement("canvas");
+  tmp.width = W;
+  tmp.height = H;
+  var t = tmp.getContext("2d");
+
+  var PAL = {
+    spring: {
+      trunk: "#7a4f36", trunkHi: "#a3704f",
+      c1: "#5ea856", c2: "#8fd47c", c3: "#b8e994",
+      accent: "#ff9ebb", accent2: "#ffd6e4", isPine: false, lights: false
+    },
+    sunny: {
+      trunk: "#784c32", trunkHi: "#a6714d",
+      c1: "#499c4c", c2: "#7ad068", c3: "#a7e883",
+      accent: "#ffd447", accent2: "#fff2a6", isPine: false, lights: false
+    },
+    party: {
+      trunk: "#7a4e34", trunkHi: "#9e6b4a",
+      c1: "#3d945b", c2: "#6fcf81", c3: "#9be79c",
+      accent: "#ff6f9c", accent2: "#ffbe0b", isPine: false, lights: true
+    },
+    pine: {
+      trunk: "#6a422b", trunkHi: "#8e5c3e",
+      c1: "#2f744c", c2: "#4aa167", c3: "#76c989",
+      accent: "#a8e6b4", accent2: "#d8f8de", isPine: true, lights: false
+    },
+    "night-lights": {
+      trunk: "#553b4a", trunkHi: "#755264",
+      c1: "#34685e", c2: "#508f7b", c3: "#75b699",
+      accent: "#ffdf78", accent2: "#ffa8c8", isPine: false, lights: true
+    },
+    "starry-night": {
+      trunk: "#4b3859", trunkHi: "#6d527d",
+      c1: "#2b4d6e", c2: "#426f96", c3: "#6396b8",
+      accent: "#ffe066", accent2: "#ffd1dc", isPine: false, lights: true
+    }
+  }[themeKey || "spring"];
+
+  // 树干与分枝（暖棕描边 + 手绘渐变）
+  t.lineCap = "round";
+  t.lineJoin = "round";
+  var tg = t.createLinearGradient(116, 200, 164, 344);
+  tg.addColorStop(0, PAL.trunkHi);
+  tg.addColorStop(1, PAL.trunk);
+  t.fillStyle = tg;
+  t.strokeStyle = "#523222";
+  t.lineWidth = 4;
+  t.beginPath();
+  t.moveTo(124, 175);
+  t.quadraticCurveTo(132, 265, 108, 346);
+  t.lineTo(172, 346);
+  t.quadraticCurveTo(148, 265, 156, 175);
+  t.closePath();
+  t.fill();
+  t.stroke();
+
+  t.strokeStyle = PAL.trunk;
+  t.lineWidth = 10;
+  t.beginPath();
+  t.moveTo(138, 224);
+  t.quadraticCurveTo(106, 188, 92, 156);
+  t.moveTo(144, 214);
+  t.quadraticCurveTo(176, 180, 192, 148);
+  t.stroke();
+
+  if (PAL.isPine) {
+    // 层叠水彩松针冠
+    var tiers = [
+      { y: 245, w: 102, h: 92, c: PAL.c1 },
+      { y: 185, w: 86, h: 86, c: PAL.c2 },
+      { y: 125, w: 68, h: 84, c: PAL.c3 }
+    ];
+    for (var ti = 0; ti < tiers.length; ti += 1) {
+      var tr = tiers[ti];
+      t.fillStyle = tr.c;
+      t.strokeStyle = "#27583a";
+      t.lineWidth = 3.5;
+      t.beginPath();
+      t.moveTo(140, tr.y - tr.h);
+      t.quadraticCurveTo(140 + tr.w * 0.65, tr.y - tr.h * 0.25, 140 + tr.w, tr.y);
+      t.quadraticCurveTo(140, tr.y + 18, 140 - tr.w, tr.y);
+      t.quadraticCurveTo(140 - tr.w * 0.65, tr.y - tr.h * 0.25, 140, tr.y - tr.h);
+      t.closePath();
+      t.fill();
+      t.stroke();
+    }
+  } else {
+    // 蓬松多层水彩树冠
+    var puffs = [
+      [82, 160, 56, PAL.c1],
+      [198, 158, 56, PAL.c1],
+      [140, 146, 68, PAL.c2],
+      [96, 112, 48, PAL.c2],
+      [184, 112, 48, PAL.c2],
+      [140, 82, 54, PAL.c3]
+    ];
+    for (var pi = 0; pi < puffs.length; pi += 1) {
+      var pf = puffs[pi];
+      var g = t.createRadialGradient(pf[0] - pf[2] * 0.25, pf[1] - pf[2] * 0.25, pf[2] * 0.1, pf[0], pf[1], pf[2]);
+      g.addColorStop(0, PAL.c3);
+      g.addColorStop(0.65, pf[3]);
+      g.addColorStop(1, PAL.c1);
+      t.fillStyle = g;
+      t.beginPath();
+      t.arc(pf[0], pf[1], pf[2], 0, Math.PI * 2);
+      t.fill();
+      t.strokeStyle = "rgba(56, 78, 48, 0.35)";
+      t.lineWidth = 2.5;
+      t.stroke();
+    }
+  }
+
+  // 树冠装饰花朵 / 小灯珠
+  var decoSpots = [
+    [92, 118, 8], [136, 68, 9], [186, 118, 8],
+    [74, 162, 7.5], [148, 136, 8.5], [204, 164, 7.5],
+    [116, 168, 7], [168, 164, 7]
+  ];
+  for (var di = 0; di < decoSpots.length; di += 1) {
+    var ds = decoSpots[di];
+    var dCol = di % 2 === 0 ? PAL.accent : PAL.accent2;
+    if (PAL.lights) {
+      var lg = t.createRadialGradient(ds[0], ds[1], 1, ds[0], ds[1], ds[2] * 1.9);
+      lg.addColorStop(0, "#ffffff");
+      lg.addColorStop(0.45, dCol);
+      lg.addColorStop(1, "rgba(255,220,120,0)");
+      t.fillStyle = lg;
+      t.beginPath();
+      t.arc(ds[0], ds[1], ds[2] * 1.9, 0, Math.PI * 2);
+      t.fill();
+    } else {
+      t.fillStyle = dCol;
+      t.beginPath();
+      t.arc(ds[0], ds[1], ds[2], 0, Math.PI * 2);
+      t.fill();
+      t.fillStyle = "rgba(255,255,255,0.65)";
+      t.beginPath();
+      t.arc(ds[0] - 2, ds[1] - 2, ds[2] * 0.35, 0, Math.PI * 2);
+      t.fill();
+    }
+  }
+
+  return applyPaperDieCutBorder(tmp, 5);
+}
+
+function makePaperBushTexture(themeKey) {
+  var W = 256;
+  var H = 170;
+  var tmp = document.createElement("canvas");
+  tmp.width = W;
+  tmp.height = H;
+  var t = tmp.getContext("2d");
+
+  var cols = {
+    spring: ["#4e9e4f", "#7cd470", "#ff85b3", "#ffe066"],
+    sunny: ["#439a4b", "#77cf69", "#ffd23f", "#ffffff"],
+    night: ["#2f615d", "#4f8c7b", "#ff9ebb", "#ffe48f"],
+    lego: ["#3ba64a", "#65c954", "#ff4d6d", "#ffbe0b"]
+  }[themeKey || "spring"];
+
+  var mounds = [
+    [64, 122, 42, cols[0]],
+    [192, 122, 42, cols[0]],
+    [102, 108, 48, cols[1]],
+    [156, 110, 46, cols[1]],
+    [128, 92, 52, cols[1]]
+  ];
+  for (var i = 0; i < mounds.length; i += 1) {
+    var m = mounds[i];
+    t.fillStyle = m[3];
+    t.beginPath();
+    t.arc(m[0], m[1], m[2], 0, Math.PI * 2);
+    t.fill();
+    t.strokeStyle = "rgba(42, 74, 42, 0.32)";
+    t.lineWidth = 2.5;
+    t.stroke();
+  }
+  t.fillStyle = cols[0];
+  t.fillRect(30, 122, 196, 36);
+
+  var fls = [[66, 114], [108, 86], [148, 94], [188, 116], [128, 126]];
+  for (var f = 0; f < fls.length; f += 1) {
+    t.fillStyle = f % 2 === 0 ? cols[2] : cols[3];
+    t.beginPath();
+    t.arc(fls[f][0], fls[f][1], 8.5, 0, Math.PI * 2);
+    t.fill();
+    t.fillStyle = "#fff8d6";
+    t.beginPath();
+    t.arc(fls[f][0], fls[f][1], 3.2, 0, Math.PI * 2);
+    t.fill();
+  }
+  return applyPaperDieCutBorder(tmp, 4);
+}
+
+function makePaperFenceTexture(themeKey) {
+  var W = 280;
+  var H = 148;
+  var tmp = document.createElement("canvas");
+  tmp.width = W;
+  tmp.height = H;
+  var t = tmp.getContext("2d");
+
+  if (themeKey === "lego") {
+    var bricks = [
+      [18, 92, 76, 42, "#ef476f"],
+      [98, 92, 78, 42, "#ffd166"],
+      [180, 92, 82, 42, "#118ab2"],
+      [54, 48, 82, 42, "#06d6a0"],
+      [140, 48, 82, 42, "#ff7b54"]
+    ];
+    for (var bi = 0; bi < bricks.length; bi += 1) {
+      var b = bricks[bi];
+      t.fillStyle = b[4];
+      t.strokeStyle = "rgba(50,35,20,0.45)";
+      t.lineWidth = 3;
+      t.fillRect(b[0] + 10, b[1] - 10, 22, 10);
+      t.strokeRect(b[0] + 10, b[1] - 10, 22, 10);
+      t.fillRect(b[0] + b[2] - 32, b[1] - 10, 22, 10);
+      t.strokeRect(b[0] + b[2] - 32, b[1] - 10, 22, 10);
+      t.fillRect(b[0], b[1], b[2], b[3]);
+      t.strokeRect(b[0], b[1], b[2], b[3]);
+      t.fillStyle = "rgba(255,255,255,0.28)";
+      t.fillRect(b[0] + 5, b[1] + 5, b[2] - 10, 8);
+    }
+    return applyPaperDieCutBorder(tmp, 4);
+  }
+
+  // 田园乳白小木栅栏 + 爬藤花朵
+  t.fillStyle = "#efe2cc";
+  t.strokeStyle = "#8a6646";
+  t.lineWidth = 3;
+  t.fillRect(14, 58, 252, 16);
+  t.strokeRect(14, 58, 252, 16);
+  t.fillRect(14, 100, 252, 16);
+  t.strokeRect(14, 100, 252, 16);
+
+  for (var px = 26; px <= 228; px += 50) {
+    t.fillStyle = "#fff8eb";
+    t.beginPath();
+    t.moveTo(px, 138);
+    t.lineTo(px, 40);
+    t.lineTo(px + 15, 22);
+    t.lineTo(px + 30, 40);
+    t.lineTo(px + 30, 138);
+    t.closePath();
+    t.fill();
+    t.stroke();
+  }
+  t.fillStyle = "#68b55d";
+  t.beginPath();
+  t.arc(46, 128, 16, 0, Math.PI * 2);
+  t.arc(236, 126, 18, 0, Math.PI * 2);
+  t.fill();
+  t.fillStyle = "#ff85b3";
+  t.beginPath();
+  t.arc(42, 122, 6, 0, Math.PI * 2);
+  t.arc(240, 120, 6.5, 0, Math.PI * 2);
+  t.fill();
+  return applyPaperDieCutBorder(tmp, 4);
+}
+
+function makePaperCloudTexture(isNight) {
+  var W = 256;
+  var H = 148;
+  var tmp = document.createElement("canvas");
+  tmp.width = W;
+  tmp.height = H;
+  var t = tmp.getContext("2d");
+
+  var cg = t.createLinearGradient(0, 24, 0, 132);
+  if (isNight) {
+    cg.addColorStop(0, "#7568b0");
+    cg.addColorStop(1, "#4c4382");
+  } else {
+    cg.addColorStop(0, "#ffffff");
+    cg.addColorStop(1, "#dff2ff");
+  }
+  t.fillStyle = cg;
+  t.strokeStyle = isNight ? "rgba(255, 232, 150, 0.72)" : "rgba(120, 165, 205, 0.5)";
+  t.lineWidth = 3;
+  var puffs = [
+    [66, 94, 34],
+    [114, 72, 46],
+    [164, 80, 40],
+    [198, 98, 28],
+    [128, 100, 34]
+  ];
+  t.beginPath();
+  for (var i = 0; i < puffs.length; i += 1) {
+    t.moveTo(puffs[i][0] + puffs[i][2], puffs[i][1]);
+    t.arc(puffs[i][0], puffs[i][1], puffs[i][2], 0, Math.PI * 2);
+  }
+  t.fill();
+  for (var j = 0; j < puffs.length; j += 1) {
+    t.beginPath();
+    t.arc(puffs[j][0], puffs[j][1], puffs[j][2], 0, Math.PI * 2);
+    t.fill();
+  }
+  if (isNight) {
+    var stars = [[78, 86, 8], [138, 64, 10], [186, 94, 7]];
+    for (var s = 0; s < stars.length; s += 1) {
+      t.fillStyle = "#ffe57f";
+      t.beginPath();
+      t.arc(stars[s][0], stars[s][1], stars[s][2], 0, Math.PI * 2);
+      t.fill();
+    }
+  }
+  return applyPaperDieCutBorder(tmp, 4);
+}
+
+function makePaperBannerTexture(paletteKey) {
+  var W = 280;
+  var H = 220;
+  var tmp = document.createElement("canvas");
+  tmp.width = W;
+  tmp.height = H;
+  var t = tmp.getContext("2d");
+
+  t.fillStyle = "#8a5a3c";
+  t.strokeStyle = "#523222";
+  t.lineWidth = 3;
+  t.fillRect(22, 34, 14, 174);
+  t.strokeRect(22, 34, 14, 174);
+  t.fillRect(244, 34, 14, 174);
+  t.strokeRect(244, 34, 14, 174);
+
+  t.strokeStyle = "#6c4832";
+  t.lineWidth = 4;
+  t.beginPath();
+  t.moveTo(30, 44);
+  t.quadraticCurveTo(140, 102, 250, 44);
+  t.stroke();
+
+  var colors = paletteKey === "cake"
+    ? ["#ff6b9c", "#ffbe0b", "#4cc9f0", "#b57bff", "#52d195"]
+    : ["#ff595e", "#ffca3a", "#8ac926", "#1982c4", "#9b5de5"];
+  for (var i = 0; i < 5; i += 1) {
+    var u = (i + 0.5) / 5;
+    var bx = 30 + 220 * u;
+    var by = 44 + Math.sin(u * Math.PI) * 29;
+    t.fillStyle = colors[i];
+    t.beginPath();
+    t.moveTo(bx - 16, by);
+    t.lineTo(bx + 16, by);
+    t.lineTo(bx, by + 38);
+    t.closePath();
+    t.fill();
+    t.strokeStyle = "rgba(60, 35, 20, 0.38)";
+    t.lineWidth = 2;
+    t.stroke();
+  }
+  return applyPaperDieCutBorder(tmp, 4);
+}
+
+function makePaperLegoTreeTexture(variant) {
+  var W = 256;
+  var H = 320;
+  var tmp = document.createElement("canvas");
+  tmp.width = W;
+  tmp.height = H;
+  var t = tmp.getContext("2d");
+
+  function drawLegoBlock(x, y, w, h, color, studs) {
+    t.fillStyle = color;
+    t.strokeStyle = "rgba(48, 30, 16, 0.55)";
+    t.lineWidth = 3;
+    for (var si = 0; si < studs; si += 1) {
+      var sx = x + ((si + 0.5) / studs) * w - 10;
+      t.fillRect(sx, y - 9, 20, 9);
+      t.strokeRect(sx, y - 9, 20, 9);
+    }
+    t.fillRect(x, y, w, h);
+    t.strokeRect(x, y, w, h);
+    t.fillStyle = "rgba(255,255,255,0.22)";
+    t.fillRect(x + 5, y + 5, w - 10, 8);
+  }
+
+  var cTop = variant === 2 ? "#70e000" : "#52b788";
+  var cMid = variant === 2 ? "#38b000" : "#40916c";
+  var cBot = variant === 2 ? "#007200" : "#2d6a4f";
+  drawLegoBlock(102, 224, 52, 84, "#8b5e3c", 2);
+  drawLegoBlock(46, 174, 164, 48, cBot, 4);
+  drawLegoBlock(66, 122, 124, 48, cMid, 3);
+  drawLegoBlock(88, 70, 80, 48, cTop, 2);
+  drawLegoBlock(108, 32, 40, 34, "#ffbe0b", 1);
+
+  return applyPaperDieCutBorder(tmp, 4);
+}
+
+function makePaperLanternTexture(variant) {
+  var W = 180;
+  var H = 320;
+  var tmp = document.createElement("canvas");
+  tmp.width = W;
+  tmp.height = H;
+  var t = tmp.getContext("2d");
+
+  // 细木灯柱与底座
+  t.fillStyle = variant === "gold" ? "#6d4e38" : "#5e465c";
+  t.strokeStyle = "#3a2820";
+  t.lineWidth = 3;
+  t.fillRect(83, 108, 14, 198);
+  t.strokeRect(83, 108, 14, 198);
+  t.fillRect(58, 294, 64, 16);
+  t.strokeRect(58, 294, 64, 16);
+
+  var glowCol = variant === "gold" ? "rgba(255, 220, 105, 0.85)" : "rgba(255, 170, 210, 0.82)";
+  var coreCol = variant === "gold" ? "#ffda6b" : "#ffb5d8";
+  var halo = t.createRadialGradient(90, 82, 8, 90, 82, 72);
+  halo.addColorStop(0, "#ffffff");
+  halo.addColorStop(0.35, glowCol);
+  halo.addColorStop(1, "rgba(255, 220, 120, 0)");
+  t.fillStyle = halo;
+  t.beginPath();
+  t.arc(90, 82, 72, 0, Math.PI * 2);
+  t.fill();
+
+  t.fillStyle = coreCol;
+  t.strokeStyle = "#6e442c";
+  t.lineWidth = 3.5;
+  t.beginPath();
+  t.roundRect(54, 42, 72, 74, 24);
+  t.fill();
+  t.stroke();
+
+  t.fillStyle = "rgba(255,250,235,0.65)";
+  t.beginPath();
+  t.ellipse(90, 78, 16, 22, 0, 0, Math.PI * 2);
+  t.fill();
+
+  return applyPaperDieCutBorder(tmp, 4);
+}
+
+function addSceneryCutout(opts) {
+  var tex = getPropTexture(opts.key, opts.factory);
+  var imgW = (tex.image && tex.image.width) || 256;
+  var imgH = (tex.image && tex.image.height) || 256;
+  var h = opts.h || 1.25;
+  var w = h * (imgW / imgH);
+  var mat = new THREE.MeshStandardMaterial({
+    map: tex,
+    alphaTest: 0.4,
+    roughness: 0.78,
+    metalness: 0.04,
+    side: THREE.DoubleSide
+  });
+  var depthMat = new THREE.MeshDepthMaterial({
+    depthPacking: THREE.RGBADepthPacking,
+    map: tex,
+    alphaTest: 0.4,
+    side: THREE.DoubleSide
+  });
+  var root = new THREE.Group();
+  var baseY = typeof opts.y === "number" ? opts.y : pageSurfaceY(opts.x);
+  root.position.set(opts.x, baseY, opts.z);
+  root.rotation.y = opts.ry || 0;
+  var sway = new THREE.Group();
+  root.add(sway);
+  var mesh = new THREE.Mesh(new THREE.PlaneGeometry(w, h), mat);
+  mesh.position.y = opts.y !== undefined ? 0 : h * 0.5 - 0.012;
+  mesh.castShadow = opts.castShadow !== false;
+  mesh.receiveShadow = true;
+  mesh.customDepthMaterial = depthMat;
+  sway.add(mesh);
+  engine.dioramaGroup.add(root);
+  registerFoldable(root, opts.foldMode || "lay", { order: opts.order || 0.35 });
+  if (!opts.noShadow && opts.y === undefined) {
+    addContactShadow(opts.x, opts.z + 0.02, w * 0.72, Math.min(0.32, w * 0.24), 0.34);
+  }
+  if (opts.swayAmp) {
+    engine.scenerySways.push({
+      sway: sway,
+      phase: opts.phase || opts.x * 1.1,
+      amp: opts.swayAmp,
+      speed: opts.swaySpeed || 1.15
+    });
+  }
+  return root;
+}
+
+function buildPageScenery(pageNum) {
+  var bushTheme = pageNum === 6 || pageNum === 8 ? "night" : pageNum === 5 ? "lego" : pageNum === 2 || pageNum === 4 ? "sunny" : "spring";
+  var treeMap = {
+    1: "spring",
+    2: "sunny",
+    3: "party",
+    4: "pine",
+    6: "night-lights",
+    7: "party",
+    8: "starry-night"
+  };
+
+  // 后景左右立体纸艺卡片树（第 5 页用乐高积木树）
+  if (pageNum === 5) {
+    addSceneryCutout({ key: "lego-tree-1", factory: function () { return makePaperLegoTreeTexture(1); }, x: -2.68, z: -1.42, h: 1.44, ry: 0.24, swayAmp: 0.012 });
+    addSceneryCutout({ key: "lego-tree-2", factory: function () { return makePaperLegoTreeTexture(2); }, x: 2.74, z: -1.42, h: 1.38, ry: -0.24, swayAmp: 0.012 });
+  } else {
+    var tTheme = treeMap[pageNum] || "spring";
+    addSceneryCutout({ key: "tree-" + tTheme, factory: function () { return makePaperTreeTexture(tTheme); }, x: -2.66, z: -1.42, h: 1.52, ry: 0.22, swayAmp: 0.016 });
+    addSceneryCutout({ key: "tree-" + tTheme, factory: function () { return makePaperTreeTexture(tTheme); }, x: 2.66, z: -1.42, h: 1.48, ry: -0.22, swayAmp: 0.016, phase: 1.4 });
+  }
+
+  // 中景特色纸艺布景（栅栏 / 乐高矮墙 / 彩旗 / 花园暖光灯笼）
+  if (pageNum === 1 || pageNum === 4) {
+    addSceneryCutout({ key: "fence-wood", factory: function () { return makePaperFenceTexture("wood"); }, x: -2.35, z: -0.88, h: 0.58, ry: 0.26 });
+    addSceneryCutout({ key: "fence-wood", factory: function () { return makePaperFenceTexture("wood"); }, x: 2.38, z: -0.88, h: 0.58, ry: -0.26 });
+  } else if (pageNum === 2) {
+    addSceneryCutout({ key: "tree-sunny", factory: function () { return makePaperTreeTexture("sunny"); }, x: -2.45, z: -0.68, h: 0.94, ry: 0.28, swayAmp: 0.018, phase: 2.1 });
+  } else if (pageNum === 3 || pageNum === 7) {
+    var bKey = pageNum === 7 ? "cake" : "party";
+    addSceneryCutout({ key: "banner-" + bKey, factory: function () { return makePaperBannerTexture(bKey); }, x: -2.42, z: -0.84, h: 0.96, ry: 0.28, swayAmp: 0.014 });
+    addSceneryCutout({ key: "banner-" + bKey, factory: function () { return makePaperBannerTexture(bKey); }, x: 2.42, z: -0.84, h: 0.96, ry: -0.28, swayAmp: 0.014, phase: 1.7 });
+  } else if (pageNum === 5) {
+    addSceneryCutout({ key: "fence-lego", factory: function () { return makePaperFenceTexture("lego"); }, x: -2.44, z: -0.78, h: 0.54, ry: 0.3 });
+    addSceneryCutout({ key: "fence-lego", factory: function () { return makePaperFenceTexture("lego"); }, x: 2.52, z: -0.82, h: 0.54, ry: -0.3 });
+  } else if (pageNum === 6 || pageNum === 8) {
+    var lKind = pageNum === 8 ? "gold" : "pink";
+    addSceneryCutout({ key: "lantern-" + lKind, factory: function () { return makePaperLanternTexture(lKind); }, x: -2.34, z: -0.78, h: 1.08, ry: 0.16, swayAmp: 0.012 });
+    addSceneryCutout({ key: "lantern-" + lKind, factory: function () { return makePaperLanternTexture(lKind); }, x: 2.34, z: -0.78, h: 1.08, ry: -0.16, swayAmp: 0.012, phase: 1.5 });
+  }
+
+  // 天空浮云 / 夜空星云卡片（贴近后墙、稳居 WALL_H 之内且不挡飞侠）
+  if (pageNum === 2 || pageNum === 4 || pageNum === 8) {
+    var nightCloud = pageNum === 8;
+    var cKey = nightCloud ? "cloud-night" : "cloud-day";
+    addSceneryCutout({ key: cKey, factory: function () { return makePaperCloudTexture(nightCloud); }, x: -1.42, y: 1.62, z: -1.68, h: 0.44, foldMode: "shrink", swayAmp: 0.02, swaySpeed: 0.7, noShadow: true, castShadow: false });
+    addSceneryCutout({ key: cKey, factory: function () { return makePaperCloudTexture(nightCloud); }, x: 1.48, y: 1.58, z: -1.68, h: 0.4, foldMode: "shrink", swayAmp: 0.02, swaySpeed: 0.75, phase: 2.4, noShadow: true, castShadow: false });
+  }
+
+  // 前景远角水彩灌木卡片（避开 P1 已有花丛及 P5/P7 道具）
+  var bushL = pageNum === 1 ? { x: -2.92, z: 1.46 } : { x: -2.78, z: 1.42 };
+  var bushR = pageNum === 1 ? { x: 2.92, z: 0.52 } : { x: 2.78, z: 1.42 };
+  addSceneryCutout({ key: "bush-" + bushTheme, factory: function () { return makePaperBushTexture(bushTheme); }, x: bushL.x, z: bushL.z, h: 0.48, ry: 0.2, swayAmp: 0.018 });
+  addSceneryCutout({ key: "bush-" + bushTheme, factory: function () { return makePaperBushTexture(bushTheme); }, x: bushR.x, z: bushR.z, h: 0.46, ry: -0.2, swayAmp: 0.018, phase: 1.9 });
 }
 
 /* ---------------- P1 分层花簇与水平扇翅彩蝶 ---------------- */
@@ -4526,6 +5093,7 @@ function buildPageContents(pageNum, pageState, startFolded) {
     if (token !== engine.buildToken) {
       return;
     }
+    buildPageScenery(pageNum);
     if (pageNum === 1) {
       buildP1Decorations();
     } else if (pageNum === 3) {
@@ -5242,6 +5810,10 @@ function updateStandees(t, ts, dt) {
 function updatePageProps(t, ts, dt) {
   var stepDt = typeof dt === "number" ? dt : 0.016;
   var canMove = engine.bookState === "open" && !engine.isFlipping && !engine.popAnim;
+  for (var sw = 0; sw < engine.scenerySways.length; sw += 1) {
+    var scw = engine.scenerySways[sw];
+    scw.sway.rotation.z = Math.sin(t * scw.speed + scw.phase) * scw.amp;
+  }
   for (var f = 0; f < engine.p1Flowers.length; f += 1) {
     var fl = engine.p1Flowers[f];
     if (ts < fl.bounceUntil) {
