@@ -13,8 +13,8 @@
   "use strict";
 
   var DEFAULT_SPRITE_RATIOS = {
-    "kiki-idle.webp": 0.4719,
-    "kiki-cheer.webp": 0.5805,
+    "kiki-idle.webp": 0.47,
+    "kiki-cheer.webp": 0.5815,
     "crown-5.webp": 1.2392,
     "jett.webp": 1.2202,
     "dizzy.webp": 0.8699,
@@ -44,7 +44,7 @@
 
   // 皇冠相对于新版 kiki-idle.webp 自身盒子的精确锚点（发顶正中）
   var KIKI_CROWN_ANCHOR = {
-    xPct: 58.6,
+    xPct: 59.0,
     yPct: 1.6,
     widthPct: 38.0,
     rotateDeg: -2
@@ -52,7 +52,7 @@
 
   // 皇冠相对于欢呼帧 kiki-cheer.webp 自身盒子的精确锚点
   var KIKI_CHEER_CROWN_ANCHOR = {
-    xPct: 52.6,
+    xPct: 52.3,
     yPct: 1.6,
     widthPct: 35.0,
     rotateDeg: -2
@@ -67,7 +67,7 @@
       childNameEn: "KIKI",
       birthDate: "2021-11-18",
       age: 5,
-      assetVersion: "17",
+      assetVersion: "18",
       deploySubpath: "/little-explorer-learning/birthday/",
       audioManifestPath: "./assets/audio/audio-manifest.json",
       spritesMetaPath: "./assets/sprites/sprites-meta.json",
@@ -965,10 +965,10 @@
         voices: [
           {
             id: "p8-outro",
-            character: "旁白姐姐",
+            character: "旁白 & 全明星齐祝",
             audio: "./assets/audio/p8-outro.mp3",
-            voice: "冰糖 · 幼教",
-            text: "五岁愿望顺着星光飞向夜空啦！璀璨的烟花为你绽放，好朋友们一起唱起生日快乐歌！亲爱的林缨祈，Kiki，五岁生日快乐，愿你永远快乐勇敢！"
+            voice: "冰糖 · 幼教 + 全体动漫小伙伴齐声",
+            text: "五岁愿望顺着星光飞向夜空啦！璀璨的烟花为你绽放，所有好朋友都聚在一起啦——祝林缨祈，Kiki，五岁生日快乐！"
           },
           {
             id: "happy-birthday-en",

@@ -1,7 +1,7 @@
 {
   "version": "4.0.0",
   "pack": "edge",
-  "generatedAt": "2026-11-20T16:40:04Z",
+  "generatedAt": "2026-11-21T11:12:30Z",
   "files": {
     "bgm-gentle.mp3": {
       "durationSec": 48.0,
@@ -39,12 +39,24 @@
       "durationSec": 17.722,
       "loop": false
     },
-    "p8-outro.mp3": {
-      "durationSec": 14.082,
+    "p2-unbox.mp3": {
+      "durationSec": 9.608,
+      "loop": false
+    },
+    "p3-balloon-win.mp3": {
+      "durationSec": 7.056,
       "loop": false
     },
     "p4-team-cheer.mp3": {
       "durationSec": 7.012,
+      "loop": false
+    },
+    "p6-party-light.mp3": {
+      "durationSec": 8.724,
+      "loop": false
+    },
+    "p7-blow-cheer.mp3": {
+      "durationSec": 6.184,
       "loop": false
     },
     "kiki-1.mp3": {
@@ -143,6 +155,10 @@
       "durationSec": 2.633,
       "loop": false
     },
+    "p5-lego-click.mp3": {
+      "durationSec": 3.951,
+      "loop": false
+    },
     "lego-2.mp3": {
       "durationSec": 3.727,
       "loop": false
@@ -155,24 +171,8 @@
       "durationSec": 7.044,
       "loop": false
     },
-    "p7-blow-cheer.mp3": {
-      "durationSec": 6.184,
-      "loop": false
-    },
-    "p6-party-light.mp3": {
-      "durationSec": 8.724,
-      "loop": false
-    },
-    "p2-unbox.mp3": {
-      "durationSec": 9.608,
-      "loop": false
-    },
-    "p3-balloon-win.mp3": {
-      "durationSec": 7.056,
-      "loop": false
-    },
-    "p5-lego-click.mp3": {
-      "durationSec": 3.951,
+    "p8-outro.mp3": {
+      "durationSec": 11.554,
       "loop": false
     }
   },

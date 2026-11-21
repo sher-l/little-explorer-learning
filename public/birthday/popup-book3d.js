@@ -2546,7 +2546,7 @@ function makeMiniCrown3D(customMat) {
 function getCrownAnchor(isCheer) {
   var sc = (engine.storyData && engine.storyData.spriteConfig) || {};
   var a = isCheer ? sc.kikiCheerCrownAnchor : sc.kikiCrownAnchor;
-  return a || (isCheer ? { xPct: 52.6, yPct: 1.6, widthPct: 35, rotateDeg: -2 } : { xPct: 58.6, yPct: 1.6, widthPct: 38, rotateDeg: -2 });
+  return a || (isCheer ? { xPct: 52.3, yPct: 1.6, widthPct: 35, rotateDeg: -2 } : { xPct: 59.0, yPct: 1.6, widthPct: 38, rotateDeg: -2 });
 }
 
 // 依据 sprite 内的真实发顶锚点（扣除模切留边）放置精致小皇冠
@@ -3765,7 +3765,7 @@ function buildP2GiftBox(pageNum, actor, pageState) {
 
   var landY = pageSurfaceY(x);
   if (!opened) {
-    root.position.set(-2.75, 1.85, -0.92);
+    root.position.set(-2.75, 0.78, -0.92);
     registerFoldable(root, "shrink", { order: 0.25 });
   } else {
     root.position.set(x, landY, z);
@@ -3787,6 +3787,7 @@ function buildP2GiftBox(pageNum, actor, pageState) {
     shadowBaseW: W * 1.45,
     shadowBaseH: W * 0.75,
     boxW: W,
+    boxH: H,
     openAngle: openAngle,
     glowMat: innerWallMat,
     glowFloorMat: glowFloorMat,
@@ -3808,7 +3809,7 @@ function buildP2GiftBox(pageNum, actor, pageState) {
         startTs: 0,
         duration: 3400,
         startX: -2.75,
-        startY: 1.32,
+        startY: 0.78,
         startZ: -0.92,
         targetX: x,
         targetY: landY,
@@ -5636,20 +5637,21 @@ function updateStandees(t, ts, dt) {
         var jBx = dlAir.startX + (dlAir.targetX - dlAir.startX) * jDe;
         var jBz = dlAir.startZ + (dlAir.targetZ - dlAir.startZ) * jDe - Math.sin(jDp * Math.PI) * 0.25;
         var jBy = dlAir.startY + (dlAir.targetY - dlAir.startY) * jDe + Math.sin(jDp * Math.PI) * 0.26;
+        var carryOff = (pcAir && pcAir.boxH ? pcAir.boxH : 0.56) + 0.42 + actorSt.hWorld * 0.32;
         dx = jBx - actorSt.baseX;
-        dy = jBy + 0.36 - actorSt.baseY;
-        dz = jBz - actorSt.baseZ;
+        dy = jBy + carryOff - actorSt.baseY;
+        dz = jBz + 0.06 - actorSt.baseZ;
         rz = -0.14 * (1 - jDp);
         setActorFacing(actorSt, 1, ts);
         if (canMove && Math.random() < dt * 12) {
-          spawnParticleBurst3D(jBx - 0.2, jBy + 0.32, jBz, 1, "confetti");
+          spawnParticleBurst3D(jBx - 0.2, jBy + carryOff - 0.1, jBz, 1, "confetti");
         }
       } else if (actorSt.config.id === "p2-dizzy" && dlAir && dlAir.active && dlAir.phase === "flying") {
         var dDp = clamp((ts - dlAir.startTs) / dlAir.duration, 0, 1);
         var dDe = easeInOutCubic(dDp);
         var dTargetX = dlAir.startX + (dlAir.targetX - dlAir.startX) * dDe + 0.72;
-        var dTargetY = dlAir.startY + (dlAir.targetY - dlAir.startY) * dDe + 0.42 + Math.sin(t * 3.5) * 0.06;
-        var dTargetZ = dlAir.startZ + (dlAir.targetZ - dlAir.startZ) * dDe - 0.15;
+        var dTargetY = dlAir.startY + (dlAir.targetY - dlAir.startY) * dDe + Math.sin(dDp * Math.PI) * 0.26 + 0.76 + Math.sin(t * 3.5) * 0.06;
+        var dTargetZ = dlAir.startZ + (dlAir.targetZ - dlAir.startZ) * dDe + 0.05;
         dx = dTargetX - actorSt.baseX;
         dy = dTargetY - actorSt.baseY;
         dz = dTargetZ - actorSt.baseZ;
@@ -5691,7 +5693,7 @@ function updateStandees(t, ts, dt) {
         if (actorSt.config.id === "p2-jett" && dlAir && dlAir.jettReleaseTs && ts - dlAir.jettReleaseTs < 950) {
           var relT = easeOutCubic(clamp((ts - dlAir.jettReleaseTs) / 950, 0, 1));
           var lx0 = dlAir.targetX - actorSt.baseX;
-          var ly0 = dlAir.targetY + 0.36 - actorSt.baseY;
+          var ly0 = dlAir.targetY + ((pcAir && pcAir.boxH ? pcAir.boxH : 0.56) + 0.42 + actorSt.hWorld * 0.32) - actorSt.baseY;
           var lz0 = dlAir.targetZ - actorSt.baseZ;
           dx = lx0 + (dx - lx0) * relT;
           dy = ly0 + (dy - ly0) * relT;
@@ -5783,8 +5785,10 @@ function updateStandees(t, ts, dt) {
       }
     }
 
-    if (actorSt.isAir && actorSt.baseY + dy > 1.82) {
-      dy = 1.82 - actorSt.baseY;
+    var dlCapAir = engine.p2Delivery;
+    var airMaxY = (actorSt.config.id === "p2-jett" && dlCapAir && dlCapAir.active && dlCapAir.phase === "flying") ? 1.95 : 1.82;
+    if (actorSt.isAir && actorSt.baseY + dy > airMaxY) {
+      dy = airMaxY - actorSt.baseY;
     }
 
     actorSt.pivot.position.set(dx, dy, dz);
@@ -5872,7 +5876,7 @@ function updatePageProps(t, ts, dt) {
     var de2 = easeInOutCubic(dp2);
     var bx2 = dlP.startX + (dlP.targetX - dlP.startX) * de2;
     var bz2 = dlP.startZ + (dlP.targetZ - dlP.startZ) * de2 - Math.sin(dp2 * Math.PI) * 0.25;
-    var by2 = dlP.startY + (dlP.targetY - dlP.startY) * de2 + Math.sin(dp2 * Math.PI) * 0.52;
+    var by2 = dlP.startY + (dlP.targetY - dlP.startY) * de2 + Math.sin(dp2 * Math.PI) * 0.26;
     pc.group.position.set(bx2, by2, bz2);
     if (pc.groundShadow) {
       var liftFrac = clamp((by2 - dlP.targetY) / 2.2, 0, 1);

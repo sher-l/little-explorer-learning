@@ -45,15 +45,15 @@
       "file": "jett.webp"
     },
     "kiki-cheer": {
-      "width": 620,
+      "width": 621,
       "height": 1068,
-      "aspectRatio": 0.5805,
+      "aspectRatio": 0.5815,
       "file": "kiki-cheer.webp"
     },
     "kiki-idle": {
-      "width": 504,
+      "width": 502,
       "height": 1068,
-      "aspectRatio": 0.4719,
+      "aspectRatio": 0.47,
       "file": "kiki-idle.webp"
     },
     "lego-castle": {
@@ -164,13 +164,13 @@
     }
   ],
   "kikiCrownAnchor": {
-    "xPct": 58.6,
+    "xPct": 59.0,
     "yPct": 1.6,
     "widthPct": 38.0,
     "rotateDeg": -2
   },
   "kikiCheerCrownAnchor": {
-    "xPct": 52.6,
+    "xPct": 52.3,
     "yPct": 1.6,
     "widthPct": 35.0,
     "rotateDeg": -2
