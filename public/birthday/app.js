@@ -184,7 +184,7 @@
     if (!cleaned || cleaned.indexOf("data:") === 0 || cleaned.indexOf("blob:") === 0) {
       return cleaned;
     }
-    var ver = (DATA.bookMeta && DATA.bookMeta.assetVersion) || "15";
+    var ver = (DATA.bookMeta && DATA.bookMeta.assetVersion) || "16";
     if (cleaned.indexOf("?v=") !== -1 || cleaned.indexOf("&v=") !== -1) {
       return cleaned;
     }
@@ -904,8 +904,8 @@
       }
       return (
         (DATA.spriteConfig && DATA.spriteConfig.kikiCheerCrownAnchor) || {
-          xPct: 50.6,
-          yPct: 2.3,
+          xPct: 52.6,
+          yPct: 1.6,
           widthPct: 35.0,
           rotateDeg: -2
         }
@@ -916,8 +916,8 @@
     }
     return (
       (DATA.spriteConfig && DATA.spriteConfig.kikiCrownAnchor) || {
-        xPct: 54.5,
-        yPct: 1.8,
+        xPct: 58.6,
+        yPct: 1.6,
         widthPct: 38.0,
         rotateDeg: -2
       }

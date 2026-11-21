@@ -2457,8 +2457,8 @@ function getActor3DPlacement(pageNum, actor, idx, total) {
   var z = 0;
 
   if (actor.anchor === "center") {
-    // 飞行角色：高空 + 靠后（贴近后墙），并与 KIKI 保持横向安全距离，绝不挡住她的脸
-    var yAir = 1.98 + (1 - actor.y / 40) * 0.22;
+    // 飞行角色：适度压低高空巡航高度并靠后，稳稳留在书本画面内且绝不挡住 KIKI 的脸
+    var yAir = 1.38 + (1 - actor.y / 40) * 0.14;
     var kikiX = getKikiX(pageNum);
     if (kikiX !== null && Math.abs(x - kikiX) < 1.15) {
       x = kikiX + (x >= kikiX ? 1.15 : -1.15);
@@ -2544,7 +2544,7 @@ function makeMiniCrown3D(customMat) {
 function getCrownAnchor(isCheer) {
   var sc = (engine.storyData && engine.storyData.spriteConfig) || {};
   var a = isCheer ? sc.kikiCheerCrownAnchor : sc.kikiCrownAnchor;
-  return a || (isCheer ? { xPct: 50.6, yPct: 2.3, widthPct: 35, rotateDeg: -2 } : { xPct: 54.5, yPct: 1.8, widthPct: 38, rotateDeg: -2 });
+  return a || (isCheer ? { xPct: 52.6, yPct: 1.6, widthPct: 35, rotateDeg: -2 } : { xPct: 58.6, yPct: 1.6, widthPct: 38, rotateDeg: -2 });
 }
 
 // 依据 sprite 内的真实发顶锚点（扣除模切留边）放置精致小皇冠
@@ -3241,7 +3241,7 @@ function buildP2GiftBox(pageNum, actor, pageState) {
         startTs: 0,
         duration: 3400,
         startX: -2.75,
-        startY: 1.85,
+        startY: 1.32,
         startZ: -0.92,
         targetX: x,
         targetY: landY,
@@ -5067,20 +5067,20 @@ function updateStandees(t, ts, dt) {
         var jDe = easeInOutCubic(jDp);
         var jBx = dlAir.startX + (dlAir.targetX - dlAir.startX) * jDe;
         var jBz = dlAir.startZ + (dlAir.targetZ - dlAir.startZ) * jDe - Math.sin(jDp * Math.PI) * 0.25;
-        var jBy = dlAir.startY + (dlAir.targetY - dlAir.startY) * jDe + Math.sin(jDp * Math.PI) * 0.52;
+        var jBy = dlAir.startY + (dlAir.targetY - dlAir.startY) * jDe + Math.sin(jDp * Math.PI) * 0.26;
         dx = jBx - actorSt.baseX;
-        dy = jBy + 0.62 - actorSt.baseY;
+        dy = jBy + 0.36 - actorSt.baseY;
         dz = jBz - actorSt.baseZ;
         rz = -0.14 * (1 - jDp);
         setActorFacing(actorSt, 1, ts);
         if (canMove && Math.random() < dt * 12) {
-          spawnParticleBurst3D(jBx - 0.2, jBy + 0.55, jBz, 1, "confetti");
+          spawnParticleBurst3D(jBx - 0.2, jBy + 0.32, jBz, 1, "confetti");
         }
       } else if (actorSt.config.id === "p2-dizzy" && dlAir && dlAir.active && dlAir.phase === "flying") {
         var dDp = clamp((ts - dlAir.startTs) / dlAir.duration, 0, 1);
         var dDe = easeInOutCubic(dDp);
         var dTargetX = dlAir.startX + (dlAir.targetX - dlAir.startX) * dDe + 0.72;
-        var dTargetY = dlAir.startY + (dlAir.targetY - dlAir.startY) * dDe + 0.78 + Math.sin(t * 3.5) * 0.08;
+        var dTargetY = dlAir.startY + (dlAir.targetY - dlAir.startY) * dDe + 0.42 + Math.sin(t * 3.5) * 0.06;
         var dTargetZ = dlAir.startZ + (dlAir.targetZ - dlAir.startZ) * dDe - 0.15;
         dx = dTargetX - actorSt.baseX;
         dy = dTargetY - actorSt.baseY;
@@ -5090,7 +5090,7 @@ function updateStandees(t, ts, dt) {
       } else if (pcAir && ts < pcAir.celebrateUntil && kikiCurX !== null) {
         var cAng = t * 2.8 + actorSt.phase * 2.1;
         dx = kikiCurX + Math.cos(cAng) * 0.78 - actorSt.baseX;
-        dy = 1.65 + Math.sin(t * 5.2 + actorSt.phase) * 0.14 - actorSt.baseY;
+        dy = 1.36 + Math.sin(t * 5.2 + actorSt.phase) * 0.10 - actorSt.baseY;
         dz = (kikiCurZ || 0.2) + Math.sin(cAng) * 0.48 - actorSt.baseZ;
         setActorFacing(actorSt, -Math.sin(cAng), ts);
         if (canMove && Math.random() < dt * 9) {
@@ -5101,12 +5101,12 @@ function updateStandees(t, ts, dt) {
         var isJ6 = actorSt.config.role === "jett";
         var sweepX = isJ6 ? -2.7 + lWp * 5.2 : 2.7 - lWp * 5.2;
         dx = sweepX - actorSt.baseX;
-        dy = 2.08 + Math.sin(lWp * Math.PI) * 0.22 - actorSt.baseY;
+        dy = 1.46 + Math.sin(lWp * Math.PI) * 0.14 - actorSt.baseY;
         dz = -1.18 - actorSt.baseZ;
         rz = isJ6 ? -0.14 : 0.14;
         setActorFacing(actorSt, isJ6 ? 1 : -1, ts);
       } else {
-        // 乐迪 & 小爱宽幅 3D 巡航（遇 KIKI 安全区主动拔高，根据水平速度平滑翻转朝向）
+        // 乐迪 & 小爱宽幅 3D 巡航（遇 KIKI 安全区适度抬升，稳稳保留在书页画面内）
         var sideSign = actorSt.config.role === "jett" ? 1 : -1;
         var patrolSpeed = engine.currentPage === 8 ? 0.58 : 0.48;
         var angA = t * patrolSpeed + actorSt.phase;
@@ -5116,14 +5116,14 @@ function updateStandees(t, ts, dt) {
           setActorFacing(actorSt, vxAir, ts);
         }
         var worldX = actorSt.baseX + dx;
-        var avoidLift = kikiCurX !== null && Math.abs(worldX - kikiCurX) < 0.9 ? 0.38 : 0;
-        dy = Math.sin(t * 1.4 + actorSt.phase) * 0.14 + avoidLift;
+        var avoidLift = kikiCurX !== null && Math.abs(worldX - kikiCurX) < 0.9 ? 0.18 : 0;
+        dy = Math.sin(t * 1.4 + actorSt.phase) * 0.09 + avoidLift;
         dz = Math.cos(t * 0.72 + actorSt.phase) * 0.24;
         rz = Math.cos(angA) * 0.11 - actorSt.facing * 0.04;
         if (actorSt.config.id === "p2-jett" && dlAir && dlAir.jettReleaseTs && ts - dlAir.jettReleaseTs < 950) {
           var relT = easeOutCubic(clamp((ts - dlAir.jettReleaseTs) / 950, 0, 1));
           var lx0 = dlAir.targetX - actorSt.baseX;
-          var ly0 = dlAir.targetY + 0.62 - actorSt.baseY;
+          var ly0 = dlAir.targetY + 0.36 - actorSt.baseY;
           var lz0 = dlAir.targetZ - actorSt.baseZ;
           dx = lx0 + (dx - lx0) * relT;
           dy = ly0 + (dy - ly0) * relT;
@@ -5196,7 +5196,7 @@ function updateStandees(t, ts, dt) {
         dy += Math.sin(bp * Math.PI) * 0.55;
         ry += bp * Math.PI * 2;
       } else if (k === "soar") {
-        dy += Math.sin(bp * Math.PI) * 1.45;
+        dy += Math.sin(bp * Math.PI) * (actorSt.isAir ? 0.38 : 1.05);
         dx += Math.sin(bp * Math.PI * 2) * 0.65;
         dz -= Math.sin(bp * Math.PI) * 0.55;
       } else if (k === "dash") {
@@ -5213,6 +5213,10 @@ function updateStandees(t, ts, dt) {
       if (bp >= 1) {
         actorSt.actionBurst = null;
       }
+    }
+
+    if (actorSt.isAir && actorSt.baseY + dy > 1.82) {
+      dy = 1.82 - actorSt.baseY;
     }
 
     actorSt.pivot.position.set(dx, dy, dz);

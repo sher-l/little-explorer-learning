@@ -13,8 +13,8 @@
   "use strict";
 
   var DEFAULT_SPRITE_RATIOS = {
-    "kiki-idle.webp": 0.5136,
-    "kiki-cheer.webp": 0.5722,
+    "kiki-idle.webp": 0.4719,
+    "kiki-cheer.webp": 0.5805,
     "crown-5.webp": 1.2392,
     "jett.webp": 1.2202,
     "dizzy.webp": 0.8699,
@@ -44,16 +44,16 @@
 
   // 皇冠相对于新版 kiki-idle.webp 自身盒子的精确锚点（发顶正中）
   var KIKI_CROWN_ANCHOR = {
-    xPct: 54.5,
-    yPct: 1.8,
+    xPct: 58.6,
+    yPct: 1.6,
     widthPct: 38.0,
     rotateDeg: -2
   };
 
   // 皇冠相对于欢呼帧 kiki-cheer.webp 自身盒子的精确锚点
   var KIKI_CHEER_CROWN_ANCHOR = {
-    xPct: 50.6,
-    yPct: 2.3,
+    xPct: 52.6,
+    yPct: 1.6,
     widthPct: 35.0,
     rotateDeg: -2
   };
@@ -67,7 +67,7 @@
       childNameEn: "KIKI",
       birthDate: "2021-11-18",
       age: 5,
-      assetVersion: "15",
+      assetVersion: "16",
       deploySubpath: "/little-explorer-learning/birthday/",
       audioManifestPath: "./assets/audio/audio-manifest.json",
       spritesMetaPath: "./assets/sprites/sprites-meta.json",

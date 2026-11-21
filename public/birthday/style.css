@@ -2387,7 +2387,7 @@ body[data-page="8"] .scene-depth-atmosphere {
 /* P8 无框透明发光卡拉 OK 双语歌词 + 右下角纯图标浮钮 */
 .karaoke-bar {
   position: fixed;
-  top: 56px;
+  top: 78px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 25;
