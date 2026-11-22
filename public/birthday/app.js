@@ -188,7 +188,7 @@
     if (!cleaned || cleaned.indexOf("data:") === 0 || cleaned.indexOf("blob:") === 0) {
       return cleaned;
     }
-    var ver = (DATA.bookMeta && DATA.bookMeta.assetVersion) || "20";
+    var ver = (DATA.bookMeta && DATA.bookMeta.assetVersion) || "21";
     if (cleaned.indexOf("?v=") !== -1 || cleaned.indexOf("&v=") !== -1) {
       return cleaned;
     }
