@@ -67,7 +67,7 @@
       childNameEn: "KIKI",
       birthDate: "2021-11-18",
       age: 5,
-      assetVersion: "18",
+      assetVersion: "19",
       deploySubpath: "/little-explorer-learning/birthday/",
       audioManifestPath: "./assets/audio/audio-manifest.json",
       spritesMetaPath: "./assets/sprites/sprites-meta.json",

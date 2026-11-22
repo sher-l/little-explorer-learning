@@ -1,7 +1,7 @@
 {
   "version": "4.0.0",
   "pack": "mimo",
-  "generatedAt": "2026-11-21T11:19:56Z",
+  "generatedAt": "2026-11-22T05:22:07Z",
   "files": {
     "bgm-gentle.mp3": {
       "durationSec": 48.0,
@@ -44,7 +44,7 @@
       "loop": false
     },
     "p2-unbox.mp3": {
-      "durationSec": 11.666,
+      "durationSec": 11.062,
       "loop": false
     },
     "p3-balloon-win.mp3": {
@@ -60,19 +60,19 @@
       "loop": false
     },
     "p7-blow-cheer.mp3": {
-      "durationSec": 8.25,
+      "durationSec": 7.727,
       "loop": false
     },
     "kiki-1.mp3": {
-      "durationSec": 2.426,
+      "durationSec": 2.959,
       "loop": false
     },
     "kiki-2.mp3": {
-      "durationSec": 4.738,
+      "durationSec": 5.262,
       "loop": false
     },
     "kiki-3.mp3": {
-      "durationSec": 5.021,
+      "durationSec": 5.177,
       "loop": false
     },
     "p2-jett.mp3": {
