@@ -50,11 +50,23 @@
       "aspectRatio": 0.5815,
       "file": "kiki-cheer.webp"
     },
+    "kiki-cheer-coat": {
+      "width": 620,
+      "height": 1068,
+      "aspectRatio": 0.5805,
+      "file": "kiki-cheer-coat.webp"
+    },
     "kiki-idle": {
       "width": 502,
       "height": 1068,
       "aspectRatio": 0.47,
       "file": "kiki-idle.webp"
+    },
+    "kiki-idle-coat": {
+      "width": 504,
+      "height": 1068,
+      "aspectRatio": 0.4719,
+      "file": "kiki-idle-coat.webp"
     },
     "lego-castle": {
       "width": 788,
@@ -174,5 +186,41 @@
     "yPct": 1.6,
     "widthPct": 35.0,
     "rotateDeg": -2
+  },
+  "kikiOutfits": {
+    "pumpkin": {
+      "label": "橘色南瓜羽绒服",
+      "idle": "kiki-idle.webp",
+      "cheer": "kiki-cheer.webp",
+      "crownAnchor": {
+        "xPct": 59.0,
+        "yPct": 1.6,
+        "widthPct": 38.0,
+        "rotateDeg": -2
+      },
+      "cheerCrownAnchor": {
+        "xPct": 52.3,
+        "yPct": 1.6,
+        "widthPct": 35.0,
+        "rotateDeg": -2
+      }
+    },
+    "coat": {
+      "label": "粉白毛绒外套",
+      "idle": "kiki-idle-coat.webp",
+      "cheer": "kiki-cheer-coat.webp",
+      "crownAnchor": {
+        "xPct": 58.6,
+        "yPct": 1.6,
+        "widthPct": 38.0,
+        "rotateDeg": -2
+      },
+      "cheerCrownAnchor": {
+        "xPct": 52.6,
+        "yPct": 1.6,
+        "widthPct": 35.0,
+        "rotateDeg": -2
+      }
+    }
   }
 }

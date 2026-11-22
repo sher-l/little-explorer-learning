@@ -39,6 +39,7 @@
 
   var STORAGE_KEYS = {
     voicePack: "kiki-birthday-5.voicePack",
+    kikiOutfit: "kiki-birthday-5.kikiOutfit",
     treasures: "kiki-birthday-5.treasures"
   };
 
@@ -58,6 +59,7 @@
     btnToggleBgm: doc.getElementById("btn-toggle-bgm"),
     btnReplayVoice: doc.getElementById("btn-replay-voice"),
     btnLookCloser: doc.getElementById("btn-look-closer"),
+    btnToggleOutfit: doc.getElementById("btn-toggle-outfit"),
     btnToggleSubtitle: doc.getElementById("btn-toggle-subtitle"),
     btnOpenDrawer: doc.getElementById("btn-open-drawer"),
     btnPrevPage: doc.getElementById("btn-prev-page"),
@@ -106,6 +108,7 @@
     btnCloseDrawer: doc.getElementById("btn-close-drawer"),
     drawerVoiceBadge: doc.getElementById("drawer-voice-badge"),
     drawerVoiceStatus: doc.getElementById("drawer-voice-status"),
+    drawerOutfitBadge: doc.getElementById("drawer-outfit-badge"),
     drawerHashDisplay: doc.getElementById("drawer-hash-display"),
     btnResetCurrentPage: doc.getElementById("btn-reset-current-page"),
     btnResetAllProgress: doc.getElementById("btn-reset-all-progress"),
@@ -129,6 +132,7 @@
   var state = {
     currentPage: 1,
     voicePack: "mimo",
+    kikiOutfit: "pumpkin",
     audioUnlocked: false,
     musicMuted: false,
     isVoicePlaying: false,
@@ -184,7 +188,7 @@
     if (!cleaned || cleaned.indexOf("data:") === 0 || cleaned.indexOf("blob:") === 0) {
       return cleaned;
     }
-    var ver = (DATA.bookMeta && DATA.bookMeta.assetVersion) || "19";
+    var ver = (DATA.bookMeta && DATA.bookMeta.assetVersion) || "20";
     if (cleaned.indexOf("?v=") !== -1 || cleaned.indexOf("&v=") !== -1) {
       return cleaned;
     }
@@ -249,6 +253,24 @@
       return saved;
     }
     return "mimo";
+  }
+
+  function loadInitialKikiOutfit() {
+    try {
+      var params = new URLSearchParams(global.location.search || "");
+      var queryOutfit = (params.get("outfit") || "").toLowerCase();
+      if (queryOutfit === "coat" || queryOutfit === "pumpkin") {
+        safeStorageSet(STORAGE_KEYS.kikiOutfit, queryOutfit);
+        return queryOutfit;
+      }
+    } catch (_err) {
+      // 忽略旧环境 URLSearchParams 异常
+    }
+    var saved = (safeStorageGet(STORAGE_KEYS.kikiOutfit) || "").toLowerCase();
+    if (saved === "coat" || saved === "pumpkin") {
+      return saved;
+    }
+    return "pumpkin";
   }
 
   function loadSavedTreasures() {
@@ -896,7 +918,42 @@
     return defaults[fileName] || 0.9;
   }
 
+  function getKikiOutfitConfig() {
+    var outfitKey = state.kikiOutfit === "coat" ? "coat" : "pumpkin";
+    var meta = state.spritesMeta;
+    if (meta && meta.kikiOutfits && meta.kikiOutfits[outfitKey]) {
+      return meta.kikiOutfits[outfitKey];
+    }
+    var cfg = DATA.spriteConfig && DATA.spriteConfig.kikiOutfits && DATA.spriteConfig.kikiOutfits[outfitKey];
+    if (cfg) {
+      return cfg;
+    }
+    return outfitKey === "coat"
+      ? {
+          idle: "kiki-idle-coat.webp",
+          cheer: "kiki-cheer-coat.webp",
+          crownAnchor: { xPct: 58.6, yPct: 1.6, widthPct: 38.0, rotateDeg: -2 },
+          cheerCrownAnchor: { xPct: 52.6, yPct: 1.6, widthPct: 35.0, rotateDeg: -2 }
+        }
+      : {
+          idle: "kiki-idle.webp",
+          cheer: "kiki-cheer.webp",
+          crownAnchor: { xPct: 59.0, yPct: 1.6, widthPct: 38.0, rotateDeg: -2 },
+          cheerCrownAnchor: { xPct: 52.3, yPct: 1.6, widthPct: 35.0, rotateDeg: -2 }
+        };
+  }
+
+  function getKikiSpriteFile(isCheer) {
+    var cfg = getKikiOutfitConfig();
+    return isCheer ? cfg.cheer || "kiki-cheer.webp" : cfg.idle || "kiki-idle.webp";
+  }
+
   function getKikiCrownAnchor(isCheer) {
+    var cfg = getKikiOutfitConfig();
+    var anchor = isCheer ? cfg.cheerCrownAnchor : cfg.crownAnchor;
+    if (anchor && typeof anchor.xPct === "number") {
+      return anchor;
+    }
     var meta = state.spritesMeta;
     if (isCheer) {
       if (meta && meta.kikiCheerCrownAnchor && typeof meta.kikiCheerCrownAnchor.xPct === "number") {
@@ -1829,7 +1886,7 @@
       return;
     }
     var isCheer = mood === "cheer";
-    var spriteFile = isCheer ? "kiki-cheer.webp" : node.config.sprite || "kiki-idle.webp";
+    var spriteFile = node.config.role === "kiki" ? getKikiSpriteFile(isCheer) : isCheer ? "kiki-cheer.webp" : node.config.sprite || "kiki-idle.webp";
     var ratio = getSpriteAspectRatio(spriteFile);
     var widthPct = ((node.config.heightPct || 40) * ratio) / STAGE_RATIO;
 
@@ -1871,7 +1928,8 @@
     var crownAnchor = getKikiCrownAnchor(false);
 
     actors.forEach(function (actor, idx) {
-      var spriteRatio = getSpriteAspectRatio(actor.sprite);
+      var initialActorSprite = actor.role === "kiki" ? getKikiSpriteFile(false) : actor.sprite;
+      var spriteRatio = getSpriteAspectRatio(initialActorSprite);
       var heightPct = actor.heightPct || 32;
       var widthPct = (heightPct * spriteRatio) / STAGE_RATIO;
 
@@ -1923,9 +1981,11 @@
       var img = doc.createElement("img");
       img.className = "sprite-img";
       var activeSpriteFile =
-        actor.role === "parcel" && state.pageState.p2.opened && actor.openedSprite
-          ? actor.openedSprite
-          : actor.sprite;
+        actor.role === "kiki"
+          ? getKikiSpriteFile(false)
+          : actor.role === "parcel" && state.pageState.p2.opened && actor.openedSprite
+            ? actor.openedSprite
+            : actor.sprite;
       img.src = getSpriteSrc(activeSpriteFile);
       img.alt = actor.label || actor.role;
       img.draggable = false;
@@ -4367,7 +4427,7 @@
 
   function updateVoiceUiMetadata() {
     var pack = state.voicePack;
-    var btns = doc.querySelectorAll(".voice-pack-btn");
+    var btns = doc.querySelectorAll(".voice-pack-btn[data-voice-pack]");
     for (var i = 0; i < btns.length; i += 1) {
       var btnPack = btns[i].getAttribute("data-voice-pack");
       var active = btnPack === pack;
@@ -4383,6 +4443,65 @@
       : "故事配音准备中，轻点画面即可收听";
 
     renderDrawerVoiceList();
+  }
+
+  function updateOutfitUiMetadata() {
+    var outfit = state.kikiOutfit === "coat" ? "coat" : "pumpkin";
+    if (dom.btnToggleOutfit) {
+      var emojiEl = dom.btnToggleOutfit.querySelector(".btn-emoji");
+      if (emojiEl) {
+        emojiEl.textContent = outfit === "coat" ? "🧥" : "🎃";
+      }
+      dom.btnToggleOutfit.classList.toggle("is-active", outfit === "coat");
+      dom.btnToggleOutfit.setAttribute(
+        "title",
+        outfit === "coat"
+          ? "当前穿搭：粉白毛绒外套（点击切换橘色南瓜羽绒服）"
+          : "当前穿搭：橘色南瓜羽绒服（点击切换粉白毛绒外套）"
+      );
+      dom.btnToggleOutfit.setAttribute(
+        "aria-label",
+        outfit === "coat" ? "切换 KIKI 穿搭，当前粉白毛绒外套" : "切换 KIKI 穿搭，当前橘色南瓜羽绒服"
+      );
+    }
+
+    var btns = doc.querySelectorAll(".outfit-pack-btn");
+    for (var i = 0; i < btns.length; i += 1) {
+      var val = btns[i].getAttribute("data-kiki-outfit");
+      var active = val === outfit;
+      btns[i].classList.toggle("is-active", active);
+      btns[i].setAttribute("aria-checked", active ? "true" : "false");
+    }
+
+    if (dom.drawerOutfitBadge) {
+      dom.drawerOutfitBadge.textContent = outfit === "coat" ? "当前：粉白毛绒外套" : "当前：橘色南瓜羽绒服";
+    }
+  }
+
+  function setKikiOutfit(newOutfit, silent) {
+    var normalized = newOutfit === "coat" ? "coat" : "pumpkin";
+    state.kikiOutfit = normalized;
+    safeStorageSet(STORAGE_KEYS.kikiOutfit, normalized);
+    updateOutfitUiMetadata();
+
+    Object.keys(state.actorNodes).forEach(function (id) {
+      var node = state.actorNodes[id];
+      if (node && node.config && node.config.role === "kiki") {
+        setKikiMood(node, node.mood || "idle");
+      }
+    });
+
+    if (global.KikiPopup3D && typeof global.KikiPopup3D.setKikiOutfit === "function") {
+      global.KikiPopup3D.setKikiOutfit(normalized);
+    }
+
+    if (!silent) {
+      showToast(
+        normalized === "coat"
+          ? "已换上：🧥 KIKI 粉白毛绒外套"
+          : "已换上：🎃 KIKI 橘色南瓜羽绒服"
+      );
+    }
   }
 
   function updateAudioStatusIndicators() {
@@ -4825,11 +4944,28 @@
       setDrawerOpen(false);
     });
 
-    var voiceBtns = doc.querySelectorAll(".voice-pack-btn");
+    if (dom.btnToggleOutfit) {
+      dom.btnToggleOutfit.addEventListener("click", function () {
+        unlockAudio();
+        var next = state.kikiOutfit === "coat" ? "pumpkin" : "coat";
+        setKikiOutfit(next, false);
+      });
+    }
+
+    var voiceBtns = doc.querySelectorAll(".voice-pack-btn[data-voice-pack]");
     for (var i = 0; i < voiceBtns.length; i += 1) {
       voiceBtns[i].addEventListener("click", function (ev) {
         var pack = ev.currentTarget.getAttribute("data-voice-pack");
         switchVoicePack(pack);
+      });
+    }
+
+    var outfitBtns = doc.querySelectorAll(".outfit-pack-btn");
+    for (var oi = 0; oi < outfitBtns.length; oi += 1) {
+      outfitBtns[oi].addEventListener("click", function (ev) {
+        unlockAudio();
+        var nextOutfit = ev.currentTarget.getAttribute("data-kiki-outfit");
+        setKikiOutfit(nextOutfit, false);
       });
     }
 
@@ -5085,6 +5221,7 @@
 
   function init() {
     state.voicePack = loadInitialVoicePack();
+    state.kikiOutfit = loadInitialKikiOutfit();
     state.unlockedTreasures = loadSavedTreasures();
     var rawHash = (global.location.hash || "").trim();
     var hasExplicitPageHash = /^#(?:page=)?([2-8])$/i.test(rawHash);
@@ -5099,6 +5236,7 @@
     renderTreasureBar();
     updateMusicToggleUi();
     updateVoiceUiMetadata();
+    updateOutfitUiMetadata();
     bindGlobalEvents();
     updateUrlHash(state.currentPage);
 
@@ -5154,7 +5292,7 @@
               Sfx.playPop(3);
             }
           },
-          { startClosed: !hasExplicitPageHash }
+          { startClosed: !hasExplicitPageHash, kikiOutfit: state.kikiOutfit }
         );
         if (ok) {
           global.KikiPopup3D.setUnlockedTreasures(state.unlockedTreasures);

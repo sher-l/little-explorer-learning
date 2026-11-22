@@ -453,6 +453,29 @@ function drawFrontCoverCanvas(c, bgImg, kikiImg) {
   ctx.restore();
 }
 
+function refreshFrontCoverCanvas() {
+  if (!engine.frontCoverCanvas || !engine.frontCoverTex) {
+    return;
+  }
+  drawFrontCoverCanvas(engine.frontCoverCanvas, engine.frontCoverBgImg, engine.frontCoverKikiImg);
+  engine.frontCoverTex.needsUpdate = true;
+}
+
+function refreshFrontCoverKiki() {
+  if (!engine.storyData) {
+    return;
+  }
+  var base = (engine.storyData.bookMeta && engine.storyData.bookMeta.spritesBasePath) || "./assets/sprites/";
+  var expectedFile = getKikiSpriteFile(false);
+  loadImgCached(resolvePath(base + expectedFile)).then(function (img) {
+    if (getKikiSpriteFile(false) !== expectedFile) {
+      return;
+    }
+    engine.frontCoverKikiImg = img;
+    refreshFrontCoverCanvas();
+  }).catch(function () {});
+}
+
 function makeFrontCoverTexture() {
   var c = document.createElement("canvas");
   c.width = 1024;
@@ -461,25 +484,14 @@ function makeFrontCoverTexture() {
   var tex = canvasTex(c);
   engine.frontCoverCanvas = c;
   engine.frontCoverTex = tex;
+  engine.frontCoverBgImg = null;
+  engine.frontCoverKikiImg = null;
 
-  var bgImg = null;
-  var kikiImg = null;
-  function refreshCover() {
-    if (!engine.frontCoverCanvas || !engine.frontCoverTex) {
-      return;
-    }
-    drawFrontCoverCanvas(engine.frontCoverCanvas, bgImg, kikiImg);
-    engine.frontCoverTex.needsUpdate = true;
-  }
   loadImgCached(resolvePath("./assets/images/bg-01.webp")).then(function (img) {
-    bgImg = img;
-    refreshCover();
+    engine.frontCoverBgImg = img;
+    refreshFrontCoverCanvas();
   }).catch(function () {});
-  var base = (engine.storyData && engine.storyData.bookMeta && engine.storyData.bookMeta.spritesBasePath) || "./assets/sprites/";
-  loadImgCached(resolvePath(base + "kiki-idle.webp")).then(function (img) {
-    kikiImg = img;
-    refreshCover();
-  }).catch(function () {});
+  refreshFrontCoverKiki();
 
   return tex;
 }
@@ -985,6 +997,7 @@ var engine = {
   failed: false,
   canvas: null,
   storyData: null,
+  kikiOutfit: "pumpkin",
   callbacks: {},
   renderer: null,
   scene: null,
@@ -1037,6 +1050,8 @@ var engine = {
   frontCoverMat: null,
   frontCoverCanvas: null,
   frontCoverTex: null,
+  frontCoverBgImg: null,
+  frontCoverKikiImg: null,
   leftStackMesh: null,
   rightStackMesh: null,
   leftFloorMesh: null,
@@ -1255,11 +1270,19 @@ function collectPageSprites(pageNum) {
   var actors = pg.actors || [];
   for (var i = 0; i < actors.length; i += 1) {
     var a = actors[i];
+    if (a.role === "kiki") {
+      var kikiIdleF = getKikiSpriteFile(false);
+      var kikiCheerF = getKikiSpriteFile(true);
+      if (out.indexOf(kikiIdleF) < 0) {
+        out.push(kikiIdleF);
+      }
+      if (out.indexOf(kikiCheerF) < 0) {
+        out.push(kikiCheerF);
+      }
+      continue;
+    }
     if (a.sprite && !(pageNum === 2 && a.id === "p2-parcel-box") && out.indexOf(a.sprite) < 0) {
       out.push(a.sprite);
-    }
-    if (a.role === "kiki" && out.indexOf("kiki-cheer.webp") < 0) {
-      out.push("kiki-cheer.webp");
     }
   }
   return out;
@@ -2543,9 +2566,38 @@ function makeMiniCrown3D(customMat) {
   return g;
 }
 
-function getCrownAnchor(isCheer) {
+function getKikiOutfitConfig() {
   var sc = (engine.storyData && engine.storyData.spriteConfig) || {};
-  var a = isCheer ? sc.kikiCheerCrownAnchor : sc.kikiCrownAnchor;
+  var outfits = sc.kikiOutfits || {};
+  if (engine.kikiOutfit === "coat") {
+    return outfits.coat || {
+      idle: "kiki-idle-coat.webp",
+      cheer: "kiki-cheer-coat.webp",
+      crownAnchor: { xPct: 58.6, yPct: 1.6, widthPct: 38.0, rotateDeg: -2 },
+      cheerCrownAnchor: { xPct: 52.6, yPct: 1.6, widthPct: 35.0, rotateDeg: -2 }
+    };
+  }
+  return outfits.pumpkin || {
+    idle: "kiki-idle.webp",
+    cheer: "kiki-cheer.webp",
+    crownAnchor: sc.kikiCrownAnchor || { xPct: 59.0, yPct: 1.6, widthPct: 38.0, rotateDeg: -2 },
+    cheerCrownAnchor: sc.kikiCheerCrownAnchor || { xPct: 52.3, yPct: 1.6, widthPct: 35.0, rotateDeg: -2 }
+  };
+}
+
+function getKikiSpriteFile(isCheer) {
+  var cfg = getKikiOutfitConfig();
+  return isCheer ? (cfg.cheer || "kiki-cheer.webp") : (cfg.idle || "kiki-idle.webp");
+}
+
+function getCrownAnchor(isCheer) {
+  var cfg = getKikiOutfitConfig();
+  var a = isCheer ? cfg.cheerCrownAnchor : cfg.crownAnchor;
+  if (a) {
+    return a;
+  }
+  var sc = (engine.storyData && engine.storyData.spriteConfig) || {};
+  a = isCheer ? sc.kikiCheerCrownAnchor : sc.kikiCrownAnchor;
   return a || (isCheer ? { xPct: 52.3, yPct: 1.6, widthPct: 35, rotateDeg: -2 } : { xPct: 59.0, yPct: 1.6, widthPct: 38, rotateDeg: -2 });
 }
 
@@ -2581,13 +2633,11 @@ function addStandeeActor(pageNum, actor, idx, total, pageState, token) {
     if (pageNum === 2) {
       var p2s = pageState && pageState.p2 ? pageState.p2 : {};
       kikiCrownWearing = Boolean(p2s.opened);
-      if (p2s.opened) {
-        spriteFile = "kiki-cheer.webp";
-        isCheer = true;
-      }
+      isCheer = Boolean(p2s.opened);
     } else if (actor.hasCrown) {
       kikiCrownWearing = true;
     }
+    spriteFile = getKikiSpriteFile(isCheer);
   }
 
   return getOrLoadDieCut(spriteFile).then(function (dieCut) {
@@ -2687,6 +2737,7 @@ function addStandeeActor(pageNum, actor, idx, total, pageState, token) {
       nextWanderTs: performance.now() + 1400 + idx * 650 + Math.random() * 1400,
       lastStepFxTs: 0,
       isAir: placement.isAir,
+      isCheer: isCheer,
       actionBurst: null,
       orbitBurst: null,
       phase: idx * 0.85,
@@ -6445,10 +6496,12 @@ function setKikiSpriteState(st, isCheer) {
   if (!st || !st.config || st.config.role !== "kiki") {
     return;
   }
-  var targetFile = isCheer ? "kiki-cheer.webp" : "kiki-idle.webp";
+  var nextCheer = Boolean(isCheer);
+  st.isCheer = nextCheer;
+  var targetFile = getKikiSpriteFile(nextCheer);
   var token = engine.buildToken;
   getOrLoadDieCut(targetFile).then(function (dc) {
-    if (token !== engine.buildToken) {
+    if (token !== engine.buildToken || targetFile !== getKikiSpriteFile(Boolean(st.isCheer))) {
       return;
     }
     st.mat.map = dc.texture;
@@ -6461,7 +6514,7 @@ function setKikiSpriteState(st, isCheer) {
       st.facingScale = dirSign;
       st.mesh.scale.x = st.baseMeshScaleX * dirSign;
     }
-    placeKikiCrown(st, dc, isCheer);
+    placeKikiCrown(st, dc, nextCheer);
   }).catch(function () {
     return null;
   });
@@ -7056,6 +7109,7 @@ var KikiPopup3D = {
     }
     engine.canvas = canvasEl;
     engine.storyData = storyData;
+    engine.kikiOutfit = options && options.kikiOutfit === "coat" ? "coat" : "pumpkin";
     engine.callbacks = callbacks || {};
     var startClosed = !(options && options.startClosed === false);
 
@@ -7281,6 +7335,22 @@ var KikiPopup3D = {
     engine.unlockedMap = Object.assign({}, unlockedMap || {});
   },
 
+  setKikiOutfit: function (outfit) {
+    var next = outfit === "coat" ? "coat" : "pumpkin";
+    var changed = engine.kikiOutfit !== next;
+    engine.kikiOutfit = next;
+    refreshFrontCoverKiki();
+    if (engine.ready && changed) {
+      for (var i = 0; i < engine.standeeList.length; i += 1) {
+        var st = engine.standeeList[i];
+        if (st && st.config && st.config.role === "kiki") {
+          setKikiSpriteState(st, Boolean(st.isCheer));
+        }
+      }
+    }
+    return engine.kikiOutfit;
+  },
+
   toggleLookCloser: function (explicitBool) {
     engine.lookCloser = typeof explicitBool === "boolean" ? explicitBool : !engine.lookCloser;
     return engine.lookCloser;
@@ -7361,6 +7431,7 @@ var KikiPopup3D = {
           ]
         : null,
       currentPage: engine.currentPage,
+      kikiOutfit: engine.kikiOutfit,
       isFlipping: engine.isFlipping,
       lookCloser: engine.lookCloser,
       isNight: engine.isNight,

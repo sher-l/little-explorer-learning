@@ -15,6 +15,8 @@
   var DEFAULT_SPRITE_RATIOS = {
     "kiki-idle.webp": 0.47,
     "kiki-cheer.webp": 0.5815,
+    "kiki-idle-coat.webp": 0.4719,
+    "kiki-cheer-coat.webp": 0.5805,
     "crown-5.webp": 1.2392,
     "jett.webp": 1.2202,
     "dizzy.webp": 0.8699,
@@ -67,7 +69,7 @@
       childNameEn: "KIKI",
       birthDate: "2021-11-18",
       age: 5,
-      assetVersion: "19",
+      assetVersion: "20",
       deploySubpath: "/little-explorer-learning/birthday/",
       audioManifestPath: "./assets/audio/audio-manifest.json",
       spritesMetaPath: "./assets/sprites/sprites-meta.json",
@@ -89,6 +91,22 @@
       defaultRatios: DEFAULT_SPRITE_RATIOS,
       kikiCrownAnchor: KIKI_CROWN_ANCHOR,
       kikiCheerCrownAnchor: KIKI_CHEER_CROWN_ANCHOR,
+      kikiOutfits: {
+        pumpkin: {
+          label: "橘色南瓜羽绒服",
+          idle: "kiki-idle.webp",
+          cheer: "kiki-cheer.webp",
+          crownAnchor: KIKI_CROWN_ANCHOR,
+          cheerCrownAnchor: KIKI_CHEER_CROWN_ANCHOR
+        },
+        coat: {
+          label: "粉白毛绒外套",
+          idle: "kiki-idle-coat.webp",
+          cheer: "kiki-cheer-coat.webp",
+          crownAnchor: { xPct: 58.6, yPct: 1.6, widthPct: 38.0, rotateDeg: -2 },
+          cheerCrownAnchor: { xPct: 52.6, yPct: 1.6, widthPct: 35.0, rotateDeg: -2 }
+        }
+      },
       defaultCakeCandleTips: DEFAULT_CAKE_CANDLE_TIPS
     },
 

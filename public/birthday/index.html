@@ -6,7 +6,7 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; media-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'none'">
   <title>林缨祈 KIKI 的5岁生日大冒险</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23fff0f6'/%3E%3Cpath d='M14 42l4-18 10 8 4-14 4 14 10-8 4 18z' fill='%23ffbe0b' stroke='%23d97706' stroke-width='2.5' stroke-linejoin='round'/%3E%3Crect x='14' y='43' width='36' height='7' rx='3.5' fill='%23ff70a6'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="./style.css?v=19">
+  <link rel="stylesheet" href="./style.css?v=20">
 </head>
 <body data-page="1">
   <!-- 全屏 Three.js 真·3D 立体弹出书主渲染与交互画布 -->
@@ -50,6 +50,9 @@
       </button>
       <button type="button" id="btn-look-closer" class="icon-pill-btn" aria-label="凑近看立体场景" aria-pressed="false" title="凑近看立体细节 (快捷键 Z)">
         <span class="btn-emoji" aria-hidden="true">🔍</span>
+      </button>
+      <button type="button" id="btn-toggle-outfit" class="icon-pill-btn" aria-label="切换 KIKI 穿搭" title="切换 KIKI 穿搭：橘色南瓜羽绒服 / 粉白毛绒外套">
+        <span class="btn-emoji" aria-hidden="true">🎃</span>
       </button>
       <button type="button" id="btn-toggle-subtitle" class="icon-pill-btn" aria-label="家长字幕开关" aria-pressed="false" title="显示或隐藏家长字幕">
         <span class="btn-emoji" aria-hidden="true">📖</span>
@@ -185,6 +188,29 @@
         <p id="drawer-voice-status" class="drawer-status-line"></p>
       </section>
 
+      <section class="drawer-section" aria-label="KIKI 生日穿搭选择">
+        <div class="section-head">
+          <h3>👗 KIKI 生日穿搭</h3>
+          <span id="drawer-outfit-badge" class="mini-badge">当前：橘色南瓜羽绒服</span>
+        </div>
+        <div class="voice-switch-grid" role="radiogroup" aria-label="KIKI 服装造型切换">
+          <button type="button" class="voice-pack-btn outfit-pack-btn is-active" data-kiki-outfit="pumpkin" role="radio" aria-checked="true">
+            <span class="voice-pack-icon" aria-hidden="true">🎃</span>
+            <span class="voice-pack-meta">
+              <strong>橘色南瓜羽绒服</strong>
+              <small>生日新装 · 连帽在后 · 淡粉发夹</small>
+            </span>
+          </button>
+          <button type="button" class="voice-pack-btn outfit-pack-btn" data-kiki-outfit="coat" role="radio" aria-checked="false">
+            <span class="voice-pack-icon" aria-hidden="true">🧥</span>
+            <span class="voice-pack-meta">
+              <strong>粉白毛绒外套</strong>
+              <small>经典旧版 · 奶白拼粉 · 淡粉发夹</small>
+            </span>
+          </button>
+        </div>
+      </section>
+
       <section class="drawer-section" aria-label="故事进度管理">
         <div class="section-head">
           <h3>🛠️ 故事进度管理</h3>
@@ -214,9 +240,9 @@
     </div>
   </aside>
 
-  <script src="./story-data.js?v=19"></script>
-  <script src="./sfx.js?v=19"></script>
-  <script type="module" src="./popup-book3d.js?v=19"></script>
-  <script src="./app.js?v=19"></script>
+  <script src="./story-data.js?v=20"></script>
+  <script src="./sfx.js?v=20"></script>
+  <script type="module" src="./popup-book3d.js?v=20"></script>
+  <script src="./app.js?v=20"></script>
 </body>
 </html>
